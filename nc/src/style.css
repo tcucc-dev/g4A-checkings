@@ -249,3 +249,38 @@ body[data-geo-view="boss"] .geo-summary.boss{display:block}
 /* Numbered list styling inside tech summary */
 .geo-summary.tech strong{display:inline-block;min-width:56px;margin-left:6px;color:#9a3412;font-weight:800;vertical-align:top}
 .geo-summary.tech code{font-family:Consolas,monospace;background:#fef3c7;padding:1px 5px;border-radius:3px;color:#92400e;font-size:12.5px}
+
+/* Audience & reports-todo sections */
+.tag.red{background:#fdecec;color:#a23531}
+.tag.orange{background:#fff3df;color:#9a5a00}
+.tag.green{background:#e8f6ef;color:#197247}
+
+.insight{margin-top:12px;padding:12px 14px;border-radius:12px;background:#eff7ff;border:1px solid #d5e8fb;color:#34536d;font-size:14px;line-height:1.55}
+.insight strong{color:#17324d}
+
+.table-wrap table{width:100%;border-collapse:collapse;min-width:760px;background:#fff}
+.table-wrap th{text-align:left;padding:12px 13px;background:#f1f5fa;color:#42556a;font-size:13px;position:sticky;top:0}
+.table-wrap td{padding:12px 13px;border-top:1px solid #e8edf3;font-size:14px;vertical-align:top}
+.table-wrap tbody tr:hover{background:#fbfcfe}
+
+ul{margin:0;padding-left:20px}
+ul li{margin:5px 0}
+
+/* Audience bar/donut render output (data-driven) */
+.bar-row{display:grid;grid-template-columns:140px 1fr 110px;gap:12px;align-items:center;margin:8px 0;font-size:14px}
+.bar-track{height:11px;background:#edf1f6;border-radius:999px;overflow:hidden}
+.bar{height:100%;border-radius:999px;background:linear-gradient(90deg,#2f6fed,#4c8df6)}
+.bar.teal{background:linear-gradient(90deg,#0f8b8d,#44b8b1)}
+.bar.orange{background:linear-gradient(90deg,#d97706,#f5a23b)}
+.bar.gray{background:linear-gradient(90deg,#7b8797,#aab3bf)}
+.bar.green{background:linear-gradient(90deg,#1d8a5a,#4cae79)}
+.bar-value{text-align:right;color:#4d5e70;font-variant-numeric:tabular-nums;font-size:13px}
+
+.donut-wrap{display:grid;grid-template-columns:160px 1fr;gap:18px;align-items:center;margin-top:8px}
+.donut{width:140px;height:140px;border-radius:50%;position:relative;margin:auto}
+.donut-center{position:absolute;inset:30px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;font-weight:900;color:#17324d;font-size:13px;line-height:1.2}
+.donut-legend{font-size:14px}
+.donut-legend div{display:flex;justify-content:space-between;border-bottom:1px dashed #e3e8ef;padding:5px 0}
+.donut-legend b{color:#17324d}
+
+code{font-family:Consolas,monospace;font-size:13px;background:#f2f5f8;padding:1px 5px;border-radius:5px}

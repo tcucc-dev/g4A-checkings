@@ -45,5 +45,25 @@ window.WEBINSIGHT.DATA = {
 ["SEO-ZEROCLICK-001","all_gsc_summary","高曝光零點擊","query、url、impressions、clicks、sum_position","正常","提供網站管理人"],
 ["DEVICE-RISK-001","all_units_summary","手機行為風險","device_category、engagement_time_msec、link_url","代理指標","只提示風險"],
 ["DATA-CROSSSOURCE-001","兩表交叉","GA4／GSC 差異說明","clicks、source、medium、session_key","已說明","保留兩套數值"]
- ]
+ ],
+ audience:{
+  source:[
+    {name:"直接進站",sessions:0,medium:"(none)"},
+    {name:"自然搜尋",sessions:0,medium:"organic"},
+    {name:"校內站台",sessions:0,medium:"internal"},
+    {name:"其他／站外",sessions:0,medium:"other"}
+  ],
+  device:[
+    {name:"desktop",sessions:0},
+    {name:"mobile",sessions:0},
+    {name:"tablet",sessions:0}
+  ],
+  country:[
+    {name:"臺灣",sessions:0},
+    {name:"中國",sessions:0},
+    {name:"泰國",sessions:0},
+    {name:"其他國家",sessions:0}
+  ],
+  total:0
+}
 };
