@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  base: '/nc/',
   server: {
-    port: 5173,
+    port: 5174,
     host: '0.0.0.0',
     open: true,
     strictPort: false
@@ -10,6 +11,7 @@ export default defineConfig({
   build: {
     target: 'esnext',
     outDir: 'dist',
-    assetsInlineLimit: 4096
+    emptyOutDir: true,
+    assetsDir: 'assets'
   }
 });
