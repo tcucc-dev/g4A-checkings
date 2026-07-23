@@ -168,82 +168,159 @@
 
 <section class="section" id="m-reports-todo" data-role="manager marketing">
   <h2>四、尚未呈現，但主管應看的報表</h2>
-  <p class="lead">以下全部可由現有三張表推導（<code>all_units_summary</code>、<code>all_gsc_summary</code>、<code>search_behavior_summary</code>），不要求再補新的資料來源。</p>
+  <p class="lead">以下全部可由現有三張表推導（<code>all_units_summary</code>、<code>all_gsc_summary</code>、<code>search_behavior_summary</code>），不要求再補新的資料來源。每張圖都附 scorecard 與簡短判讀。</p>
 
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>建議報表</th>
-          <th>主管要回答的問題</th>
-          <th>可用欄位／表</th>
-          <th>優先度</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>期間比較與異常提醒</strong></td>
-          <td>本週比上週、本月比上月是成長還是下降？哪些指標異常波動？</td>
-          <td><code>date</code>、<code>data_date</code>；三表皆可</td>
-          <td><span class="tag red">必加</span></td>
-        </tr>
-        <tr>
-          <td><strong>同類單位／學院基準</strong></td>
-          <td>本系在同學院、同類型站台中表現第幾？落後的是流量、CTR、排名還是互動？</td>
-          <td><code>site_name</code>、<code>unit_category</code>、<code>site_academy</code></td>
-          <td><span class="tag red">必加</span></td>
-        </tr>
-        <tr>
-          <td><strong>品牌詞 vs 非品牌詞</strong></td>
-          <td>訪客是已經知道慈濟大學才搜尋，還是透過一般需求找到我們？</td>
-          <td><code>query</code>；<code>search_behavior_summary</code>、<code>all_gsc_summary</code></td>
-          <td><span class="tag red">必加</span></td>
-        </tr>
-        <tr>
-          <td><strong>內容效益矩陣</strong></td>
-          <td>哪些頁面「流量高且互動高」、哪些「流量高但沒有後續行動」？</td>
-          <td><code>active_users</code>、<code>engagement_time_msec</code>、<code>site_link_clicks</code></td>
-          <td><span class="tag red">必加</span></td>
-        </tr>
-        <tr>
-          <td><strong>流量來源品質</strong></td>
-          <td>哪個來源不只帶來人，還帶來較長停留、更多點擊與下載？</td>
-          <td><code>source</code>、<code>medium</code>、<code>page_referrer</code>、互動欄位</td>
-          <td><span class="tag orange">高</span></td>
-        </tr>
-        <tr>
-          <td><strong>AI 搜尋／生成式 AI 導流</strong></td>
-          <td>ChatGPT、Perplexity、Gemini、Copilot 等是否把使用者帶到學校網站？看了哪些頁？</td>
-          <td><code>source</code>、<code>medium</code>、<code>page_referrer</code>、<code>page_location</code></td>
-          <td><span class="tag orange">高</span></td>
-        </tr>
-        <tr>
-          <td><strong>招生意圖與 CTA 行動</strong></td>
-          <td>使用者有沒有點擊招生簡章、入學方式、報名、電話或 Email？</td>
-          <td><code>link_url</code>、<code>link_text</code>、<code>click_class</code></td>
-          <td><span class="tag orange">高</span></td>
-        </tr>
-        <tr>
-          <td><strong>國際訪客品質</strong></td>
-          <td>不同國家訪客看什麼內容、停留多久、是否有點招生與聯絡？</td>
-          <td><code>country</code>、<code>page_title</code>、<code>engagement_time_msec</code>、<code>link_url</code></td>
-          <td><span class="tag green">中</span></td>
-        </tr>
-        <tr>
-          <td><strong>使用者路徑／下一步</strong></td>
-          <td>使用者從哪一頁進來，接著點到哪一頁或外部系統？</td>
-          <td><code>ga_session_id</code>、<code>user_pseudo_id</code>、<code>event_timestamp</code>、<code>page_referrer</code></td>
-          <td><span class="tag green">中</span></td>
-        </tr>
-        <tr>
-          <td><strong>資料品質與網站治理</strong></td>
-          <td>是否有重複首頁、舊網域、空白標題、無來源流量、異常 URL 或站台漏資料？</td>
-          <td><code>url</code>、<code>page_location</code>、<code>page_title</code>、<code>subdomain</code>、<code>site_id</code></td>
-          <td><span class="tag green">中</span></td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- 1. 期間比較與異常提醒 -->
+  <div class="report-block" id="block-period-comparison">
+    <div class="block-head">
+      <span class="block-no">1</span>
+      <h3>期間比較與異常提醒</h3>
+      <span class="block-meta">近 8 週趨勢</span>
+    </div>
+    <div class="scorecard-row" id="scorecard-trends"></div>
+    <div class="chart-wrap">
+      <canvas id="chartTrends" height="240"></canvas>
+    </div>
+    <div class="insight" id="insight-trends"></div>
   </div>
+
+  <!-- 2. 同類單位/學院基準 — SKIPPED per user request -->
+
+  <!-- 3. Brand vs Non-brand keywords -->
+  <div class="report-block" id="block-brand-split">
+    <div class="block-head">
+      <span class="block-no">3</span>
+      <h3>品牌詞 vs 非品牌詞</h3>
+      <span class="block-meta">3 個月比例 + Top 10 關鍵字</span>
+    </div>
+    <div class="grid g2">
+      <div class="chart-wrap">
+        <h4>100% Stacked — 月度品牌 vs 非品牌曝光</h4>
+        <canvas id="chartBrandSplit" height="240"></canvas>
+      </div>
+      <div>
+        <h4 style="margin-bottom:8px;font-size:14px;color:var(--navy)">Top 10 品牌詞</h4>
+        <table class="mini-table" id="tableBrandTop"></table>
+        <h4 style="margin:14px 0 8px;font-size:14px;color:var(--navy)">Top 10 非品牌詞</h4>
+        <table class="mini-table" id="tableNonBrandTop"></table>
+      </div>
+    </div>
+    <div class="insight" id="insight-brand"></div>
+  </div>
+
+  <!-- 4. Content matrix -->
+  <div class="report-block" id="block-content-matrix">
+    <div class="block-head">
+      <span class="block-no">4</span>
+      <h3>內容效益矩陣</h3>
+      <span class="block-meta">流量 × 互動四象限</span>
+    </div>
+    <div class="grid g2">
+      <div class="chart-wrap">
+        <h4>Scatter Chart — 頁面流量 vs 平均互動時間</h4>
+        <canvas id="chartContentMatrix" height="320"></canvas>
+      </div>
+      <div>
+        <h4 style="margin-bottom:8px;font-size:14px;color:var(--navy)">頁面優先級清單</h4>
+        <table class="mini-table" id="tableContentList"></table>
+      </div>
+    </div>
+    <div class="insight" id="insight-content"></div>
+  </div>
+
+  <!-- 5. Traffic source quality -->
+  <div class="report-block" id="block-traffic-quality">
+    <div class="block-head">
+      <span class="block-no">5</span>
+      <h3>流量來源品質</h3>
+      <span class="block-meta">量 vs 質雙軸</span>
+    </div>
+    <div class="grid g2">
+      <div class="chart-wrap">
+        <h4>來源 session 數量</h4>
+        <canvas id="chartTrafficCount" height="240"></canvas>
+      </div>
+      <div class="chart-wrap">
+        <h4>平均互動時間 (秒)</h4>
+        <canvas id="chartTrafficEng" height="240"></canvas>
+      </div>
+    </div>
+    <div class="insight" id="insight-traffic"></div>
+  </div>
+
+  <!-- 6. AI referrals -->
+  <div class="report-block" id="block-ai">
+    <div class="block-head">
+      <span class="block-no">6</span>
+      <h3>AI 搜尋／生成式 AI 導流</h3>
+      <span class="block-meta">ChatGPT / Perplexity / Gemini / Copilot</span>
+    </div>
+    <div class="grid g2">
+      <div class="chart-wrap">
+        <h4>AI 流量時序</h4>
+        <canvas id="chartAITime" height="240"></canvas>
+      </div>
+      <div>
+        <h4 style="margin-bottom:8px;font-size:14px;color:var(--navy)">平台拆解</h4>
+        <table class="mini-table" id="tableAIPlatforms"></table>
+      </div>
+    </div>
+    <div class="insight" id="insight-ai"></div>
+  </div>
+
+  <!-- 7. CTA funnel -->
+  <div class="report-block" id="block-cta">
+    <div class="block-head">
+      <span class="block-no">7</span>
+      <h3>招生意圖與 CTA 行動</h3>
+      <span class="block-meta">Funnel Chart</span>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chartCTAFunnel" height="280"></canvas>
+    </div>
+    <div class="insight" id="insight-cta"></div>
+  </div>
+
+  <!-- 8. International quality -->
+  <div class="report-block" id="block-intl">
+    <div class="block-head">
+      <span class="block-no">8</span>
+      <h3>國際訪客品質</h3>
+      <span class="block-meta">Top 國家 × 互動</span>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chartIntl" height="280"></canvas>
+    </div>
+    <div class="insight" id="insight-intl"></div>
+  </div>
+
+  <!-- 9. User paths (Sankey) -->
+  <div class="report-block" id="block-paths">
+    <div class="block-head">
+      <span class="block-no">9</span>
+      <h3>使用者路徑／下一步</h3>
+      <span class="block-meta">Sankey — 三階段</span>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chartSankey" height="320"></canvas>
+    </div>
+    <div class="insight" id="insight-paths"></div>
+  </div>
+
+  <!-- 10. Data quality -->
+  <div class="report-block" id="block-data-quality">
+    <div class="block-head">
+      <span class="block-no">10</span>
+      <h3>資料品質與網站治理</h3>
+      <span class="block-meta">8 週問題趨勢</span>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chartDataQuality" height="240"></canvas>
+    </div>
+    <div class="insight" id="insight-dq"></div>
+  </div>
+</section>
+
 </section>
 
 <section class="section" id="m-decisions" data-role="manager"><h2>五、本期需要主管決定的事項</h2><div id="decisions"></div></section>

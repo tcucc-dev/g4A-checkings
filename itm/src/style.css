@@ -284,3 +284,126 @@ ul li{margin:5px 0}
 .donut-legend b{color:#17324d}
 
 code{font-family:Consolas,monospace;font-size:13px;background:#f2f5f8;padding:1px 5px;border-radius:5px}
+
+/* ─── Section 4 Report Blocks ────────────────────────── */
+.report-block {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  margin-top: 20px;
+}
+.block-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #edf1f6;
+}
+.block-no {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: #e9f0ff;
+  color: #2454b8;
+  display: grid; place-items: center;
+  font-weight: 900;
+  font-size: 14px;
+}
+.block-head h3 {
+  margin: 0; flex: 1;
+  font-size: 19px; color: var(--navy);
+  font-weight: 700;
+}
+.block-meta {
+  font-size: 12px; color: var(--muted);
+  background: #f4f7fa;
+  padding: 4px 10px; border-radius: 999px;
+}
+.scorecard-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.scorecard {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid var(--blue);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.scorecard.warn { border-left-color: var(--red); background: #fef5f5; }
+.scorecard.teal { border-left-color: var(--teal); }
+.scorecard.green { border-left-color: var(--green); }
+.scorecard.orange { border-left-color: var(--orange); }
+.sc-label {
+  font-size: 11px; color: var(--muted);
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.sc-value {
+  font-size: 24px; font-weight: 900; color: var(--navy);
+  margin: 4px 0 2px;
+}
+.sc-delta {
+  font-size: 12px; font-weight: 700;
+  color: var(--muted);
+}
+.scorecard.warn .sc-delta { color: var(--red); }
+.chart-wrap {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 4px;
+  margin-bottom: 12px;
+}
+.chart-wrap h4 {
+  font-size: 13px;
+  color: var(--navy);
+  font-weight: 700;
+  margin: 0 0 8px 6px;
+}
+.chart-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 240px;
+}
+#chartContentMatrix, #chartSankey {
+  height: 320px !important;
+}
+#chartCTAFunnel {
+  height: 280px !important;
+}
+#chartIntl {
+  height: 280px !important;
+}
+
+.mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.mini-table th {
+  background: #f1f5fa;
+  text-align: left;
+  padding: 6px 8px;
+  color: #42556a;
+  font-weight: 700;
+  border-bottom: 1px solid #dce5e9;
+}
+.mini-table th.num, .mini-table td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.mini-table td {
+  padding: 6px 8px;
+  border-bottom: 1px dashed #e8edf3;
+  vertical-align: top;
+}
+.mini-table tbody tr:hover { background: #fbfcfe; }
+
+.tag.teal { background: #e8f6ef; color: #0f8b8d; }
+.tag.green { background: #e8f6ef; color: #1d8a5a; }
+.tag.orange { background: #fff3df; color: #9a5a00; }
