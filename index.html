@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TCU WebInsight — 慈濟大學系所管理報表</title>
-  <link rel="icon" href="data:," />
+  <meta name="description" content="慈濟大學各系所主管決策報表中心 — GEO × SEO × 流量分析">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -19,48 +19,83 @@
       padding: 40px 20px;
     }
     .container {
-      max-width: 720px;
+      max-width: 760px;
       width: 100%;
       text-align: center;
     }
+    .brand {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: #bde8ec;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(189, 232, 236, 0.25);
+      margin-bottom: 20px;
+    }
     h1 {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #66c5ff, #4ee0c1);
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #66c5ff 0%, #4ee0c1 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     .subtitle {
       color: #94a3b8;
-      font-size: 14px;
+      font-size: 15px;
       margin-bottom: 36px;
+      line-height: 1.6;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+    .meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 12.5px;
+      color: #cbd5e1;
+    }
+    .meta span strong {
+      color: #fff;
+      font-weight: 600;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
       margin-bottom: 32px;
     }
     a.dept {
       display: block;
-      padding: 24px 20px;
+      padding: 24px 22px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
+      border-radius: 14px;
       text-decoration: none;
       color: #e8eaf0;
       transition: all 0.18s ease;
+      text-align: left;
     }
     a.dept:hover {
       background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(102, 197, 255, 0.4);
+      border-color: rgba(102, 197, 255, 0.5);
       transform: translateY(-2px);
     }
     a.dept.disabled {
-      opacity: 0.45;
+      opacity: 0.4;
       pointer-events: none;
     }
     a.dept .name {
@@ -68,58 +103,121 @@
       font-weight: 600;
       margin-bottom: 4px;
       color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    a.dept .name-zh {
+      font-size: 13px;
+      color: #94a3b8;
+      font-weight: 400;
+      margin-bottom: 6px;
     }
     a.dept .desc {
-      font-size: 12px;
+      font-size: 12.5px;
       color: #94a3b8;
+      line-height: 1.5;
     }
-    .footer {
-      margin-top: 32px;
-      font-size: 11px;
-      color: #64748b;
-      line-height: 1.6;
-    }
-    .footer a { color: #66c5ff; text-decoration: none; }
     .pill {
       display: inline-block;
       padding: 2px 8px;
-      background: #4ee0c1;
-      color: #0a1929;
       border-radius: 4px;
       font-size: 10px;
-      font-weight: 600;
-      margin-left: 6px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
     }
+    .pill.live { background: #4ee0c1; color: #0a1929; }
     .pill.soon { background: #64748b; color: #cbd5e1; }
+    .footer {
+      margin-top: 36px;
+      font-size: 11px;
+      color: #64748b;
+      line-height: 1.7;
+    }
+    .footer a {
+      color: #66c5ff;
+      text-decoration: none;
+    }
+    .footer a:hover { text-decoration: underline; }
+    @media (max-width: 540px) {
+      h1 { font-size: 32px; }
+      .grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>TCU WebInsight</h1>
-    <p class="subtitle">慈濟大學 — 主管決策報表中心</p>
+    <span class="brand">TZU CHI UNIVERSITY · WEBINSIGHT</span>
+    <h1>慈濟大學管理報表中心</h1>
+    <p class="subtitle">各系所主管決策報表 — GEO × SEO × 流量分析 × 招生漏斗</p>
+
+    <div class="meta">
+      <span>報告期間 <strong>2026/07/12 – 2026/07/19</strong></span>
+      <span>資料更新 <strong>2026/07/22</strong></span>
+      <span>Cutoff <strong>2026-07-19</strong></span>
+    </div>
 
     <div class="grid">
       <a class="dept" href="./itm/">
-        <div class="name">資訊科技與管理學系<span class="pill">LIVE</span></div>
-        <div class="desc">Information Technology & Management — GA4/GSC 8 週趨勢、GEO 評分、證據儀表板</div>
+        <div class="name">
+          <span>資訊科技與管理學系</span>
+          <span class="pill live">LIVE</span>
+        </div>
+        <div class="name-zh">Information Technology &amp; Management</div>
+        <div class="desc">GA4/GSC 8 週趨勢、GEO 評分 79/100、證據儀表板、3 角色視圖、BigQuery 報表中心</div>
       </a>
+
       <a class="dept" href="./nc/">
-        <div class="name">護理學院<span class="pill">LIVE</span></div>
-        <div class="desc">College of Nursing — 院長 / 教師 / 課程頁搜尋分析</div>
+        <div class="name">
+          <span>護理學院</span>
+          <span class="pill live">LIVE</span>
+        </div>
+        <div class="name-zh">College of Nursing</div>
+        <div class="desc">院長 / 教師 / 課程頁搜尋分析、手機占比 28.7%、自然搜尋 38.9%、216 工作階段</div>
       </a>
+
       <a class="dept disabled" href="./">
-        <div class="name">醫學系<span class="pill soon">SOON</span></div>
-        <div class="desc">待部署</div>
+        <div class="name">
+          <span>醫學系</span>
+          <span class="pill soon">SOON</span>
+        </div>
+        <div class="name-zh">School of Medicine</div>
+        <div class="desc">部署中 — 請聯絡電算中心</div>
       </a>
+
       <a class="dept disabled" href="./">
-        <div class="name">物理治療學系<span class="pill soon">SOON</span></div>
-        <div class="desc">待部署</div>
+        <div class="name">
+          <span>物理治療學系</span>
+          <span class="pill soon">SOON</span>
+        </div>
+        <div class="name-zh">Physical Therapy</div>
+        <div class="desc">部署中</div>
+      </a>
+
+      <a class="dept disabled" href="./">
+        <div class="name">
+          <span>醫學資訊學系</span>
+          <span class="pill soon">SOON</span>
+        </div>
+        <div class="name-zh">Medical Informatics</div>
+        <div class="desc">部署中</div>
+      </a>
+
+      <a class="dept disabled" href="./">
+        <div class="name">
+          <span>生命科學系</span>
+          <span class="pill soon">SOON</span>
+        </div>
+        <div class="name-zh">Life Sciences</div>
+        <div class="desc">部署中</div>
       </a>
     </div>
 
     <div class="footer">
-      Powered by Vite + Three.js + BigQuery (ga4_history) — Deployed via GitHub Pages<br>
-      Report period: 2026/07/12 – 2026/07/19 | Cutoff: 2026-07-19
+      慈濟大學各系所管理報表中心 — 由電算中心技術支援<br>
+      Source: <a href="https://github.com/tcucc-dev/g4A-checkings">github.com/tcucc-dev/g4A-checkings</a><br>
+      Deployed via GitHub Pages (gh-pages branch)
     </div>
   </div>
 </body>

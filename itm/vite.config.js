@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/itm/',
+  base: '/g4A-checkings/itm/',
   server: {
     port: 5173,
     host: '0.0.0.0',
