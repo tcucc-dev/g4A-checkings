@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>資訊科技與管理學系｜GEO × SEO 行銷決策與改善報告 v56 (Vercel)</title>
 
-  <script type="module" crossorigin src="/itm/assets/index-z9QTJ6Qh.js"></script>
-  <link rel="stylesheet" crossorigin href="/itm/assets/index-E92w8L18.css">
+  <script type="module" crossorigin src="/itm/assets/index-D5LxrfzB.js"></script>
+  <link rel="stylesheet" crossorigin href="/itm/assets/index-BfDuM5NH.css">
 </head>
 <body class="view-manager">
 <div id="three-bg"></div>
@@ -29,7 +29,7 @@
 </div>
 <div class="layout">
 <nav class="side"><b>報告目錄</b>
-  <a href="#m-summary" data-nav="manager all">主管摘要</a><a href="#m-trends" data-nav="manager all">八週趨勢</a><a href="#m-decisions" data-nav="manager all">本期待決策</a>
+  <a href="#m-summary" data-nav="manager all">主管摘要</a><a href="#m-trends" data-nav="manager all">八週趨勢</a><a href="#m-audience" data-nav="manager marketing all">訪客與流量結構</a><a href="#m-reports-todo" data-nav="manager marketing all">建議報表清單</a><a href="#m-decisions" data-nav="manager all">本期待決策</a>
   
   <a href="#mk-summary" data-nav="marketing all">行銷與 GEO 摘要</a>
   <a href="#mk-geo" data-nav="marketing all">GEO 可回答性檢核</a>
@@ -123,7 +123,131 @@
     <details class="evidence"><summary>查看數據證據</summary><div class="egrid"><div><strong>資料表：</strong>all_units_summary</div><div><strong>查詢代碼：</strong>FUNNEL-WEEKLY-001</div><div><strong>欄位：</strong>event_timestamp、page_location、page_title、user_pseudo_id、ga_session_id</div><div><strong>定義：</strong>先看招生頁，後續同工作階段到達指定頁面</div><div><strong>網站修改日期：</strong>單位網站管理人提供</div><div><strong>限制：</strong>到達率不代表完成報名</div></div></details>
   </div>
 </section>
-<section class="section" id="m-decisions" data-role="manager"><h2>三、本期需要主管決定的事項</h2><div id="decisions"></div></section>
+<section class="section" id="m-audience" data-role="manager marketing">
+  <h2>三、訪客與流量結構</h2>
+  <p class="lead">主管需要知道「誰來、從哪裡來、用什麼裝置」。資料全部可由 <code>all_units_summary</code> 現有欄位推導：country、device_category、CONCAT(source,'/',medium)。</p>
+
+  <div class="grid g2">
+    <!-- 流量來源 -->
+    <div class="chartbox">
+      <h3>流量來源</h3>
+      <div class="small">近一週工作階段來源</div>
+      <div id="audienceSource"></div>
+      <div class="insight" style="margin-top:14px"><strong>主管判讀：</strong>目前直接進站占多數，自然搜尋偏低。若網站改版目標是陌生訪客觸及，應把「品牌搜尋」與「系所／課程搜尋」分開看。</div>
+    </div>
+
+    <!-- 使用裝置 -->
+    <div class="chartbox">
+      <h3>使用裝置</h3>
+      <div class="small">近一週工作階段分布</div>
+      <div id="audienceDevice"></div>
+      <div class="insight" style="margin-top:14px"><strong>主管判讀：</strong>手機占比影響招生與聯絡意願。建議定期抽樣檢查手機版「課程地圖」「招生簡章」「聯絡資訊」三頁是否可用。</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:14px">
+    <!-- 訪客國家／地區 -->
+    <div class="chartbox">
+      <h3>訪客國家／地區</h3>
+      <div class="small">近一週工作階段地理分布</div>
+      <div id="audienceCountry"></div>
+    </div>
+
+    <!-- 主管應看的國際化解讀 -->
+    <div class="chartbox">
+      <h3>主管應看的國際化解讀</h3>
+      <p style="margin:0 0 10px;font-size:14px;color:#536477">非臺灣訪客比例若 <strong>明顯上升</strong>，應進一步回答：</p>
+      <ul style="margin:0;padding-left:20px;font-size:14px">
+        <li>這些國際訪客看的是中文、英文，還是特定招生頁？</li>
+        <li>國際訪客有沒有點擊招生簡章、聯絡資訊或下載文件？</li>
+        <li>不同國家搜尋的關鍵字與到達頁是否符合預期？</li>
+      </ul>
+      <div class="insight" style="margin-top:14px"><strong>資料可直接由現有欄位產出：</strong><code>country</code>、<code>page_location</code>、<code>page_title</code>、<code>query</code>、<code>link_url</code>、<code>engagement_time_msec</code>。</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="m-reports-todo" data-role="manager marketing">
+  <h2>四、尚未呈現，但主管應看的報表</h2>
+  <p class="lead">以下全部可由現有三張表推導（<code>all_units_summary</code>、<code>all_gsc_summary</code>、<code>search_behavior_summary</code>），不要求再補新的資料來源。</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>建議報表</th>
+          <th>主管要回答的問題</th>
+          <th>可用欄位／表</th>
+          <th>優先度</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>期間比較與異常提醒</strong></td>
+          <td>本週比上週、本月比上月是成長還是下降？哪些指標異常波動？</td>
+          <td><code>date</code>、<code>data_date</code>；三表皆可</td>
+          <td><span class="tag red">必加</span></td>
+        </tr>
+        <tr>
+          <td><strong>同類單位／學院基準</strong></td>
+          <td>本系在同學院、同類型站台中表現第幾？落後的是流量、CTR、排名還是互動？</td>
+          <td><code>site_name</code>、<code>unit_category</code>、<code>site_academy</code></td>
+          <td><span class="tag red">必加</span></td>
+        </tr>
+        <tr>
+          <td><strong>品牌詞 vs 非品牌詞</strong></td>
+          <td>訪客是已經知道慈濟大學才搜尋，還是透過一般需求找到我們？</td>
+          <td><code>query</code>；<code>search_behavior_summary</code>、<code>all_gsc_summary</code></td>
+          <td><span class="tag red">必加</span></td>
+        </tr>
+        <tr>
+          <td><strong>內容效益矩陣</strong></td>
+          <td>哪些頁面「流量高且互動高」、哪些「流量高但沒有後續行動」？</td>
+          <td><code>active_users</code>、<code>engagement_time_msec</code>、<code>site_link_clicks</code></td>
+          <td><span class="tag red">必加</span></td>
+        </tr>
+        <tr>
+          <td><strong>流量來源品質</strong></td>
+          <td>哪個來源不只帶來人，還帶來較長停留、更多點擊與下載？</td>
+          <td><code>source</code>、<code>medium</code>、<code>page_referrer</code>、互動欄位</td>
+          <td><span class="tag orange">高</span></td>
+        </tr>
+        <tr>
+          <td><strong>AI 搜尋／生成式 AI 導流</strong></td>
+          <td>ChatGPT、Perplexity、Gemini、Copilot 等是否把使用者帶到學校網站？看了哪些頁？</td>
+          <td><code>source</code>、<code>medium</code>、<code>page_referrer</code>、<code>page_location</code></td>
+          <td><span class="tag orange">高</span></td>
+        </tr>
+        <tr>
+          <td><strong>招生意圖與 CTA 行動</strong></td>
+          <td>使用者有沒有點擊招生簡章、入學方式、報名、電話或 Email？</td>
+          <td><code>link_url</code>、<code>link_text</code>、<code>click_class</code></td>
+          <td><span class="tag orange">高</span></td>
+        </tr>
+        <tr>
+          <td><strong>國際訪客品質</strong></td>
+          <td>不同國家訪客看什麼內容、停留多久、是否有點招生與聯絡？</td>
+          <td><code>country</code>、<code>page_title</code>、<code>engagement_time_msec</code>、<code>link_url</code></td>
+          <td><span class="tag green">中</span></td>
+        </tr>
+        <tr>
+          <td><strong>使用者路徑／下一步</strong></td>
+          <td>使用者從哪一頁進來，接著點到哪一頁或外部系統？</td>
+          <td><code>ga_session_id</code>、<code>user_pseudo_id</code>、<code>event_timestamp</code>、<code>page_referrer</code></td>
+          <td><span class="tag green">中</span></td>
+        </tr>
+        <tr>
+          <td><strong>資料品質與網站治理</strong></td>
+          <td>是否有重複首頁、舊網域、空白標題、無來源流量、異常 URL 或站台漏資料？</td>
+          <td><code>url</code>、<code>page_location</code>、<code>page_title</code>、<code>subdomain</code>、<code>site_id</code></td>
+          <td><span class="tag green">中</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="m-decisions" data-role="manager"><h2>五、本期需要主管決定的事項</h2><div id="decisions"></div></section>
 
 <section class="section" id="mk-summary" data-role="marketing">
   <h2>一、行銷與 GEO 決策摘要</h2>
