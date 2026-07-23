@@ -48,22 +48,22 @@ window.WEBINSIGHT.DATA = {
  ],
  audience:{
   source:[
-    {name:"直接進站",sessions:0,medium:"(none)"},
-    {name:"自然搜尋",sessions:0,medium:"organic"},
+    {name:"直接進站",sessions:130,medium:"(none)"},
+    {name:"自然搜尋",sessions:84,medium:"organic"},
     {name:"校內站台",sessions:0,medium:"internal"},
-    {name:"其他／站外",sessions:0,medium:"other"}
+    {name:"其他／站外",sessions:2,medium:"other"}
   ],
   device:[
-    {name:"desktop",sessions:0},
-    {name:"mobile",sessions:0},
+    {name:"desktop",sessions:154},
+    {name:"mobile",sessions:62},
     {name:"tablet",sessions:0}
   ],
   country:[
-    {name:"臺灣",sessions:0},
-    {name:"中國",sessions:0},
+    {name:"臺灣",sessions:174},
+    {name:"中國",sessions:27},
     {name:"泰國",sessions:0},
-    {name:"其他國家",sessions:0}
+    {name:"其他國家",sessions:15}
   ],
-  total:0
+  total:216
 }
 };
