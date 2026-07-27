@@ -1,6 +1,7 @@
 // src/data.js — refreshed 2026-07-27 with live BigQuery @ 2026-07-25
-// Cutoff: 2026-07-25 (GA4) / 2026-07-24 (GSC) | Periods: 2026-06-02 to 2026-07-26 | Weeks: 8
-// New "latest complete week" = 2026-07-20 ~ 2026-07-26 (GA4) / 2026-07-20 ~ 2026-07-24 (GSC)
+// Cutoff (smallest max_date across 3 sources): 2026-07-24 (GSC is the bottleneck)
+// Periods: 2026-06-02 to 2026-07-24 | Weeks: 8
+// New "latest complete week" = 2026-07-20 ~ 2026-07-24 (5 days, GA4 + GSC aligned)
 
 window.WEBINSIGHT = window.WEBINSIGHT || {};
 window.WEBINSIGHT.DATA = {
@@ -88,7 +89,7 @@ sections:{
     {week:"06/29", users:171, sessions:218, pageviews:649,  impressions:2535, clicks:69},
     {week:"07/06", users:168, sessions:221, pageviews:743,  impressions:2527, clicks:70},
     {week:"07/13", users:184, sessions:229, pageviews:833,  impressions:1902, clicks:55},
-    {week:"07/20", users:166, sessions:204, pageviews:804,  impressions:1604, clicks:64}
+    {week:"07/20", users:152, sessions:189, pageviews:769,  impressions:1604, clicks:64}
   ],
   anomaly_rule:{
     threshold_pct:30,
@@ -107,7 +108,7 @@ sections:{
     {month:"07/01", brand_pct:69.2, nonbrand_pct:30.8, brand_imp:2102, brand_clicks:42, nonbrand_imp:936, nonbrand_clicks:16}
   ],
   // Per-keyword table — feeds 'Top 10 brand' and 'Top 10 non-brand' tables.
-  // Refreshed 2026-07-27 for 07/20-07/26 period.
+  // Refreshed 2026-07-27 for 07/20-07/24 period.
   keyword_rows:[
     {query:"慈大學資",                 cls:"brand",    imp:94,  clicks:0, sum_position:367,  landing:"/"},
     {query:"site:itm.tcust.edu.tw",    cls:"brand",    imp:50,  clicks:0, sum_position:225,  landing:"/"},
@@ -136,40 +137,44 @@ sections:{
   // Source: all_units_summary (page_view events). Each row = one normalized
   // page by normalized_path. Quadrant boundaries = median across rows with
   // users ≥ 5. Smaller samples kept & flagged as 「樣本不足」.
-  // Refreshed 2026-07-27 for 07/20-07/26 period.
+  // Refreshed 2026-07-27 for 07/20-07/24 period.
   content_matrix:[
-    {normalized_path:"/p/426-1022-2.php",                            title:"智慧健康與生活管理學分學程專班 - 資訊科技與管理學系", users:30, sessions:30, pageviews:108, engagement_sec:0.4},
     {normalized_path:"/index.php",                                  title:"慈濟大學資訊科技與管理學系 - 資訊科技與管理學系", users:28, sessions:45, pageviews:166, engagement_sec:0.7},
-    {normalized_path:"/",                                            title:"慈濟大學資訊科技與管理學系 - 資訊科技與管理學系", users:26, sessions:31, pageviews:103, engagement_sec:0.9},
-    {normalized_path:"/p/412-1022-2586.php",                        title:"師資陣容 - 資訊科技與管理學系", users:24, sessions:24, pageviews:70, engagement_sec:0.4},
-    {normalized_path:"/p/404-1022-52388.php",                       title:"碩士班專區 - 資訊科技與管理學系", users:10, sessions:12, pageviews:27, engagement_sec:0.3},
-    {normalized_path:"/p/403-1022-452-1.php",                       title:"最新消息 - 資訊科技與管理學系", users:8,  sessions:8,  pageviews:20, engagement_sec:2.3},
-    {normalized_path:"/p/404-1022-36099.php",                       title:"課程地圖與開課學分時數表 / Curriculum Map", users:8,  sessions:8,  pageviews:50, engagement_sec:0.7},
-    {normalized_path:"/p/412-1022-2570.php",                        title:"最新消息 - 資訊科技與管理學系", users:7,  sessions:7,  pageviews:21, engagement_sec:1.2},
-    {normalized_path:"/p/404-1022-30026.php",                       title:"系所介紹 - 資訊科技與管理學系", users:7,  sessions:8,  pageviews:16, engagement_sec:0.4},
-    {normalized_path:"/p/404-1022-30020.php",                       title:"入學方式 - 資訊科技與管理學系", users:6,  sessions:6,  pageviews:16, engagement_sec:0.3},
-    {normalized_path:"/p/404-1022-34441.php",                       title:"課程規劃 - 資訊科技與管理學系", users:6,  sessions:6,  pageviews:16, engagement_sec:0.4},
-    {normalized_path:"/p/404-1022-45541.php",                       title:"實務專題 - 資訊科技與管理學系", users:4,  sessions:4,  pageviews:7,  engagement_sec:0.0},
-    {normalized_path:"/p/403-1022-703-1.php",                       title:"Photo - 資訊科技與管理學系", users:4,  sessions:4,  pageviews:8,  engagement_sec:0.6},
-    {normalized_path:"/p/426-1022-5.php",                           title:"智慧生活與數位轉型學分學程專班 - 資訊科技與管理學系", users:4, sessions:4,  pageviews:9,  engagement_sec:0.7},
-    {normalized_path:"/p/404-1022-66044.php",                       title:"智慧物聯實驗室 - 資訊科技與管理學系", users:4, sessions:4,  pageviews:6,  engagement_sec:0.1},
-    {normalized_path:"/p/412-1022-2590.php",                        title:"業界實習 - 資訊科技與管理學系", users:4,  sessions:4,  pageviews:6,  engagement_sec:2.7},
-    {normalized_path:"/p/404-1022-30062.php",                       title:"規章辦法 - 資訊科技與管理學系", users:4,  sessions:4,  pageviews:10, engagement_sec:0.2},
-    {normalized_path:"/p/404-1022-60990.php",                       title:"碩士班相關表格 - 資訊科技與管理學系", users:4, sessions:4,  pageviews:14, engagement_sec:0.7},
-    {normalized_path:"/p/404-1022-47588.php",                       title:"人工智慧高階電腦教室 - 資訊科技與管理學系", users:3, sessions:3, pageviews:9, engagement_sec:0.3},
-    {normalized_path:"/p/17-1022.php",                              title:"網站導覽 - 資訊科技與管理學系", users:3,  sessions:3,  pageviews:4,  engagement_sec:0.1},
-    {normalized_path:"/p/403-1022-709-1.php",                       title:"海外實習 - 資訊科技與管理學系", users:3,  sessions:3,  pageviews:6,  engagement_sec:0.5}
+    {normalized_path:"/p/426-1022-2.php",                           title:"智慧健康與生活管理學分學程專班 - 資訊科技與管理學系", users:25, sessions:25, pageviews:98,  engagement_sec:0.5},
+    {normalized_path:"/",                                            title:"慈濟大學資訊科技與管理學系 - 資訊科技與管理學系", users:24, sessions:29, pageviews:95,  engagement_sec:0.9},
+    {normalized_path:"/p/412-1022-2586.php",                        title:"師資陣容 - 資訊科技與管理學系", users:23, sessions:23, pageviews:64,  engagement_sec:0.4},
+    {normalized_path:"/p/404-1022-52388.php",                       title:"碩士班專區 - 資訊科技與管理學系", users:10, sessions:12, pageviews:27,  engagement_sec:0.3},
+    {normalized_path:"/p/403-1022-452-1.php",                       title:"最新消息 - 資訊科技與管理學系", users:8,  sessions:8,  pageviews:20,  engagement_sec:2.3},
+    {normalized_path:"/p/404-1022-36099.php",                       title:"課程地圖與開課學分時數表 / Curriculum Map", users:8,  sessions:8,  pageviews:50,  engagement_sec:0.7},
+    {normalized_path:"/p/404-1022-30026.php",                       title:"系所介紹 - 資訊科技與管理學系", users:7,  sessions:8,  pageviews:16,  engagement_sec:0.4},
+    {normalized_path:"/p/412-1022-2570.php",                        title:"最新消息 - 資訊科技與管理學系", users:6,  sessions:6,  pageviews:20,  engagement_sec:1.4},
+    {normalized_path:"/p/404-1022-34441.php",                       title:"課程規劃 - 資訊科技與管理學系", users:6,  sessions:6,  pageviews:16,  engagement_sec:0.4},
+    {normalized_path:"/p/404-1022-30020.php",                       title:"入學方式 - 資訊科技與管理學系", users:6,  sessions:6,  pageviews:16,  engagement_sec:0.3},
+    {normalized_path:"/p/404-1022-30062.php",                       title:"規章辦法 - 資訊科技與管理學系", users:4,  sessions:4,  pageviews:10,  engagement_sec:0.2},
+    {normalized_path:"/p/403-1022-703-1.php",                       title:"Photo - 資訊科技與管理學系", users:4,  sessions:4,  pageviews:8,   engagement_sec:0.6},
+    {normalized_path:"/p/426-1022-5.php",                           title:"智慧生活與數位轉型學分學程專班 - 資訊科技與管理學系", users:4, sessions:4,  pageviews:9,   engagement_sec:0.7},
+    {normalized_path:"/p/404-1022-60990.php",                       title:"碩士班相關表格 - 資訊科技與管理學系", users:4, sessions:4,  pageviews:14,  engagement_sec:0.7},
+    {normalized_path:"/p/404-1022-66044.php",                       title:"智慧物聯實驗室 - 資訊科技與管理學系", users:4, sessions:4,  pageviews:6,   engagement_sec:0.1},
+    {normalized_path:"/p/412-1022-2590.php",                        title:"業界實習 - 資訊科技與管理學系", users:4,  sessions:4,  pageviews:6,   engagement_sec:2.7},
+    {normalized_path:"/p/17-1022.php",                              title:"網站導覽 - 資訊科技與管理學系", users:3,  sessions:3,  pageviews:4,   engagement_sec:0.1},
+    {normalized_path:"/p/404-1022-45541.php",                       title:"實務專題 - 資訊科技與管理學系", users:3,  sessions:3,  pageviews:5,   engagement_sec:0.0},
+    {normalized_path:"/p/406-1022-65878,r452.php",                  title:"[2026全國經營管理專題競賽] 獲獎名單 - 資訊科技與管理學系", users:3, sessions:3, pageviews:14, engagement_sec:0.8},
+    {normalized_path:"/p/404-1022-47588.php",                       title:"人工智慧高階電腦教室 - 資訊科技與管理學系", users:3, sessions:3, pageviews:9,   engagement_sec:0.3},
+    {normalized_path:"/p/406-1022-61022,r709.php",                  title:"111學年度馬來西亞偉特科技公司實習 - 資訊科技與管理學系", users:2, sessions:2, pageviews:3, engagement_sec:0.9},
+    {normalized_path:"/p/404-1022-30039.php",                       title:"元宇宙多媒體實驗室 (2D107) - 資訊科技與管理學系", users:2, sessions:2, pageviews:4, engagement_sec:1.3},
+    {normalized_path:"/p/403-1022-709-1.php",                       title:"海外實習 - 資訊科技與管理學系", users:2,  sessions:2,  pageviews:4,   engagement_sec:0.2},
+    {normalized_path:"/p/406-1022-65512,r452.php",                  title:"2025 青春未來 AI體驗營 - 資訊科技與管理學系", users:2, sessions:2, pageviews:3, engagement_sec:0.6}
   ],
 
   // ===== Block 5 — 流量來源品質 =====
   // 'group' is the prompt-defined grouping. Original source/medium is kept.
   // Quality: avg_eng_sec_per_session = SUM(eng_sec)/sessions.
-  // Refreshed 2026-07-27 for 07/20-07/26 period.
+  // Refreshed 2026-07-27 for 07/20-07/24 period.
   traffic_quality:[
-    {group:"Direct",          source:"(direct)",              medium:"(none)",      sessions:150, users:125, avg_eng_sec_per_session:33.7, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"足夠"},
-    {group:"Organic Search",  source:"google",                medium:"organic",      sessions:48,  users:36,  avg_eng_sec_per_session:55.9, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"足夠"},
-    {group:"Internal Referral", source:"lle.moe.edu.tw",      medium:"referral",     sessions:2,   users:2,   avg_eng_sec_per_session:78.5, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"樣本較少"},
+    {group:"Direct",          source:"(direct)",              medium:"(none)",      sessions:138, users:113, avg_eng_sec_per_session:35.1, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"足夠"},
+    {group:"Organic Search",  source:"google",                medium:"organic",      sessions:46,  users:35,  avg_eng_sec_per_session:55.0, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"足夠"},
     {group:"External Referral", source:"cse.google.com",      medium:"referral",     sessions:2,   users:1,   avg_eng_sec_per_session:3.1,  internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"樣本較少"},
+    {group:"Internal Referral", source:"lle.moe.edu.tw",      medium:"referral",     sessions:1,   users:1,   avg_eng_sec_per_session:152.7, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"樣本較少"},
     {group:"Internal Referral", source:"collego.edu.tw",       medium:"referral",     sessions:1,   users:1,   avg_eng_sec_per_session:106.1, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"樣本較少"},
     {group:"AI Referral",     source:"chatgpt.com",           medium:"ai-assistant",  sessions:1,   users:1,   avg_eng_sec_per_session:0,    internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"樣本較少"},
     {group:"AI Referral",     source:"perplexity.ai",         medium:"referral",     sessions:0,   users:0,   avg_eng_sec_per_session:0,    internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"資料不足"},
@@ -201,10 +206,10 @@ sections:{
   ai_total_period_sessions:1,
 
   // ===== Block 7 — 招生意圖與 CTA 行動 =====
-  // Refreshed 2026-07-27 for 07/20-07/26 period.
+  // Refreshed 2026-07-27 for 07/20-07/24 period.
   cta_funnel:[
-    {cta_category:"其他連結",            distinct_links:25, sessions:39,  users:30, sample_note:"足夠"},
-    {cta_category:"招生簡章",            distinct_links:9,  sessions:19,  users:18, sample_note:"足夠"},
+    {cta_category:"其他連結",            distinct_links:25, sessions:38,  users:29, sample_note:"足夠"},
+    {cta_category:"招生簡章",            distinct_links:9,  sessions:18,  users:17, sample_note:"足夠"},
     {cta_category:"下載文件 (PDF/DOC/XLSX)", distinct_links:6,  sessions:15,  users:15, sample_note:"足夠"},
     {cta_category:"入學方式",            distinct_links:4,  sessions:6,   users:6,  sample_note:"足夠"},
     {cta_category:"LINE",                 distinct_links:1,  sessions:2,   users:2,  sample_note:"樣本較少"},
@@ -221,41 +226,43 @@ sections:{
   ],
 
   // ===== Block 8 — 國際訪客品質 =====
-  // Refreshed 2026-07-27 for 07/20-07/26 period.
+  // Refreshed 2026-07-27 for 07/20-07/24 period.
   international:[
-    {country:"臺灣",   sessions:136, users:99,  avg_eng_sec:56.6,  top_landing:"/",                                          admission_cta:0, contact_click:0, sample_note:"足夠"},
-    {country:"中國",   sessions:60,  users:60,  avg_eng_sec:2.0,   top_landing:"/p/16-1022-34006.php?Lang=zh-tw",          admission_cta:0, contact_click:0, sample_note:"足夠"},
-    {country:"美國",   sessions:5,   users:4,   avg_eng_sec:35.3,  top_landing:"/",                                          admission_cta:0, contact_click:0, sample_note:"樣本較少"},
-    {country:"加拿大", sessions:1,   users:1,   avg_eng_sec:1.9,   top_landing:"/",                                          admission_cta:0, contact_click:0, sample_note:"樣本較少"},
+    {country:"臺灣",   sessions:129, users:93,  avg_eng_sec:57.0,  top_landing:"/",                                          admission_cta:0, contact_click:0, sample_note:"足夠"},
+    {country:"中國",   sessions:54,  users:54,  avg_eng_sec:1.9,   top_landing:"/?Lang=zh-tw",                              admission_cta:0, contact_click:0, sample_note:"足夠"},
+    {country:"美國",   sessions:5,   users:4,   avg_eng_sec:35.3,  top_landing:"/p/406-1022-45544,r733.php?Lang=zh-tw",     admission_cta:0, contact_click:0, sample_note:"樣本較少"},
     {country:"德國",   sessions:1,   users:1,   avg_eng_sec:2.4,   top_landing:"/",                                          admission_cta:0, contact_click:0, sample_note:"樣本較少"},
-    {country:"印尼",   sessions:1,   users:1,   avg_eng_sec:2.6,   top_landing:"/",                                          admission_cta:0, contact_click:0, sample_note:"樣本較少"},
     {country:"其他",   sessions:0,   users:0,   avg_eng_sec:0,     top_landing:"-",                                          admission_cta:0, contact_click:0, sample_note:"資料不足"}
   ],
 
   // ===== Block 9 — 使用者路徑／下一步 =====
-  // Refreshed 2026-07-27 for 07/20-07/26. Real per-session path reconstruction
+  // Refreshed 2026-07-27 for 07/20-07/24. Real per-session path reconstruction
   // via ROW_NUMBER() OVER (PARTITION BY session ORDER BY event_timestamp).
   user_paths:[
-    {landing:"/",                                 second_page:"/",                                 exit_action:"瀏覽後離開",  sessions:42, exit_share:0.55},
-    {landing:"/p/426-1022-2.php",                  second_page:"/p/426-1022-2.php",                  exit_action:"瀏覽後離開",  sessions:29, exit_share:0.97},
-    {landing:"/",                                 second_page:"/",                                 exit_action:"瀏覽後離開",  sessions:25, exit_share:0.33},
-    {landing:"/p/412-1022-2586.php",              second_page:"/p/412-1022-2586.php",              exit_action:"瀏覽後離開",  sessions:9,  exit_share:0.38},
-    {landing:"/p/403-1022-452-1.php",             second_page:"/p/403-1022-452-1.php",             exit_action:"瀏覽後離開",  sessions:6,  exit_share:0.75},
+    {landing:"/",                                 second_page:"/",                                 exit_action:"瀏覽後離開",  sessions:42, exit_share:0.65},
+    {landing:"/p/426-1022-2.php",                  second_page:"/p/426-1022-2.php",                  exit_action:"瀏覽後離開",  sessions:24, exit_share:0.96},
+    {landing:"/",                                 second_page:"/",                                 exit_action:"瀏覽後離開",  sessions:23, exit_share:0.36},
+    {landing:"/p/412-1022-2586.php",              second_page:"/p/412-1022-2586.php",              exit_action:"瀏覽後離開",  sessions:8,  exit_share:0.35},
     {landing:"/p/404-1022-52388.php",             second_page:"/p/404-1022-52388.php",             exit_action:"瀏覽後離開",  sessions:6,  exit_share:0.60},
-    {landing:"/p/412-1022-2570.php",              second_page:"/p/412-1022-2570.php",              exit_action:"瀏覽後離開",  sessions:6,  exit_share:0.86},
+    {landing:"/p/403-1022-452-1.php",             second_page:"/p/403-1022-452-1.php",             exit_action:"瀏覽後離開",  sessions:6,  exit_share:0.75},
+    {landing:"/p/412-1022-2570.php",              second_page:"/p/412-1022-2570.php",              exit_action:"瀏覽後離開",  sessions:5,  exit_share:0.71},
     {landing:"/p/404-1022-36099.php",             second_page:"/p/404-1022-36099.php",             exit_action:"瀏覽後離開",  sessions:4,  exit_share:0.50},
-    {landing:"/p/403-1022-703-1.php",             second_page:"/p/403-1022-703-1.php",             exit_action:"瀏覽後離開",  sessions:4,  exit_share:1.00},
     {landing:"/p/412-1022-2590.php",              second_page:"/p/412-1022-2590.php",              exit_action:"瀏覽後離開",  sessions:4,  exit_share:1.00},
-    {landing:"/p/17-1022.php",                    second_page:"/p/17-1022.php",                    exit_action:"瀏覽後離開",  sessions:3,  exit_share:1.00},
+    {landing:"/p/403-1022-703-1.php",             second_page:"/p/403-1022-703-1.php",             exit_action:"瀏覽後離開",  sessions:4,  exit_share:1.00},
     {landing:"/p/404-1022-60990.php",             second_page:"/p/404-1022-60990.php",             exit_action:"瀏覽後離開",  sessions:3,  exit_share:1.00},
-    {landing:"/p/403-1022-709-1.php",             second_page:"/p/403-1022-709-1.php",             exit_action:"瀏覽後離開",  sessions:3,  exit_share:1.00}
+    {landing:"/p/17-1022.php",                    second_page:"/p/17-1022.php",                    exit_action:"瀏覽後離開",  sessions:3,  exit_share:1.00},
+    {landing:"/p/426-1022-5.php",                  second_page:"/p/426-1022-5.php",                  exit_action:"瀏覽後離開",  sessions:2,  exit_share:1.00},
+    {landing:"/p/406-1022-65878,r452.php",         second_page:"/p/406-1022-65878,r452.php",         exit_action:"瀏覽後離開",  sessions:2,  exit_share:1.00},
+    {landing:"/p/404-1022-45541.php",             second_page:"/p/404-1022-45541.php",             exit_action:"瀏覽後離開",  sessions:2,  exit_share:1.00},
+    {landing:"/p/406-1022-45544,r733.php",         second_page:"/p/406-1022-45544,r733.php",         exit_action:"瀏覽後離開",  sessions:2,  exit_share:1.00},
+    {landing:"/p/403-1022-709-1.php",             second_page:"/p/403-1022-709-1.php",             exit_action:"瀏覽後離開",  sessions:2,  exit_share:1.00}
   ],
   user_path_transitions:[
-    {from:"/",          to:"/p/426-1022-2.php",  sessions:8},
-    {from:"/",          to:"/p/412-1022-2586.php", sessions:5},
-    {from:"/",          to:"/p/404-1022-52388.php", sessions:3},
-    {from:"/",          to:"/p/404-1022-36099.php", sessions:2},
-    {from:"/",          to:"/p/412-1022-2570.php", sessions:2}
+    {from:"/",          to:"/p/412-1022-2570.php", sessions:0},
+    {from:"/",          to:"/p/404-1022-52388.php", sessions:0},
+    {from:"/",          to:"/p/426-1022-2.php",  sessions:0},
+    {from:"/",          to:"/p/412-1022-2586.php", sessions:0},
+    {from:"/",          to:"/p/404-1022-36099.php", sessions:0}
   ],
 
   // ===== Block 10 — 資料品質與網站治理 =====
