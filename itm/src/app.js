@@ -413,7 +413,7 @@ function renderSection4Brand() {
         '<td class="num">' + r.clicks.toLocaleString() + '</td>' +
         '<td class="num">' + ctr.toFixed(2) + '%</td>' +
         '<td class="num">' + (avgPos > 0 ? avgPos.toFixed(1) : '—') + '</td>' +
-        '<td class="wrap">' + escapeHtml(r.landing) + '</td>' +
+        '<td class="wrap">' + linkCell(r.landing) + '</td>' +
       "</tr>";
     }).join('');
     tbl.innerHTML = '<thead><tr><th>query</th><th>分類</th><th class="num">曝光</th><th class="num">點擊</th><th class="num">CTR</th><th class="num">平均排名</th><th>到達頁</th></tr></thead><tbody>' + rows + '</tbody>';
@@ -428,6 +428,25 @@ function renderSection4Brand() {
 
 function escapeHtml(s) {
   return String(s ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
+}
+
+// Convert a site path into a clickable absolute URL
+// Used in section 4 tables so URLs become real links
+function siteUrl(p){
+  if(!p || p === "-") return "";
+  let s = String(p);
+  if(/^https?:\/\//i.test(s)) return s;            // already absolute
+  if(!s.startsWith("/")) s = "/" + s;                // ensure leading /
+  return "https://itm.tcu.edu.tw" + s;
+}
+function linkCell(p){
+  const u = siteUrl(p);
+  if(!u) return "—";
+  return '<a href="' + u + '" target="_blank" rel="noopener" title="在新分頁開啟 ' + u + '">' + escapeHtml(p) + ' ↗</a>';
+}
+function linkCellRaw(u, label){
+  if(!u) return "—";
+  return '<a href="' + escapeHtml(u) + '" target="_blank" rel="noopener">' + escapeHtml(label || u) + ' ↗</a>';
 }
 
 // ─── 3. 100% Stacked Bar Chart: 品牌 vs 非品牌 ────────────────
@@ -621,7 +640,7 @@ function renderSection4Content() {
     const rows = enriched.map(({d, q}) => (
       "<tr>" +
         '<td class="wrap">' + escapeHtml(d.title) + '</td>' +
-        '<td class="wrap">' + escapeHtml(d.normalized_path) + '</td>' +
+        '<td class="wrap">' + linkCell(d.normalized_path) + '</td>' +
         '<td class="num">' + d.users + '</td>' +
         '<td class="num">' + d.engagement_sec.toFixed(0) + '</td>' +
         '<td><span class="status-pill ' + q.color + '">' + q.name + '</span></td>' +
@@ -802,7 +821,7 @@ function renderSection4AI() {
         '<td>' + escapeHtml(d.platform) + '</td>' +
         '<td class="num">' + d.sessions + '</td>' +
         '<td class="num">' + d.users + '</td>' +
-        '<td class="wrap">' + escapeHtml(d.landing_page || "-") + '</td>' +
+        '<td class="wrap">' + linkCell(d.landing_page || "-") + '</td>' +
         '<td class="num">' + (d.avg_eng_sec || 0).toFixed(1) + ' 秒</td>' +
         '<td class="num">' + (d.internal_clicks || 0) + '</td>' +
         '<td><span class="status-pill ' + (d.sample_note === "足夠" ? "up" : (d.sample_note === "樣本較少" ? "sample" : "empty")) + '">' + d.sample_note + '</span></td>' +
@@ -876,8 +895,8 @@ function renderSection4CTA() {
       "<tr>" +
         '<td>' + escapeHtml(r.category) + '</td>' +
         '<td class="wrap">' + escapeHtml(r.link_text) + '</td>' +
-        '<td class="wrap">' + escapeHtml(r.source_page) + '</td>' +
-        '<td class="wrap">' + escapeHtml(r.destination) + '</td>' +
+        '<td class="wrap">' + linkCell(r.source_page) + '</td>' +
+        '<td class="wrap">' + linkCellRaw(r.destination) + '</td>' +
         '<td class="num">' + r.clicks + '</td>' +
         '<td class="num">' + r.users + '</td>' +
         '<td class="num">' + (r.valid_rate * 100).toFixed(0) + '%</td>' +
@@ -931,7 +950,7 @@ function renderSection4Intl() {
         '<td class="num">' + (d.sessions || 0).toLocaleString() + '</td>' +
         '<td class="num">' + (d.users || 0).toLocaleString() + '</td>' +
         '<td class="num">' + (d.avg_eng_sec || 0).toFixed(1) + ' 秒</td>' +
-        '<td class="wrap">' + escapeHtml(d.top_landing || "-") + '</td>' +
+        '<td class="wrap">' + linkCell(d.top_landing || "-") + '</td>' +
         '<td class="num">' + (d.admission_cta || 0) + '</td>' +
         '<td class="num">' + (d.contact_click || 0) + '</td>' +
         '<td><span class="status-pill ' + (d.sample_note === "足夠" ? "up" : (d.sample_note === "樣本較少" ? "sample" : "empty")) + '">' + d.sample_note + '</span></td>' +
@@ -975,8 +994,8 @@ function renderSection4Paths() {
     const sorted = data.slice().sort((a, b) => b.sessions - a.sessions);
     const rows = sorted.map(r => (
       "<tr>" +
-        '<td class="wrap">' + escapeHtml(r.landing) + '</td>' +
-        '<td class="wrap">' + escapeHtml(r.second_page) + '</td>' +
+        '<td class="wrap">' + linkCell(r.landing) + '</td>' +
+        '<td class="wrap">' + linkCell(r.second_page) + '</td>' +
         '<td class="wrap">' + escapeHtml(r.exit_action) + '</td>' +
         '<td class="num">' + r.sessions + '</td>' +
         '<td class="num">' + (r.exit_share * 100).toFixed(0) + '%</td>' +
@@ -990,8 +1009,8 @@ function renderSection4Paths() {
     const sorted = trans.slice().sort((a, b) => b.sessions - a.sessions);
     const rows = sorted.map(r => (
       "<tr>" +
-        '<td class="wrap">' + escapeHtml(r.from) + '</td>' +
-        '<td class="wrap">' + escapeHtml(r.to) + '</td>' +
+        '<td class="wrap">' + linkCell(r.from) + '</td>' +
+        '<td class="wrap">' + linkCell(r.to) + '</td>' +
         '<td class="num">' + r.sessions + '</td>' +
       "</tr>"
     )).join('');
