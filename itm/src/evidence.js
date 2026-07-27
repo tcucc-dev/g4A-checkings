@@ -251,7 +251,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-PERIOD-ANOMALY-001", title:"期間比較與異常提醒完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary + all_gsc_summary", queryCode:"GA4-WEEKLY-TREND-001 + GSC-WEEKLY-TREND-001",
-    period:"2026-06-02 至 2026-07-24（8 個完整週）", maxDate:"2026-07-24", generatedAt:"2026-07-27",
+    period:"2026-05-30 至 2026-07-24（8 個完整週）", maxDate:"2026-07-24", generatedAt:"2026-07-27",
     jobId:"live-job-period-anomaly-20260724", dataHash:"live-period-8weeks-20260724", status:"正常",
     description:"8 週完整週期（06/02-07/26）的工作階段、活躍使用者、瀏覽量、搜尋曝光、點擊、CTR 與異常狀態。Refreshed 2026-07-27。",
     filterKeys:["week"], chart:{type:"line",xKey:"week",series:[["sessions","工作階段"],["users","活躍使用者"],["pageviews","瀏覽量"]]},
@@ -271,9 +271,9 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-BRAND-NONBRAND-001", title:"品牌詞 vs 非品牌詞完整報表", sourceType:"BigQuery",
     sourceTable:"all_gsc_summary", queryCode:"GSC-KEYWORD-BRAND-001",
-    period:"2026-07-20 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
+    period:"2026-07-18 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
     jobId:"live-job-brand-nonbrand-20260724", dataHash:"live-brand-21kw-20260724", status:"正常",
-    description:"搜尋字詞的品牌/非品牌分類、曝光、點擊、CTR、平均排名、到達頁（07/20-07/24 期間）。Refreshed 2026-07-27。",
+    description:"搜尋字詞的品牌/非品牌分類、曝光、點擊、CTR、平均排名、到達頁（07/18-07/24 期間）。Refreshed 2026-07-27。",
     filterKeys:["cls"], chart:{type:"bar",xKey:"query",series:[["imp","曝光"],["clicks","點擊"]]},
     columns:[["query","query"],["cls","分類"],["imp","曝光"],["clicks","點擊"],["ctr","CTR%"],["avg_pos","平均排名"],["landing","到達頁"]],
     rows:[
@@ -303,9 +303,9 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-CONTENT-MATRIX-001", title:"內容效益矩陣完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-PAGE-MATRIX-001",
-    period:"2026-07-20 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
+    period:"2026-07-18 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
     jobId:"live-job-content-matrix-20260724", dataHash:"live-matrix-21pages-20260724", status:"正常",
-    description:"正規化 URL 的活躍使用者、工作階段、瀏覽量與平均互動時間；用於四象限分類（07/20-07/24 期間）。Refreshed 2026-07-27。",
+    description:"正規化 URL 的活躍使用者、工作階段、瀏覽量與平均互動時間；用於四象限分類（07/18-07/24 期間）。Refreshed 2026-07-27。",
     filterKeys:["quadrant"], chart:{type:"scatter",xKey:"users",series:[["engagement_sec","平均互動秒/使用者"]]},
     columns:[["normalized_path","路徑"],["title","頁面"],["users","活躍使用者"],["sessions","工作階段"],["pageviews","瀏覽量"],["engagement_sec","平均互動秒"],["median_users","中位數使用者"],["median_eng","中位數互動"],["quadrant","象限"]],
     rows:[
@@ -335,9 +335,9 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-SOURCE-QUALITY-001", title:"流量來源品質完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-SOURCE-QUALITY-001",
-    period:"2026-07-20 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
+    period:"2026-07-18 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
     jobId:"live-job-source-quality-20260724", dataHash:"live-source-9groups-20260724", status:"正常",
-    description:"依 source × medium 彙總的工作階段、活躍使用者、互動時間與頁內事件（07/20-07/24 期間）。Refreshed 2026-07-27。",
+    description:"依 source × medium 彙總的工作階段、活躍使用者、互動時間與頁內事件（07/18-07/24 期間）。Refreshed 2026-07-27。",
     filterKeys:["group"], chart:{type:"bar",xKey:"source",series:[["sessions","工作階段"],["avg_eng_sec_per_session","平均互動秒/工作階段"]]},
     columns:[["group","分組"],["source","source"],["medium","medium"],["sessions","工作階段"],["users","活躍使用者"],["avg_eng_sec_per_session","平均互動秒/工作階段"],["internal_clicks","站內點擊"],["downloads","下載"],["cta_clicks","CTA 點擊"],["sample_note","樣本狀態"]],
     rows:[
@@ -355,9 +355,9 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-AI-REFERRAL-001", title:"AI 平台 referrer 完整報表（已修正）", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"AI-REFERRAL-EVIDENCE-001",
-    period:"2026-07-20 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
+    period:"2026-07-18 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
     jobId:"live-job-ai-referral-fixed-20260724", dataHash:"live-ai-fixed-0sessions", status:"已說明",
-    description:"從 ChatGPT / Perplexity / Gemini / Copilot / Claude 等 AI 搜尋引擎 referrer 進站的工作階段。Refreshed 2026-07-27：偵測到 1 個來自 chatgpt.com 的工作階段（medium=ai-assistant），其餘平台 0。",
+    description:"從 ChatGPT / Perplexity / Gemini / Copilot / Claude 等 AI 搜尋引擎 referrer 進站的工作階段。Refreshed 2026-07-27：偵測到 1 個來自 chatgpt.com 的工作階段（medium=ai-assistant, 2026-07-21），其餘平台 0。",
     filterKeys:["ai_engine"], chart:{type:"bar",xKey:"ai_engine",series:[["sessions","工作階段"]]},
     columns:[["ai_engine","AI 引擎"],["sessions","工作階段"],["users","活躍使用者"],["last_seen","最後觀察日"],["detection_pattern","比對規則"],["sample_note","樣本狀態"]],
     rows:[
@@ -372,9 +372,9 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-ADMISSION-CTA-001", title:"招生 CTA 行動次數完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary click 事件", queryCode:"CTA-CATEGORY-001",
-    period:"2026-07-20 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
+    period:"2026-07-18 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
     jobId:"live-job-cta-20260724", dataHash:"live-cta-9cats-20260724", status:"行動代理指標",
-    description:"依 CTA 類別（招生簡章、入學方式、報名、LINE、tel、mailto、表單、其他連結、PDF/DOC/XLSX） 彙總的點擊次數與使用者數（07/20-07/24 期間）。Refreshed 2026-07-27。",
+    description:"依 CTA 類別（招生簡章、入學方式、報名、LINE、tel、mailto、表單、其他連結、PDF/DOC/XLSX） 彙總的點擊次數與使用者數（07/18-07/24 期間）。Refreshed 2026-07-27。",
     filterKeys:["category"], chart:{type:"bar",xKey:"link_text",series:[["clicks","點擊"]]},
     columns:[["category","CTA 類別"],["link_text","連結文字"],["source_page","來源頁"],["destination","目的地"],["clicks","點擊"],["users","使用者"],["valid_rate","有效率"]],
     rows:[
@@ -398,9 +398,9 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-INTERNATIONAL-QUALITY-001", title:"國際訪客品質完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-COUNTRY-001",
-    period:"2026-07-20 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
+    period:"2026-07-18 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
     jobId:"live-job-intl-20260724", dataHash:"live-intl-7countries-20260724", status:"正常",
-    description:"依國家彙總的工作階段、活躍使用者、平均互動、到達頁與 CTA 點擊（07/20-07/24 期間）。Refreshed 2026-07-27。",
+    description:"依國家彙總的工作階段、活躍使用者、平均互動、到達頁與 CTA 點擊（07/18-07/24 期間）。Refreshed 2026-07-27。",
     filterKeys:["country"], chart:{type:"bar",xKey:"country",series:[["sessions","工作階段"],["avg_eng_sec","平均互動秒/工作階段"]]},
     columns:[["country","國家"],["sessions","工作階段"],["users","活躍使用者"],["avg_eng_sec","平均互動秒/工作階段"],["top_landing","主要到達頁"],["admission_cta","招生 CTA 點擊"],["contact_click","聯絡點擊"],["sample_note","樣本狀態"]],
     rows:[
@@ -415,7 +415,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-USER-PATH-001", title:"使用者路徑（入口→第二頁）完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-LANDING-NEXT-001",
-    period:"2026-07-20 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
+    period:"2026-07-18 至 2026-07-24", maxDate:"2026-07-24", generatedAt:"2026-07-27",
     jobId:"live-job-user-path-20260724", dataHash:"live-path-13rows-20260724", status:"路徑代理",
     description:"依 page_view 事件彙總的「入口頁 → 第二頁」共同出現次數（07/20-07/24 期間，5 個完整天）。本期資料以 ROW_NUMBER() OVER (PARTITION BY session ORDER BY event_timestamp) 重建單一工作階段內的時序。Refreshed 2026-07-27：本期 150/177 工作階段僅有 1 個 page_view，入口頁和第二頁多為同一頁（self-loop），故右側「入口頁重點轉換」表全為 0。",
     filterKeys:["landing"], chart:{type:"bar",xKey:"landing",series:[["sessions","工作階段"]]},
