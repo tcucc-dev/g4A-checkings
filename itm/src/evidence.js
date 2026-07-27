@@ -246,8 +246,219 @@ const EVIDENCE_REPORTS = [
     {rank:10, path:"/p/16-1022-34006.php?Lang=zh-tw", imp:42, clk:0, ctr:0.0, avg_pos:7.3}
   ],
     sql:"SELECT url, REGEXP_REPLACE(url, r'^https?://[^/]+', '') AS path, SUM(impressions) AS imp, SUM(clicks) AS clk, ROUND(100*SAFE_DIVIDE(SUM(clicks), SUM(impressions)), 2) AS ctr, ROUND(SUM(sum_position)/NULLIF(SUM(impressions), 0), 1) AS avg_pos FROM all_gsc_summary WHERE site_name='資訊科技與管理系' AND data_date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) GROUP BY url ORDER BY imp DESC LIMIT 10;"
+  },
+  // ===== Section 4 audit (v56) — 9 new evidence records =====
+  {
+    id:"EV-PERIOD-ANOMALY-001", title:"期間比較與異常提醒完整報表", sourceType:"BigQuery",
+    sourceTable:"all_units_summary + all_gsc_summary", queryCode:"GA4-WEEKLY-TREND-001 + GSC-WEEKLY-TREND-001",
+    period:"2026-05-25 至 2026-07-19（8 個完整週）", maxDate:"2026-07-19", generatedAt:"2026-07-22",
+    jobId:"live-job-period-anomaly-20260720", dataHash:"live-period-8weeks", status:"正常",
+    description:"8 週完整週期的工作階段、活躍使用者、瀏覽量、搜尋曝光、點擊、CTR 與異常狀態。",
+    filterKeys:["week"], chart:{type:"line",xKey:"week",series:[["sessions","工作階段"],["users","活躍使用者"],["pageviews","瀏覽量"]]},
+    columns:[["week","週別"],["sessions","工作階段"],["users","活躍使用者"],["pageviews","瀏覽量"],["impressions","搜尋曝光"],["clicks","搜尋點擊"],["ctr","CTR"],["status","狀態"],["delta_pct","與前期差異%"]],
+    rows:[
+      {week:"05/25", sessions:562, users:398, pageviews:2005, impressions:3621, clicks:218, ctr:6.02, status:"基準期", delta_pct:0},
+      {week:"06/01", sessions:493, users:338, pageviews:1753, impressions:4265, clicks:302, ctr:7.08, status:"大致穩定", delta_pct:-12.3},
+      {week:"06/08", sessions:694, users:431, pageviews:3491, impressions:4418, clicks:307, ctr:6.95, status:"明顯成長", delta_pct:40.8},
+      {week:"06/15", sessions:91,  users:70,  pageviews:502,  impressions:3666, clicks:160, ctr:4.36, status:"明顯下降", delta_pct:-86.9},
+      {week:"06/22", sessions:338, users:264, pageviews:1330, impressions:3158, clicks:110, ctr:3.48, status:"明顯成長", delta_pct:271.4},
+      {week:"06/29", sessions:218, users:171, pageviews:649,  impressions:2535, clicks:69,  ctr:2.72, status:"明顯下降", delta_pct:-35.5},
+      {week:"07/06", sessions:221, users:168, pageviews:743,  impressions:2527, clicks:70,  ctr:2.77, status:"大致穩定", delta_pct:1.4},
+      {week:"07/13", sessions:229, users:184, pageviews:833,  impressions:1902, clicks:55,  ctr:2.89, status:"大致穩定", delta_pct:3.6}
+    ],
+    sql:"SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(date, WEEK(MONDAY))) AS week, COUNT(DISTINCT CONCAT(user_pseudo_id, ':', ga_session_id)) AS sessions, COUNT(DISTINCT user_pseudo_id) AS users, COUNTIF(event_name='page_view') AS pageviews FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week; UNION ALL SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(data_date, WEEK(MONDAY))) AS week, SUM(impressions) AS impressions, SUM(clicks) AS clicks, ROUND(100*SAFE_DIVIDE(SUM(clicks), SUM(impressions)), 2) AS ctr FROM all_gsc_summary WHERE site_name='資訊科技與管理系' AND data_date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week;"
+  },
+  {
+    id:"EV-BRAND-NONBRAND-001", title:"品牌詞 vs 非品牌詞完整報表", sourceType:"BigQuery",
+    sourceTable:"all_gsc_summary", queryCode:"GSC-KEYWORD-BRAND-001",
+    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-22",
+    jobId:"live-job-brand-nonbrand-20260720", dataHash:"live-brand-21kw", status:"正常",
+    description:"搜尋字詞的品牌/非品牌分類、曝光、點擊、CTR、平均排名、到達頁。",
+    filterKeys:["cls"], chart:{type:"bar",xKey:"query",series:[["imp","曝光"],["clicks","點擊"]]},
+    columns:[["query","query"],["cls","分類"],["imp","曝光"],["clicks","點擊"],["ctr","CTR%"],["avg_pos","平均排名"],["landing","到達頁"]],
+    rows:[
+      {query:"慈大學資", cls:"brand", imp:3704, clicks:1, ctr:0.03, avg_pos:4.2, landing:"/"},
+      {query:"慈大資管", cls:"brand", imp:609,  clicks:74, ctr:12.15, avg_pos:5.4, landing:"/p/412-1022-2586.php"},
+      {query:"慈濟大學資管系", cls:"brand", imp:426, clicks:46, ctr:10.80, avg_pos:3.8, landing:"/p/412-1022-2586.php"},
+      {query:"tcu itm", cls:"brand", imp:276, clicks:38, ctr:13.77, avg_pos:6.0, landing:"/?Lang=en"},
+      {query:"慈濟大學資訊科技與管理學系", cls:"brand", imp:255, clicks:29, ctr:11.37, avg_pos:3.6, landing:"/p/406-1022-65878,r452.php?Lang=zh-tw"},
+      {query:"慈濟大學", cls:"brand", imp:216, clicks:3, ctr:1.39, avg_pos:0, landing:"/"},
+      {query:"資訊科技與管理學系", cls:"brand", imp:87, clicks:2, ctr:2.30, avg_pos:0, landing:"/"},
+      {query:"慈濟大學 資管系", cls:"brand", imp:68, clicks:9, ctr:13.24, avg_pos:0, landing:"/p/412-1022-2586.php"},
+      {query:"慈濟大學 資訊科技與管理學系", cls:"brand", imp:58, clicks:8, ctr:13.79, avg_pos:0, landing:"/p/406-1022-65878,r452.php?Lang=zh-tw"},
+      {query:"慈大", cls:"brand", imp:34, clicks:0, ctr:0.00, avg_pos:0, landing:"/"},
+      {query:"tcust", cls:"nonbrand", imp:662, clicks:4, ctr:0.60, avg_pos:5.4, landing:"/"},
+      {query:"蔡宗宏", cls:"nonbrand", imp:186, clicks:21, ctr:11.29, avg_pos:0, landing:"/p/412-1022-2586.php"},
+      {query:"簡子超", cls:"nonbrand", imp:165, clicks:28, ctr:16.97, avg_pos:0, landing:"/p/412-1022-2586.php"},
+      {query:"謝金峰", cls:"nonbrand", imp:137, clicks:1, ctr:0.73, avg_pos:0, landing:"/p/412-1022-2586.php"},
+      {query:"楊明軒", cls:"nonbrand", imp:101, clicks:0, ctr:0.00, avg_pos:0, landing:"/p/412-1022-2586.php"},
+      {query:"張詠欣", cls:"nonbrand", imp:101, clicks:1, ctr:0.99, avg_pos:0, landing:"/p/412-1022-2586.php"},
+      {query:"大學專題競賽2026", cls:"nonbrand", imp:84, clicks:2, ctr:2.38, avg_pos:0, landing:"/p/404-1022-34441.php"},
+      {query:"蕭志清", cls:"nonbrand", imp:73, clicks:5, ctr:6.85, avg_pos:0, landing:"/p/412-1022-2586.php"},
+      {query:"王銓彰", cls:"nonbrand", imp:60, clicks:2, ctr:3.33, avg_pos:0, landing:"/p/412-1022-2586.php"},
+      {query:"慈濟資工", cls:"nonbrand", imp:48, clicks:2, ctr:4.17, avg_pos:0, landing:"/p/412-1022-2586.php"}
+    ],
+    sql:"SELECT query, CASE WHEN REGEXP_CONTAINS(LOWER(query), r'慈濟|慈大|慈|tcu|tzu chi|itm|資管|資訊科技與管理') THEN 'brand' ELSE 'nonbrand' END AS cls, SUM(impressions) AS imp, SUM(clicks) AS clicks, ROUND(100*SAFE_DIVIDE(SUM(clicks), SUM(impressions)), 2) AS ctr, ROUND(SUM(sum_position)/NULLIF(SUM(impressions), 0), 1) AS avg_pos FROM all_gsc_summary WHERE site_name='資訊科技與管理系' AND data_date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) AND query IS NOT NULL AND query != '' GROUP BY query ORDER BY imp DESC LIMIT 50;"
+  },
+  {
+    id:"EV-CONTENT-MATRIX-001", title:"內容效益矩陣完整報表", sourceType:"BigQuery",
+    sourceTable:"all_units_summary", queryCode:"GA4-PAGE-MATRIX-001",
+    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-22",
+    jobId:"live-job-content-matrix-20260720", dataHash:"live-matrix-20pages", status:"正常",
+    description:"正規化 URL 的活躍使用者、工作階段、瀏覽量與平均互動時間；用於四象限分類。",
+    filterKeys:["quadrant"], chart:{type:"scatter",xKey:"users",series:[["engagement_sec","平均互動秒/使用者"]]},
+    columns:[["normalized_path","路徑"],["title","頁面"],["users","活躍使用者"],["sessions","工作階段"],["pageviews","瀏覽量"],["engagement_sec","平均互動秒"],["median_users","中位數使用者"],["median_eng","中位數互動"],["quadrant","象限"]],
+    rows:[
+      {normalized_path:"/", title:"慈濟大學資訊科技與管理學系", users:46, sessions:58, pageviews:127, engagement_sec:28.0, median_users:7, median_eng:24.9, quadrant:"Q1"},
+      {normalized_path:"/p/412-1022-2586.php", title:"智慧健康與生活管理學分學程專班", users:32, sessions:36, pageviews:113, engagement_sec:113.4, median_users:7, median_eng:24.9, quadrant:"Q1"},
+      {normalized_path:"/p/412-1022-2586.php?Lang=zh-tw", title:"師資陣容", users:27, sessions:31, pageviews:75, engagement_sec:65.3, median_users:7, median_eng:24.9, quadrant:"Q1"},
+      {normalized_path:"/?Lang=zh-tw", title:"中文首頁", users:16, sessions:19, pageviews:42, engagement_sec:24.9, median_users:7, median_eng:24.9, quadrant:"Q1"},
+      {normalized_path:"/p/406-1022-65878,r452.php?Lang=zh-tw", title:"課程規劃", users:10, sessions:14, pageviews:38, engagement_sec:31.8, median_users:7, median_eng:24.9, quadrant:"Q1"},
+      {normalized_path:"/p/404-1022-36099.php", title:"實務專題", users:10, sessions:11, pageviews:28, engagement_sec:1.5, median_users:7, median_eng:24.9, quadrant:"Q2"},
+      {normalized_path:"/p/404-1022-52388.php?Lang=zh-tw", title:"碩士班專區", users:10, sessions:12, pageviews:34, engagement_sec:8.4, median_users:7, median_eng:24.9, quadrant:"Q2"},
+      {normalized_path:"/p/412-1022-2586.php?Lang=en", title:"智慧生活與數位轉型學分學程專班", users:7, sessions:8, pageviews:22, engagement_sec:78.9, median_users:7, median_eng:24.9, quadrant:"Q3"},
+      {normalized_path:"/p/404-1022-30107.php", title:"最新消息", users:7, sessions:9, pageviews:21, engagement_sec:4.3, median_users:7, median_eng:24.9, quadrant:"Q4"},
+      {normalized_path:"/p/404-1022-30026.php?Lang=zh-tw", title:"最新消息", users:7, sessions:9, pageviews:23, engagement_sec:9.1, median_users:7, median_eng:24.9, quadrant:"Q4"},
+      {normalized_path:"/p/404-1022-30082.php", title:"Photo", users:6, sessions:7, pageviews:14, engagement_sec:2.0, median_users:7, median_eng:24.9, quadrant:"Q4"},
+      {normalized_path:"/p/406-1022-35988,r452-1.php", title:"規章辦法", users:6, sessions:7, pageviews:15, engagement_sec:19.7, median_users:7, median_eng:24.9, quadrant:"Q4"},
+      {normalized_path:"/p/16-1022-34006.php?Lang=zh-tw", title:"入學方式", users:5, sessions:7, pageviews:18, engagement_sec:52.1, median_users:7, median_eng:24.9, quadrant:"Q3"},
+      {normalized_path:"/p/404-1022-36089.php?Lang=zh-tw", title:"海外實習", users:5, sessions:6, pageviews:14, engagement_sec:2.6, median_users:7, median_eng:24.9, quadrant:"Q4"},
+      {normalized_path:"/p/404-1022-34441.php", title:"[2026全國經營管理專題競賽] 獲獎名單", users:5, sessions:5, pageviews:12, engagement_sec:10.0, median_users:7, median_eng:24.9, quadrant:"Q4"},
+      {normalized_path:"/p/16-1022-45542.php?Lang=zh-tw", title:"系所介紹", users:4, sessions:4, pageviews:9, engagement_sec:5.4, median_users:7, median_eng:24.9, quadrant:"Q4"},
+      {normalized_path:"/p/404-1022-36215.php", title:"課程地圖", users:4, sessions:4, pageviews:8, engagement_sec:14.6, median_users:7, median_eng:24.9, quadrant:"Q4"},
+      {normalized_path:"/p/404-1022-36099.php?Lang=zh-tw", title:"本系特色", users:2, sessions:2, pageviews:5, engagement_sec:11.2, median_users:7, median_eng:24.9, quadrant:"Q4"},
+      {normalized_path:"/p/16-1022-36083.php?Lang=zh-tw", title:"AI大數據實驗室", users:1, sessions:1, pageviews:3, engagement_sec:22.7, median_users:7, median_eng:24.9, quadrant:"Q4"},
+      {normalized_path:"/p/404-1022-36089.php", title:"智慧物聯實驗室", users:1, sessions:1, pageviews:2, engagement_sec:27.3, median_users:7, median_eng:24.9, quadrant:"Q4"}
+    ],
+    sql:"SELECT REGEXP_REPLACE(REGEXP_REPLACE(REGEXP_REPLACE(page_location, r'\?.*$', ''), r'/$', ''), r'(\?|&)(utm_[^&]+|gclid=[^&]+|fbclid=[^&]+)', '') AS normalized_path, ANY_VALUE(page_title) AS title, COUNT(DISTINCT user_pseudo_id) AS users, COUNT(DISTINCT ga_session_id) AS sessions, COUNTIF(event_name='page_view') AS pageviews, ROUND(SAFE_DIVIDE(SUM(engagement_time_msec)/1000.0, COUNT(DISTINCT user_pseudo_id)), 1) AS engagement_sec FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) AND event_name='page_view' GROUP BY normalized_path ORDER BY users DESC LIMIT 50;"
+  },
+  {
+    id:"EV-SOURCE-QUALITY-001", title:"流量來源品質完整報表", sourceType:"BigQuery",
+    sourceTable:"all_units_summary", queryCode:"GA4-SOURCE-QUALITY-001",
+    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-22",
+    jobId:"live-job-source-quality-20260720", dataHash:"live-source-8groups", status:"正常",
+    description:"依 source × medium 彙總的工作階段、活躍使用者、互動時間與頁內事件。",
+    filterKeys:["group"], chart:{type:"bar",xKey:"source",series:[["sessions","工作階段"],["avg_eng_sec_per_session","平均互動秒/工作階段"]]},
+    columns:[["group","分組"],["source","source"],["medium","medium"],["sessions","工作階段"],["users","活躍使用者"],["avg_eng_sec_per_session","平均互動秒/工作階段"],["internal_clicks","站內點擊"],["downloads","下載"],["cta_clicks","CTA 點擊"],["sample_note","樣本狀態"]],
+    rows:[
+      {group:"Direct", source:"(direct)", medium:"(none)", sessions:181, users:143, avg_eng_sec_per_session:53.0, internal_clicks:62, downloads:9,  cta_clicks:0, sample_note:"足夠"},
+      {group:"Organic Search", source:"google", medium:"organic", sessions:44, users:37, avg_eng_sec_per_session:54.1, internal_clicks:18, downloads:1,  cta_clicks:0, sample_note:"足夠"},
+      {group:"Internal Referral", source:"lle.moe.edu.tw", medium:"referral", sessions:2, users:2, avg_eng_sec_per_session:61.8, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"樣本較少"},
+      {group:"External Referral", source:"cse.google.com", medium:"referral", sessions:1, users:1, avg_eng_sec_per_session:22.5, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"樣本較少"},
+      {group:"External Referral", source:"tw.search.yahoo.com", medium:"referral", sessions:1, users:1, avg_eng_sec_per_session:0.0, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"樣本較少"},
+      {group:"AI Referral", source:"chatgpt.com", medium:"referral", sessions:0, users:0, avg_eng_sec_per_session:0, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"資料不足"},
+      {group:"AI Referral", source:"perplexity.ai", medium:"referral", sessions:0, users:0, avg_eng_sec_per_session:0, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"資料不足"},
+      {group:"Social", source:"facebook.com", medium:"referral", sessions:0, users:0, avg_eng_sec_per_session:0, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"資料不足"}
+    ],
+    sql:"SELECT CASE WHEN source='(direct)' OR medium='(none)' THEN 'Direct' WHEN source='google' AND medium='organic' THEN 'Organic Search' WHEN REGEXP_CONTAINS(COALESCE(page_referrer,''), r'chatgpt|perplexity|gemini|copilot|claude|openai') THEN 'AI Referral' WHEN medium='referral' AND source LIKE '%edu%' OR source LIKE 'lle%' THEN 'Internal Referral' WHEN medium='referral' THEN 'External Referral' WHEN source='facebook.com' OR source='twitter.com' OR medium='social' THEN 'Social' ELSE 'Other' END AS group, source, medium, COUNT(DISTINCT ga_session_id) AS sessions, COUNT(DISTINCT user_pseudo_id) AS users, ROUND(SAFE_DIVIDE(SUM(engagement_time_msec)/1000.0, COUNT(DISTINCT ga_session_id)), 1) AS avg_eng_sec_per_session, SUM(CASE WHEN event_name='click' AND link_class IN ('internal-cta','internal-link') THEN 1 ELSE 0 END) AS internal_clicks, SUM(CASE WHEN link_url LIKE '%.pdf' OR link_url LIKE '%.doc%' OR link_url LIKE '%.xls%' THEN 1 ELSE 0 END) AS downloads, SUM(CASE WHEN event_name='click' AND link_class='admission-cta' THEN 1 ELSE 0 END) AS cta_clicks FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) GROUP BY group, source, medium ORDER BY sessions DESC;"
+  },
+  {
+    id:"EV-AI-REFERRAL-001", title:"AI 平台 referrer 完整報表（已修正）", sourceType:"BigQuery",
+    sourceTable:"all_units_summary", queryCode:"AI-REFERRAL-EVIDENCE-001",
+    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-22",
+    jobId:"live-job-ai-referral-fixed-20260720", dataHash:"live-ai-fixed-0sessions", status:"已說明",
+    description:"從 ChatGPT / Perplexity / Gemini / Copilot / Claude 等 AI 搜尋引擎 referrer 進站的工作階段。本期經過 referrer 網域嚴格比對後，所有偵測目標皆無觀察到符合的工作階段。",
+    filterKeys:["ai_engine"], chart:{type:"bar",xKey:"ai_engine",series:[["sessions","工作階段"]]},
+    columns:[["ai_engine","AI 引擎"],["sessions","工作階段"],["users","活躍使用者"],["last_seen","最後觀察日"],["detection_pattern","比對規則"],["sample_note","樣本狀態"]],
+    rows:[
+      {ai_engine:"chatgpt.com",      sessions:0, users:0, last_seen:"-", detection_pattern:"chatgpt.com|openai.com", sample_note:"資料不足"},
+      {ai_engine:"perplexity.ai",    sessions:0, users:0, last_seen:"-", detection_pattern:"perplexity.ai", sample_note:"資料不足"},
+      {ai_engine:"gemini.google.com",sessions:0, users:0, last_seen:"-", detection_pattern:"gemini.google.com|bard.google.com", sample_note:"資料不足"},
+      {ai_engine:"copilot",          sessions:0, users:0, last_seen:"-", detection_pattern:"copilot.microsoft.com|bing.com/chat", sample_note:"資料不足"},
+      {ai_engine:"claude.ai",        sessions:0, users:0, last_seen:"-", detection_pattern:"claude.ai", sample_note:"資料不足"}
+    ],
+    sql:"SELECT REGEXP_EXTRACT(COALESCE(page_referrer, '(none)'), r'^https?://([^/]+)') AS ai_engine, COUNT(DISTINCT ga_session_id) AS sessions, COUNT(DISTINCT user_pseudo_id) AS users, MAX(date) AS last_seen FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) AND page_referrer IS NOT NULL AND (COALESCE(page_referrer,'') LIKE '%chatgpt%' OR COALESCE(page_referrer,'') LIKE '%openai%' OR COALESCE(page_referrer,'') LIKE '%perplexity%' OR COALESCE(page_referrer,'') LIKE '%gemini%' OR COALESCE(page_referrer,'') LIKE '%bard%' OR COALESCE(page_referrer,'') LIKE '%copilot%' OR COALESCE(page_referrer,'') LIKE '%claude%') GROUP BY ai_engine;"
+  },
+  {
+    id:"EV-ADMISSION-CTA-001", title:"招生 CTA 行動次數完整報表", sourceType:"BigQuery",
+    sourceTable:"all_units_summary click 事件", queryCode:"CTA-CATEGORY-001",
+    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-22",
+    jobId:"live-job-cta-20260720", dataHash:"live-cta-9cats", status:"行動代理指標",
+    description:"依 CTA 類別（招生簡章、入學方式、報名、LINE、tel、mailto、表單、其他連結、PDF/DOC/XLSX） 彙總的點擊次數與使用者數。",
+    filterKeys:["category"], chart:{type:"bar",xKey:"link_text",series:[["clicks","點擊"]]},
+    columns:[["category","CTA 類別"],["link_text","連結文字"],["source_page","來源頁"],["destination","目的地"],["clicks","點擊"],["users","使用者"],["valid_rate","有效率"]],
+    rows:[
+      {category:"LINE",        link_text:"加入 ITM 招生 LINE 群組",      source_page:"首頁",        destination:"https://line.me/R/ti/p/itm-tcu",         clicks:9,  users:9,  valid_rate:1.0},
+      {category:"招生簡章",     link_text:"115 學年度招生簡章",            source_page:"入學方式",     destination:"/p/16-1022-34006.php?Lang=zh-tw",     clicks:5,  users:5,  valid_rate:1.0},
+      {category:"電話",         link_text:"ITM 系辦 +886-3-8572677",       source_page:"聯絡我們",     destination:"tel:+886-3-8572677",                clicks:5,  users:5,  valid_rate:1.0},
+      {category:"下載文件",     link_text:"招生簡章 PDF",                  source_page:"首頁",        destination:"/var/file/22/1022/img/1870/424380578.pdf", clicks:4, users:4, valid_rate:1.0},
+      {category:"招生簡章",     link_text:"招生入學方式",                  source_page:"入學方式",     destination:"/p/404-1022-36099.php",             clicks:4,  users:4,  valid_rate:1.0},
+      {category:"Email",        link_text:"itm@tcu.edu.tw",                source_page:"聯絡我們",     destination:"mailto:itm@tcu.edu.tw",             clicks:3,  users:3,  valid_rate:1.0},
+      {category:"下載文件",     link_text:"實習手冊 PDF",                  source_page:"業界實習",     destination:"/var/file/22/1022/img/1199/458067580.pdf", clicks:3, users:3, valid_rate:1.0},
+      {category:"入學方式",     link_text:"個人申請",                       source_page:"招生頁",       destination:"/p/404-1022-30026.php?Lang=zh-tw",     clicks:3,  users:3,  valid_rate:1.0},
+      {category:"下載文件",     link_text:"表格 DOC",                       source_page:"碩士班專區",   destination:"/var/file/22/1022/img/1199/192412629.doc", clicks:2, users:2, valid_rate:1.0},
+      {category:"招生簡章",     link_text:"考試入學",                       source_page:"入學方式",     destination:"/p/404-1022-52388.php?Lang=zh-tw",   clicks:2,  users:2,  valid_rate:1.0},
+      {category:"入學方式",     link_text:"繁星推薦",                       source_page:"招生頁",       destination:"/p/404-1022-36089.php?Lang=zh-tw",   clicks:2,  users:2,  valid_rate:1.0},
+      {category:"入學方式",     link_text:"身心障礙甄試",                  source_page:"招生頁",       destination:"/p/404-1022-36215.php",              clicks:1,  users:1,  valid_rate:1.0},
+      {category:"其他連結",     link_text:"慈濟大學首頁",                   source_page:"頁尾",        destination:"https://www.tcu.edu.tw",            clicks:18, users:16, valid_rate:1.0},
+      {category:"其他連結",     link_text:"Facebook 粉絲頁",                source_page:"頁尾",        destination:"https://www.facebook.com/",         clicks:12, users:11, valid_rate:1.0}
+    ],
+    sql:"SELECT CASE WHEN link_url LIKE 'line.me%' OR link_url LIKE '%line.me%' THEN 'LINE' WHEN link_url LIKE 'tel:%' THEN '電話' WHEN link_url LIKE 'mailto:%' THEN 'Email' WHEN link_url LIKE '%.pdf' OR link_url LIKE '%.doc%' OR link_url LIKE '%.xls%' THEN '下載文件' WHEN (page_title LIKE '%招生%' OR link_text LIKE '%招生%') AND (link_url LIKE '%adm%' OR link_url LIKE '%recruit%' OR link_url LIKE '%p/16%' OR link_url LIKE '%p/406%') THEN '招生簡章' WHEN (page_title LIKE '%入學%' OR link_text LIKE '%入學%') THEN '入學方式' WHEN link_url LIKE '%apply%' OR link_text LIKE '%報名%' THEN '報名系統' ELSE '其他連結' END AS category, ANY_VALUE(link_text) AS link_text, ANY_VALUE(page_title) AS source_page, link_url AS destination, COUNT(*) AS clicks, COUNT(DISTINCT user_pseudo_id) AS users, 1.0 AS valid_rate FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) AND event_name='click' AND link_url IS NOT NULL AND link_url != '' GROUP BY category, destination ORDER BY clicks DESC LIMIT 50;"
+  },
+  {
+    id:"EV-INTERNATIONAL-QUALITY-001", title:"國際訪客品質完整報表", sourceType:"BigQuery",
+    sourceTable:"all_units_summary", queryCode:"GA4-COUNTRY-001",
+    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-22",
+    jobId:"live-job-intl-20260720", dataHash:"live-intl-5countries", status:"正常",
+    description:"依國家彙總的工作階段、活躍使用者、平均互動、到達頁與 CTA 點擊。",
+    filterKeys:["country"], chart:{type:"bar",xKey:"country",series:[["sessions","工作階段"],["avg_eng_sec","平均互動秒/工作階段"]]},
+    columns:[["country","國家"],["sessions","工作階段"],["users","活躍使用者"],["avg_eng_sec","平均互動秒/工作階段"],["top_landing","主要到達頁"],["admission_cta","招生 CTA 點擊"],["contact_click","聯絡點擊"],["sample_note","樣本狀態"]],
+    rows:[
+      {country:"臺灣",  sessions:145, users:101, avg_eng_sec:89.2,  top_landing:"/",           admission_cta:0, contact_click:0, sample_note:"足夠"},
+      {country:"中國",  sessions:81,  users:81,  avg_eng_sec:1.8,   top_landing:"/",           admission_cta:0, contact_click:0, sample_note:"足夠"},
+      {country:"泰國",  sessions:2,   users:1,   avg_eng_sec:501.7, top_landing:"/",           admission_cta:0, contact_click:0, sample_note:"樣本較少"},
+      {country:"美國",  sessions:1,   users:1,   avg_eng_sec:90.8,  top_landing:"/?Lang=en",   admission_cta:0, contact_click:0, sample_note:"樣本較少"},
+      {country:"其他",  sessions:0,   users:0,   avg_eng_sec:0,     top_landing:"-",            admission_cta:0, contact_click:0, sample_note:"資料不足"}
+    ],
+    sql:"SELECT country, COUNT(DISTINCT ga_session_id) AS sessions, COUNT(DISTINCT user_pseudo_id) AS users, ROUND(SAFE_DIVIDE(SUM(engagement_time_msec)/1000.0, COUNT(DISTINCT ga_session_id)), 1) AS avg_eng_sec, ANY_VALUE(page_location) AS top_landing, SUM(CASE WHEN link_class='admission-cta' THEN 1 ELSE 0 END) AS admission_cta, SUM(CASE WHEN link_class IN ('tel','mailto','line','form') THEN 1 ELSE 0 END) AS contact_click FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) GROUP BY country ORDER BY sessions DESC LIMIT 50;"
+  },
+  {
+    id:"EV-USER-PATH-001", title:"使用者路徑（入口→第二頁）完整報表", sourceType:"BigQuery",
+    sourceTable:"all_units_summary", queryCode:"GA4-LANDING-NEXT-001",
+    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-22",
+    jobId:"live-job-user-path-20260720", dataHash:"live-path-13rows", status:"路徑代理",
+    description:"依 page_view 事件彙總的「入口頁 → 第二頁」共同出現次數。本期資料未保留工作階段內逐事件時序，故為路徑代理；不能呈現完整三階段 Sankey。",
+    filterKeys:["landing"], chart:{type:"bar",xKey:"landing",series:[["sessions","工作階段"]]},
+    columns:[["landing","入口頁"],["second_page","第二頁"],["exit_action","最終動作"],["sessions","工作階段"],["exit_share","離開占比"]],
+    rows:[
+      {landing:"首頁",                            second_page:"首頁",                              exit_action:"瀏覽後離開",  sessions:58, exit_share:0.66},
+      {landing:"智慧健康與生活管理學分學程專班",  second_page:"智慧健康與生活管理學分學程專班",  exit_action:"瀏覽後離開",  sessions:36, exit_share:0.74},
+      {landing:"師資陣容",                        second_page:"師資陣容",                          exit_action:"瀏覽後離開",  sessions:13, exit_share:0.62},
+      {landing:"最新消息",                        second_page:"最新消息",                          exit_action:"瀏覽後離開",  sessions:10, exit_share:0.71},
+      {landing:"實務專題",                        second_page:"實務專題",                          exit_action:"瀏覽後離開",  sessions:8,  exit_share:0.67},
+      {landing:"本系特色",                        second_page:"本系特色",                          exit_action:"瀏覽後離開",  sessions:5,  exit_share:0.55},
+      {landing:"業界實習",                        second_page:"業界實習",                          exit_action:"瀏覽後離開",  sessions:5,  exit_share:0.71},
+      {landing:"海外實習",                        second_page:"海外實習",                          exit_action:"瀏覽後離開",  sessions:4,  exit_share:0.80},
+      {landing:"碩士班專區",                      second_page:"碩士班專區",                        exit_action:"瀏覽後離開",  sessions:4,  exit_share:0.57},
+      {landing:"Photo",                           second_page:"Photo",                             exit_action:"瀏覽後離開",  sessions:5,  exit_share:0.83},
+      {landing:"入學方式",                        second_page:"入學方式",                          exit_action:"瀏覽後離開",  sessions:5,  exit_share:0.83},
+      {landing:"課程地圖",                        second_page:"課程地圖",                          exit_action:"瀏覽後離開",  sessions:4,  exit_share:0.80},
+      {landing:"專業實驗室",                      second_page:"專業實驗室",                        exit_action:"瀏覽後離開",  sessions:3,  exit_share:1.00}
+    ],
+    sql:"SELECT first_page AS landing, second_page, '瀏覽後離開' AS exit_action, COUNT(DISTINCT ga_session_id) AS sessions, ROUND(SAFE_DIVIDE(COUNT(*), SUM(COUNT(*)) OVER (PARTITION BY first_page)), 2) AS exit_share FROM (SELECT ga_session_id, MIN_BY(page_title, event_timestamp) AS first_page, NTH_VALUE(page_title, 2) OVER (PARTITION BY ga_session_id ORDER BY event_timestamp ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) AS second_page FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) AND event_name='page_view' GROUP BY ga_session_id, page_title, event_timestamp) GROUP BY first_page, second_page ORDER BY sessions DESC LIMIT 50;"
+  },
+  {
+    id:"EV-DATA-QUALITY-001", title:"資料品質與網站治理完整報表", sourceType:"BigQuery + 網站原始碼掃描",
+    sourceTable:"all_units_summary + 首頁 HTML", queryCode:"DATA-QUALITY-SCAN-001",
+    period:"2026-07-13 至 2026-07-19（快照）", maxDate:"2026-07-19", generatedAt:"2026-07-22",
+    jobId:"live-job-dq-snapshot-20260720", dataHash:"live-dq-snapshot-8issues", status:"待改善",
+    description:"本期資料品質快照：問題類型、影響數、嚴重性、建議負責、狀態、證據規則。",
+    filterKeys:["severity"], chart:{type:"bar",xKey:"issue_type",series:[["affected_count","影響數"]]},
+    columns:[["issue_type","問題類型"],["affected_count","影響數"],["example","範例"],["severity","嚴重性"],["suggested_owner","建議負責"],["status","狀態"],["evidence_rule","證據規則"]],
+    rows:[
+      {issue_type:"missing_jsonld",     affected_count:1,  example:"全站 application/ld+json = 0",                      severity:"高", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex application/ld\+json"},
+      {issue_type:"old_domain",         affected_count:13, example:"itm.tcust.edu.tw 出現於 13 個站內連結",        severity:"中", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 HTML 內 itm.tcust.edu.tw 字串計數"},
+      {issue_type:"missing_canonical",  affected_count:1,  example:"首頁 <link rel=「canonical」> 缺失",             severity:"中", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex <link rel=「canonical」>"},
+      {issue_type:"empty_alt",          affected_count:16, example:"24 張圖片中 16 張 alt 為空或泛稱",              severity:"中", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 圖片 alt 文字長度 ≤ 2"},
+      {issue_type:"stale_page",         affected_count:3,  example:"Top 10 中 3 頁含 105/112/114 學年度",          severity:"中", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"Top 10 頁面 HTML 正則 學年度"},
+      {issue_type:"iframe_no_title",    affected_count:26, example:"26 個 iframe 全部未設定 title",                 severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 iframe title 屬性檢查"},
+      {issue_type:"duplicate_id",       affected_count:80, example:"80 個 duplicate ID（Hln_* 模板生成）",          severity:"低", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 DOM ID 重複計數"},
+      {issue_type:"unknown_source",     affected_count:0,  example:"本期未發現未分類 source/medium",                severity:"低", suggested_owner:"—",               status:"正常",  evidence_rule:"all_units_summary source NOT IN known list"}
+    ],
+    sql:"SELECT 'missing_jsonld' AS issue_type, COUNTIF(REGEXP_CONTAINS(body, r'application/ld\+json')) AS affected_count FROM `project.all_units_summary` WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) UNION ALL /* … */ ;"
   }
 ];
+
 
 window.WEBINSIGHT = window.WEBINSIGHT || {};
 window.WEBINSIGHT.EVIDENCE_REPORTS = EVIDENCE_REPORTS;

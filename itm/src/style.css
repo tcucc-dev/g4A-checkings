@@ -407,3 +407,125 @@ code{font-family:Consolas,monospace;font-size:13px;background:#f2f5f8;padding:1p
 .tag.teal { background: #e8f6ef; color: #0f8b8d; }
 .tag.green { background: #e8f6ef; color: #1d8a5a; }
 .tag.orange { background: #fff3df; color: #9a5a00; }
+
+/* ===== Section 4 — Manager reports v56 additions ===== */
+.block-subtitle {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+.section4-grid {
+  margin-bottom: 14px;
+}
+.section4-chart {
+  margin-bottom: 14px;
+}
+.section4-table-wrap {
+  margin-top: 6px;
+  margin-bottom: 14px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.section4-table {
+  font-size: 12.5px;
+}
+.section4-table th, .section4-table td {
+  white-space: nowrap;
+}
+.section4-table th.wrap, .section4-table td.wrap {
+  white-space: normal;
+}
+.chart-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 8px 6px;
+}
+.ctr-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin: 0 0 14px;
+}
+.ctr-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.ctr-value {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+}
+.ctr-delta {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.ctr-delta.up { color: var(--green); }
+.ctr-delta.down { color: var(--red); }
+.ctr-delta.flat { color: var(--muted); }
+
+/* Status pill (used in weekly table for anomaly statuses) */
+.status-pill {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.status-pill.up      { background: #e8f6ef; color: #1d8a5a; }
+.status-pill.warn    { background: #fff3df; color: #9a5a00; }
+.status-pill.down    { background: #fde9e7; color: #c2413b; }
+.status-pill.flat    { background: #eef2f7; color: #475467; }
+.status-pill.sample  { background: #f4f7fa; color: #7b8797; }
+.status-pill.empty   { background: #f4f7fa; color: #7b8797; }
+
+/* Severity pill */
+.sev-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.sev-pill.high { background: #fde9e7; color: #c2413b; }
+.sev-pill.mid  { background: #fff3df; color: #9a5a00; }
+.sev-pill.low  { background: #eef2f7; color: #475467; }
+
+/* Responsive: keep grid tidy on mobile */
+@media (max-width: 640px) {
+  .scorecard-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .section4-table-wrap {
+    margin-left: -6px;
+    margin-right: -6px;
+  }
+  .ctr-row {
+    flex-wrap: wrap;
+    gap: 6px 14px;
+  }
+}
+
+/* Generic callout (used inside section 4 blocks) */
+.report-block .callout {
+  font-size: 12.5px;
+  background: #fff8ec;
+  border: 1px solid #f6dca0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 0 0 12px;
+  color: #6b4a06;
+}

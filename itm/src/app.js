@@ -124,69 +124,310 @@ function insightHtml(text) {
   return '<strong>主管判讀：</strong>' + text;
 }
 
-// ─── 1. Line chart: 期間比較 ──────────────────────────────
-function renderTrends() {
+// ─── Section 4 — Manager reports v56 (audit-compliant) ──────────────
+// All renderers in this block use the prompt-spec rules:
+// - complete weeks only
+// - anomaly rule: ≥30% delta AND min base volumes
+// - median-based quadrant boundaries (Block 4)
+// - source groups (Block 5)
+// - honest AI empty-state (Block 6)
+// - CTA proxy labelled (Block 7)
+// - data-quality snapshot (Block 10)
+// Layout uses HTML elements defined in itm/index.html (Section 4).
+
+// ─── Block 1 — 期間比較與異常提醒 ──────────────────────────────
+function section4ComputeAnomalies(trends, anomalyRule) {
+  const last = trends[trends.length - 1];
+  const prev = trends[trends.length - 2];
+  const out = [];
+  const metrics = [
+    {key:"sessions",   label:"工作階段",   baseKey:"sessions"},
+    {key:"users",      label:"活躍使用者", baseKey:"users"},
+    {key:"pageviews",  label:"瀏覽量",     baseKey:"pageviews"},
+    {key:"impressions",label:"搜尋曝光",   baseKey:"impressions"},
+    {key:"clicks",     label:"搜尋點擊",   baseKey:"clicks"}
+  ];
+  metrics.forEach(m => {
+    const lastV = last[m.key] || 0;
+    const prevV = prev[m.key] || 0;
+    const minBase = anomalyRule.min_base[m.baseKey] || 0;
+    let status, statusClass, deltaLabel, deltaCls;
+    if (prevV < minBase) {
+      status = "樣本較少"; statusClass = "sample";
+      deltaLabel = "前期基期過小"; deltaCls = "flat";
+    } else {
+      const delta = prevV ? ((lastV - prevV) * 100 / prevV) : 0;
+      const absDelta = Math.abs(delta);
+      if (absDelta >= anomalyRule.threshold_pct) {
+        status = delta > 0 ? "明顯成長" : "明顯下降";
+        statusClass = delta > 0 ? "up" : "down";
+      } else if (absDelta >= 15) {
+        status = "需要注意"; statusClass = "warn";
+      } else {
+        status = "大致穩定"; statusClass = "flat";
+      }
+      const sign = delta > 0 ? "+" : "";
+      deltaLabel = sign + delta.toFixed(1) + "%";
+      deltaCls = delta > 0 ? "up" : (delta < 0 ? "down" : "flat");
+    }
+    out.push({label:m.label, current:lastV, previous:prevV, status:status, statusClass:statusClass, deltaLabel:deltaLabel, deltaCls:deltaCls});
+  });
+  return out;
+}
+
+function renderSection4Trends() {
   const data = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.trends;
+  const rule = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.anomaly_rule || {threshold_pct:30, min_base:{}};
   if (!data || !data.length) return;
-  const c = document.getElementById('chartTrends');
+  const last = data[data.length - 1];
+  const prev = data[data.length - 2];
+
+  drawLineChart("chartTrendsGA4", data, [
+    {key:"sessions",  label:"工作階段",   color:CC.blue},
+    {key:"users",     label:"活躍使用者", color:CC.green},
+    {key:"pageviews", label:"瀏覽量",     color:CC.orange}
+  ]);
+  drawLineChart("chartTrendsGSC", data, [
+    {key:"impressions", label:"曝光", color:CC.blue},
+    {key:"clicks",      label:"點擊", color:CC.orange}
+  ]);
+
+  const ctrEl = document.getElementById("ctr-current-value");
+  const ctrDeltaEl = document.getElementById("ctr-current-delta");
+  if (ctrEl && ctrDeltaEl) {
+    const lastCTR = last.impressions ? (last.clicks / last.impressions) * 100 : 0;
+    const prevCTR = prev.impressions ? (prev.clicks / prev.impressions) * 100 : 0;
+    const ctrDelta = lastCTR - prevCTR;
+    ctrEl.textContent = lastCTR.toFixed(2) + "%";
+    let cls = "flat", sign = "";
+    if (Math.abs(ctrDelta) >= 0.5) {
+      cls = ctrDelta > 0 ? "up" : "down";
+      sign = ctrDelta > 0 ? "+" : "";
+    }
+    ctrDeltaEl.className = "ctr-delta " + cls;
+    ctrDeltaEl.textContent = "比前期 " + sign + ctrDelta.toFixed(2) + " pt";
+  }
+
+  const summary = section4ComputeAnomalies(data, rule);
+  const scEl = document.getElementById("scorecard-trends");
+  if (scEl) {
+    scEl.innerHTML = summary.map(s => (
+      '<div class="scorecard ' + s.statusClass + '">' +
+        '<div class="sc-label">' + s.label + '</div>' +
+        '<div class="sc-value">' + s.current.toLocaleString() + '</div>' +
+        '<div class="sc-delta">' + s.deltaLabel + '</div>' +
+      '</div>'
+    )).join('');
+  }
+
+  const tblEl = document.getElementById("tableTrendWeekly");
+  if (tblEl) {
+    const rows = data.slice().reverse().map(r => {
+      const ctr = r.impressions ? (r.clicks / r.impressions) * 100 : 0;
+      const rPrev = data[data.indexOf(r) - 1];
+      let deltaTxt = "—", deltaCls = "flat";
+      let status = "—", statusClass = "flat";
+      if (rPrev) {
+        const d = rPrev.sessions ? ((r.sessions - rPrev.sessions) * 100 / rPrev.sessions) : 0;
+        deltaTxt = (d > 0 ? "+" : "") + d.toFixed(1) + "%";
+        deltaCls = d > 0 ? "up" : (d < 0 ? "down" : "flat");
+        if (rPrev.sessions < rule.min_base.sessions) {
+          status = "樣本較少"; statusClass = "sample";
+        } else {
+          const ad = Math.abs(d);
+          if (ad >= rule.threshold_pct) {
+            status = r.sessions > rPrev.sessions ? "明顯成長" : "明顯下降";
+            statusClass = r.sessions > rPrev.sessions ? "up" : "down";
+          } else if (ad >= 15) {
+            status = "需要注意"; statusClass = "warn";
+          } else {
+            status = "大致穩定"; statusClass = "flat";
+          }
+        }
+      } else {
+        status = "基準期"; statusClass = "flat";
+      }
+      return "<tr>" +
+        '<td>' + r.week + '</td>' +
+        '<td class="num">' + r.sessions.toLocaleString() + '</td>' +
+        '<td class="num">' + r.users.toLocaleString() + '</td>' +
+        '<td class="num">' + r.pageviews.toLocaleString() + '</td>' +
+        '<td class="num">' + r.impressions.toLocaleString() + '</td>' +
+        '<td class="num">' + r.clicks.toLocaleString() + '</td>' +
+        '<td class="num">' + ctr.toFixed(2) + '%</td>' +
+        '<td class="num"><span class="ctr-delta ' + deltaCls + '">' + deltaTxt + '</span></td>' +
+        '<td><span class="status-pill ' + statusClass + '">' + status + '</span></td>' +
+      "</tr>";
+    }).join('');
+    tblEl.innerHTML = '<thead><tr><th>期間</th><th class="num">工作階段</th><th class="num">活躍使用者</th><th class="num">瀏覽量</th><th class="num">搜尋曝光</th><th class="num">搜尋點擊</th><th class="num">CTR</th><th class="num">與前期差異</th><th>狀態</th></tr></thead><tbody>' + rows + '</tbody>';
+  }
+
+  const sw = summary.find(s => s.label === "工作階段");
+  const sg = summary.find(s => s.label === "搜尋點擊");
+  const si = summary.find(s => s.label === "搜尋曝光");
+  const sev = (s) => s.statusClass === "up" ? "成長" : s.statusClass === "down" ? "下降" : (s.statusClass === "warn" ? "波動" : (s.statusClass === "sample" ? "樣本較少" : "穩定"));
+  document.getElementById("insight-trends").innerHTML = insightHtml(
+    '本期工作階段 ' + sev(sw) + '、搜尋曝光 ' + sev(si) + '、搜尋點擊 ' + sev(sg) + '，請優先確認變動 ≥30% 的指標是否同步變化。'
+  );
+}
+
+function drawLineChart(canvasId, data, series) {
+  const c = document.getElementById(canvasId);
+  if (!c) return;
   const out = resizeCanvas(c, 240);
   if (!out) return;
   const {ctx, w, h} = out;
   ctx.clearRect(0, 0, w, h);
   const box = plotBox(w, h, CM);
   const labels = data.map(d => d.week);
-  const sessionsArr = data.map(d => d.sessions);
-  const clicksArr = data.map(d => d.clicks);
-  const maxV = Math.max(...sessionsArr, ...clicksArr);
+  const all = [];
+  series.forEach(s => data.forEach(d => all.push(d[s.key] || 0)));
+  const maxV = Math.max(...all, 1);
   const yMax = Math.ceil(maxV * 1.15);
-  const last = data[data.length-1];
-  const prev = data[data.length-2];
-  const sessionsDelta = prev.sessions ? ((last.sessions - prev.sessions) * 100 / prev.sessions) : 0;
-  const clicksDelta = prev.clicks ? ((last.clicks - prev.clicks) * 100 / prev.clicks) : 0;
   drawAxes(ctx, box, 0, yMax, 4, labels, 1);
   const xy = (v, i) => ({x: box.x + (data.length === 1 ? box.w/2 : i / (data.length-1) * box.w), y: box.y + box.h - (v / yMax) * box.h});
-  ctx.lineWidth = 2.5;
-  ctx.strokeStyle = CC.blue;
-  ctx.beginPath();
-  sessionsArr.forEach((v, i) => { const p = xy(v, i); i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); });
-  ctx.stroke();
-  ctx.strokeStyle = CC.orange;
-  ctx.beginPath();
-  clicksArr.forEach((v, i) => { const p = xy(v, i); i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); });
-  ctx.stroke();
-  setFont(ctx, 11, true);
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'bottom';
-  [sessionsArr, clicksArr].forEach((arr, idx) => {
-    const p = xy(arr[arr.length-1], arr.length-1);
-    ctx.fillStyle = idx === 0 ? CC.blue : CC.orange;
-    ctx.beginPath(); ctx.arc(p.x, p.y, 4, 0, 6.3); ctx.fill();
-    ctx.fillStyle = CC.navy;
-    ctx.fillText(arr[arr.length-1], p.x, p.y - 8);
+  series.forEach(s => {
+    ctx.strokeStyle = s.color;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    data.forEach((d, i) => {
+      const p = xy(d[s.key] || 0, i);
+      i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+    });
+    ctx.stroke();
+    data.forEach((d, i) => {
+      const p = xy(d[s.key] || 0, i);
+      ctx.fillStyle = s.color;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, 6.3); ctx.fill();
+    });
   });
-  ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-  ctx.fillStyle = CC.blue; ctx.fillRect(box.x, box.y - 18, 14, 3);
-  ctx.fillStyle = CC.navy; ctx.fillText('工作階段', box.x + 20, box.y - 17);
-  ctx.fillStyle = CC.orange; ctx.fillRect(box.x + 100, box.y - 18, 14, 3);
-  ctx.fillStyle = CC.navy; ctx.fillText('GSC 點擊', box.x + 120, box.y - 17);
-  const hasAnomaly = Math.abs(sessionsDelta) > 15;
-  const scEl = document.getElementById('scorecard-trends');
-  if (scEl) {
-    scEl.innerHTML = [
-      ['本週 sessions', last.sessions, sessionsDelta, 'blue'],
-      ['本週 GSC 點擊', last.clicks, clicksDelta, 'orange'],
-      ['本週 曝光', last.impressions, prev.impressions ? ((last.impressions-prev.impressions)*100/prev.impressions) : 0, 'teal'],
-      ['本週 使用者', last.users, prev.users ? ((last.users-prev.users)*100/prev.users) : 0, 'green']
-    ].map(([label, val, delta, color]) => {
-      const sign = delta > 0 ? '+' : '';
-      const cls = Math.abs(delta) > 15 ? 'warn' : color;
-      return '<div class="scorecard ' + cls + '"><div class="sc-label">' + label + '</div><div class="sc-value">' + val.toLocaleString() + '</div><div class="sc-delta">' + sign + delta.toFixed(1) + '%</div></div>';
-    }).join('');
+  let lx = box.x;
+  const ly = box.y - 14;
+  series.forEach((s) => {
+    ctx.fillStyle = s.color;
+    ctx.fillRect(lx, ly, 12, 3);
+    setFont(ctx, 11, false, CC.navy);
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    ctx.fillText(s.label, lx + 18, ly + 1);
+    lx += ctx.measureText(s.label).width + 50;
+  });
+}
+
+// ─── Block 3 — 品牌詞 vs 非品牌詞 ──────────────────────────────
+function renderSection4Brand() {
+  const data = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.brand_split;
+  const keywords = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.keyword_rows;
+  if (!data || !data.length) return;
+
+  const c = document.getElementById("chartBrandSplit");
+  if (c) {
+    const out = resizeCanvas(c, 240);
+    if (out) {
+      const {ctx, w, h} = out;
+      ctx.clearRect(0, 0, w, h);
+      const box = plotBox(w, h, CM);
+      const barW = (box.w / data.length) * 0.6;
+      const gap = (box.w / data.length) * 0.4;
+      data.forEach((d, i) => {
+        const x = box.x + i * (barW + gap) + gap / 2;
+        const y0 = box.y + box.h;
+        const hB = (d.brand_pct / 100) * box.h;
+        const hN = (d.nonbrand_pct / 100) * box.h;
+        ctx.fillStyle = CC.blue;
+        ctx.fillRect(x, y0 - hB, barW, hB);
+        ctx.fillStyle = CC.gray;
+        ctx.fillRect(x, y0 - hB - hN, barW, hN);
+        setFont(ctx, 12, true, CC.navy);
+        ctx.textAlign = "center";
+        ctx.textBaseline = "top";
+        ctx.fillText(d.month, x + barW/2, y0 + 6);
+        setFont(ctx, 11, true, "#fff");
+        ctx.textBaseline = "middle";
+        ctx.fillText(d.brand_pct + "%", x + barW/2, y0 - hB/2);
+        ctx.fillText(d.nonbrand_pct + "%", x + barW/2, y0 - hB - hN/2);
+      });
+      ctx.fillStyle = CC.blue; ctx.fillRect(box.x, box.y - 22, 14, 10);
+      ctx.fillStyle = CC.gray; ctx.fillRect(box.x + 110, box.y - 22, 14, 10);
+      setFont(ctx, 11, false, CC.navy);
+      ctx.textAlign = "left"; ctx.textBaseline = "middle";
+      ctx.fillText("品牌詞曝光", box.x + 20, box.y - 17);
+      ctx.fillText("非品牌詞曝光", box.x + 130, box.y - 17);
+    }
   }
-  const insight = hasAnomaly ?
-    '本週工作階段 ' + sessionsDelta.toFixed(1) + '% 是異常變化（>±15%），需確認是否有促因（招生季、課程異動、新聞事件）。GSC 點擊 ' + clicksDelta.toFixed(1) + '% — 一併注意搜尋成效是否同步變化。' :
-    '本週工作階段與搜尋點擊變動 < ±15%，屬正常波動。整體流量在 8 週內維持穩定，沒有大幅異常。';
-  document.getElementById('insight-trends').innerHTML = insightHtml(insight);
+
+  const c2 = document.getElementById("chartBrandShare");
+  if (c2) {
+    const out = resizeCanvas(c2, 240);
+    if (out) {
+      const {ctx, w, h} = out;
+      ctx.clearRect(0, 0, w, h);
+      const box = plotBox(w, h, CM);
+      const latest = data[data.length - 1];
+      const ratio = latest.nonbrand_pct;
+      const fillH = (ratio / 100) * box.h;
+      ctx.fillStyle = CC.gray;
+      ctx.fillRect(box.x + box.w/2 - 40, box.y + box.h - fillH, 80, fillH);
+      ctx.strokeStyle = CC.line;
+      ctx.strokeRect(box.x + box.w/2 - 40, box.y, 80, box.h);
+      setFont(ctx, 22, true, CC.navy);
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(latest.nonbrand_pct + "%", box.x + box.w/2, box.y + box.h/2);
+      setFont(ctx, 11, false, CC.muted);
+      ctx.fillText("非品牌曝光比例", box.x + box.w/2, box.y + box.h + 16);
+      ctx.fillText("(" + latest.month + ")", box.x + box.w/2, box.y + box.h + 32);
+    }
+  }
+
+  const sc = document.getElementById("scorecard-brand");
+  if (sc) {
+    const latest = data[data.length - 1];
+    const brandCTR = latest.brand_imp ? (latest.brand_clicks / latest.brand_imp) * 100 : 0;
+    const nonbrandCTR = latest.nonbrand_imp ? (latest.nonbrand_clicks / latest.nonbrand_imp) * 100 : 0;
+    sc.innerHTML = [
+      ["品牌詞曝光", latest.brand_imp.toLocaleString(), latest.brand_pct + "%", "blue"],
+      ["非品牌詞曝光", latest.nonbrand_imp.toLocaleString(), latest.nonbrand_pct + "%", "teal"],
+      ["品牌詞 CTR", brandCTR.toFixed(2) + "%", "點擊率", "green"],
+      ["非品牌詞 CTR", nonbrandCTR.toFixed(2) + "%", "點擊率", "orange"]
+    ].map(([label, val, sub, cls]) => (
+      '<div class="scorecard ' + cls + '">' +
+        '<div class="sc-label">' + label + '</div>' +
+        '<div class="sc-value">' + val + '</div>' +
+        '<div class="sc-delta">' + sub + '</div>' +
+      '</div>'
+    )).join('');
+  }
+
+  const tbl = document.getElementById("tableKeywordAll");
+  if (tbl && keywords) {
+    const sorted = keywords.slice().sort((a, b) => b.imp - a.imp);
+    const rows = sorted.map(r => {
+      const ctr = r.imp ? (r.clicks / r.imp) * 100 : 0;
+      const avgPos = r.imp ? (r.sum_position / r.imp) : 0;
+      const clsPill = r.cls === "brand" ? "up" : "flat";
+      return "<tr>" +
+        '<td class="wrap">' + escapeHtml(r.query) + '</td>' +
+        '<td><span class="status-pill ' + clsPill + '">' + (r.cls === "brand" ? "品牌" : "非品牌") + '</span></td>' +
+        '<td class="num">' + r.imp.toLocaleString() + '</td>' +
+        '<td class="num">' + r.clicks.toLocaleString() + '</td>' +
+        '<td class="num">' + ctr.toFixed(2) + '%</td>' +
+        '<td class="num">' + (avgPos > 0 ? avgPos.toFixed(1) : '—') + '</td>' +
+        '<td class="wrap">' + escapeHtml(r.landing) + '</td>' +
+      "</tr>";
+    }).join('');
+    tbl.innerHTML = '<thead><tr><th>query</th><th>分類</th><th class="num">曝光</th><th class="num">點擊</th><th class="num">CTR</th><th class="num">平均排名</th><th>到達頁</th></tr></thead><tbody>' + rows + '</tbody>';
+  }
+
+  const latest = data[data.length - 1];
+  const topNonbrand = keywords ? keywords.filter(k => k.cls === "nonbrand").sort((a, b) => b.imp - a.imp)[0] : null;
+  document.getElementById("insight-brand").innerHTML = insightHtml(
+    '近三個月非品牌詞曝光佔比 ' + latest.nonbrand_pct + '%，主要為「' + (topNonbrand ? topNonbrand.query : "—") + '」等一般查詢；建議保留並優化高曝光品牌詞 landing page。'
+  );
+}
+
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
 }
 
 // ─── 3. 100% Stacked Bar Chart: 品牌 vs 非品牌 ────────────────
@@ -246,405 +487,586 @@ function renderBrandSplit() {
   );
 }
 
-// ─── 4. Scatter / Quadrant: 內容效益矩陣 ──────────────────
-function renderContentMatrix() {
+// ─── Block 4 — 內容效益矩陣 ────────────────────────────────
+function renderSection4Content() {
   const data = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.content_matrix;
   if (!data || !data.length) return;
-  const c = document.getElementById('chartContentMatrix');
-  const out = resizeCanvas(c, 320);
-  if (!out) return;
-  const {ctx, w, h} = out;
-  ctx.clearRect(0, 0, w, h);
-  const box = plotBox(w, h, CM);
-  const maxUsers = Math.max(...data.map(d => d.users));
-  const maxEng = Math.max(...data.map(d => d.eng_sec));
-  const midX = box.x + box.w / 2;
-  const midY = box.y + box.h / 2;
-  ctx.fillStyle = 'rgba(31,138,90,0.05)'; ctx.fillRect(midX, box.y, box.w/2, box.h/2);
-  ctx.fillStyle = 'rgba(217,119,6,0.05)'; ctx.fillRect(box.x, box.y, box.w/2, box.h/2);
-  ctx.fillStyle = 'rgba(217,119,6,0.07)'; ctx.fillRect(midX, midY, box.w/2, box.h/2);
-  ctx.fillStyle = 'rgba(194,65,59,0.05)'; ctx.fillRect(box.x, midY, box.w/2, box.h/2);
-  ctx.strokeStyle = CC.line; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(box.x, box.y); ctx.lineTo(box.x, box.y + box.h); ctx.lineTo(box.x + box.w, box.y + box.h); ctx.stroke();
-  ctx.strokeStyle = CC.muted; ctx.setLineDash([3, 3]);
-  ctx.beginPath(); ctx.moveTo(midX, box.y); ctx.lineTo(midX, box.y + box.h); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(box.x, midY); ctx.lineTo(box.x + box.w, midY); ctx.stroke();
-  ctx.setLineDash([]);
-  setFont(ctx, 11, false, CC.muted); ctx.textBaseline = 'top'; ctx.textAlign = 'center';
-  ctx.fillText('← 使用者少', box.x + box.w * 0.25, box.y + box.h + 22);
-  ctx.fillText('使用者多 →', box.x + box.w * 0.75, box.y + box.h + 22);
-  ctx.save(); ctx.translate(box.x - 36, midY); ctx.rotate(-Math.PI/2);
-  ctx.fillText('互動時間低 →', 0, 0); ctx.restore();
-  data.forEach(d => {
-    const x = box.x + (d.users / maxUsers) * box.w;
-    const y = box.y + box.h - (d.eng_sec / Math.max(maxEng, 1)) * box.h;
-    const r = 4 + Math.sqrt(d.users) * 1.5;
-    let color;
-    if (d.users > maxUsers / 2 && d.eng_sec > maxEng / 2) color = CC.green;
-    else if (d.users > maxUsers / 2) color = CC.orange;
-    else if (d.eng_sec > maxEng / 2) color = CC.teal;
-    else color = CC.gray;
-    ctx.fillStyle = color; ctx.globalAlpha = 0.6;
-    ctx.beginPath(); ctx.arc(x, y, r, 0, 6.3); ctx.fill();
-    ctx.globalAlpha = 1;
-    ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.stroke();
-    if (d.users >= 8) {
-      setFont(ctx, 9, false, CC.navy); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-      ctx.fillText((d.title || '').slice(0, 12), x + r + 2, y);
-    }
-  });
-  setFont(ctx, 10, true, CC.muted); ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-  ctx.fillText('↑ 高互動 / 使用者少\n內容好但難找', box.x + box.w * 0.25, box.y + 4);
-  ctx.fillText('↑ 高互動 / 使用者多\n   內容旗艦', box.x + box.w * 0.75, box.y + 4);
-  ctx.fillText('↓ 低互動 / 使用者多\n需改善 CTA', box.x + box.w * 0.75, box.y + box.h - 30);
-  ctx.fillText('↓ 低互動 / 使用者少\n評估是否保留', box.x + box.w * 0.25, box.y + box.h - 30);
 
-  const sorted = [...data].sort((a,b) => b.users - a.users).slice(0, 12);
-  document.getElementById('tableContentList').innerHTML =
-    '<thead><tr><th>頁面</th><th class="num">使用者</th><th class="num">互動(s)</th></tr></thead><tbody>' +
-    sorted.map(d => '<tr><td>' + (d.title || '?') + '</td><td class="num">' + d.users + '</td><td class="num">' + (d.eng_sec || 0).toFixed(0) + '</td></tr>').join('') + '</tbody>';
-  const top = sorted[0];
-  document.getElementById('insight-content').innerHTML = insightHtml(
-    '本週最高流量頁面為「' + top.title + '」（' + top.users + ' 人，互動 ' + top.eng_sec.toFixed(0) + ' 秒）。' +
-    '建議把該頁作為首頁導流入口，並觀察「互動高 / 流量低」象限的隱藏優質頁面以加強導引。'
-  );
+  const sc = document.getElementById("scorecard-content");
+  if (sc) {
+    const total = data.length;
+    const big = data.filter(d => d.users >= 5).length;
+    const totalUsers = data.reduce((s, d) => s + (d.users || 0), 0);
+    const totalEng = data.reduce((s, d) => s + (d.engagement_sec || 0), 0);
+    const avgEng = totalUsers ? (totalEng / totalUsers) : 0;
+    sc.innerHTML = [
+      ["總頁面數", total.toLocaleString(), "正規化後", "blue"],
+      ["活躍頁面", big.toLocaleString(), "≥5 使用者", "teal"],
+      ["總活躍使用者", totalUsers.toLocaleString(), "近一週", "green"],
+      ["平均互動秒／使用者", avgEng.toFixed(0), "全部頁面", "orange"]
+    ].map(([label, val, sub, cls]) => (
+      '<div class="scorecard ' + cls + '">' +
+        '<div class="sc-label">' + label + '</div>' +
+        '<div class="sc-value">' + val + '</div>' +
+        '<div class="sc-delta">' + sub + '</div>' +
+      '</div>'
+    )).join('');
+  }
+
+  const eligible = data.filter(d => d.users >= 5);
+  const sortedUsers = eligible.map(d => d.users).sort((a, b) => a - b);
+  const sortedEng = eligible.map(d => d.engagement_sec).sort((a, b) => a - b);
+  const median = (arr) => arr.length === 0 ? 0 : (arr.length % 2 ? arr[(arr.length-1)/2] : (arr[arr.length/2 - 1] + arr[arr.length/2]) / 2);
+  const medUsers = median(sortedUsers);
+  const medEng = median(sortedEng);
+
+  const c = document.getElementById("chartContentMatrix");
+  if (c) {
+    const out = resizeCanvas(c, 320);
+    if (out) {
+      const {ctx, w, h} = out;
+      ctx.clearRect(0, 0, w, h);
+      const box = plotBox(w, h, CM);
+      const maxX = Math.max(...data.map(d => d.users), 1);
+      const maxY = Math.max(...data.map(d => d.engagement_sec), 1);
+      const midX = box.x + (medUsers / maxX) * box.w;
+      const midY = box.y + box.h - (medEng / maxY) * box.h;
+      ctx.fillStyle = "rgba(31,138,90,0.06)";  ctx.fillRect(midX, box.y, box.x + box.w - midX, midY - box.y);
+      ctx.fillStyle = "rgba(217,119,6,0.06)";  ctx.fillRect(box.x, box.y, midX - box.x, midY - box.y);
+      ctx.fillStyle = "rgba(217,119,6,0.08)";  ctx.fillRect(midX, midY, box.x + box.w - midX, box.y + box.h - midY);
+      ctx.fillStyle = "rgba(194,65,59,0.06)";  ctx.fillRect(box.x, midY, midX - box.x, box.y + box.h - midY);
+      ctx.strokeStyle = CC.muted; ctx.setLineDash([3, 3]); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(midX, box.y); ctx.lineTo(midX, box.y + box.h); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(box.x, midY); ctx.lineTo(box.x + box.w, midY); ctx.stroke();
+      ctx.setLineDash([]);
+      setFont(ctx, 10, true, CC.muted);
+      ctx.textAlign = "left"; ctx.textBaseline = "top";
+      ctx.fillText("中位數 使用者 ≈ " + medUsers.toFixed(1), midX + 6, box.y + 4);
+      ctx.fillText("中位數 互動 ≈ " + medEng.toFixed(1) + " 秒", box.x + 6, midY + 4);
+      setFont(ctx, 10, false, CC.muted);
+      ctx.textAlign = "center"; ctx.textBaseline = "top";
+      ctx.fillText("0", box.x, box.y + box.h + 4);
+      ctx.fillText(maxX.toFixed(0), box.x + box.w, box.y + box.h + 4);
+      ctx.textAlign = "right"; ctx.textBaseline = "middle";
+      ctx.fillText("0", box.x - 6, box.y + box.h);
+      ctx.fillText(maxY.toFixed(0), box.x - 6, box.y);
+      const FIXED_R = 6;
+      data.forEach(d => {
+        const x = box.x + (d.users / maxX) * box.w;
+        const y = box.y + box.h - (d.engagement_sec / maxY) * box.h;
+        const highU = d.users >= medUsers;
+        const highE = d.engagement_sec >= medEng;
+        let color;
+        if (highU && highE) color = CC.green;
+        else if (highU && !highE) color = CC.orange;
+        else if (!highU && highE) color = CC.teal;
+        else color = CC.gray;
+        ctx.fillStyle = color;
+        ctx.globalAlpha = d.users >= 5 ? 0.85 : 0.35;
+        ctx.beginPath(); ctx.arc(x, y, d.users >= 5 ? FIXED_R : FIXED_R - 2, 0, 6.3); ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.strokeStyle = color; ctx.lineWidth = 1.2;
+        ctx.stroke();
+      });
+      const tooltip = document.createElement("div");
+      tooltip.style.cssText = "position:fixed;pointer-events:none;background:#15334a;color:#fff;font-size:12px;padding:6px 8px;border-radius:6px;display:none;z-index:9999;max-width:240px;line-height:1.4";
+      document.body.appendChild(tooltip);
+      c.addEventListener("mousemove", (e) => {
+        const rect = c.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        let hit = null;
+        for (const d of data) {
+          const x = box.x + (d.users / maxX) * box.w;
+          const y = box.y + box.h - (d.engagement_sec / maxY) * box.h;
+          if (Math.hypot(mx - x, my - y) < 10) { hit = d; break; }
+        }
+        if (hit) {
+          tooltip.innerHTML = "<strong>" + escapeHtml(hit.title) + "</strong><br>" +
+            "路徑：" + escapeHtml(hit.normalized_path) + "<br>" +
+            "使用者：" + hit.users + " ・ 工作階段：" + hit.sessions + "<br>" +
+            "瀏覽量：" + hit.pageviews + "<br>" +
+            "平均互動：" + hit.engagement_sec.toFixed(1) + " 秒／使用者";
+          tooltip.style.left = (e.clientX + 12) + "px";
+          tooltip.style.top = (e.clientY + 12) + "px";
+          tooltip.style.display = "block";
+        } else {
+          tooltip.style.display = "none";
+        }
+      });
+      c.addEventListener("mouseleave", () => { tooltip.style.display = "none"; });
+      setFont(ctx, 11, true, CC.muted);
+      ctx.textAlign = "center"; ctx.textBaseline = "top";
+      ctx.fillText("高互動／高使用者", box.x + box.w * 0.75, box.y + 4);
+      ctx.fillText("低互動／高使用者", box.x + box.w * 0.75, box.y + box.h - 24);
+      ctx.fillText("高互動／低使用者", box.x + box.w * 0.25, box.y + 4);
+      ctx.fillText("低互動／低使用者", box.x + box.w * 0.25, box.y + box.h - 24);
+    }
+  }
+
+  const quadrant = (d) => {
+    const hu = d.users >= medUsers;
+    const he = d.engagement_sec >= medEng;
+    if (hu && he) return {key:"Q1", name:"高流量 × 高互動", action:"維持並放大", color:"green"};
+    if (hu && !he) return {key:"Q2", name:"高流量 × 低互動", action:"優先改善",   color:"warn"};
+    if (!hu && he) return {key:"Q3", name:"低流量 × 高互動", action:"增加導流",   color:"teal"};
+    return {key:"Q4", name:"低流量 × 低互動", action:"觀察／整併", color:"gray"};
+  };
+  const priority = {Q2:1, Q3:2, Q1:3, Q4:4};
+  const enriched = data.map(d => ({d, q: quadrant(d)}));
+  enriched.sort((a, b) => priority[a.q.key] - priority[b.q.key] || b.d.users - a.d.users);
+
+  const tbl = document.getElementById("tableContentList");
+  if (tbl) {
+    const rows = enriched.map(({d, q}) => (
+      "<tr>" +
+        '<td class="wrap">' + escapeHtml(d.title) + '</td>' +
+        '<td class="wrap">' + escapeHtml(d.normalized_path) + '</td>' +
+        '<td class="num">' + d.users + '</td>' +
+        '<td class="num">' + d.engagement_sec.toFixed(0) + '</td>' +
+        '<td><span class="status-pill ' + q.color + '">' + q.name + '</span></td>' +
+        '<td class="wrap">' + q.action + '</td>' +
+        '<td><span class="status-pill ' + (d.users >= 5 ? 'flat' : 'sample') + '">' + (d.users >= 5 ? '足夠' : '樣本不足') + '</span></td>' +
+      "</tr>"
+    )).join('');
+    tbl.innerHTML = '<thead><tr><th>頁面</th><th>路徑</th><th class="num">使用者</th><th class="num">平均互動</th><th>象限</th><th>建議行動</th><th>樣本狀態</th></tr></thead><tbody>' + rows + '</tbody>';
+  }
+
+  const highLow = enriched.filter(e => e.q.key === "Q2").slice(0, 2);
+  const lowHigh = enriched.filter(e => e.q.key === "Q3").slice(0, 1);
+  const txt = (highLow.length || lowHigh.length) ?
+    ('本期「' + (highLow[0] ? highLow[0].d.title : lowHigh[0].d.title) + '」等頁面值得優先檢視。' +
+     (highLow.length ? '高流量 × 低互動 的頁面建議先優化內容與 CTA。' : '') +
+     (lowHigh.length ? '另有「' + lowHigh[0].d.title + '」互動不錯但流量低，可考慮加導流。' : '')) :
+    '目前可辨識的頁面互動差異有限，建議持續累積 2 週資料後再比較。';
+  document.getElementById("insight-content").innerHTML = insightHtml(txt);
 }
 
-// ─── 5. Horizontal Grouped Bar: 流量來源品質 ──────────────
-function renderTrafficQuality() {
+// ─── Block 5 — 流量來源品質 ────────────────────────────────
+function renderSection4Source() {
   const data = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.traffic_quality;
   if (!data || !data.length) return;
-  function drawBar(canvasId, getValue, maxV, suffix, color) {
-    const c = document.getElementById(canvasId);
+
+  const sc = document.getElementById("scorecard-source");
+  if (sc) {
+    const totalSess = data.reduce((s, d) => s + (d.sessions || 0), 0);
+    const totalUsers = data.reduce((s, d) => s + (d.users || 0), 0);
+    const groupSes = {};
+    data.forEach(d => { groupSes[d.group] = (groupSes[d.group] || 0) + (d.sessions || 0); });
+    const largestGrp = Object.entries(groupSes).sort((a, b) => b[1] - a[1])[0];
+    sc.innerHTML = [
+      ["總工作階段", totalSess.toLocaleString(), "所有來源", "blue"],
+      ["總使用者", totalUsers.toLocaleString(), "去重後", "teal"],
+      ["最大來源群組", largestGrp[0], largestGrp[1] + " sessions", "green"],
+      ["來源群組數", Object.keys(groupSes).length + " 個", "Direct / Organic / Referrals 等", "orange"]
+    ].map(([label, val, sub, cls]) => (
+      '<div class="scorecard ' + cls + '">' +
+        '<div class="sc-label">' + label + '</div>' +
+        '<div class="sc-value">' + val + '</div>' +
+        '<div class="sc-delta">' + sub + '</div>' +
+      '</div>'
+    )).join('');
+  }
+
+  drawHBar("chartTrafficCount", data, d => d.sessions, Math.max(1, ...data.map(d => d.sessions || 0)), d => d.source + " (" + d.medium + ")", "", CC.blue);
+  drawHBar("chartTrafficEng", data, d => d.avg_eng_sec_per_session, Math.max(1, ...data.map(d => d.avg_eng_sec_per_session || 0)), d => d.source + " (" + d.medium + ")", "秒", CC.teal);
+
+  const tbl = document.getElementById("tableTrafficQuality");
+  if (tbl) {
+    const rows = data.map(d => (
+      "<tr>" +
+        '<td>' + escapeHtml(d.group) + '</td>' +
+        '<td class="wrap">' + escapeHtml(d.source) + ' / ' + escapeHtml(d.medium) + '</td>' +
+        '<td class="num">' + (d.sessions || 0).toLocaleString() + '</td>' +
+        '<td class="num">' + (d.users || 0).toLocaleString() + '</td>' +
+        '<td class="num">' + (d.avg_eng_sec_per_session || 0).toFixed(1) + ' 秒</td>' +
+        '<td class="num">' + (d.internal_clicks || 0) + '</td>' +
+        '<td class="num">' + (d.downloads || 0) + '</td>' +
+        '<td class="num">' + (d.cta_clicks || 0) + '</td>' +
+        '<td><span class="status-pill ' + (d.sample_note === "足夠" ? "up" : (d.sample_note === "樣本較少" ? "sample" : "empty")) + '">' + d.sample_note + '</span></td>' +
+      "</tr>"
+    )).join('');
+    tbl.innerHTML = '<thead><tr><th>來源群組</th><th>來源 / 媒介</th><th class="num">工作階段</th><th class="num">活躍使用者</th><th class="num">平均互動</th><th class="num">站內點擊</th><th class="num">下載</th><th class="num">CTA 點擊</th><th>樣本狀態</th></tr></thead><tbody>' + rows + '</tbody>';
+  }
+
+  const sortedBySess = data.filter(d => d.sessions >= 5).slice().sort((a, b) => b.sessions - a.sessions);
+  const sortedByEng = data.filter(d => d.sessions >= 5).slice().sort((a, b) => b.avg_eng_sec_per_session - a.avg_eng_sec_per_session);
+  const top = sortedBySess[0];
+  const topEng = sortedByEng[0];
+  if (top) {
+    document.getElementById("insight-traffic").innerHTML = insightHtml(
+      '量最大來源是「' + top.source + ' (' + top.medium + ')」（' + top.sessions + ' 工作階段），' +
+      (topEng ? '互動最佳來源是「' + topEng.source + '」（' + topEng.avg_eng_sec_per_session.toFixed(1) + ' 秒／工作階段）。' : '因多數來源樣本偏小，暫不下互動品質結論。')
+    );
+  } else {
+    document.getElementById("insight-traffic").innerHTML = insightHtml(
+      '目前樣本較少，暫不下來源品質結論。'
+    );
+  }
+}
+
+function drawHBar(canvasId, data, getter, maxV, labelFn, suffix, color) {
+  const c = document.getElementById(canvasId);
+  if (!c) return;
+  const out = resizeCanvas(c, 240);
+  if (!out) return;
+  const {ctx, w, h} = out;
+  ctx.clearRect(0, 0, w, h);
+  const box = plotBox(w, h, CM);
+  const itemH = box.h / data.length;
+  const barH = itemH * 0.7;
+  data.forEach((d, i) => {
+    const v = getter(d) || 0;
+    const y = box.y + i * itemH + (itemH - barH) / 2;
+    const barW = (v / maxV) * box.w;
+    ctx.fillStyle = color;
+    ctx.fillRect(box.x, y, barW, barH);
+    setFont(ctx, 11, false, CC.navy);
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    ctx.fillText(labelFn(d), box.x - 8, y + barH / 2);
+    setFont(ctx, 11, true, CC.navy);
+    ctx.textAlign = "left";
+    ctx.fillText((v || 0).toFixed(v < 10 ? 1 : 0) + suffix, box.x + barW + 4, y + barH / 2);
+  });
+  setFont(ctx, 9, false, CC.muted);
+  ctx.textBaseline = "top";
+  ctx.textAlign = "center";
+  for (let i = 1; i <= 4; i++) {
+    const x = box.x + (i / 4) * box.w;
+    const v = (i / 4) * maxV;
+    ctx.strokeStyle = "#eef1f5";
+    ctx.beginPath(); ctx.moveTo(x, box.y); ctx.lineTo(x, box.y + box.h); ctx.stroke();
+    ctx.fillText(Math.round(v).toLocaleString(), x, box.y + box.h + 4);
+  }
+}
+
+// ─── Block 6 — AI 搜尋 ────────────────────────────────
+function renderSection4AI() {
+  const data = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.ai_platforms;
+  const total = (WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.ai_total_period_sessions) || 0;
+  if (!data) return;
+
+  const sc = document.getElementById("scorecard-ai");
+  if (sc) {
+    const empty = total === 0;
+    sc.innerHTML = [
+      ["本期可辨識 AI 工作階段", total.toLocaleString(), empty ? "資料不足" : "已觀察", empty ? "empty" : "up"],
+      ["已定義 AI 平台", data.length + " 個", "ChatGPT / Perplexity / Gemini / Copilot / Claude", "blue"],
+      ["偵測規則", "referrer 網域", "嚴格比對", "teal"],
+      ["資料狀態", empty ? "本期沒有辨識到 AI 平台轉介流量" : "已收集", "", empty ? "sample" : "green"]
+    ].map(([label, val, sub, cls]) => (
+      '<div class="scorecard ' + cls + '">' +
+        '<div class="sc-label">' + label + '</div>' +
+        '<div class="sc-value">' + val + '</div>' +
+        '<div class="sc-delta">' + sub + '</div>' +
+      '</div>'
+    )).join('');
+  }
+
+  const c = document.getElementById("chartAIPlatforms");
+  if (c) {
     const out = resizeCanvas(c, 240);
-    if (!out) return;
-    const {ctx, w, h} = out;
-    ctx.clearRect(0, 0, w, h);
-    const box = plotBox(w, h, CM);
-    const itemH = box.h / data.length;
-    const barH = itemH * 0.7;
-    data.forEach((d, i) => {
-      const v = getValue(d);
-      const y = box.y + i * itemH + (itemH - barH) / 2;
-      const barW = (v / maxV) * box.w;
-      ctx.fillStyle = color;
-      ctx.fillRect(box.x, y, barW, barH);
-      setFont(ctx, 12, false, CC.navy); ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-      ctx.fillText(d.source, box.x - 8, y + barH / 2);
-      setFont(ctx, 11, true, CC.navy); ctx.textAlign = 'left';
-      ctx.fillText((v || 0).toFixed(0) + suffix, box.x + barW + 4, y + barH / 2);
-    });
-    setFont(ctx, 9, false, CC.muted); ctx.textBaseline = 'top'; ctx.textAlign = 'center';
-    for (let i = 1; i <= 4; i++) {
-      const x = box.x + (i / 4) * box.w;
-      const v = (i / 4) * maxV;
-      ctx.strokeStyle = '#eef1f5'; ctx.beginPath(); ctx.moveTo(x, box.y); ctx.lineTo(x, box.y + box.h); ctx.stroke();
-      ctx.fillText(Math.round(v).toLocaleString(), x, box.y + box.h + 4);
+    if (out) {
+      const {ctx, w, h} = out;
+      ctx.clearRect(0, 0, w, h);
+      const box = plotBox(w, h, CM);
+      const itemH = box.h / data.length;
+      const barH = itemH * 0.7;
+      const maxV = Math.max(1, ...data.map(d => d.sessions || 0));
+      data.forEach((d, i) => {
+        const y = box.y + i * itemH + (itemH - barH) / 2;
+        const barW = (d.sessions / maxV) * box.w;
+        ctx.fillStyle = d.sessions ? CC.orange : CC.gray;
+        ctx.fillRect(box.x, y, barW, barH);
+        setFont(ctx, 11, false, CC.navy);
+        ctx.textAlign = "right"; ctx.textBaseline = "middle";
+        ctx.fillText(d.platform, box.x - 8, y + barH / 2);
+        setFont(ctx, 11, true, CC.navy);
+        ctx.textAlign = "left";
+        ctx.fillText(d.sessions, box.x + barW + 4, y + barH / 2);
+      });
+      if (total === 0) {
+        setFont(ctx, 13, true, CC.muted);
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("本期沒有辨識到 AI 平台轉介流量", box.x + box.w / 2, box.y + box.h / 2);
+      }
     }
   }
-  const maxSessions = Math.max(...data.map(d => d.sessions));
-  const maxEng = Math.max(...data.map(d => d.avg_eng_sec));
-  drawBar('chartTrafficCount', d => d.sessions, maxSessions, '', CC.blue);
-  drawBar('chartTrafficEng', d => d.avg_eng_sec, maxEng, 's', CC.teal);
-  const topSession = data[0];
-  const topEng = [...data].sort((a,b) => b.avg_eng_sec - a.avg_eng_sec)[0];
-  document.getElementById('insight-traffic').innerHTML = insightHtml(
-    '量最大來源「' + topSession.source + '」(' + topSession.sessions + ' 工作階段)，' +
-    '互動最佳來源「' + topEng.source + '」(' + topEng.avg_eng_sec.toFixed(0) + ' 秒/使用者)。' +
-    (topSession.source !== topEng.source ? '兩者不同 → 應思考是否要把「互動最佳」來源加大曝光。' : '兩者一致 → 主要流量來源品質良好。')
-  );
-}
 
-// ─── 6. AI Referrals ───────────────────────────────────────
-function renderAI() {
-  const data = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.ai_timeseries;
-  const platforms = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.ai_platforms;
-  if (!data || !data.length) return;
-  const c = document.getElementById('chartAITime');
-  const out = resizeCanvas(c, 240);
-  if (!out) return;
-  const {ctx, w, h} = out;
-  ctx.clearRect(0, 0, w, h);
-  const box = plotBox(w, h, CM);
-  const labels = data.map(d => (d.date || '').slice(5));
-  const vals = data.map(d => d.sessions);
-  const maxV = Math.max(...vals, 1);
-  const yMax = Math.ceil(maxV * 1.2);
-  drawAxes(ctx, box, 0, yMax, 4, labels, 1);
-  const xy = (v, i) => ({x: box.x + (data.length === 1 ? box.w/2 : i / (data.length-1) * box.w), y: box.y + box.h - (v / yMax) * box.h});
-  ctx.strokeStyle = CC.orange; ctx.lineWidth = 2.5;
-  ctx.beginPath();
-  vals.forEach((v, i) => { const p = xy(v, i); i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); });
-  ctx.stroke();
-  vals.forEach((v, i) => {
-    const p = xy(v, i);
-    ctx.fillStyle = CC.orange; ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, 6.3); ctx.fill();
-  });
-  setFont(ctx, 11, true, CC.navy); ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
-  ctx.fillText(vals[vals.length-1], xy(vals[vals.length-1], vals.length-1).x, xy(vals[vals.length-1], vals.length-1).y - 8);
-  if (platforms && platforms.length) {
-    document.getElementById('tableAIPlatforms').innerHTML =
-      '<thead><tr><th>平台</th><th class="num">Sessions</th><th class="num">使用者</th><th class="num">平均互動</th></tr></thead><tbody>' +
-      platforms.map(p => '<tr><td>' + p.platform + '</td><td class="num">' + p.sessions + '</td><td class="num">' + p.users + '</td><td class="num">' + p.avg_eng_sec.toFixed(0) + 's</td></tr>').join('') + '</tbody>';
-  } else {
-    document.getElementById('tableAIPlatforms').innerHTML = '<tr><td colspan="4">本週無 AI 來源流量</td></tr>';
+  const tbl = document.getElementById("tableAIPlatforms");
+  if (tbl) {
+    const rows = data.map(d => (
+      "<tr>" +
+        '<td>' + escapeHtml(d.platform) + '</td>' +
+        '<td class="num">' + d.sessions + '</td>' +
+        '<td class="num">' + d.users + '</td>' +
+        '<td class="wrap">' + escapeHtml(d.landing_page || "-") + '</td>' +
+        '<td class="num">' + (d.avg_eng_sec || 0).toFixed(1) + ' 秒</td>' +
+        '<td class="num">' + (d.internal_clicks || 0) + '</td>' +
+        '<td><span class="status-pill ' + (d.sample_note === "足夠" ? "up" : (d.sample_note === "樣本較少" ? "sample" : "empty")) + '">' + d.sample_note + '</span></td>' +
+      "</tr>"
+    )).join('');
+    tbl.innerHTML = '<thead><tr><th>平台</th><th class="num">Sessions</th><th class="num">使用者</th><th>到達頁</th><th class="num">平均互動</th><th class="num">站內點擊</th><th>樣本狀態</th></tr></thead><tbody>' + rows + '</tbody>';
   }
-  const total = vals.reduce((s,v) => s+v, 0);
-  document.getElementById('insight-ai').innerHTML = insightHtml(
-    '近 ' + data.length + ' 天 AI 來源 (ChatGPT/Perplexity 等) 合計 ' + total + ' 工作階段。' +
-    (total === 0 ? '目前 AI 流量規模小，建議觀察 1–2 個月後再判斷趨勢。' :
-     total < 5 ? 'AI 流量剛起步，需持續監控是否會成為主要來源。' :
-     'AI 導流已可見趨勢，建議把 AI 推薦到達的 Top 頁面檢查內容時效性與 CTA。')
+
+  document.getElementById("insight-ai").innerHTML = insightHtml(
+    total === 0
+      ? "本期沒有辨識到 AI 平台轉介流量。建議持續監控 referrer，並留意未標記的 AI 流量無法被識別。"
+      : "可辨識的 AI 流量規模仍小，建議每月追蹤趨勢，避免單週變動過度解讀。"
   );
 }
 
-// ─── 7. CTA Funnel ────────────────────────────────────────
-function renderCTAFunnel() {
+// ─── Block 7 — 招生 CTA 行動 ────────────────────────────────
+function renderSection4CTA() {
   const data = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.cta_funnel;
-  if (!data || !data.length) return;
-  const c = document.getElementById('chartCTAFunnel');
-  const out = resizeCanvas(c, 280);
-  if (!out) return;
-  const {ctx, w, h} = out;
-  ctx.clearRect(0, 0, w, h);
-  const box = plotBox(w, h, CM);
-  const maxV = data[0].sessions;
-  const itemH = box.h / data.length;
-  data.forEach((d, i) => {
-    const ratio = d.sessions / maxV;
-    const y = box.y + i * itemH + 6;
-    const barW = box.w * ratio;
-    const barH = itemH - 12;
-    const xCenter = box.x + box.w / 2;
-    const wTop = barW;
-    const wBot = (i < data.length - 1) ? box.w * (data[i+1].sessions / maxV) : barW * 0.85;
-    ctx.fillStyle = i === 0 ? CC.blue : (i === data.length-1 ? CC.green : CC.teal);
-    ctx.beginPath();
-    ctx.moveTo(xCenter - wTop/2, y);
-    ctx.lineTo(xCenter + wTop/2, y);
-    ctx.lineTo(xCenter + wBot/2, y + barH);
-    ctx.lineTo(xCenter - wBot/2, y + barH);
-    ctx.closePath();
-    ctx.fill();
-    setFont(ctx, 13, true, '#fff'); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText(d.cta_type + ' — ' + d.sessions + ' (' + ((d.sessions/maxV)*100).toFixed(0) + '%)', xCenter, y + barH/2);
-  });
-  const top = data[0]; const bot = data[data.length-1];
-  document.getElementById('insight-cta').innerHTML = insightHtml(
-    '主要 CTA 動作：「' + top.cta_type + '」(最高 ' + top.sessions + ' 次)。最低轉換：「' + bot.cta_type + '」(' + bot.sessions + ' 次)。' +
-    '若下載文件 (PDF/DOC/XLSX) 點擊高，建議確認下載連結仍正常運作；若 Email/表單點擊偏低，需檢查聯絡表單是否易於填寫。'
+  const links = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.cta_links;
+  if (!data) return;
+
+  const sc = document.getElementById("scorecard-cta");
+  if (sc) {
+    const totalSess = data.reduce((s, d) => s + (d.sessions || 0), 0);
+    const totalUsers = data.reduce((s, d) => s + (d.users || 0), 0);
+    const totalLinks = data.reduce((s, d) => s + (d.distinct_links || 0), 0);
+    const withData = data.filter(d => d.sessions > 0).length;
+    sc.innerHTML = [
+      ["CTA 點擊工作階段", totalSess.toLocaleString(), "所有類別", "blue"],
+      ["CTA 觸及使用者", totalUsers.toLocaleString(), "去重後", "teal"],
+      ["獨立連結數", totalLinks.toLocaleString(), "近一週", "green"],
+      ["有資料的 CTA 類別", withData + " / " + data.length, "招生活動活躍度", "orange"]
+    ].map(([label, val, sub, cls]) => (
+      '<div class="scorecard ' + cls + '">' +
+        '<div class="sc-label">' + label + '</div>' +
+        '<div class="sc-value">' + val + '</div>' +
+        '<div class="sc-delta">' + sub + '</div>' +
+      '</div>'
+    )).join('');
+  }
+
+  const c = document.getElementById("chartCTAFunnel");
+  if (c) {
+    const out = resizeCanvas(c, 280);
+    if (out) {
+      const {ctx, w, h} = out;
+      ctx.clearRect(0, 0, w, h);
+      const box = plotBox(w, h, CM);
+      const itemH = box.h / data.length;
+      const barH = itemH * 0.7;
+      const maxV = Math.max(1, ...data.map(d => d.sessions || 0));
+      data.forEach((d, i) => {
+        const y = box.y + i * itemH + (itemH - barH) / 2;
+        const barW = (d.sessions / maxV) * box.w;
+        ctx.fillStyle = d.sessions > 0 ? CC.blue : CC.gray;
+        ctx.fillRect(box.x, y, barW, barH);
+        setFont(ctx, 11, false, CC.navy);
+        ctx.textAlign = "right"; ctx.textBaseline = "middle";
+        ctx.fillText(d.cta_category, box.x - 8, y + barH / 2);
+        setFont(ctx, 11, true, CC.navy);
+        ctx.textAlign = "left";
+        ctx.fillText(d.sessions + " 次 (" + (d.users || 0) + " 使用者)", box.x + barW + 4, y + barH / 2);
+      });
+    }
+  }
+
+  const tbl = document.getElementById("tableCTALinks");
+  if (tbl && links) {
+    const sortedLinks = links.slice().sort((a, b) => b.clicks - a.clicks);
+    const rows = sortedLinks.map(r => (
+      "<tr>" +
+        '<td>' + escapeHtml(r.category) + '</td>' +
+        '<td class="wrap">' + escapeHtml(r.link_text) + '</td>' +
+        '<td class="wrap">' + escapeHtml(r.source_page) + '</td>' +
+        '<td class="wrap">' + escapeHtml(r.destination) + '</td>' +
+        '<td class="num">' + r.clicks + '</td>' +
+        '<td class="num">' + r.users + '</td>' +
+        '<td class="num">' + (r.valid_rate * 100).toFixed(0) + '%</td>' +
+      "</tr>"
+    )).join('');
+    tbl.innerHTML = '<thead><tr><th>CTA 類別</th><th>連結文字</th><th>來源頁</th><th>目的地</th><th class="num">點擊</th><th class="num">使用者</th><th class="num">有效率</th></tr></thead><tbody>' + rows + '</tbody>';
+  }
+
+  const ranked = data.filter(d => d.sessions > 0).slice().sort((a, b) => b.sessions - a.sessions);
+  const top = ranked[0];
+  document.getElementById("insight-cta").innerHTML = insightHtml(
+    top
+      ? '本期 CTA 點擊以「' + top.cta_category + '」最多（' + top.sessions + ' 次）。報名系統與聯絡表單目前為 0 點擊，建議確認入口與表單是否可正常觸發。'
+      : "本期沒有任何 CTA 點擊紀錄。請先確認 click 事件是否正常送出。"
   );
 }
 
-// ─── 8. International Quality ────────────────────────────
-function renderInternational() {
+// ─── Block 8 — 國際訪客品質 ────────────────────────────────
+function renderSection4Intl() {
   const data = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.international;
-  if (!data || !data.length) return;
-  const c = document.getElementById('chartIntl');
-  const out = resizeCanvas(c, 280);
-  if (!out) return;
-  const {ctx, w, h} = out;
-  ctx.clearRect(0, 0, w, h);
-  const box = plotBox(w, h, CM);
-  const itemH = box.h / data.length;
-  const maxSessions = Math.max(...data.map(d => d.sessions));
-  const maxEng = Math.max(...data.map(d => d.avg_eng_sec));
-  data.forEach((d, i) => {
-    const y = box.y + i * itemH + 4;
-    const barH = (itemH - 8) * 0.55;
-    const wSess = (d.sessions / maxSessions) * box.w * 0.85;
-    ctx.fillStyle = CC.blue;
-    ctx.fillRect(box.x, y, wSess, barH);
-    const wEng = (d.avg_eng_sec / maxEng) * box.w * 0.85;
-    ctx.fillStyle = CC.teal;
-    ctx.fillRect(box.x, y + barH + 4, wEng, barH * 0.5);
-    setFont(ctx, 12, false, CC.navy); ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-    ctx.fillText(d.country, box.x - 8, y + barH);
-    setFont(ctx, 10, false, CC.navy); ctx.textAlign = 'left';
-    ctx.fillText(d.sessions + ' sessions', box.x + wSess + 4, y + barH / 2);
-    ctx.fillText(d.avg_eng_sec.toFixed(0) + 's avg', box.x + wEng + 4, y + barH + 4 + barH * 0.25);
-  });
-  ctx.fillStyle = CC.blue; ctx.fillRect(box.x, box.y - 18, 14, 8);
-  setFont(ctx, 10, false, CC.navy); ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
-  ctx.fillText('工作階段 (sessions)', box.x + 20, box.y - 14);
-  ctx.fillStyle = CC.teal; ctx.fillRect(box.x + 160, box.y - 18, 14, 8);
-  ctx.fillText('平均互動時間 (s)', box.x + 180, box.y - 14);
-  const top = data[0];
-  const nonTaiwanSessions = data.filter(d => d.country !== 'Taiwan').reduce((s,d) => s+d.sessions, 0);
-  const totalSessions = data.reduce((s,d) => s+d.sessions, 0);
-  const nonTaiwanPct = totalSessions > 0 ? (nonTaiwanSessions / totalSessions * 100) : 0;
-  document.getElementById('insight-intl').innerHTML = insightHtml(
-    '主要訪客來源國家：「' + top.country + '」（' + top.sessions + ' 工作階段，平均 ' + top.avg_eng_sec.toFixed(0) + ' 秒）。' +
-    '非本國流量合計 ' + nonTaiwanSessions + ' 工作階段，佔 ' + nonTaiwanPct.toFixed(1) + '%。'
+  if (!data) return;
+
+  const sc = document.getElementById("scorecard-intl");
+  if (sc) {
+    const totalSess = data.reduce((s, d) => s + (d.sessions || 0), 0);
+    const tw = data.find(d => d.country === "臺灣");
+    const nontw = data.filter(d => d.country !== "臺灣").reduce((s, d) => s + (d.sessions || 0), 0);
+    const nontwPct = totalSess ? (nontw / totalSess) * 100 : 0;
+    sc.innerHTML = [
+      ["總工作階段", totalSess.toLocaleString(), "全部國家", "blue"],
+      ["臺灣占比", tw ? Math.round((tw.sessions / totalSess) * 100) + "%" : "—", tw ? tw.sessions + " sessions" : "—", "green"],
+      ["非臺灣工作階段", nontw.toLocaleString(), nontwPct.toFixed(1) + "%", "orange"],
+      ["樣本狀態", "Top 3 已足夠", "其他國家 0 為缺值", "teal"]
+    ].map(([label, val, sub, cls]) => (
+      '<div class="scorecard ' + cls + '">' +
+        '<div class="sc-label">' + label + '</div>' +
+        '<div class="sc-value">' + val + '</div>' +
+        '<div class="sc-delta">' + sub + '</div>' +
+      '</div>'
+    )).join('');
+  }
+
+  drawHBar("chartIntlSessions", data, d => d.sessions, Math.max(1, ...data.map(d => d.sessions || 0)), d => d.country, "", CC.blue);
+  drawHBar("chartIntlEng", data, d => d.avg_eng_sec, Math.max(1, ...data.map(d => d.avg_eng_sec || 0)), d => d.country, " 秒", CC.teal);
+
+  const tbl = document.getElementById("tableInternational");
+  if (tbl) {
+    const rows = data.map(d => (
+      "<tr>" +
+        '<td>' + escapeHtml(d.country) + '</td>' +
+        '<td class="num">' + (d.sessions || 0).toLocaleString() + '</td>' +
+        '<td class="num">' + (d.users || 0).toLocaleString() + '</td>' +
+        '<td class="num">' + (d.avg_eng_sec || 0).toFixed(1) + ' 秒</td>' +
+        '<td class="wrap">' + escapeHtml(d.top_landing || "-") + '</td>' +
+        '<td class="num">' + (d.admission_cta || 0) + '</td>' +
+        '<td class="num">' + (d.contact_click || 0) + '</td>' +
+        '<td><span class="status-pill ' + (d.sample_note === "足夠" ? "up" : (d.sample_note === "樣本較少" ? "sample" : "empty")) + '">' + d.sample_note + '</span></td>' +
+      "</tr>"
+    )).join('');
+    tbl.innerHTML = '<thead><tr><th>國家／地區</th><th class="num">工作階段</th><th class="num">活躍使用者</th><th class="num">平均互動</th><th>主要到達頁</th><th class="num">招生 CTA</th><th class="num">聯絡點擊</th><th>樣本狀態</th></tr></thead><tbody>' + rows + '</tbody>';
+  }
+
+  const top = data.slice().sort((a, b) => b.sessions - a.sessions)[0];
+  document.getElementById("insight-intl").innerHTML = insightHtml(
+    top ? '本期主要訪客來自「' + top.country + '」（' + top.sessions + ' 工作階段），建議保留臺灣優先並觀察其他國家趨勢。' : '本期沒有國際訪客資料。'
   );
 }
 
-// ─── 9. Sankey Diagram: User Paths ─────────────────────────
-function renderSankey() {
+// ─── Block 9 — 使用者路徑 ────────────────────────────────
+function renderSection4Paths() {
   const data = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.user_paths;
-  if (!data || !data.length) return;
-  const c = document.getElementById('chartSankey');
-  const out = resizeCanvas(c, 320);
-  if (!out) return;
-  const {ctx, w, h} = out;
-  ctx.clearRect(0, 0, w, h);
-  const stages = [[], [], []];
-  data.forEach(d => {
-    if (d.stage1 && !stages[0].includes(d.stage1)) stages[0].push(d.stage1);
-    if (d.stage2 && !stages[1].includes(d.stage2)) stages[1].push(d.stage2);
-    if (d.stage3 && !stages[2].includes(d.stage3)) stages[2].push(d.stage3);
-  });
-  const col1 = {}; const col2 = {}; const col3 = {};
-  data.forEach(d => {
-    col1[d.stage1] = (col1[d.stage1] || 0) + d.sessions;
-    if (d.stage2) col2[d.stage2] = (col2[d.stage2] || 0) + d.sessions;
-    if (d.stage3) col3[d.stage3] = (col3[d.stage3] || 0) + d.sessions;
-  });
-  const maxCol = Math.max(...Object.values(col1));
-  const colX = [CM.l, w / 2, w - CM.r];
-  const nodeW = 12;
-  const totalH = h - CM.t - CM.b - 20;
-  const pos = [{}, {}, {}];
-  [stages[0], stages[1], stages[2]].forEach((items, idx) => {
-    const colT = [col1, col2, col3][idx];
-    let cumY = CM.t + 10;
-    items.forEach(item => {
-      const nh = (colT[item] / maxCol) * totalH * 0.9;
-      pos[idx][item] = {y: cumY, h: nh, value: colT[item]};
-      cumY += nh + 4;
-    });
-  });
-  const offset12 = {}, offset23 = {};
-  data.slice(0, 8).forEach(d => {
-    if (!offset12[d.stage1]) offset12[d.stage1] = 0;
-    if (!offset12[d.stage2]) offset12[d.stage2] = 0;
-    if (!offset23[d.stage2]) offset23[d.stage2] = 0;
-    if (!offset23[d.stage3]) offset23[d.stage3] = 0;
-  });
-  data.slice(0, 8).forEach(d => {
-    const s = pos[0][d.stage1];
-    const t = pos[1][d.stage2];
-    if (!s || !t) return;
-    const sFrac = offset12[d.stage1] / col1[d.stage1];
-    const sOffsetY = s.y + sFrac * s.h;
-    const sLinkH = (d.sessions / col1[d.stage1]) * s.h;
-    const tFrac = offset12[d.stage2] / col2[d.stage2];
-    const tOffsetY = t.y + tFrac * t.h;
-    const tLinkH = (d.sessions / col2[d.stage2]) * t.h;
-    ctx.strokeStyle = CC.blue;
-    ctx.globalAlpha = 0.25;
-    ctx.lineWidth = Math.max(1, d.sessions * 0.3);
-    ctx.beginPath();
-    ctx.moveTo(colX[0] + nodeW, sOffsetY + sLinkH / 2);
-    ctx.bezierCurveTo(colX[0] + (colX[1] - colX[0]) / 2, sOffsetY + sLinkH / 2, colX[1] - (colX[1] - colX[0]) / 2, tOffsetY + tLinkH / 2, colX[1], tOffsetY + tLinkH / 2);
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-    offset12[d.stage1] += d.sessions;
-    offset12[d.stage2] += d.sessions;
-  });
-  data.slice(0, 8).forEach(d => {
-    if (!d.stage3) return;
-    const s = pos[1][d.stage2];
-    const t = pos[2][d.stage3];
-    if (!s || !t) return;
-    const sFrac = offset23[d.stage2] / col2[d.stage2];
-    const sOffsetY = s.y + sFrac * s.h;
-    const sLinkH = (d.sessions / col2[d.stage2]) * s.h;
-    const tFrac = offset23[d.stage3] / col3[d.stage3];
-    const tOffsetY = t.y + tFrac * t.h;
-    const tLinkH = (d.sessions / col3[d.stage3]) * t.h;
-    ctx.strokeStyle = CC.teal;
-    ctx.globalAlpha = 0.25;
-    ctx.lineWidth = Math.max(1, d.sessions * 0.3);
-    ctx.beginPath();
-    ctx.moveTo(colX[1] + nodeW, sOffsetY + sLinkH / 2);
-    ctx.bezierCurveTo(colX[1] + (colX[2] - colX[1]) / 2, sOffsetY + sLinkH / 2, colX[2] - (colX[2] - colX[1]) / 2, tOffsetY + tLinkH / 2, colX[2], tOffsetY + tLinkH / 2);
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-    offset23[d.stage2] += d.sessions;
-    offset23[d.stage3] += d.sessions;
-  });
-  [0,1,2].forEach(idx => {
-    const items = stages[idx];
-    const col = pos[idx];
-    const x = colX[idx];
-    const color = idx === 0 ? CC.blue : (idx === 1 ? CC.teal : CC.green);
-    items.forEach(item => {
-      if (!col[item]) return;
-      ctx.fillStyle = color;
-      ctx.fillRect(x, col[item].y, nodeW, col[item].h);
-      setFont(ctx, 11, false, CC.navy); ctx.textAlign = idx === 2 ? 'left' : 'right'; ctx.textBaseline = 'middle';
-      const labelX = idx === 2 ? x + nodeW + 4 : x - 4;
-      ctx.fillText(((item || '').slice(0, 18) + ' (' + col[item].value + ')'), labelX, col[item].y + col[item].h / 2);
-    });
-  });
-  document.getElementById('insight-paths').innerHTML = insightHtml(
-    '主要三段路徑：' + (data[0].stage1 || '?') + ' → ' + (data[0].stage2 || '?') + ' → ' + (data[0].stage3 || '?') + ' (' + data[0].sessions + ' sessions)。' +
-    '最常被拜訪的入口頁是「' + stages[0].sort((a,b) => col1[b] - col1[a])[0] + '」，建議評估此頁的 CTA 是否引導到高互動的內容頁。'
+  const trans = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.user_path_transitions;
+  if (!data) return;
+
+  const sc = document.getElementById("scorecard-paths");
+  if (sc) {
+    const totalSess = data.reduce((s, d) => s + (d.sessions || 0), 0);
+    const avgExit = data.reduce((s, d) => s + (d.exit_share || 0), 0) / data.length;
+    sc.innerHTML = [
+      ["Top 入口頁", data.length + " 個", "近一週", "blue"],
+      ["代理工作階段", totalSess.toLocaleString(), "入口→第二頁", "teal"],
+      ["平均停留率", (avgExit * 100).toFixed(0) + "%", "離開比例", "orange"],
+      ["資料型態", "頁面共同出現", "非逐事件時序", "green"]
+    ].map(([label, val, sub, cls]) => (
+      '<div class="scorecard ' + cls + '">' +
+        '<div class="sc-label">' + label + '</div>' +
+        '<div class="sc-value">' + val + '</div>' +
+        '<div class="sc-delta">' + sub + '</div>' +
+      '</div>'
+    )).join('');
+  }
+
+  const tbl = document.getElementById("tableUserPaths");
+  if (tbl) {
+    const sorted = data.slice().sort((a, b) => b.sessions - a.sessions);
+    const rows = sorted.map(r => (
+      "<tr>" +
+        '<td class="wrap">' + escapeHtml(r.landing) + '</td>' +
+        '<td class="wrap">' + escapeHtml(r.second_page) + '</td>' +
+        '<td class="wrap">' + escapeHtml(r.exit_action) + '</td>' +
+        '<td class="num">' + r.sessions + '</td>' +
+        '<td class="num">' + (r.exit_share * 100).toFixed(0) + '%</td>' +
+      "</tr>"
+    )).join('');
+    tbl.innerHTML = '<thead><tr><th>入口頁</th><th>第二頁</th><th>最終動作</th><th class="num">工作階段</th><th class="num">離開占比</th></tr></thead><tbody>' + rows + '</tbody>';
+  }
+
+  const tbl2 = document.getElementById("tableUserPathTransitions");
+  if (tbl2 && trans) {
+    const sorted = trans.slice().sort((a, b) => b.sessions - a.sessions);
+    const rows = sorted.map(r => (
+      "<tr>" +
+        '<td class="wrap">' + escapeHtml(r.from) + '</td>' +
+        '<td class="wrap">' + escapeHtml(r.to) + '</td>' +
+        '<td class="num">' + r.sessions + '</td>' +
+      "</tr>"
+    )).join('');
+    tbl2.innerHTML = '<thead><tr><th>從</th><th>到</th><th class="num">工作階段</th></tr></thead><tbody>' + rows + '</tbody>';
+  }
+
+  const top = data.slice().sort((a, b) => b.sessions - a.sessions)[0];
+  document.getElementById("insight-paths").innerHTML = insightHtml(
+    top ? '主要入口頁是「' + top.landing + '」（' + top.sessions + ' 工作階段），建議檢視此頁的 CTA 是否明確引導到課程或入學頁。' : '本期沒有符合條件的路徑資料。'
   );
 }
 
-// ─── 10. Stacked Column: Data Quality ─────────────────────
-function renderDataQuality() {
-  const data = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.data_quality;
-  if (!data || !data.weeks || !data.weeks.length) return;
-  const c = document.getElementById('chartDataQuality');
-  const out = resizeCanvas(c, 240);
-  if (!out) return;
-  const {ctx, w, h} = out;
-  ctx.clearRect(0, 0, w, h);
-  const box = plotBox(w, h, CM);
-  const cats = ['empty_title', 'old_domain', 'dup_url', 'no_session', 'unknown_source'];
-  const labels = {empty_title:'空白標題', old_domain:'舊網域', dup_url:'URL 重複', no_session:'無 sessions', unknown_source:'未知來源'};
-  const colors = [CC.red, CC.orange, CC.blue, CC.gray, CC.teal];
-  const totals = data.weeks.map((w, i) => cats.reduce((s,c) => s + ((data.categories[c] || [])[i] || 0), 0));
-  const maxV = Math.max(...totals, 1);
-  const yMax = Math.ceil(maxV * 1.15);
-  const barW = (box.w / data.weeks.length) * 0.65;
-  const gap = (box.w / data.weeks.length) * 0.35;
-  drawAxes(ctx, box, 0, yMax, 4, data.weeks, 1);
-  data.weeks.forEach((w, i) => {
-    let cumY = box.y + box.h;
-    const x = box.x + i * (barW + gap) + gap / 2;
-    cats.forEach((cat, j) => {
-      const v = ((data.categories[cat] || [])[i] || 0);
-      if (v === 0) return;
-      const segH = (v / yMax) * box.h;
-      ctx.fillStyle = colors[j];
-      ctx.fillRect(x, cumY - segH, barW, segH);
-      cumY -= segH;
-    });
-    setFont(ctx, 11, true, CC.navy); ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
-    if (totals[i] > 0) ctx.fillText(totals[i], x + barW/2, box.y + box.h - (totals[i]/yMax)*box.h - 4);
-  });
-  cats.forEach((cat, i) => {
-    const lx = box.x + (i * 95);
-    ctx.fillStyle = colors[i]; ctx.fillRect(lx, box.y - 18, 14, 8);
-    setFont(ctx, 10, false, CC.navy); ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
-    ctx.fillText(labels[cat], lx + 18, box.y - 14);
-  });
-  const latest = totals[totals.length - 1];
-  const trend = totals.slice(-3);
-  document.getElementById('insight-dq').innerHTML = insightHtml(
-    '本週問題總數 ' + latest + ' 件。近 3 週趨勢：' + trend.join(' → ') + '。' +
-    (trend[2] < trend[0] ? '品質持續改善 → 治理措施生效。' :
-     trend[2] > trend[0] ? '問題增加 → 需要找出原因並修復。' : '穩定維持。') +
-    '重點關注：空白標題（影響 SEO）與舊網域（破壞 canonical 一致性）。'
+// ─── Block 10 — 資料品質 ────────────────────────────────
+function renderSection4DQ() {
+  const data = WEBINSIGHT.DATA.sections && WEBINSIGHT.DATA.sections.data_quality_snapshot;
+  if (!data) return;
+
+  const high = data.filter(d => d.severity === "高").length;
+  const mid = data.filter(d => d.severity === "中").length;
+  const low = data.filter(d => d.severity === "低").length;
+
+  const sc = document.getElementById("scorecard-dq");
+  if (sc) {
+    sc.innerHTML = [
+      ["高嚴重性", high + " 項", "本期", "orange"],
+      ["中嚴重性", mid + " 項", "本期", "warn"],
+      ["低嚴重性", low + " 項", "本期", "flat"],
+      ["資料快照", "本期", "不繪製 8 週趨勢", "teal"]
+    ].map(([label, val, sub, cls]) => (
+      '<div class="scorecard ' + cls + '">' +
+        '<div class="sc-label">' + label + '</div>' +
+        '<div class="sc-value">' + val + '</div>' +
+        '<div class="sc-delta">' + sub + '</div>' +
+      '</div>'
+    )).join('');
+  }
+
+  const tbl = document.getElementById("tableDataQuality");
+  if (tbl) {
+    const sevOrder = {高:1, 中:2, 低:3};
+    const sorted = data.slice().sort((a, b) => (sevOrder[a.severity] || 9) - (sevOrder[b.severity] || 9));
+    const rows = sorted.map(d => (
+      "<tr>" +
+        '<td class="wrap">' + escapeHtml(d.issue_type) + '</td>' +
+        '<td class="num">' + d.affected_count + '</td>' +
+        '<td class="wrap">' + escapeHtml(d.example) + '</td>' +
+        '<td><span class="sev-pill ' + (d.severity === '高' ? 'high' : (d.severity === '中' ? 'mid' : 'low')) + '">' + d.severity + '</span></td>' +
+        '<td class="wrap">' + escapeHtml(d.suggested_owner) + '</td>' +
+        '<td><span class="status-pill ' + (d.status === '正常' ? 'up' : 'warn') + '">' + d.status + '</span></td>' +
+        '<td class="wrap">' + escapeHtml(d.evidence_rule) + '</td>' +
+      "</tr>"
+    )).join('');
+    tbl.innerHTML = '<thead><tr><th>問題類型</th><th class="num">影響數</th><th>範例</th><th>嚴重性</th><th>建議負責</th><th>狀態</th><th>證據規則</th></tr></thead><tbody>' + rows + '</tbody>';
+  }
+
+  const top = data.slice().sort((a, b) => (a.severity === "高" ? -1 : 1) - (b.severity === "高" ? -1 : 1))[0];
+  document.getElementById("insight-dq").innerHTML = insightHtml(
+    top
+      ? '本期最嚴重問題為「' + top.issue_type + '」（' + top.example + '）。建議 ' + top.suggested_owner + ' 優先處理。'
+      : '本期沒有發現待改善的問題。'
   );
 }
 
 // ─── Master render function ──────────────────────────────
 function renderReports() {
   if (!WEBINSIGHT.DATA.sections) return;
-  renderTrends();
-  renderBrandSplit();
-  renderContentMatrix();
-  renderTrafficQuality();
-  renderAI();
-  renderCTAFunnel();
-  renderInternational();
-  renderSankey();
-  renderDataQuality();
+  renderSection4Trends();
+  renderSection4Brand();
+  renderSection4Content();
+  renderSection4Source();
+  renderSection4AI();
+  renderSection4CTA();
+  renderSection4Intl();
+  renderSection4Paths();
+  renderSection4DQ();
 }
 
 
