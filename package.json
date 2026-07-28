@@ -1,19 +1,12 @@
 {
-  "name": "tcu-webinsight-monorepo",
+  "name": "tcu-webinsight-reports",
   "version": "1.0.0",
   "private": true,
-  "description": "TCU department web insight reports monorepo (deployed via Vercel)",
-  "workspaces": [
-    "itm",
-    "nc"
-  ],
+  "description": "TCU department web insight reports (ITM + NC), deployed via Vercel monorepo (rootDirectory per project)",
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
-    "build:itm": "cd itm && npm run build",
-    "build:nc": "cd nc && npm run build",
+    "build:itm": "cd itm && npm install && npm run build",
+    "build:nc": "cd nc && npm install && npm run build",
     "dev:itm": "cd itm && npm run dev",
-    "dev:nc": "cd nc && npm run dev",
-    "preview:itm": "cd itm && npx vite preview",
-    "preview:nc": "cd nc && npx vite preview"
+    "dev:nc": "cd nc && npm run dev"
   }
 }
