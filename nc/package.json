@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "慈濟大學 護理學院 (College of Nursing) manager report — subpath /nc/ in g4A-checkings collection",
+  "description": "慈濟大學 護理學院 (NC) manager report — subpath /nc/ in g4A-checkings collection",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

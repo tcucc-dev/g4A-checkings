@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   base: '/g4A-checkings/nc/',
   server: {
-    port: 5174,
+    port: 5173,
     host: '0.0.0.0',
     open: true,
     strictPort: false
