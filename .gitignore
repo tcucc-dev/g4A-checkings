@@ -1,8 +1,30 @@
+# Dependencies
 node_modules/
+
+# Build outputs
 dist/
 .vite/
-*.log
-.DS_Store
-.vercel
 
-DEPLOY.md
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/
+
+# Local-only staging / cache dirs (deployment pipeline)
+_staging/
+_prev_gh_pages/
+_stale_scan/
+_cache/
+
+# Downloaded test fixtures
+*_live.html

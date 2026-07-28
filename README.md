@@ -1,124 +1,62 @@
-# TCU WebInsight — Multi-Department Manager Reports
+# TCU Department Web Insight Reports
 
-A unified collection of TCU department analytics reports deployed via
-GitHub Pages. Each department lives in its own folder under `/<dept>`
-and can be reached via `https://report.tcu.edu.tw/<dept>` (custom domain)
-or `https://tcucc-dev.github.io/g4A-checkings/<dept>` (project page).
+Monorepo berisi laporan GEO × SEO untuk setiap department TCU. Deploy via [Vercel](https://vercel.com).
 
-## Structure
+## Departments
 
-```
-g4A-checkings/                   ← repo root
-├── index.html                   ← landing page (select department)
-├── 404.html                     ← SPA fallback (copy of index.html)
-├── deploy.ps1                   ← Windows PowerShell deploy script
-├── public/
-│   └── CNAME                    ← custom domain: report.tcu.edu.tw
-├── itm/                         ← 資訊科技與管理學系
-│   ├── index.html               ← Vite SPA entry
-│   ├── package.json
-│   ├── vite.config.js           ← base: '/itm/' (subpath)
-│   ├── vercel.json
-│   └── src/                     ← data, evidence, app, glossary
-└── nc/                          ← 護理學院 (College of Nursing)
-    └── ... (same structure as itm/)
-```
+| Path | URL (Vercel) | Domain | Status |
+|---|---|---|---|
+| `itm/` | `<itm-project>.vercel.app` | itm.tcu.edu.tw | Live |
+| `nc/` | `<nc-project>.vercel.app` | nc.tcu.edu.tw | Live |
 
-## Routing
+## Vercel Setup (multi-project)
 
-The collection is hosted at the **root** of a custom domain
-(`report.tcu.edu.tw`) so each department can be reached by typing the
-slug directly:
+Repository ini monorepo, jadi setup **2 project Vercel** terpisah di repo `tcucc-dev/g4A-checkings`:
 
-- `report.tcu.edu.tw/` — landing (select department)
-- `report.tcu.edu.tw/itm` — ITM report
-- `report.tcu.edu.tw/nc` — NC report
+### Project 1 — ITM
+- **Project Name**: `tcu-webinsight-itm`
+- **Root Directory**: `itm`
+- **Framework Preset**: Vite
+- **Build Command**: `npm run build` (auto)
+- **Output Directory**: `dist` (auto)
+- **Domain**: itm.tcu.edu.tw (custom)
 
-This is implemented with a single static deployment of the **landing
-page** at root + each department's Vite build output under its own
-subfolder. The `404.html` trick (copy of `index.html`) lets Vite
-handle sub-routes like `report.tcu.edu.tw/itm/section/2`.
+### Project 2 — NC
+- **Project Name**: `tcu-webinsight-nc`
+- **Root Directory**: `nc`
+- **Framework Preset**: Vite
+- **Build Command**: `npm run build` (auto)
+- **Output Directory**: `dist` (auto)
+- **Domain**: nc.tcu.edu.tw (custom)
 
-## Why GitHub Pages + `gh-pages` branch?
+## Auto-Deploy
 
-GitHub Pages is **static-only** — it cannot run `npm install && npm
-build` for you. The Vite build output (`dist/`) must be committed as
-the *artifact* in a separate branch, conventionally named
-`gh-pages`. The `main` branch stays as the source of truth (your
-`.js`, `.html`, `package.json`, configs).
+Setiap push ke branch `main` di GitHub akan otomatis trigger Vercel deploy untuk **kedua project**.
 
-Workflow:
-
-1. Edit source in `main` branch
-2. Run `.\deploy.ps1` on Windows (or `bash deploy.sh` on Linux/macOS)
-3. The script:
-   - `npm run build` in each dept folder
-   - Copies the root `index.html` → `404.html`
-   - Stages all depts' `dist/` + landing into `_staging/`
-   - `gh-pages -d _staging` force-pushes `_staging/` to `gh-pages`
-4. GitHub Pages publishes the `gh-pages` branch
-
-See `AI_Agent_Report/GITHUB_PAGES_VITE_SPA_BRIEF.md` for the full
-technical background.
-
-## Sub-path routing (SPA `base` setting)
-
-Each `dept/vite.config.js` sets `base: '/<dept>/'`. This rewrites
-all asset paths so the SPA can be served from a subpath
-(e.g., `/itm/assets/index-abc.js`) instead of the root.
-
-Without this, Vite would emit `<script src="/assets/index-abc.js">`
-which would 404 when hosted at `report.tcu.edu.tw/itm/`.
-
-## Setup
+## Local Development
 
 ```bash
-# First time
-git clone https://github.com/tcucc-dev/g4A-checkings
-cd g4A-checkings
-cd itm && npm ci && cd ..
-cd nc && npm ci && cd ..
+# Install all workspaces
+npm install
 
-# Deploy (Windows)
-.\deploy.ps1
+# Build all
+npm run build
 
-# Deploy (bash)
-bash deploy.sh
+# Build specific
+npm run build:itm
+npm run build:nc
+
+# Preview specific
+npm run preview:itm   # http://localhost:4173
+npm run preview:nc    # http://localhost:4174
+
+# Dev mode (HMR)
+npm run dev:itm
+npm run dev:nc
 ```
 
-## Custom domain `report.tcu.edu.tw`
+## Documentation
 
-DNS:
-- `CNAME report.tcu.edu.tw → tcucc-dev.github.io`
-
-GitHub Pages settings:
-- Settings → Pages → Custom domain: `report.tcu.edu.tw`
-- Enforce HTTPS: ON
-
-The `public/CNAME` file ensures the custom domain is set on every
-push (GitHub reads `CNAME` from the root of the `gh-pages` branch).
-
-## Adding a new department
-
-1. Copy `itm/` → `newdept/` (the Vite template scaffold)
-2. Edit `newdept/src/data.js` and `newdept/src/evidence.js` with
-   the new department's data (use the `dept-report-replica` skill)
-3. Update `newdept/vite.config.js` → `base: '/newdept/'`
-4. Add a card to root `index.html` linking to `./newdept/`
-5. Run `.\deploy.ps1`
-
-## Local development
-
-Each department runs independently:
-
-```bash
-cd itm
-npm run dev   # http://localhost:5173 (vite default)
-```
-
-For the landing:
-
-```bash
-# Just open index.html in browser, or
-python -m http.server 8080  # in repo root
-```
+- Skill `dept-report-replica-confirmation` — cara replicate department baru
+- Skill `dept-report-replica-content-policy` — policy structure vs content
+- Skill `tcu-report-execution-discipline` — operational discipline
