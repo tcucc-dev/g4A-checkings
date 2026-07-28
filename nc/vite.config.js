@@ -1,7 +1,13 @@
 import { defineConfig } from 'vite';
 
+// Base path resolution:
+// - Vercel (VERCEL=1): deploy at root, use '/' for clean URLs
+// - GitHub Pages (default): use sub-path under /g4A-checkings/<dept>/
+const isVercel = !!process.env.VERCEL;
+const basePath = isVercel ? '/' : '/g4A-checkings/nc/';
+
 export default defineConfig({
-  base: '/g4A-checkings/nc/',
+  base: basePath,
   server: {
     port: 5173,
     host: '0.0.0.0',
