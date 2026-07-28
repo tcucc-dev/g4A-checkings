@@ -89,7 +89,7 @@ sections:{
     {week:"06/27", users:186, sessions:232, pageviews:664,  impressions:2545, clicks:77},
     {week:"07/04", users:167, sessions:223, pageviews:789,  impressions:2592, clicks:71},
     {week:"07/11", users:189, sessions:233, pageviews:823,  impressions:2058, clicks:55},
-    {week:"07/18", users:186, sessions:231, pageviews:877,  impressions:2025, clicks:78}
+    {week:"07/24", users:186, sessions:231, pageviews:877,  impressions:2025, clicks:78}
   ],
   anomaly_rule:{
     threshold_pct:30,

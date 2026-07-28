@@ -264,7 +264,7 @@ const EVIDENCE_REPORTS = [
       {week:"06/29", sessions:218, users:171, pageviews:649,  impressions:2535, clicks:69,  ctr:2.72, status:"明顯下降", delta_pct:-35.5},
       {week:"07/06", sessions:221, users:168, pageviews:743,  impressions:2527, clicks:70,  ctr:2.77, status:"大致穩定", delta_pct:1.4},
       {week:"07/13", sessions:229, users:184, pageviews:833,  impressions:1902, clicks:55,  ctr:2.89, status:"大致穩定", delta_pct:3.6},
-      {week:"07/20", sessions:189, users:152, pageviews:769,  impressions:1604, clicks:64,  ctr:3.99, status:"需要注意", delta_pct:-17.5}
+      {week:"07/24", sessions:231, users:186, pageviews:877,  impressions:2025, clicks:78,  ctr:3.85, status:"大致穩定", delta_pct:-0.9}
     ],
     sql:"SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(date, WEEK(MONDAY))) AS week, COUNT(DISTINCT CONCAT(user_pseudo_id, ':', ga_session_id)) AS sessions, COUNT(DISTINCT user_pseudo_id) AS users, COUNTIF(event_name='page_view') AS pageviews FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week; UNION ALL SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(data_date, WEEK(MONDAY))) AS week, SUM(impressions) AS impressions, SUM(clicks) AS clicks, ROUND(100*SAFE_DIVIDE(SUM(clicks), SUM(impressions)), 2) AS ctr FROM all_gsc_summary WHERE site_name='資訊科技與管理系' AND data_date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week;"
   },

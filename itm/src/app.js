@@ -550,10 +550,10 @@ function renderSection4Content() {
       const maxY = Math.max(...data.map(d => d.engagement_sec), 1);
       const midX = box.x + (medUsers / maxX) * box.w;
       const midY = box.y + box.h - (medEng / maxY) * box.h;
-      ctx.fillStyle = "rgba(31,138,90,0.06)";  ctx.fillRect(midX, box.y, box.x + box.w - midX, midY - box.y);
-      ctx.fillStyle = "rgba(217,119,6,0.06)";  ctx.fillRect(box.x, box.y, midX - box.x, midY - box.y);
-      ctx.fillStyle = "rgba(217,119,6,0.08)";  ctx.fillRect(midX, midY, box.x + box.w - midX, box.y + box.h - midY);
-      ctx.fillStyle = "rgba(194,65,59,0.06)";  ctx.fillRect(box.x, midY, midX - box.x, box.y + box.h - midY);
+      ctx.fillStyle = "rgba(150,160,170,0.06)";
+      ctx.fillStyle = "rgba(150,160,170,0.06)";
+      ctx.fillStyle = "rgba(150,160,170,0.06)";
+      ctx.fillStyle = "rgba(150,160,170,0.06)";
       ctx.strokeStyle = CC.muted; ctx.setLineDash([3, 3]); ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(midX, box.y); ctx.lineTo(midX, box.y + box.h); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(box.x, midY); ctx.lineTo(box.x + box.w, midY); ctx.stroke();
@@ -575,11 +575,8 @@ function renderSection4Content() {
         const y = box.y + box.h - (d.engagement_sec / maxY) * box.h;
         const highU = d.users >= medUsers;
         const highE = d.engagement_sec >= medEng;
-        let color;
-        if (highU && highE) color = CC.green;
-        else if (highU && !highE) color = CC.orange;
-        else if (!highU && highE) color = CC.teal;
-        else color = CC.gray;
+        // Single neutral color (gray) for ALL dots so the chart looks consistent
+        const color = CC.gray;
         ctx.fillStyle = color;
         ctx.globalAlpha = d.users >= 5 ? 0.85 : 0.35;
         ctx.beginPath(); ctx.arc(x, y, d.users >= 5 ? FIXED_R : FIXED_R - 2, 0, 6.3); ctx.fill();
@@ -626,9 +623,10 @@ function renderSection4Content() {
   const quadrant = (d) => {
     const hu = d.users >= medUsers;
     const he = d.engagement_sec >= medEng;
-    if (hu && he) return {key:"Q1", name:"高流量 × 高互動", action:"維持並放大", color:"green"};
-    if (hu && !he) return {key:"Q2", name:"高流量 × 低互動", action:"優先改善",   color:"warn"};
-    if (!hu && he) return {key:"Q3", name:"低流量 × 高互動", action:"增加導流",   color:"teal"};
+    // Use a single neutral color (gray) for ALL quadrants so the row looks consistent
+    if (hu && he) return {key:"Q1", name:"高流量 × 高互動", action:"維持並放大", color:"gray"};
+    if (hu && !he) return {key:"Q2", name:"高流量 × 低互動", action:"優先改善",   color:"gray"};
+    if (!hu && he) return {key:"Q3", name:"低流量 × 高互動", action:"增加導流",   color:"gray"};
     return {key:"Q4", name:"低流量 × 低互動", action:"觀察／整併", color:"gray"};
   };
   const priority = {Q2:1, Q3:2, Q1:3, Q4:4};
