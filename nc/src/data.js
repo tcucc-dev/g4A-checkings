@@ -281,13 +281,15 @@ sections:{
   // Refreshed 2026-07-27 (HTML scan via https://itm.tcu.edu.tw/).
   // 3 empty alt found (down from 16) — slight improvement.
   data_quality_snapshot:[
-    {issue_type:"missing_jsonld",     affected_count:1,  example:"全站 application/ld+json = 0",                  severity:"高", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex application/ld\+json"},
     {issue_type:"missing_canonical",  affected_count:1,  example:"首頁 <link rel=canonical> 缺失",                 severity:"中", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex <link rel=\"canonical\">"},
-    {issue_type:"og_image_favicon",   affected_count:1,  example:"og:image 仍指向 /images/favicon.ico",           severity:"中", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"og:image 屬性內容檢查"},
-    {issue_type:"multiple_h1",        affected_count:0,  example:"首頁 H1 標籤數正常（1 個）",                       severity:"低", suggested_owner:"電算中心",       status:"正常",  evidence_rule:"首頁 <h1> 標籤計數"},
-    {issue_type:"empty_alt",          affected_count:0,  example:"本期圖片 alt 屬性全部填寫",                       severity:"低", suggested_owner:"單位網站管理人", status:"正常",  evidence_rule:"首頁 圖片 alt 文字長度"},
-    {issue_type:"iframe_no_title",    affected_count:0,  example:"本週未偵測 iframe",                              severity:"低", suggested_owner:"單位網站管理人", status:"正常",  evidence_rule:"首頁 iframe title 屬性檢查"},
     {issue_type:"hreflang_missing",   affected_count:1,  example:"缺英文版 hreflang=en-US 標記",                   severity:"中", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 <link rel=alternate hreflang=> 檢查"},
+    {issue_type:"og_metadata_missing", affected_count:1,  example:"og:title/description/url/type 全部缺失",           severity:"中", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 <meta property=og:*> 屬性檢查"},
+    {issue_type:"og_image_path",       affected_count:1,  example:"og:image 指向系統檔路徑（建議改為正式 CDN URL）",    severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"og:image URL 是否為外部可訪問"},
+    {issue_type:"jsonld_ok",          affected_count:0,  example:"EducationalOrganization schema 已部署（含 name、address、knowsAbout）",   severity:"低", suggested_owner:"—",               status:"正常",  evidence_rule:"首頁 application/ld+json 解析"},
+    {issue_type:"multiple_h1",        affected_count:0,  example:"首頁 H1 標籤數正常（1 個）",                       severity:"低", suggested_owner:"電算中心",       status:"正常",  evidence_rule:"首頁 <h1> 標籤計數"},
+    {issue_type:"empty_alt",          affected_count:3,  example:"17 張圖片中 3 張 <code>alt=\"\"</code>（其中視覺性 icon）",    severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 <img alt=\"\"> 屬性計數"},
+    {issue_type:"iframe_no_title",    affected_count:1,  example:"1 個 iframe 未設定 title",                       severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 <iframe> 屬性 title 檢查"},
+    {issue_type:"duplicate_id",       affected_count:1,  example:"DOM ID TcuRpageFeatureTitle 重複",               severity:"低", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁重複 id 計數"},
     {issue_type:"unknown_source",     affected_count:0,  example:"本期未發現未分類 source/medium",                  severity:"低", suggested_owner:"—",               status:"正常",  evidence_rule:"all_units_summary source NOT IN known list"}
   ]}
 };

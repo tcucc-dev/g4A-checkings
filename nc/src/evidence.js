@@ -191,15 +191,15 @@ const EVIDENCE_REPORTS = [
     filterKeys:["category","result"], chart:{type:"bar",xKey:"category",series:[["issue_count","問題數"]]},
     columns:[["category","類別"],["check_item","檢核項"],["result","結果"],["issue_count","問題數"],["evidence","證據摘要"],["owner","主責"]],
     rows:[
-    {category:"實體", check_item:"首頁唯一 H1", result:"未通過", issue_count:2, evidence:"首頁偵測到 2 個 H1 標籤（正式中文系名 + 英文系名）；建議只保留 1 個", owner:"電算中心"},
-    {category:"結構化資料", check_item:"Department JSON-LD", result:"未通過", issue_count:1, evidence:"application/ld+json 偵測為 0；缺少 Department / EducationalOrganization / ContactPoint", owner:"電算中心"},
-    {category:"社群", check_item:"Open Graph 完整", result:"未通過", issue_count:2, evidence:"只設定 og:image（指向 favicon）；og:title / og:description / og:url 缺失", owner:"單位網站管理人"},
-    {category:"網域", check_item:"正式網域一致", result:"已說明", issue_count:0, evidence:"本期未發現 NC 站內舊網域連結", owner:"單位網站管理人"},
-    {category:"圖片", check_item:"語意化 alt", result:"未通過", issue_count:16, evidence:"24 張圖片中 16 張 alt 為空或僅 ImgDesc / 01 等無意義字串", owner:"單位網站管理人"},
-    {category:"影片", check_item:"iframe title", result:"未通過", issue_count:26, evidence:"首頁 26 個 iframe 全部未設定 title 屬性（accessibility 缺失）", owner:"單位網站管理人"},
-    {category:"國際化", check_item:"hreflang 標記", result:"未通過", issue_count:1, evidence:"英文版頁面無 hreflang='en' 標記", owner:"電算中心"},
-    {category:"內容品質", check_item:"FAQ 結構", result:"未通過", issue_count:1, evidence:"無 FAQPage 結構化資料；招生問題零散未整理成 Q&A", owner:"單位網站管理人"},
-    {category:"Meta description", check_item:"長度最佳化", result:"已改善", issue_count:1, evidence:"154 字（在 150–160 字最佳範圍），比 7/4 的 219 字精簡", owner:"已說明"}
+    {category:"實體", check_item:"首頁唯一 H1", result:"通過", issue_count:0, evidence:"首頁偵測到 1 個 H1 標籤「慈濟大學護理學院 - 慈濟大學護理學院」", owner:"—"},
+    {category:"結構化資料", check_item:"EducationalOrganization JSON-LD", result:"通過", issue_count:0, evidence:"application/ld+json 已部署完整 EducationalOrganization（含 name、alternateName、url、parentOrganization、knowsAbout、address）", owner:"—"},
+    {category:"社群", check_item:"Open Graph 完整", result:"未通過", issue_count:4, evidence:"og:image 存在但指向系統檔路徑；og:title / og:description / og:url / og:type 全部缺失", owner:"單位網站管理人"},
+    {category:"網域", check_item:"正式 canonical", result:"未通過", issue_count:1, evidence:"<link rel=canonical> 缺失；建議宣告 https://nc.tcu.edu.tw/ 為正式網址", owner:"電算中心"},
+    {category:"圖片", check_item:"語意化 alt", result:"未通過", issue_count:3, evidence:"17 張圖片中 3 張 alt=\"\"（其餘 14 張 alt 屬性已填寫）", owner:"單位網站管理人"},
+    {category:"影片", check_item:"iframe title", result:"未通過", issue_count:1, evidence:"首頁 1 個 iframe 未設定 title 屬性（accessibility 缺失）", owner:"單位網站管理人"},
+    {category:"國際化", check_item:"hreflang 標記", result:"未通過", issue_count:1, evidence:"英文版頁面無 hreflang='en-US' 標記（已有 Lang=en URL 但缺 link rel=alternate）", owner:"電算中心"},
+    {category:"內容品質", check_item:"FAQ 結構", result:"未通過", issue_count:1, evidence:"無 FAQPage 結構化資料；招生問題在 description 文字中而非結構化 Q&A", owner:"單位網站管理人"},
+    {category:"Meta description", check_item:"長度最佳化", result:"待改善", issue_count:1, evidence:"91 字（最佳 150–160 字），含護理教育學制完整列表；可考慮再擴充 SEO keywords", owner:"電算中心"}
   ],
     sql:"非 BigQuery。由 Hermes／爬蟲解析首頁 HTML，輸出標籤、屬性、數量與原始碼片段。"
   },
@@ -446,12 +446,12 @@ const EVIDENCE_REPORTS = [
     filterKeys:["severity"], chart:{type:"bar",xKey:"issue_type",series:[["affected_count","影響數"]]},
     columns:[["issue_type","問題類型"],["affected_count","影響數"],["example","範例"],["severity","嚴重性"],["suggested_owner","建議負責"],["status","狀態"],["evidence_rule","證據規則"]],
     rows:[
-      {issue_type:"missing_jsonld",     affected_count:1,  example:"全站 application/ld+json = 0",                      severity:"高", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex application/ld\+json"},
+      {issue_type:"missing_jsonld",     affected_count:0,  example:"EducationalOrganization schema 已部署（含 name、address、knowsAbout）", severity:"低", uggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex application/ld\+json"},
       {issue_type:"old_domain",         affected_count:13, example:"本期未發現 NC 站內舊網域連結問題",        severity:"中", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 HTML 內 nc.tcu.edu.tw 字串計數"},
       {issue_type:"missing_canonical",  affected_count:1,  example:"首頁 <link rel=「canonical」> 缺失",             severity:"中", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex <link rel=「canonical」>"},
       {issue_type:"empty_alt",          affected_count:16, example:"24 張圖片中 16 張 alt 為空或泛稱",              severity:"中", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 圖片 alt 文字長度 ≤ 2"},
       {issue_type:"stale_page",         affected_count:3,  example:"Top 10 中 3 頁含 105/112/114 學年度",          severity:"中", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"Top 10 頁面 HTML 正則 學年度"},
-      {issue_type:"iframe_no_title",    affected_count:26, example:"26 個 iframe 全部未設定 title",                 severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 iframe title 屬性檢查"},
+      {issue_type:"iframe_no_title",    affected_count:1,  example:"1 個 iframe 未設定 title",                         severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 iframe title 屬性檢查"},
       {issue_type:"duplicate_id",       affected_count:80, example:"80 個 duplicate ID（Hln_* 模板生成）",          severity:"低", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 DOM ID 重複計數"},
       {issue_type:"unknown_source",     affected_count:0,  example:"本期未發現未分類 source/medium",                severity:"低", suggested_owner:"—",               status:"正常",  evidence_rule:"all_units_summary source NOT IN known list"}
     ],
