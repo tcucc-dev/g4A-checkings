@@ -5,30 +5,28 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-GA4-TREND-001", title:"網站流量八週趨勢完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-WEEKLY-TREND-001",
-    period:"2026-05-25 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-26 10:00",
-    jobId:"live-job-ga4-trend-20260720", dataHash:"live-trend-562", status:"正常",
+    period:"2026-06-07 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
+    jobId:"live-job-ga4-trend-20260729", dataHash:"live-trend-itm-20260729", status:"正常",
     description:"逐週工作階段、瀏覽量、匿名使用者、平均互動秒數與每工作階段頁數。",
     filterKeys:[], chart:{type:"line",xKey:"week",series:[["sessions","工作階段"],["pageviews","瀏覽量"]]},
     columns:[
       ["week","週別"],["sessions","工作階段"],["pageviews","瀏覽量"],["users","匿名使用者"],
       ["engagement_seconds","平均互動秒數"],["pages_per_session","每工作階段頁數"]
     ],
-    rows:[
-    {week:"05/25", sessions:562, pageviews:2005, users:398, engagement_seconds:51.0, pages_per_session:3.57},
-    {week:"06/01", sessions:493, pageviews:1753, users:338, engagement_seconds:45.0, pages_per_session:3.56},
-    {week:"06/08", sessions:693, pageviews:3491, users:431, engagement_seconds:53.0, pages_per_session:5.04},
-    {week:"06/15", sessions:91, pageviews:502, users:70, engagement_seconds:39.0, pages_per_session:5.52},
-    {week:"06/22", sessions:338, pageviews:1330, users:264, engagement_seconds:46.0, pages_per_session:3.93},
-    {week:"06/29", sessions:218, pageviews:649, users:171, engagement_seconds:29.0, pages_per_session:2.98},
-    {week:"07/12", sessions:221, pageviews:743, users:168, engagement_seconds:30.0, pages_per_session:3.36},
-    {week:"07/19", sessions:229, pageviews:833, users:184, engagement_seconds:43.0, pages_per_session:3.64}
-  ],
+    rows:[    {week:"06/07", sessions:708, pageviews:3481, users:438, engagement_seconds:85.5, pages_per_session:4.92},
+    {week:"06/14", sessions:166, pageviews:868, users:124, engagement_seconds:50.2, pages_per_session:5.23},
+    {week:"06/21", sessions:316, pageviews:1275, users:247, engagement_seconds:62.2, pages_per_session:4.03},
+    {week:"06/28", sessions:214, pageviews:622, users:171, engagement_seconds:35.9, pages_per_session:2.91},
+    {week:"07/05", sessions:219, pageviews:762, users:163, engagement_seconds:39.9, pages_per_session:3.48},
+    {week:"07/12", sessions:240, pageviews:843, users:195, engagement_seconds:51.5, pages_per_session:3.51},
+    {week:"07/19", sessions:221, pageviews:857, users:180, engagement_seconds:46.2, pages_per_session:3.88},
+    {week:"07/26", sessions:222, pageviews:843, users:181, engagement_seconds:45.9, pages_per_session:3.8}],
     sql:"SELECT week, COUNT(DISTINCT ga_session_id) AS sessions, COUNTIF(event_name='page_view') AS pageviews, COUNT(DISTINCT user_pseudo_id) AS users, ROUND(SAFE_DIVIDE(SUM(engagement_time_msec)/1000.0, COUNT(DISTINCT ga_session_id)), 0) AS engagement_seconds, ROUND(SAFE_DIVIDE(COUNTIF(event_name='page_view'), COUNT(DISTINCT ga_session_id)), 2) AS pages_per_session FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week;"
   },
   {
     id:"EV-GA4-AUDIENCE-001", title:"國家、裝置與流量來源完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-AUDIENCE-SOURCE-001",
-    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-26 10:01",
+    period:"2026-07-20 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
     jobId:"live-job-ga4-audience-20260720", dataHash:"live-audience-twn-cn", status:"正常",
     description:"近一週使用者來源國家、使用的裝置類別與流量來源／媒介分布。",
     filterKeys:["dimension"], chart:{type:"bar",xKey:"name",series:[["sessions","工作階段"]]},
@@ -52,7 +50,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-GSC-PAGE-001", title:"GSC 頁面曝光點擊完整報表", sourceType:"BigQuery",
     sourceTable:"all_gsc_summary", queryCode:"GSC-PAGE-EVIDENCE-001",
-    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-26 10:02",
+    period:"2026-07-20 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
     jobId:"live-job-gsc-page-20260720", dataHash:"live-gsc-page-20rows", status:"需改善",
     description:"Google 搜尋結果中各頁面的曝光、點擊與平均排名（前 20 名）。",
     filterKeys:[], chart:{type:"bar",xKey:"path",series:[["imp","曝光"]]},
@@ -84,7 +82,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-SEARCH-BEHAVIOR-001", title:"搜尋字詞到達後行為完整報表", sourceType:"BigQuery",
     sourceTable:"search_behavior_summary", queryCode:"SEARCH-BEHAVIOR-EVIDENCE-001",
-    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-26 10:03",
+    period:"2026-07-20 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
     jobId:"live-job-sb-evidence-20260720", dataHash:"live-sb-20rows", status:"注意",
     description:"搜尋字詞 × 後續站內行為：曝光、Google 點擊、總互動事件、到達頁數。",
     filterKeys:[], chart:{type:"bar",xKey:"query",series:[["imp","曝光"]]},
@@ -116,7 +114,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-AI-REFERRAL-001", title:"AI 搜尋引擎 referrer 完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"AI-REFERRAL-EVIDENCE-001",
-    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-26 10:04",
+    period:"2026-07-20 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
     jobId:"live-job-ai-ref-20260720", dataHash:"live-ai-ref-tiny", status:"查詢可用",
     description:"從 ChatGPT、Perplexity、Gemini、Claude 等 AI 搜尋引擎 referrer 進站的工作階段清單。",
     filterKeys:["ai_engine"], chart:{type:"bar",xKey:"ai_engine",series:[["sessions","工作階段"]]},
@@ -133,7 +131,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-DATA-QUALITY-001", title:"三張資料表品質檢核完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary、all_gsc_summary、search_behavior_summary", queryCode:"DATA-QUALITY-EVIDENCE-001",
-    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-26 10:05",
+    period:"2026-07-20 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
     jobId:"live-job-dq-20260720", dataHash:"live-dq-3tables", status:"正常",
     description:"三張主要資料表的最新日期、總列數、最新 BigQuery Job ID 與定義檢核結果。",
     filterKeys:["table_name"], chart:{type:"bar",xKey:"table_name",series:[["recent_rows","近一週列數"]]},
@@ -148,7 +146,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-FUNNEL-001", title:"招生內容到達率八週完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"FUNNEL-COURSE-FACULTY-FEATURE-001",
-    period:"2026-05-25 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-26 10:06",
+    period:"2026-06-07 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
     jobId:"live-job-funnel-20260720", dataHash:"live-funnel-8weeks", status:"查詢可用",
     description:"每週課程頁、師資頁、特色頁瀏覽量，用於追蹤招生到達率趨勢。",
     filterKeys:[], chart:{type:"line",xKey:"week",series:[["course_pv","課程頁"],["faculty_pv","師資頁"],["feature_pv","特色頁"]]},
@@ -168,7 +166,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-CONTACT-001", title:"聯絡方式與招生窗口完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary（衍生）+ HTML 原始碼", queryCode:"CONTACT-INFO-EVIDENCE-001",
-    period:"2026-07-26 抓取", maxDate:"2026-07-26", generatedAt:"2026-07-26 10:07",
+    period:"2026-07-26 抓取", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
     jobId:"live-job-contact-20260720", dataHash:"live-contact-html", status:"資料正常",
     description:"從 ITM 網頁 HTML 與 GA4 連結點擊目標解析出的聯絡電話、Email、LINE 群組、招生窗口。",
     filterKeys:["type"], chart:{type:"bar",xKey:"name",series:[["clicks","近一週點擊次數"]]},
@@ -185,7 +183,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-GEO-SOURCE-001", title:"GEO 技術原始碼完整檢核報表", sourceType:"網站原始碼掃描",
     sourceTable:"首頁 HTML", queryCode:"SITE-SOURCE-001",
-    period:"掃描時間 2026-07-29", maxDate:"2026-07-26", generatedAt:"2026-07-26 10:08",
+    period:"掃描時間 2026-07-29", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
     jobId:"非 BigQuery", dataHash:"live-source-80", status:"需改善",
     description:"這份報表不是 BigQuery 行為數據，而是 GEO／SEO 技術掃描證據。",
     filterKeys:["category","result"], chart:{type:"bar",xKey:"category",series:[["issue_count","問題數"]]},
@@ -206,7 +204,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-SEO-001", title:"高曝光零點擊搜尋字詞完整報表", sourceType:"BigQuery",
     sourceTable:"search_behavior_summary", queryCode:"SEO-ZEROCLICK-EVIDENCE-001",
-    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-26 10:09",
+    period:"2026-07-20 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
     jobId:"live-job-seo-zero-20260720", dataHash:"live-seo-zero-10rows", status:"需改善",
     description:"近一週曝光 ≥10 但點擊 = 0 的搜尋字詞清單，含建議修正方向。",
     filterKeys:["recommendation"], chart:{type:"bar",xKey:"query",series:[["imp","曝光"]]},
@@ -228,7 +226,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-PAGES-TABLE-001", title:"Top 10 高曝光頁面表格完整版", sourceType:"BigQuery",
     sourceTable:"all_gsc_summary", queryCode:"GSC-PAGES-TOP10-001",
-    period:"2026-07-13 至 2026-07-19", maxDate:"2026-07-19", generatedAt:"2026-07-26 10:10",
+    period:"2026-07-20 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
     jobId:"live-job-pages-top10-20260720", dataHash:"live-top10-10rows", status:"資料正常",
     description:"Top 10 高曝光頁面完整表格（含曝光、點擊、CTR、平均排名）。",
     filterKeys:[], chart:{type:"bar",xKey:"path",series:[["imp","曝光"]]},
