@@ -194,15 +194,16 @@ const EVIDENCE_REPORTS = [
     filterKeys:["category","result"], chart:{type:"bar",xKey:"category",series:[["issue_count","問題數"]]},
     columns:[["category","類別"],["check_item","檢核項"],["result","結果"],["issue_count","問題數"],["evidence","證據摘要"],["owner","主責"]],
     rows:[
-    {category:"實體", check_item:"首頁唯一 H1", result:"通過", issue_count:0, evidence:"首頁偵測到 1 個 H1 標籤「慈濟大學資訊科技與管理學系 - 資訊科技與管理學系」", owner:"—"},
-    {category:"結構化資料", check_item:"JSON-LD EducationalOrganization", result:"已實作", issue_count:0, evidence:"偵測到 2 個 JSON-LD，含 name、alternateName、url、parentOrganization、knowsAbout、address", owner:"—"},
-    {category:"Meta", check_item:"description 長度", result:"已改善", issue_count:0, evidence:"154 字（在 150–160 字最佳範圍），含系所教育目標、課程重點、跨域人才培育", owner:"—"},
-    {category:"Meta", check_item:"canonical link", result:"已實作", issue_count:0, evidence:"<link rel=\"canonical\"> 已補上", owner:"—"},
-    {category:"Open Graph", check_item:"og:title / og:description / og:url / og:type", result:"已實作", issue_count:0, evidence:"og:title、og:description、og:url、og:type、og:image 全部實作（og:description = 154 字）", owner:"—"},
-    {category:"hreflang", check_item:"中英文版標記", result:"已實作", issue_count:0, evidence:"hreflang 已標記，含中英文版", owner:"—"},
-    {category:"圖片", check_item:"alt 屬性", result:"待改善", issue_count:9, evidence:"35 張 img 中 9 張缺少 alt 屬性（建議補上）", owner:"電算中心"},
-    {category:"DOM", check_item:"重複 ID", result:"通過", issue_count:0, evidence:"無 TcuRpageFeatureTitle 重複問題", owner:"—"},
-    {category:"技術 GEO", check_item:"整體技術分", result:"大幅改善", issue_count:0, evidence:"canonical + og + hreflang + JSON-LD 已全部到位", owner:"—"}
+    {category:"實體", check_item:"首頁 H1 標籤", result:"待修補", issue_count:1, evidence:"未偵測到 <h1> 標籤（hero 區域改為 <h2> 或 div，影響 SEO 結構）", owner:"電算中心"},
+    {category:"結構化資料", check_item:"JSON-LD EducationalOrganization + WebSite", result:"已實作", issue_count:0, evidence:"偵測到 2 個 JSON-LD：WebSite（含 SearchAction）+ EducationalOrganization（含 name、alternateName、url、telephone、email、address、knowsAbout）", owner:"—"},
+    {category:"Meta", check_item:"description 長度", result:"已改善", issue_count:0, evidence:"154 字（在 150–160 字最佳範圍）", owner:"—"},
+    {category:"Meta", check_item:"canonical link", result:"已實作", issue_count:0, evidence:"<link rel=\"canonical\" href=\"https://itm.tcu.edu.tw/\"> 已實作", owner:"—"},
+    {category:"Open Graph", check_item:"og:title", result:"待修補", issue_count:1, evidence:"og:title 為通用「itm」，應改為「慈濟大學資訊科技與管理學系」", owner:"電算中心"},
+    {category:"Open Graph", check_item:"og:description", result:"缺失", issue_count:1, evidence:"og:description 為空，建議補上系所簡介", owner:"電算中心"},
+    {category:"Open Graph", check_item:"og:url / og:type / og:image", result:"已實作", issue_count:0, evidence:"og:url=https://itm.tcu.edu.tw/、og:type=website、og:image=logo.png", owner:"—"},
+    {category:"hreflang", check_item:"中英文版標記", result:"待修補", issue_count:1, evidence:"English 切換按鈕存在但未使用 <link rel=\"alternate\" hreflang> 標記", owner:"電算中心"},
+    {category:"圖片", check_item:"alt 屬性", result:"待改善", issue_count:9, evidence:"35 張 img 中 9 張缺少 alt 屬性", owner:"電算中心"},
+    {category:"DOM", check_item:"重複 ID", result:"通過", issue_count:0, evidence:"TcuRpageFeatureTitle 已不重複", owner:"—"}
   ],
     sql:"非 BigQuery。由 Hermes／爬蟲解析首頁 HTML，輸出標籤、屬性、數量與原始碼片段。"
   },

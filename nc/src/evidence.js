@@ -192,15 +192,15 @@ const EVIDENCE_REPORTS = [
     filterKeys:["category","result"], chart:{type:"bar",xKey:"category",series:[["issue_count","問題數"]]},
     columns:[["category","類別"],["check_item","檢核項"],["result","結果"],["issue_count","問題數"],["evidence","證據摘要"],["owner","主責"]],
     rows:[
-    {category:"實體", check_item:"首頁唯一 H1", result:"通過", issue_count:0, evidence:"首頁偵測到 1 個 H1 標籤「慈濟大學護理學院 - 慈濟大學護理學院」", owner:"—"},
+    {category:"實體", check_item:"首頁唯一 H1", result:"通過", issue_count:0, evidence:"首頁偵測到 1 個 H1 標籤「慈濟大學護理學院」", owner:"—"},
     {category:"結構化資料", check_item:"JSON-LD EducationalOrganization", result:"已實作", issue_count:0, evidence:"含 name、alternateName、url、parentOrganization、knowsAbout、address（建國路二段880號）", owner:"—"},
-    {category:"Meta", check_item:"description 長度", result:"待改善", issue_count:1, evidence:"91 字（最佳 150–160 字），含護理教育學制完整列表；可考慮再擴充 SEO keywords", owner:"電算中心"},
-    {category:"Meta", check_item:"canonical link", result:"缺失", issue_count:1, evidence:"未偵測到 <link rel=\"canonical\">，建議補上 https://nc.tcu.edu.tw/", owner:"電算中心"},
+    {category:"Meta", check_item:"description 長度", result:"待改善", issue_count:1, evidence:"91 字（最佳 150–160 字），建議再擴充 SEO keywords", owner:"電算中心"},
+    {category:"Meta", check_item:"canonical link", result:"缺失", issue_count:1, evidence:"未偵測到 <link rel=\"canonical\">", owner:"電算中心"},
     {category:"Open Graph", check_item:"og:title / og:description / og:url / og:type", result:"待修補", issue_count:4, evidence:"缺少 og:title、og:description、og:url、og:type，影響社交分享預覽", owner:"電算中心"},
     {category:"hreflang", check_item:"中英文版標記", result:"待修補", issue_count:1, evidence:"未偵測到 hreflang 標記", owner:"電算中心"},
-    {category:"內容結構", check_item:"h2 數量", result:"待改善", issue_count:1, evidence:"h2 數量從 20 降至 5，可能影響內容結構與可擷取性", owner:"電算中心"},
+    {category:"內容結構", check_item:"h2 數量", result:"待改善", issue_count:1, evidence:"h2 數量從 20 降至 5，影響內容深度", owner:"電算中心"},
     {category:"圖片", check_item:"alt 屬性", result:"待修補", issue_count:6, evidence:"9 張 img 中 6 張缺少 alt 屬性", owner:"電算中心"},
-    {category:"DOM", check_item:"重複 ID", result:"待修補", issue_count:30, evidence:"偵測到 30+ 重複 ID (Hln_* 系列、TcuRpageFeatureTitle 等)", owner:"電算中心"}
+    {category:"DOM", check_item:"重複 ID", result:"待修補", issue_count:30, evidence:"偵測到 30+ 重複 ID", owner:"電算中心"}
   ],
     sql:"非 BigQuery。由 Hermes／爬蟲解析首頁 HTML，輸出標籤、屬性、數量與原始碼片段。"
   },
