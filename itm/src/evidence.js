@@ -70,12 +70,12 @@ const EVIDENCE_REPORTS = [
     {rank:7, path:"/p/404-1022-34441.php", imp:57, clk:1, avg_pos:3.8},
     {rank:8, path:"/p/16-1022-34006.php?Lang=zh-tw", imp:38, clk:0, avg_pos:6.9},
     {rank:9, path:"/p/404-1022-45541.php?Lang=zh-tw", imp:37, clk:0, avg_pos:10.7},
-    {rank:10, path:"/var/file/22/1022/img/1199/458067580.pdf", imp:33, clk:0, avg_pos:7.4},
+    {rank:10, path:"/p/404-1022-30082.php", imp:33, clk:0, avg_pos:25.2},
     {rank:11, path:"/p/412-1022-2570.php?Lang=zh-tw", imp:33, clk:0, avg_pos:0.5},
-    {rank:12, path:"/p/404-1022-30082.php", imp:33, clk:0, avg_pos:25.2},
+    {rank:12, path:"/var/file/22/1022/img/1199/458067580.pdf", imp:33, clk:0, avg_pos:7.4},
     {rank:13, path:"/p/404-1022-30107.php", imp:33, clk:2, avg_pos:3.5},
-    {rank:14, path:"/?Lang=en", imp:32, clk:1, avg_pos:17.8},
-    {rank:15, path:"/p/404-1022-30026.php?Lang=zh-tw", imp:32, clk:1, avg_pos:4.1},
+    {rank:14, path:"/p/404-1022-30026.php?Lang=zh-tw", imp:32, clk:1, avg_pos:4.1},
+    {rank:15, path:"/?Lang=en", imp:32, clk:1, avg_pos:17.8},
     {rank:16, path:"/p/404-1022-52388.php?Lang=en", imp:25, clk:3, avg_pos:7.2},
     {rank:17, path:"/p/404-1022-36089.php?Lang=zh-tw", imp:23, clk:0, avg_pos:0.6},
     {rank:18, path:"/p/16-1022-45541.php?Lang=zh-tw", imp:22, clk:0, avg_pos:34.5},
@@ -125,17 +125,12 @@ const EVIDENCE_REPORTS = [
     filterKeys:["ai_engine"], chart:{type:"bar",xKey:"ai_engine",series:[["sessions","工作階段"]]},
     columns:[["ai_engine","AI 引擎"],["sessions","工作階段"],["users","匿名使用者"],["last_seen","最後觀察日"]],
     rows:[
-    {ai_engine:"chatgpt.com",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"perplexity.ai",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"claude.ai",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"gemini.google.com",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"copilot.microsoft.com",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"you.com",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"poe.com",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"deepseek.com",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"huggingface.co",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"mistral.ai",sessions:0,users:0,last_seen:"-"}
-  ],
+      {ai_engine:"chatgpt.com",sessions:0,users:0,last_seen:"-"},
+      {ai_engine:"perplexity.ai",sessions:0,users:0,last_seen:"-"},
+      {ai_engine:"claude.ai",sessions:0,users:0,last_seen:"-"},
+      {ai_engine:"gemini.google.com",sessions:0,users:0,last_seen:"-"},
+      {ai_engine:"其他 AI 來源",sessions:0,users:0,last_seen:"-"}
+    ],
     sql:"SELECT REGEXP_EXTRACT(COALESCE(page_referrer,'(none)'), r'^https?://([^/]+)') AS ai_engine, COUNT(DISTINCT ga_session_id) AS sessions, COUNT(DISTINCT user_pseudo_id) AS users, MAX(date) AS last_seen FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) AND page_referrer IS NOT NULL AND (page_referrer LIKE '%chatgpt%' OR page_referrer LIKE '%perplexity%' OR page_referrer LIKE '%gemini%' OR page_referrer LIKE '%claude%') GROUP BY ai_engine;"
   },
   {
@@ -147,7 +142,7 @@ const EVIDENCE_REPORTS = [
     filterKeys:["table_name"], chart:{type:"bar",xKey:"table_name",series:[["recent_rows","近一週列數"]]},
     columns:[["table_name","資料表"],["max_date","最新資料日期"],["recent_rows","近一週列數"],["last_job_id","BigQuery Job ID"],["check_status","檢核結果"]],
     rows:[
-    {table_name:"all_units_summary",max_date:"2026-07-27",recent_rows:251977,last_job_id:"live-job-ga4-trend-20260729",check_status:"正常"},
+    {table_name:"all_units_summary",max_date:"2026-07-28",recent_rows:296753,last_job_id:"live-job-ga4-trend-20260729",check_status:"正常"},
     {table_name:"all_gsc_summary",max_date:"2026-07-26",recent_rows:188293,last_job_id:"live-job-gsc-evidence-20260729",check_status:"正常"},
     {table_name:"search_behavior_summary",max_date:"2026-07-27",recent_rows:124430,last_job_id:"live-job-sb-evidence-20260729",check_status:"注意 — 不得跨 query 加總 active_users"}
   ],
@@ -251,7 +246,7 @@ const EVIDENCE_REPORTS = [
     {rank:7, path:"/p/404-1022-34441.php", imp:57, clk:1, ctr:1.8, avg_pos:3.8},
     {rank:8, path:"/p/16-1022-34006.php?Lang=zh-tw", imp:38, clk:0, ctr:0, avg_pos:6.9},
     {rank:9, path:"/p/404-1022-45541.php?Lang=zh-tw", imp:37, clk:0, ctr:0, avg_pos:10.7},
-    {rank:10, path:"/p/404-1022-30107.php", imp:33, clk:2, ctr:6.1, avg_pos:3.5}
+    {rank:10, path:"/var/file/22/1022/img/1199/458067580.pdf", imp:33, clk:0, ctr:0, avg_pos:7.4}
   ],
     sql:"SELECT url, REGEXP_REPLACE(url, r'^https?://[^/]+', '') AS path, SUM(impressions) AS imp, SUM(clicks) AS clk, ROUND(100*SAFE_DIVIDE(SUM(clicks), SUM(impressions)), 2) AS ctr, ROUND(SUM(sum_position)/NULLIF(SUM(impressions), 0), 1) AS avg_pos FROM all_gsc_summary WHERE site_name='資訊科技與管理系' AND data_date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) GROUP BY url ORDER BY imp DESC LIMIT 10;"
   },
@@ -367,17 +362,12 @@ const EVIDENCE_REPORTS = [
     filterKeys:["ai_engine"], chart:{type:"bar",xKey:"ai_engine",series:[["sessions","工作階段"]]},
     columns:[["ai_engine","AI 引擎"],["sessions","工作階段"],["users","活躍使用者"],["last_seen","最後觀察日"],["detection_pattern","比對規則"],["sample_note","樣本狀態"]],
     rows:[
-    {ai_engine:"chatgpt.com",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"perplexity.ai",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"claude.ai",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"gemini.google.com",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"copilot.microsoft.com",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"you.com",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"poe.com",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"deepseek.com",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"huggingface.co",sessions:0,users:0,last_seen:"-"},
-    {ai_engine:"mistral.ai",sessions:0,users:0,last_seen:"-"}
-  ],
+      {ai_engine:"chatgpt.com",sessions:0,users:0,last_seen:"-"},
+      {ai_engine:"perplexity.ai",sessions:0,users:0,last_seen:"-"},
+      {ai_engine:"claude.ai",sessions:0,users:0,last_seen:"-"},
+      {ai_engine:"gemini.google.com",sessions:0,users:0,last_seen:"-"},
+      {ai_engine:"其他 AI 來源",sessions:0,users:0,last_seen:"-"}
+    ],
     sql:"SELECT REGEXP_EXTRACT(COALESCE(page_referrer, '(none)'), r'^https?://([^/]+)') AS ai_engine, COUNT(DISTINCT ga_session_id) AS sessions, COUNT(DISTINCT user_pseudo_id) AS users, MAX(date) AS last_seen FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-26', INTERVAL 7 DAY) AND (COALESCE(page_referrer,'') LIKE '%chatgpt%' OR COALESCE(page_referrer,'') LIKE '%openai%' OR COALESCE(page_referrer,'') LIKE '%perplexity%' OR COALESCE(page_referrer,'') LIKE '%gemini%' OR COALESCE(page_referrer,'') LIKE '%bard%' OR COALESCE(page_referrer,'') LIKE '%copilot%' OR COALESCE(page_referrer,'') LIKE '%claude%' OR medium='ai-assistant') GROUP BY ai_engine;"
   },
   {
@@ -460,7 +450,7 @@ const EVIDENCE_REPORTS = [
     filterKeys:["severity"], chart:{type:"bar",xKey:"issue_type",series:[["affected_count","影響數"]]},
     columns:[["issue_type","問題類型"],["affected_count","影響數"],["example","範例"],["severity","嚴重性"],["suggested_owner","建議負責"],["status","狀態"],["evidence_rule","證據規則"]],
     rows:[
-    {table_name:"all_units_summary",max_date:"2026-07-27",recent_rows:251977,last_job_id:"live-job-ga4-trend-20260729",check_status:"正常"},
+    {table_name:"all_units_summary",max_date:"2026-07-28",recent_rows:296753,last_job_id:"live-job-ga4-trend-20260729",check_status:"正常"},
     {table_name:"all_gsc_summary",max_date:"2026-07-26",recent_rows:188293,last_job_id:"live-job-gsc-evidence-20260729",check_status:"正常"},
     {table_name:"search_behavior_summary",max_date:"2026-07-27",recent_rows:124430,last_job_id:"live-job-sb-evidence-20260729",check_status:"注意 — 不得跨 query 加總 active_users"}
   ],

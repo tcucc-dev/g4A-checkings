@@ -77,12 +77,12 @@ const EVIDENCE_REPORTS = [
     {rank:12, path:"/p/406-1014-65342,r1051.php?Lang=zh-tw", imp:47, clk:1, avg_pos:8.8},
     {rank:13, path:"/p/406-1014-65341,r1051.php?Lang=zh-tw", imp:45, clk:0, avg_pos:6.2},
     {rank:14, path:"/p/403-1014-1026-1.php?Lang=zh-tw", imp:40, clk:3, avg_pos:11.8},
-    {rank:15, path:"/p/412-1014-4969.php?Lang=zh-tw", imp:39, clk:6, avg_pos:7.5},
-    {rank:16, path:"/p/406-1014-64729,r1027.php?Lang=zh-tw", imp:39, clk:5, avg_pos:3.5},
-    {rank:17, path:"/p/406-1014-64702,r1026.php?Lang=zh-tw", imp:39, clk:3, avg_pos:6.3},
+    {rank:15, path:"/p/406-1014-64729,r1027.php?Lang=zh-tw", imp:39, clk:5, avg_pos:3.5},
+    {rank:16, path:"/p/406-1014-64702,r1026.php?Lang=zh-tw", imp:39, clk:3, avg_pos:6.3},
+    {rank:17, path:"/p/412-1014-4969.php?Lang=zh-tw", imp:39, clk:6, avg_pos:7.5},
     {rank:18, path:"/p/406-1014-65037,r1023.php?Lang=zh-tw", imp:37, clk:0, avg_pos:9.8},
-    {rank:19, path:"/p/406-1014-64730,r1027.php?Lang=zh-tw", imp:36, clk:3, avg_pos:12.8},
-    {rank:20, path:"/p/406-1014-65223,r1051.php?Lang=zh-tw", imp:36, clk:1, avg_pos:6.4}
+    {rank:19, path:"/p/406-1014-65223,r1051.php?Lang=zh-tw", imp:36, clk:1, avg_pos:6.4},
+    {rank:20, path:"/p/406-1014-64730,r1027.php?Lang=zh-tw", imp:36, clk:3, avg_pos:12.8}
   ],
     sql:"SELECT url, REGEXP_REPLACE(url, r'^https?://[^/]+', '') AS path, SUM(impressions) AS imp, SUM(clicks) AS clk, ROUND(SUM(sum_position) / NULLIF(SUM(impressions), 0), 1) AS avg_pos FROM all_gsc_summary WHERE site_name='護理學院' AND data_date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) GROUP BY url ORDER BY imp DESC LIMIT 20;"
   },
@@ -140,7 +140,7 @@ const EVIDENCE_REPORTS = [
     filterKeys:["table_name"], chart:{type:"bar",xKey:"table_name",series:[["recent_rows","近一週列數"]]},
     columns:[["table_name","資料表"],["max_date","最新資料日期"],["recent_rows","近一週列數"],["last_job_id","BigQuery Job ID"],["check_status","檢核結果"]],
     rows:[
-    {table_name:"all_units_summary",max_date:"2026-07-27",recent_rows:251977,last_job_id:"live-job-ga4-trend-20260729",check_status:"正常"},
+    {table_name:"all_units_summary",max_date:"2026-07-28",recent_rows:296753,last_job_id:"live-job-ga4-trend-20260729",check_status:"正常"},
     {table_name:"all_gsc_summary",max_date:"2026-07-26",recent_rows:188293,last_job_id:"live-job-gsc-evidence-20260729",check_status:"正常"},
     {table_name:"search_behavior_summary",max_date:"2026-07-27",recent_rows:124430,last_job_id:"live-job-sb-evidence-20260729",check_status:"注意 — 不得跨 query 加總 active_users"}
   ],
@@ -446,7 +446,7 @@ const EVIDENCE_REPORTS = [
     filterKeys:["severity"], chart:{type:"bar",xKey:"issue_type",series:[["affected_count","影響數"]]},
     columns:[["issue_type","問題類型"],["affected_count","影響數"],["example","範例"],["severity","嚴重性"],["suggested_owner","建議負責"],["status","狀態"],["evidence_rule","證據規則"]],
     rows:[
-    {table_name:"all_units_summary",max_date:"2026-07-27",recent_rows:251977,last_job_id:"live-job-ga4-trend-20260729",check_status:"正常"},
+    {table_name:"all_units_summary",max_date:"2026-07-28",recent_rows:296753,last_job_id:"live-job-ga4-trend-20260729",check_status:"正常"},
     {table_name:"all_gsc_summary",max_date:"2026-07-26",recent_rows:188293,last_job_id:"live-job-gsc-evidence-20260729",check_status:"正常"},
     {table_name:"search_behavior_summary",max_date:"2026-07-27",recent_rows:124430,last_job_id:"live-job-sb-evidence-20260729",check_status:"注意 — 不得跨 query 加總 active_users"}
   ],
