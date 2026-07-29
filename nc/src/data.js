@@ -12,9 +12,9 @@ window.WEBINSIGHT.DATA = {
 {k:"Google 搜尋點擊率",v:"4.07%",trend:"+0.47pt",avg:"+0.47pt 較前週",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[3.29,2.96,4.1,4.07]},
 {k:"課程頁到達率",v:"6.4%",trend:"課程 13",avg:"教師 51 / 特色 89",up:true,desc:"看「課程介紹」的人佔全站比例",src:"all_units_summary｜FUNNEL-COURSE-001",spark:[5.5, 7.6, 6.0, 6.4]}
  ],
- traffic:{a:[187,139,215,202],b:[304,233,464,298]},
- search:{a:[2644,2466,2560,2775],b:[87,73,105,113]},
- funnel:{a:[9, 13, 11, 13],b:[40, 50, 47, 51],c:[80, 90, 85, 89]},
+ traffic:{a:[332,75,210,194,140,211,204,202],b:[944,165,525,312,230,463,301,298]},
+ search:{a:[3472,2741,2811,2699,2462,2570,2720,2775],b:[197,136,91,93,71,101,112,113]},
+ funnel:{a:[26, 5, 16, 14, 11, 16, 15, 13],b:[52, 6, 21, 19, 13, 21, 19, 18],c:[98, 4, 22, 14, 9, 17, 14, 14]},
  decisions:[
   {p:"P1",id:"SEO-001",title:"改善高曝光、低點擊搜尋入口",reason:"Google 搜尋帶來的點擊這一週 113 次，前一週 105 次（+7.6%）；曝光 2,560 → 2,775。8 週曝光維持穩定。",who:"單位網站管理人",support:"電算中心提供 query × url 證據",due:"2 週"},
   {p:"P1",id:"FUNNEL-001",title:"把首頁與師資頁改為下一步導覽中心",reason:"近一週 課程頁/師資頁/特色頁 工作階段分別為 13/51/89。護理學院 page_title 多以「師資」「活動」「公告」為主，建議加強課程頁入口。",who:"單位網站管理人",support:"電算中心建 device split 報表",due:"3 週"},
@@ -84,11 +84,15 @@ sections:{
   // by app.js using prompt rule: ≥30% delta AND base ≥ volumes below.
   // New data: 2026-07-29 (today) ; latest complete week = 07/20 ~ 07/26 (Sunday-aligned)
   trends:[
-    {week:"07/05", users:151, sessions:187, pageviews:304,  impressions:2644, clicks:87},
-    {week:"07/12", users:117, sessions:139, pageviews:233,  impressions:2466, clicks:73},
-    {week:"07/19", users:176, sessions:215, pageviews:464,  impressions:2560, clicks:105},
-    {week:"07/26", users:166, sessions:202, pageviews:298,  impressions:2775, clicks:113}
-  ],
+    {week:"06/07", users:253, sessions:332, pageviews:944, impressions:3472, clicks:197},
+    {week:"06/14", users:61, sessions:75, pageviews:165, impressions:2741, clicks:136},
+    {week:"06/21", users:152, sessions:210, pageviews:525, impressions:2811, clicks:91},
+    {week:"06/28", users:150, sessions:194, pageviews:312, impressions:2699, clicks:93},
+    {week:"07/05", users:117, sessions:140, pageviews:230, impressions:2462, clicks:71},
+    {week:"07/12", users:177, sessions:211, pageviews:463, impressions:2570, clicks:101},
+    {week:"07/19", users:166, sessions:204, pageviews:301, impressions:2720, clicks:112},
+    {week:"07/26", users:166, sessions:202, pageviews:298, impressions:2775, clicks:113}
+   ],
   anomaly_rule:{
     threshold_pct:30,
     min_base:{sessions:20, impressions:100, clicks:10, users:20, pageviews:50}
