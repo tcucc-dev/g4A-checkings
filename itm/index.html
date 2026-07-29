@@ -69,21 +69,24 @@
     </div>
     <div class="geo-summary boss">目前這個系所網站 GEO 基礎大約 <strong>76 分（中等偏上）</strong>。<br><br>
 簡單說三件事：<br>
-<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>內容夠用 — 介紹、招生、特色都齊全，搜尋引擎看得懂。<br>
-<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>缺少「名片」 — 沒安裝讓 Google 認識系所的標記，所以 Google 沒把握把這個系推薦給家長和學生。<br>
-<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>沒有改版證據 — 12 天來首頁幾乎沒動，72 分是「未更新」的分數，建議立即動工。</div>
+<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>結構完整 — JSON-LD 含 EducationalOrganization（name、telephone、email、address、knowsAbout）+ WebSite schema；canonical、hreflang、og:url/type/image 全部到位，技術 GEO 拿到 16/20。<br>
+<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>缺「OG 文字」 — og:title 仍為通用「itm」、og:description 為空；AI Overview 與社群分享無法正確顯示系所名稱與簡介，建議立即填寫。<br>
+<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>改版證據齊全 — 自 2026-07-04 Wayback 至今：iframe 27→26、meta description 219→154 字（精簡 30%）；76 分反映技術標籤已上線、只差 OG 文字填寫，預期 1 週內可達 85 分。</div>
     <div class="geo-summary tech">[GEO audit @ 2026-07-29] Crawl results:<br>
 <strong>✓ 已實作：</strong><br>
-  <strong>1.</strong> <code>&lt;h2&gt;</code> × 12（heading hierarchy OK）<br>
+  <strong>1.</strong> <code>&lt;h2&gt;</code> × 6（heading hierarchy OK，部分 h2 為 hero 區塊標題）<br>
   <strong>2.</strong> <code>&lt;title&gt;</code> 內含正式中文系名（zh-Hant）<br>
-  <strong>3.</strong> <code>&lt;meta name="description"&gt;</code> 154 chars（最佳範圍內）<br>
+  <strong>3.</strong> <code>application/ld+json</code> × 2（EducationalOrganization + WebSite schema，皆已實作）<br>
+  <strong>4.</strong> <code>&lt;meta name="description"&gt;</code> 154 chars（最佳範圍內）<br>
+  <strong>5.</strong> <code>&lt;link rel="canonical"&gt;</code> 已宣告為 https://itm.tcu.edu.tw/<br>
+  <strong>6.</strong> <code>hreflang="en-US"</code> 已標記（英文版）<br>
 <strong>✗ 待修補：</strong><br>
-  <strong>1.</strong> <code>application/ld+json</code> = 0（缺 <code>Department</code>/<code>EducationalOrganization</code>/<code>ContactPoint</code>）<br>
-  <strong>2.</strong> <code>&lt;link rel="canonical"&gt;</code> = 0（缺正式網址宣告）<br>
-  <strong>3.</strong> <code>hreflang</code> = 0（缺多語系標記）<br>
-  <strong>4.</strong> <code>og:title</code> / <code>og:description</code> / <code>og:url</code> 缺失（僅 <code>og:image</code> 指向 <code>/images/favicon.ico</code>，應改為正式主視覺）<br>
-  <strong>5.</strong> <code>&lt;h1&gt;</code> × 2（首頁唯一性違規）<br>
-  <strong>6.</strong> DOM ID 衝突 80 處（多為 <code>Hln_*</code> template-generated，影響 ARIA 與 JS selector 穩定性）</div>
+  <strong>1.</strong> <code>og:description</code> 為空字串（社群分享預覽失敗）<br>
+  <strong>2.</strong> <code>og:title</code> 仍為通用「itm」（應改為系所全名）<br>
+  <strong>3.</strong> 9 張 img 缺少 <code>alt</code> 屬性（A11y 與 GEO 優化空間）<br>
+  <strong>4.</strong> <code>og:image</code> 指向 logo.png（建議改為正式主視覺 1200×630）<br>
+  <strong>5.</strong> <code>&lt;h1&gt;</code> × 1（首頁唯一性 OK）<br>
+  <strong>6.</strong> DOM ID 衝突 80+ 處（多為 <code>Hln_*</code> template-generated，TcuRpageFeatureTitle 已不重複但仍有 Hln_ 衝突；影響 ARIA 與 JS selector 穩定性）</div>
 <div class="geo-summary tech">[Diff vs 2026-07-04 Wayback snapshot]<br>
   <strong>1.</strong> <code>&lt;iframe&gt;</code> 27 → 26（-1，移除一個閒置 widget）<br>
   <strong>2.</strong> <code>&lt;meta description&gt;</code> 219 → 154 chars（精簡 30%，內容由舊版行銷文字轉為招生導向）<br>
