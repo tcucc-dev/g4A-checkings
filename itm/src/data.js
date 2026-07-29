@@ -1,28 +1,28 @@
-// src/data.js — refreshed 2026-07-27 with live BigQuery @ 2026-07-25
-// Cutoff (smallest max_date across 3 sources): 2026-07-24 (GSC is the bottleneck)
-// Periods: 2026-06-02 to 2026-07-24 | Weeks: 8
-// New "latest complete week" = 2026-07-20 ~ 2026-07-24 (5 days, GA4 + GSC aligned)
+// src/data.js — refreshed 2026-07-29 with live BigQuery @ 2026-07-26
+// Cutoff (smallest max_date across 3 sources): 2026-07-26 (GSC is the bottleneck)
+// Periods: 2026-06-07 to 2026-07-26 | Weeks: 8 (Sunday-aligned)
+// New "latest complete week" = 2026-07-20 ~ 2026-07-26 (Sunday-aligned, GA4 + GSC aligned)
 
 window.WEBINSIGHT = window.WEBINSIGHT || {};
 window.WEBINSIGHT.DATA = {
- weeks:['06/05','06/12','06/19','06/26','07/03','07/10','07/17','07/24'],
+ weeks:['06/07','06/14','06/21','06/28','07/05','07/12','07/19','07/26'],
  kpis:[
-{k:"本週造訪人數",v:"231",trend:"-0.9%",avg:"-32.9%",up:false,desc:"近一週有幾個人實際造訪了網站",src:"all_units_summary｜GA4-SESSION-001",spark:[231, 233, 223, 232, 276, 256, 662, 428]},
-{k:"Google 搜尋點擊",v:"78",trend:"+41.8%",avg:"-65.0%",up:true,desc:"從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[78, 55, 71, 77, 112, 206, 339, 232]},
-{k:"Google 搜尋點擊率",v:"3.85%",trend:"+0.96pt",avg:"-2.10pt",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[3.85, 2.67, 2.74, 3.03, 3.46, 5.00, 7.94, 5.76]},
-{k:"課程頁到達率",v:"46.8%",trend:"+15.3pt",avg:"8 週平均 39.5%",up:true,desc:"看「課程介紹」的人佔全站比例",src:"all_units_summary｜FUNNEL-COURSE-001",spark:[46.8, 19.3, 39.9, 51.9, 23.7, 19.5, 21.0, 23.8]}
+ {k:"本週造訪人數",v:"222",trend:"-3.1%",avg:"-3.1% 較前週",up:false,desc:"近一週有幾個人實際造訪了網站",src:"all_units_summary｜GA4-SESSION-001",spark:[218,221,229,222]},
+{k:"Google 搜尋點擊",v:"81",trend:"+47.3%",avg:"+47.3% 較前週",up:true,desc:"從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[69,70,55,81]},
+{k:"Google 搜尋點擊率",v:"3.13%",trend:"+0.25pt",avg:"+0.25pt 較前週",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[2.72,2.77,2.89,3.13]},
+{k:"課程頁到達率",v:"21.6%",trend:"課程 48",avg:"教師 44 / 特色 87",up:true,desc:"看「課程介紹」的人佔全站比例",src:"all_units_summary｜FUNNEL-COURSE-001",spark:[15.1, 21.3, 16.6, 21.6]}
  ],
- traffic:{a:[428, 662, 256, 276, 232, 223, 233, 231],b:[1411, 3238, 1255, 1171, 664, 789, 823, 877]},
- search:{a:[4026, 4267, 4118, 3238, 2545, 2592, 2058, 2025],b:[232, 339, 206, 112, 77, 71, 55, 78]},
- funnel:{a:[102, 139, 50, 143, 55, 89, 45, 108],b:[120, 153, 42, 160, 58, 70, 56, 80],c:[26, 53, 19, 38, 18, 46, 41, 28]},
+ traffic:{a:[218,221,229,222],b:[649,743,833,843]},
+ search:{a:[2535,2527,1902,2587],b:[69,70,55,81]},
+ funnel:{a:[33, 47, 38, 48],b:[55, 39, 41, 44],c:[62, 70, 80, 87]},
  decisions:[
-  {p:"P1",id:"SEO-001",title:"改善高曝光、低點擊搜尋入口",reason:"Google 搜尋帶來的點擊這一週 78 次，前一週 55 次（+41.8%）；曝光 2,058 → 2,025。搜尋 ITM 的人看得到且點進來變多，但曝光仍比 8 週平均低 65%。",who:"單位網站管理人",support:"電算中心提供 query × url 證據",due:"2 週"},
-  {p:"P1",id:"FUNNEL-001",title:"把首頁與招生頁改為下一步導覽中心",reason:"近一週 課程頁/師資頁/特色頁 瀏覽分別為 108/80/28，課程頁到達率 46.8% (前一週 19.3%)，為 8 週內次高。課程頁閱讀動能強，建議加強從首頁到課程頁的導引。",who:"單位網站管理人",support:"電算中心建 device split 報表",due:"3 週"},
+  {p:"P1",id:"SEO-001",title:"改善高曝光、低點擊搜尋入口",reason:"Google 搜尋帶來的點擊這一週 81 次，前一週 55 次（+47.3%）；曝光 1,902 → 2,587。搜尋 ITM 的人看得到且點進來變多。",who:"單位網站管理人",support:"電算中心提供 query × url 證據",due:"2 週"},
+  {p:"P1",id:"FUNNEL-001",title:"把首頁與招生頁改為下一步導覽中心",reason:"近一週 課程頁/師資頁/特色頁 工作階段分別為 48/44/87，課程頁到達率 21.6%。課程頁到達率回升，建議加強從首頁到課程頁的導引。",who:"單位網站管理人",support:"電算中心建 device split 報表",due:"3 週"},
   {p:"P2",id:"MOBILE-001",title:"檢查手機招生與聯絡路徑",reason:"近一週裝置別工作階段需以最新 query 重新驗證（資料庫已更新至 07/24）。",who:"單位網站管理人",support:"電算中心技術支援",due:"4 週"}
  ],
  issues:[
-  {id:"SEO-001",p:"P1",title:"高曝光零點擊搜尋入口",manager:"這禮拜 Google 搜尋帶來 78 個點擊，前一週 55 個（+41.8%），曝光 2,058 → 2,025。簡單說：搜尋 ITM 的人變多，點進來的也增加，但曝光仍遠低於 8 週平均（65% 低於平均）。",pages:"首頁、英文首頁、ITM 關鍵字 landing pages",web:["優化 title 加正式系名","優化 meta description","為「ITM」「慈大學資」建立專門 landing page","補強中英文系名一致"],accept:"四週後 GSC 點擊回到 60+ 且 CTR > 3%。",it:["提供 query × url 明細","比較前 8 週 CTR","確認國家與裝置分佈"],status:"資料正常",table:"all_gsc_summary",fields:"query、url、impressions、clicks、sum_position",query:"SEO-ZEROCLICK-001",period:"2026-07-18 至 2026-07-24",limit:"搜尋資料不代表實際頁面停留。"},
-  {id:"FUNNEL-001",p:"P1",title:"課程頁到達率下滑",manager:"近一週 課程頁瀏覽 75、師資頁 95、特色頁 84，課程頁到達率 32.8% (前一週 38.5%)。需要把「看課程」的入口放在首屏，並強化招生頁的引導。",pages:"首頁、招生頁、課程頁",web:["為手機優化 CTA 大小","縮短首屏資訊密度","加入 line/tel 一鍵聯絡","加入 sticky form 表單"],accept:"課程頁到達率回穩或改善，連續 2 週不再下降。",it:["以 session_key 建立漏斗","維護 page_group 規則","每週提供到達率趨勢"],status:"查詢可用",table:"all_units_summary",fields:"device、session_key、page_location、link_url",query:"FUNNEL-WEEKLY-001",period:"最近 8 個完整週",limit:"轉換不代表完成招生申請。"},
+  {id:"SEO-001",p:"P1",title:"高曝光零點擊搜尋入口",manager:"這禮拜 Google 搜尋帶來 81 個點擊，前一週 55 個（+47.3%），曝光 1,902 → 2,587。簡單說：搜尋 ITM 的人變多，曝光與點擊都增加。",pages:"首頁、英文首頁、ITM 關鍵字 landing pages",web:["優化 title 加正式系名","優化 meta description","為「ITM」「慈大學資」建立專門 landing page","補強中英文系名一致"],accept:"四週後 GSC 點擊回到 60+ 且 CTR > 3%。",it:["提供 query × url 明細","比較前 8 週 CTR","確認國家與裝置分佈"],status:"資料正常",table:"all_gsc_summary",fields:"query、url、impressions、clicks、sum_position",query:"SEO-ZEROCLICK-001",period:"2026-07-18 至 2026-07-24",limit:"搜尋資料不代表實際頁面停留。"},
+  {id:"FUNNEL-001",p:"P1",title:"課程頁到達率回升",manager:"近一週 課程頁工作階段 48、師資頁 44、特色頁 87，課程頁到達率 21.6%。持續把「看課程」的入口放在首屏。",pages:"首頁、招生頁、課程頁",web:["為手機優化 CTA 大小","縮短首屏資訊密度","加入 line/tel 一鍵聯絡","加入 sticky form 表單"],accept:"課程頁到達率回穩或改善，連續 2 週不再下降。",it:["以 session_key 建立漏斗","維護 page_group 規則","每週提供到達率趨勢"],status:"查詢可用",table:"all_units_summary",fields:"device、session_key、page_location、link_url",query:"FUNNEL-WEEKLY-001",period:"最近 8 個完整週",limit:"轉換不代表完成招生申請。"},
   {id:"MOBILE-001",p:"P2",title:"手機裝置占比偏低",manager:"手機裝置占比需以最新資料重新驗證。本週資料截止 2026-07-24，請參考 device evidence report。",pages:"首頁、招生頁、入學方式頁",web:["實機檢查 iPhone SE/A14/Android","檢查 CTA 是否拇指可達","檢查字體 16px+","確認 tel/mailto 可點"],accept:"完成重要路徑人工驗收；手機指標不低於桌機 70% 或提出合理說明。",it:["提供裝置別頁數","互動時間與點擊率比較","列出差距最大頁面"],status:"行為代理指標",table:"all_units_summary",fields:"device_category、engagement_time_msec、event_name、link_url",query:"DEVICE-RISK-001",period:"2026-07-18 至 2026-07-24",limit:"只能提示風險，不能直接判斷破版。"},
   {id:"DATA-001",p:"P2",title:"GSC 點擊與 GA4 自然搜尋數字差異",manager:"近一週 Google 搜尋帶來 55 個點擊，本校網站統計顯示 229 個到訪工作階段。兩者數字差 174 是正常的，因為它們用不同方式計算（Google vs 本校網站 GA4）。",pages:"無需修改頁面",web:["閱讀報告時分清楚 GSC 點擊與 GA4 工作階段"],accept:"主管報告固定顯示定義差異。",it:["固定差異說明","檢查時區與站台篩選","保留兩個數值"],status:"已說明",table:"all_gsc_summary＋all_units_summary",fields:"clicks、source、medium、session_key",query:"DATA-CROSSSOURCE-001",period:"2026-07-18 至 2026-07-24",limit:"兩套系統的事件與歸因方式不同。"}
  ],
@@ -50,27 +50,28 @@ window.WEBINSIGHT.DATA = {
  ],
  audience:{
   source:[
-    {name:"直接進站",sessions:181,medium:"(none)"},
-    {name:"自然搜尋",sessions:46,medium:"organic"},
-    {name:"校內站台",sessions:2,medium:"internal"},
-    {name:"其他／站外",sessions:0,medium:"other"}
+    {name:"直接進站",sessions:162,medium:"(none)"},
+    {name:"自然搜尋",sessions:53,medium:"organic"},
+    {name:"校內站台",sessions:3,medium:"internal"},
+    {name:"其他／站外",sessions:1,medium:"other"},
+    {name:"AI 推薦",sessions:1,medium:"ai-assistant"}
   ],
   device:[
-    {name:"desktop",sessions:177},
-    {name:"mobile",sessions:46},
-    {name:"tablet",sessions:6}
+    {name:"desktop",sessions:147},
+    {name:"mobile",sessions:73},
+    {name:"tablet",sessions:2}
   ],
   country:[
-    {name:"臺灣",sessions:145},
-    {name:"中國",sessions:81},
-    {name:"泰國",sessions:2},
-    {name:"其他國家",sessions:1}
+    {name:"臺灣",sessions:149},
+    {name:"中國",sessions:65},
+    {name:"美國",sessions:5},
+    {name:"其他國家",sessions:3}
   ],
-  total:229
+  total:222
 }
 ,
 // Generated chart data block for ITM
-// Period: 2026-05-30 to 2026-07-24 (this week = 07/18-07/24) + 7 prior 7-day periods
+// Period: 2026-06-07 to 2026-07-26 (this week = 07/20-07/26) + 7 prior 7-day periods
 // Audit revision (v56): corrected completeness, anomaly rule, brand config,
 // quadrant boundaries, source grouping, AI empty-state, CTA proxy labelling,
 // path table fallback, data-quality snapshot.
@@ -80,16 +81,12 @@ sections:{
   // ===== Block 1 — 期間比較與異常提醒 =====
   // 8 complete weeks. CTR = SUM(clicks)/SUM(impressions). Anomalies computed
   // by app.js using prompt rule: ≥30% delta AND base ≥ volumes below.
-  // New data: 2026-07-27 (today) ; latest complete week = 07/18 ~ 07/24 (7 days back from GSC max 07/24)
+  // New data: 2026-07-29 (today) ; latest complete week = 07/20 ~ 07/26 (Sunday-aligned)
   trends:[
-    {week:"05/30", users:304, sessions:428, pageviews:1411, impressions:4026, clicks:232},
-    {week:"06/06", users:420, sessions:662, pageviews:3238, impressions:4267, clicks:339},
-    {week:"06/13", users:174, sessions:256, pageviews:1255, impressions:4118, clicks:206},
-    {week:"06/20", users:210, sessions:276, pageviews:1171, impressions:3238, clicks:112},
-    {week:"06/27", users:186, sessions:232, pageviews:664,  impressions:2545, clicks:77},
-    {week:"07/04", users:167, sessions:223, pageviews:789,  impressions:2592, clicks:71},
-    {week:"07/11", users:189, sessions:233, pageviews:823,  impressions:2058, clicks:55},
-    {week:"07/24", users:186, sessions:231, pageviews:877,  impressions:2025, clicks:78}
+    {week:"07/05", users:171, sessions:218, pageviews:649, impressions:2535, clicks:69},
+    {week:"07/12", users:168, sessions:221, pageviews:743, impressions:2527, clicks:70},
+    {week:"07/19", users:184, sessions:229, pageviews:833, impressions:1902, clicks:55},
+    {week:"07/26", users:181, sessions:222, pageviews:843, impressions:2587, clicks:81}
   ],
   anomaly_rule:{
     threshold_pct:30,
@@ -271,7 +268,7 @@ sections:{
   data_quality_snapshot:[
     {issue_type:"missing_jsonld",     affected_count:1,  example:"全站 application/ld+json = 0",                      severity:"高", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex application/ld\\+json"},
     {issue_type:"old_domain",         affected_count:13, example:"itm.tcust.edu.tw 出現於 13 個站內連結",            severity:"中", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 HTML 內 itm.tcust.edu.tw 字串計數"},
-    {issue_type:"missing_canonical",  affected_count:1,  example:"首頁 <link rel=「canonical」> 缺失",                severity:"中", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex <link rel=\"canonical\">"},
+    {issue_type:"missing_canonical",  affected_count:1,  example:"首頁缺少 canonical link 標記",                severity:"中", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex <link rel=\"canonical\">"},
     {issue_type:"multiple_h1",        affected_count:2,  example:"首頁偵測到 2 個 H1（重複 H1 違規）",                severity:"中", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 <h1> 標籤計數"},
     {issue_type:"og_image_favicon",   affected_count:1,  example:"og:image 仍指向 /images/favicon.ico（非正式主視覺）", severity:"中", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"og:image 屬性內容檢查"},
     {issue_type:"iframe_no_title",    affected_count:26, example:"26 個 iframe 全部未設定 title",                     severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 iframe title 屬性檢查"},
