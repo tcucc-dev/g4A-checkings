@@ -77,12 +77,12 @@ const EVIDENCE_REPORTS = [
     {rank:12, path:"/p/406-1014-65342,r1051.php?Lang=zh-tw", imp:47, clk:1, avg_pos:8.8},
     {rank:13, path:"/p/406-1014-65341,r1051.php?Lang=zh-tw", imp:45, clk:0, avg_pos:6.2},
     {rank:14, path:"/p/403-1014-1026-1.php?Lang=zh-tw", imp:40, clk:3, avg_pos:11.8},
-    {rank:15, path:"/p/406-1014-64729,r1027.php?Lang=zh-tw", imp:39, clk:5, avg_pos:3.5},
-    {rank:16, path:"/p/406-1014-64702,r1026.php?Lang=zh-tw", imp:39, clk:3, avg_pos:6.3},
+    {rank:15, path:"/p/406-1014-64702,r1026.php?Lang=zh-tw", imp:39, clk:3, avg_pos:6.3},
+    {rank:16, path:"/p/406-1014-64729,r1027.php?Lang=zh-tw", imp:39, clk:5, avg_pos:3.5},
     {rank:17, path:"/p/412-1014-4969.php?Lang=zh-tw", imp:39, clk:6, avg_pos:7.5},
     {rank:18, path:"/p/406-1014-65037,r1023.php?Lang=zh-tw", imp:37, clk:0, avg_pos:9.8},
-    {rank:19, path:"/p/406-1014-65223,r1051.php?Lang=zh-tw", imp:36, clk:1, avg_pos:6.4},
-    {rank:20, path:"/p/406-1014-64730,r1027.php?Lang=zh-tw", imp:36, clk:3, avg_pos:12.8}
+    {rank:19, path:"/p/406-1014-64730,r1027.php?Lang=zh-tw", imp:36, clk:3, avg_pos:12.8},
+    {rank:20, path:"/p/406-1014-65223,r1051.php?Lang=zh-tw", imp:36, clk:1, avg_pos:6.4}
   ],
     sql:"SELECT url, REGEXP_REPLACE(url, r'^https?://[^/]+', '') AS path, SUM(impressions) AS imp, SUM(clicks) AS clk, ROUND(SUM(sum_position) / NULLIF(SUM(impressions), 0), 1) AS avg_pos FROM all_gsc_summary WHERE site_name='護理學院' AND data_date >= DATE_SUB(DATE '2026-07-19', INTERVAL 7 DAY) GROUP BY url ORDER BY imp DESC LIMIT 20;"
   },
@@ -155,14 +155,14 @@ const EVIDENCE_REPORTS = [
     filterKeys:[], chart:{type:"line",xKey:"week",series:[["course_pv","課程頁"],["faculty_pv","師資頁"],["feature_pv","特色頁"]]},
     columns:[["week","週別"],["course_pv","課程頁瀏覽"],["faculty_pv","師資頁瀏覽"],["feature_pv","特色頁瀏覽"]],
     rows:[
-    {week:"06-06", course_pv:43, faculty_pv:115, feature_pv:165},
-    {week:"06-13", course_pv:53, faculty_pv:126, feature_pv:234},
-    {week:"06-20", course_pv:9, faculty_pv:62, feature_pv:35},
-    {week:"06-27", course_pv:22, faculty_pv:67, feature_pv:138},
-    {week:"07-04", course_pv:21, faculty_pv:69, feature_pv:112},
-    {week:"07-11", course_pv:12, faculty_pv:56, feature_pv:73},
-    {week:"07-18", course_pv:19, faculty_pv:135, feature_pv:166},
-    {week:"07-25", course_pv:13, faculty_pv:71, feature_pv:100}
+    {week:"06-07", course_pv:45, faculty_pv:122, feature_pv:159},
+    {week:"06-14", course_pv:51, faculty_pv:126, feature_pv:233},
+    {week:"06-21", course_pv:4, faculty_pv:52, feature_pv:27},
+    {week:"06-28", course_pv:26, faculty_pv:76, feature_pv:149},
+    {week:"07-05", course_pv:18, faculty_pv:66, feature_pv:107},
+    {week:"07-12", course_pv:12, faculty_pv:56, feature_pv:79},
+    {week:"07-19", course_pv:19, faculty_pv:136, feature_pv:162},
+    {week:"07-26", course_pv:14, faculty_pv:67, feature_pv:105}
   ],
     sql:"SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(date, WEEK(MONDAY))) AS week, SUM(CASE WHEN page_title LIKE '%課程地圖%' OR page_title LIKE '%課程規劃%' OR page_title LIKE '%碩士班專區%' THEN 1 ELSE 0 END) AS course_pv, SUM(CASE WHEN page_title LIKE '%師資陣容%' THEN 1 ELSE 0 END) AS faculty_pv, SUM(CASE WHEN page_title LIKE '%本系特色%' OR page_title LIKE '%業界實習%' OR page_title LIKE '%實習流程%' OR page_title LIKE '%實務專題%' THEN 1 ELSE 0 END) AS feature_pv FROM all_units_summary WHERE site_name='護理學院' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) AND page_title != '' GROUP BY week ORDER BY week;"
   },
@@ -216,8 +216,8 @@ const EVIDENCE_REPORTS = [
     {query:"site:nc.tcu.edu.tw", imp:170, clk:0, ctr:0, position:5, recommendation:"需建立專門 landing page 或加入系名"},
     {query:"liyun kuo", imp:80, clk:1, ctr:1.25, position:5, recommendation:"可優化 title 加系名"},
     {query:"site:nc.tcust.edu.tw", imp:70, clk:0, ctr:0, position:5, recommendation:"需建立專門 landing page 或加入系名"},
-    {query:"慈濟護專", imp:66, clk:4, ctr:6.06, position:5, recommendation:"可優化 title 加系名"},
     {query:"慈濟大學護理系", imp:66, clk:0, ctr:0, position:5, recommendation:"需建立專門 landing page 或加入系名"},
+    {query:"慈濟護專", imp:66, clk:4, ctr:6.06, position:5, recommendation:"可優化 title 加系名"},
     {query:"慈濟大學護理學院", imp:60, clk:10, ctr:16.67, position:5, recommendation:"可優化 title 加系名"},
     {query:"林玉娟", imp:36, clk:0, ctr:0, position:5, recommendation:"需建立專門 landing page 或加入系名"},
     {query:"慈濟大學護理學系", imp:29, clk:0, ctr:0, position:5, recommendation:"需建立專門 landing page 或加入系名"},
@@ -258,14 +258,14 @@ const EVIDENCE_REPORTS = [
     filterKeys:["week"], chart:{type:"line",xKey:"week",series:[["sessions","工作階段"],["users","活躍使用者"],["pageviews","瀏覽量"]]},
     columns:[["week","週別"],["sessions","工作階段"],["users","活躍使用者"],["pageviews","瀏覽量"],["impressions","搜尋曝光"],["clicks","搜尋點擊"],["ctr","CTR"],["status","狀態"],["delta_pct","與前期差異%"]],
     rows:[
-    {week:"06/06", sessions:259, users:200, pageviews:1163, impressions:3002, clicks:141, ctr:4.7, status:"基準期", delta_pct:0},
-    {week:"06/13", sessions:332, users:253, pageviews:944, impressions:3472, clicks:197, ctr:5.67, status:"基準期", delta_pct:0},
-    {week:"06/20", sessions:75, users:61, pageviews:165, impressions:2741, clicks:136, ctr:4.96, status:"基準期", delta_pct:0},
-    {week:"06/27", sessions:210, users:152, pageviews:525, impressions:2811, clicks:91, ctr:3.24, status:"基準期", delta_pct:0},
-    {week:"07/04", sessions:194, users:150, pageviews:312, impressions:2699, clicks:93, ctr:3.45, status:"基準期", delta_pct:0},
-    {week:"07/11", sessions:140, users:117, pageviews:230, impressions:2462, clicks:71, ctr:2.88, status:"基準期", delta_pct:0},
-    {week:"07/18", sessions:211, users:177, pageviews:463, impressions:2570, clicks:101, ctr:3.93, status:"基準期", delta_pct:0},
-    {week:"07/25", sessions:204, users:166, pageviews:301, impressions:2720, clicks:112, ctr:4.12, status:"基準期", delta_pct:0}
+    {week:"06/07", sessions:268, users:205, pageviews:1123, impressions:3039, clicks:151, ctr:4.97, status:"基準期", delta_pct:0},
+    {week:"06/14", sessions:322, users:249, pageviews:933, impressions:3531, clicks:202, ctr:5.72, status:"基準期", delta_pct:0},
+    {week:"06/21", sessions:57, users:45, pageviews:132, impressions:2552, clicks:127, ctr:4.98, status:"基準期", delta_pct:0},
+    {week:"06/28", sessions:236, users:171, pageviews:556, impressions:2908, clicks:93, ctr:3.2, status:"基準期", delta_pct:0},
+    {week:"07/05", sessions:187, users:151, pageviews:304, impressions:2644, clicks:87, ctr:3.29, status:"基準期", delta_pct:0},
+    {week:"07/12", sessions:139, users:117, pageviews:233, impressions:2466, clicks:73, ctr:2.96, status:"基準期", delta_pct:0},
+    {week:"07/19", sessions:215, users:176, pageviews:464, impressions:2560, clicks:105, ctr:4.1, status:"基準期", delta_pct:0},
+    {week:"07/26", sessions:202, users:166, pageviews:298, impressions:2775, clicks:113, ctr:4.07, status:"基準期", delta_pct:0}
   ],
     sql:"SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(date, WEEK(MONDAY))) AS week, COUNT(DISTINCT CONCAT(user_pseudo_id, ':', ga_session_id)) AS sessions, COUNT(DISTINCT user_pseudo_id) AS users, COUNTIF(event_name='page_view') AS pageviews FROM all_units_summary WHERE site_name='護理學院' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week; UNION ALL SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(data_date, WEEK(MONDAY))) AS week, SUM(impressions) AS impressions, SUM(clicks) AS clicks, ROUND(100*SAFE_DIVIDE(SUM(clicks), SUM(impressions)), 2) AS ctr FROM all_gsc_summary WHERE site_name='護理學院' AND data_date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week;"
   },
@@ -279,11 +279,11 @@ const EVIDENCE_REPORTS = [
     columns:[["query","query"],["cls","分類"],["imp","曝光"],["clicks","點擊"],["ctr","CTR%"],["avg_pos","平均排名"],["landing","到達頁"]],
     rows:[
     {query:"liyun kuo", cls:"nonbrand", imp:80, clicks:1, ctr:1.25, avg_pos:7.7, landing:"/p/406-1014-64715,r1027.php?Lang=zh-tw"},
-    {query:"慈濟護專", cls:"nonbrand", imp:64, clicks:4, ctr:6.25, avg_pos:8.2, landing:"/"},
+    {query:"慈濟護專", cls:"brand", imp:64, clicks:4, ctr:6.25, avg_pos:8.2, landing:"/"},
     {query:"林玉娟", cls:"nonbrand", imp:36, clicks:0, ctr:0, avg_pos:0.9, landing:"/p/406-1014-64705,r1026.php?Lang=zh-tw"},
     {query:"曹英", cls:"nonbrand", imp:25, clicks:2, ctr:8, avg_pos:1.9, landing:"/p/406-1014-64700,r1026.php?Lang=zh-tw"},
-    {query:"慈濟大學護理系", cls:"nonbrand", imp:25, clicks:0, ctr:0, avg_pos:5.2, landing:"/p/412-1014-2990.php?Lang=zh-tw"},
-    {query:"護理大學", cls:"nonbrand", imp:22, clicks:0, ctr:0, avg_pos:7.5, landing:"/"},
+    {query:"慈濟大學護理系", cls:"brand", imp:25, clicks:0, ctr:0, avg_pos:5.2, landing:"/p/412-1014-2990.php?Lang=zh-tw"},
+    {query:"護理大學", cls:"brand", imp:22, clicks:0, ctr:0, avg_pos:7.5, landing:"/"},
     {query:"邱曉彥", cls:"nonbrand", imp:21, clicks:1, ctr:4.76, avg_pos:6.8, landing:"/p/406-1014-65223,r1051.php?Lang=zh-tw"},
     {query:"賴惠玲", cls:"nonbrand", imp:19, clicks:0, ctr:0, avg_pos:4.6, landing:"/p/406-1014-64699,r1026.php?Lang=zh-tw"},
     {query:"李崇仁", cls:"nonbrand", imp:16, clicks:4, ctr:25, avg_pos:0.3, landing:"/p/406-1014-64729,r1027.php?Lang=zh-tw"},
@@ -291,13 +291,13 @@ const EVIDENCE_REPORTS = [
     {query:"楊美玲", cls:"nonbrand", imp:13, clicks:1, ctr:7.69, avg_pos:2.8, landing:"/p/406-1014-64730,r1027.php?Lang=zh-tw"},
     {query:"陸秀芳", cls:"nonbrand", imp:11, clicks:3, ctr:27.27, avg_pos:0, landing:"/p/406-1014-64707,r1026.php?Lang=zh-tw"},
     {query:"li yun kuo 醫生娘", cls:"nonbrand", imp:11, clicks:0, ctr:0, avg_pos:3.9, landing:"/p/406-1014-64715,r1027.php?Lang=zh-tw"},
-    {query:"慈濟大學護理", cls:"nonbrand", imp:11, clicks:0, ctr:0, avg_pos:6.3, landing:"/p/412-1014-2990.php?Lang=zh-tw"},
-    {query:"慈濟護理科", cls:"nonbrand", imp:11, clicks:0, ctr:0, avg_pos:2.9, landing:"/"},
+    {query:"慈濟大學護理", cls:"brand", imp:11, clicks:0, ctr:0, avg_pos:6.3, landing:"/p/412-1014-2990.php?Lang=zh-tw"},
+    {query:"慈濟護理科", cls:"brand", imp:11, clicks:0, ctr:0, avg_pos:2.9, landing:"/"},
     {query:"王淑芳", cls:"nonbrand", imp:10, clicks:0, ctr:0, avg_pos:9.6, landing:"/p/406-1014-64698,r1034.php?Lang=zh-tw"},
     {query:"吳素月", cls:"nonbrand", imp:10, clicks:0, ctr:0, avg_pos:0.1, landing:"/p/406-1014-64726,r1027.php?Lang=zh-tw"},
     {query:"慈濟護理", cls:"nonbrand", imp:10, clicks:1, ctr:10, avg_pos:1.4, landing:"/"},
-    {query:"慈濟大學護理科", cls:"nonbrand", imp:9, clicks:0, ctr:0, avg_pos:3.3, landing:"/p/403-1014-1027-1.php?Lang=zh-tw"},
-    {query:"慈濟大學護理學院", cls:"nonbrand", imp:9, clicks:0, ctr:0, avg_pos:0, landing:"/p/412-1014-4934.php?Lang=zh-tw"}
+    {query:"慈濟大學護理科", cls:"brand", imp:9, clicks:1, ctr:11.11, avg_pos:2.1, landing:"/"},
+    {query:"慈濟大學護理學院", cls:"brand", imp:9, clicks:1, ctr:11.11, avg_pos:0, landing:"/p/412-1014-2992.php"}
   ],
     sql:"SELECT query, CASE WHEN REGEXP_CONTAINS(LOWER(query), r'慈濟|慈大|慈|tcu|tzu chi|nc|ncu|護理') THEN 'brand' ELSE 'nonbrand' END AS cls, SUM(impressions) AS imp, SUM(clicks) AS clicks, ROUND(100*SAFE_DIVIDE(SUM(clicks), SUM(impressions)), 2) AS ctr, ROUND(SUM(sum_position)/NULLIF(SUM(impressions), 0), 1) AS avg_pos FROM all_gsc_summary WHERE site_name='護理學院' AND data_date >= DATE_SUB(DATE '2026-07-26', INTERVAL 7 DAY) AND query IS NOT NULL AND query != '' GROUP BY query ORDER BY imp DESC LIMIT 50;"
   },
@@ -406,7 +406,7 @@ const EVIDENCE_REPORTS = [
     {country:"Canada", sessions:1, users:1, avg_eng_sec:28.3, top_landing:"/", admission_cta:0, contact_click:0, sample_note:"資料不足"},
     {country:"Japan", sessions:1, users:1, avg_eng_sec:24.9, top_landing:"/", admission_cta:0, contact_click:0, sample_note:"資料不足"},
     {country:"Malaysia", sessions:1, users:1, avg_eng_sec:5.8, top_landing:"/", admission_cta:0, contact_click:0, sample_note:"資料不足"},
-    {country:"Singapore", sessions:1, users:1, avg_eng_sec:0, top_landing:"/", admission_cta:0, contact_click:0, sample_note:"資料不足"}
+    {country:"Singapore", sessions:1, users:1, avg_eng_sec:18.8, top_landing:"/", admission_cta:0, contact_click:0, sample_note:"資料不足"}
   ],
     sql:"SELECT country, COUNT(DISTINCT ga_session_id) AS sessions, COUNT(DISTINCT user_pseudo_id) AS users, ROUND(SAFE_DIVIDE(SUM(engagement_time_msec)/1000.0, COUNT(DISTINCT ga_session_id)), 1) AS avg_eng_sec, ANY_VALUE(page_location) AS top_landing, SUM(CASE WHEN link_class='admission-cta' THEN 1 ELSE 0 END) AS admission_cta, SUM(CASE WHEN link_class IN ('tel','mailto','line','form') THEN 1 ELSE 0 END) AS contact_click FROM all_units_summary WHERE site_name='護理學院' AND date >= DATE_SUB(DATE '2026-07-26', INTERVAL 7 DAY) GROUP BY country ORDER BY sessions DESC LIMIT 50;"
   },

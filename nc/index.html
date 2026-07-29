@@ -212,8 +212,8 @@
       <summary>查看數據證據 — EV-PERIOD-ANOMALY-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-PERIOD-ANOMALY-001</div>
-        <div><strong>報告期間：</strong>2026-05-25 至 2026-07-19（8 個完整週）</div>
-        <div><strong>最新資料日期：</strong>2026-07-19</div>
+        <div><strong>報告期間：</strong>2026-05-31 至 2026-07-26（8 個完整週）</div>
+        <div><strong>最新資料日期：</strong>2026-07-26</div>
         <div><strong>查詢代碼：</strong>GA4-WEEKLY-TREND-001、GSC-WEEKLY-TREND-001</div>
         <div><strong>資料來源：</strong>all_units_summary、all_gsc_summary</div>
         <div><strong>指標定義：</strong>session = COUNT(DISTINCT ga_session_id) ；active users = COUNT(DISTINCT user_pseudo_id) ；pageviews = COUNTIF(event_name='page_view') ；CTR = SUM(clicks) / NULLIF(SUM(impressions), 0)</div>
@@ -254,8 +254,8 @@
       <summary>查看數據證據 — EV-BRAND-NONBRAND-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-BRAND-NONBRAND-001</div>
-        <div><strong>報告期間：</strong>2026-07-13 至 2026-07-19</div>
-        <div><strong>最新資料日期：</strong>2026-07-19</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
+        <div><strong>最新資料日期：</strong>2026-07-26</div>
         <div><strong>查詢代碼：</strong>GSC-KEYWORD-BRAND-001</div>
         <div><strong>資料來源：</strong>all_gsc_summary</div>
         <div><strong>指標定義：</strong>CTR = SUM(clicks) / NULLIF(SUM(impressions), 0) ；平均排名 = SUM(sum_position) / NULLIF(SUM(impressions), 0)</div>
@@ -289,8 +289,8 @@
       <summary>查看數據證據 — EV-CONTENT-MATRIX-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-CONTENT-MATRIX-001</div>
-        <div><strong>報告期間：</strong>2026-07-13 至 2026-07-19</div>
-        <div><strong>最新資料日期：</strong>2026-07-19</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
+        <div><strong>最新資料日期：</strong>2026-07-26</div>
         <div><strong>查詢代碼：</strong>GA4-PAGE-MATRIX-001</div>
         <div><strong>資料來源：</strong>all_units_summary</div>
         <div><strong>指標定義：</strong>活躍使用者 = COUNT(DISTINCT user_pseudo_id) ；平均互動秒／使用者 = SUM(engagement_time_msec)/1000 / COUNT(DISTINCT user_pseudo_id)</div>
@@ -329,8 +329,8 @@
       <summary>查看數據證據 — EV-SOURCE-QUALITY-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-SOURCE-QUALITY-001</div>
-        <div><strong>報告期間：</strong>2026-07-13 至 2026-07-19</div>
-        <div><strong>最新資料日期：</strong>2026-07-19</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
+        <div><strong>最新資料日期：</strong>2026-07-26</div>
         <div><strong>查詢代碼：</strong>GA4-SOURCE-QUALITY-001</div>
         <div><strong>資料來源：</strong>all_units_summary</div>
         <div><strong>指標定義：</strong>來源分組依 source × medium 合併；平均互動秒／工作階段 = SUM(engagement_time_msec)/1000 / COUNT(DISTINCT ga_session_id)</div>
@@ -365,8 +365,8 @@
       <summary>查看數據證據 — EV-AI-REFERRAL-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-AI-REFERRAL-001</div>
-        <div><strong>報告期間：</strong>2026-07-13 至 2026-07-19</div>
-        <div><strong>最新資料日期：</strong>2026-07-19</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
+        <div><strong>最新資料日期：</strong>2026-07-26</div>
         <div><strong>查詢代碼：</strong>AI-REFERRAL-EVIDENCE-001</div>
         <div><strong>資料來源：</strong>all_units_summary（page_referrer 欄位）</div>
         <div><strong>分類規則：</strong>page_referrer 網域符合下列任一即歸類：chatgpt|openai、perplexity、gemini|copilot|bing/claude|claude；未標明來源不會誤歸為 AI。</div>
@@ -399,8 +399,8 @@
       <summary>查看數據證據 — EV-ADMISSION-CTA-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-ADMISSION-CTA-001</div>
-        <div><strong>報告期間：</strong>2026-07-13 至 2026-07-19</div>
-        <div><strong>最新資料日期：</strong>2026-07-19</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
+        <div><strong>最新資料日期：</strong>2026-07-26</div>
         <div><strong>查詢代碼：</strong>CTA-CATEGORY-001</div>
         <div><strong>資料來源：</strong>all_units_summary（click 事件中的 link_url / link_text）</div>
         <div><strong>CTA 分類：</strong>透過 link_url 與 link_text 對應：招生簡章、入學方式、報名系統、LINE、tel:、mailto:、表單、其他連結、PDF/DOC/XLSX 下載。</div>
@@ -436,8 +436,8 @@
       <summary>查看數據證據 — EV-INTERNATIONAL-QUALITY-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-INTERNATIONAL-QUALITY-001</div>
-        <div><strong>報告期間：</strong>2026-07-13 至 2026-07-19</div>
-        <div><strong>最新資料日期：</strong>2026-07-19</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
+        <div><strong>最新資料日期：</strong>2026-07-26</div>
         <div><strong>查詢代碼：</strong>GA4-COUNTRY-001</div>
         <div><strong>資料來源：</strong>all_units_summary（country 欄位）</div>
         <div><strong>指標定義：</strong>country 為 GA4 的訪問位置近似值，不可推論為國籍；sessions = COUNT(DISTINCT ga_session_id) ；users = COUNT(DISTINCT user_pseudo_id) ；平均互動秒／工作階段 = SUM(engagement_time_msec)/1000 / COUNT(DISTINCT ga_session_id)</div>
@@ -470,8 +470,8 @@
       <summary>查看數據證據 — EV-USER-PATH-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-USER-PATH-001</div>
-        <div><strong>報告期間：</strong>2026-07-13 至 2026-07-19</div>
-        <div><strong>最新資料日期：</strong>2026-07-19</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
+        <div><strong>最新資料日期：</strong>2026-07-26</div>
         <div><strong>查詢代碼：</strong>GA4-LANDING-NEXT-001</div>
         <div><strong>資料來源：</strong>all_units_summary（page_view 事件）</div>
         <div><strong>指標定義：</strong>以 page_view 為事件單位，採 session 內最早的兩個不同 page_location 彙總；exit_share = 該 (landing, second) 數量 / landing 總數。</div>
@@ -499,8 +499,8 @@
       <summary>查看數據證據 — EV-DATA-QUALITY-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-DATA-QUALITY-001</div>
-        <div><strong>報告期間：</strong>2026-07-13 至 2026-07-19（快照）</div>
-        <div><strong>最新資料日期：</strong>2026-07-19</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26（快照）</div>
+        <div><strong>最新資料日期：</strong>2026-07-26</div>
         <div><strong>查詢代碼：</strong>DATA-QUALITY-SCAN-001</div>
         <div><strong>資料來源：</strong>首頁原始碼掃描 + all_units_summary unknown-source 檢查</div>
         <div><strong>指標定義：</strong>嚴重性 高 / 中 / 低 由議題影響範圍（曝光、SEO、AI 摘要）決定；非僅由計數高低決定。</div>

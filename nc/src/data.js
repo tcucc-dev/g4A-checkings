@@ -10,7 +10,7 @@ window.WEBINSIGHT.DATA = {
  {k:"本週造訪人數",v:"202",trend:"-6.0%",avg:"-6.0% 較前週",up:false,desc:"近一週有幾個人實際造訪了網站",src:"all_units_summary｜GA4-SESSION-001",spark:[187,139,215,202]},
 {k:"Google 搜尋點擊",v:"113",trend:"+7.6%",avg:"+7.6% 較前週",up:true,desc:"從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[87,73,105,113]},
 {k:"Google 搜尋點擊率",v:"4.07%",trend:"+0.47pt",avg:"+0.47pt 較前週",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[3.29,2.96,4.1,4.07]},
-{k:"課程頁到達率",v:"6.4%",trend:"課程 13",avg:"教師 51 / 特色 89",up:true,desc:"看「課程介紹」的人佔全站比例",src:"all_units_summary｜FUNNEL-COURSE-001",spark:[5.5, 7.6, 6.0, 6.4]}
+{k:"課程頁到達率",v:"6.4%",trend:"課程 13",avg:"教師 51 / 特色 89",up:true,desc:"看「課程介紹」的人佔全站比例",src:"all_units_summary｜FUNNEL-COURSE-001",spark:[11.2, 5.0, 5.6, 6.4]}
  ],
  traffic:{a:[332,75,210,194,140,211,204,202],b:[944,165,525,312,230,463,301,298]},
  search:{a:[3472,2741,2811,2699,2462,2570,2720,2775],b:[197,136,91,93,71,101,112,113]},
