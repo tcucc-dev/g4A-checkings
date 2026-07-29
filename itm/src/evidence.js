@@ -14,14 +14,14 @@ const EVIDENCE_REPORTS = [
       ["engagement_seconds","平均互動秒數"],["pages_per_session","每工作階段頁數"]
     ],
     rows:[
-    {week:"05/31", sessions:434, pageviews:1473, users:309, engagement_seconds:62.5048, pages_per_session:3.394},
-    {week:"06/07", sessions:708, pageviews:3481, users:438, engagement_seconds:85.4809, pages_per_session:4.9167},
-    {week:"06/14", sessions:166, pageviews:868, users:124, engagement_seconds:50.1745, pages_per_session:5.2289},
-    {week:"06/21", sessions:316, pageviews:1275, users:247, engagement_seconds:62.2324, pages_per_session:4.0348},
-    {week:"06/28", sessions:214, pageviews:622, users:171, engagement_seconds:35.8935, pages_per_session:2.9065},
-    {week:"07/05", sessions:219, pageviews:762, users:163, engagement_seconds:39.9454, pages_per_session:3.4795},
-    {week:"07/12", sessions:240, pageviews:843, users:195, engagement_seconds:51.5454, pages_per_session:3.5125},
-    {week:"07/19", sessions:221, pageviews:857, users:180, engagement_seconds:46.1969, pages_per_session:3.8778}
+    {week:"06/01", sessions:493, pageviews:1753, users:338, engagement_seconds:66.2716, pages_per_session:3.5558},
+    {week:"06/08", sessions:694, pageviews:3491, users:431, engagement_seconds:85.248, pages_per_session:5.0303},
+    {week:"06/15", sessions:91, pageviews:502, users:70, engagement_seconds:50.8259, pages_per_session:5.5165},
+    {week:"06/22", sessions:338, pageviews:1330, users:264, engagement_seconds:59.3176, pages_per_session:3.9349},
+    {week:"06/29", sessions:218, pageviews:649, users:171, engagement_seconds:37.1112, pages_per_session:2.9771},
+    {week:"07/06", sessions:221, pageviews:743, users:168, engagement_seconds:39.4536, pages_per_session:3.362},
+    {week:"07/13", sessions:229, pageviews:833, users:184, engagement_seconds:52.9699, pages_per_session:3.6376},
+    {week:"07/20", sessions:222, pageviews:843, users:181, engagement_seconds:45.8684, pages_per_session:3.7973}
   ],
     sql:"SELECT week, COUNT(DISTINCT ga_session_id) AS sessions, COUNTIF(event_name='page_view') AS pageviews, COUNT(DISTINCT user_pseudo_id) AS users, ROUND(SAFE_DIVIDE(SUM(engagement_time_msec)/1000.0, COUNT(DISTINCT ga_session_id)), 0) AS engagement_seconds, ROUND(SAFE_DIVIDE(COUNTIF(event_name='page_view'), COUNT(DISTINCT ga_session_id)), 2) AS pages_per_session FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week;"
   },
