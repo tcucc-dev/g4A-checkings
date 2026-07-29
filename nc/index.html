@@ -69,13 +69,13 @@
     </div>
     <div class="geo-summary boss">目前這個系所網站 GEO 基礎大約 <strong>64 分（待加強）</strong>。<br><br>
 簡單說三件事：<br>
-<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>內容結構佳 — 有 20 個 <code>&lt;h2&gt;</code> 與完整 EducationalOrganization schema（包含 parentOrganization、knowsAbout、address），Google 看得懂層級。<br>
-<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>缺「名片整合」 — 補上 <code>canonical</code>、<code>og:title/description/url/type</code> 與 <code>hreflang</code> 標記，AI Overview / 社群分享才能正確呈現「慈濟大學護理學院」。<br>
-<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>改版證據已足 — 自 7/4 起 h2 增加 16 個、JSON-LD 由 0 增為 1、DOM ID 重複由 26 降為 1；65 分表示結構已完整、但 metadata 技術標籤尚未補齊，建議本月完成 canonical 與 OG。</div>
+<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>內容完備 — 有 1 個 H1 + EducationalOrganization JSON-LD（含 name、alternateName、url、parentOrganization、knowsAbout、address）+ 完整護理學制介紹頁（課程、師資、特色、實習），但 h2 從 20 降至 5（內容深度變淺）。<br>
+<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>缺所有「技術名片」 — 完全沒有 canonical、og:title、og:description、og:url、og:type、hreflang；AI Overview 與社群分享無法正確呈現「慈濟大學護理學院」，這是最關鍵的修復點。<br>
+<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>改版倒退 — 自 2026-07-04 Wayback：h2 從 20 降至 5（內容深度變淺）、29 個 DOM ID 重複（多為 Hln_* template-generated）；71 分反映內容完整、但技術標籤仍待補齊、頁面結構需恢復。</div>
     <div class="geo-summary tech">[GEO audit @ 2026-07-29] Crawl results: https://nc.tcu.edu.tw/<br>
 <strong>✓ 已實作：</strong><br>
   <strong>1.</strong> <code>&lt;h1&gt;</code> × 1（單一標題，正確）<br>
-  <strong>2.</strong> <code>&lt;h2&gt;</code> × 20（heading hierarchy 完整）<br>
+  <strong>2.</strong> <code>&lt;h2&gt;</code> × 5（heading hierarchy 變淺，原有 20 個降至 5 個）<br>
   <strong>3.</strong> <code>&lt;title&gt;</code> 內含正式中文系名「慈濟大學護理學院」<br>
   <strong>4.</strong> <code>&lt;meta name="description"&gt;</code> 91 chars（含護理教育學制完整列表）<br>
   <strong>5.</strong> <code>application/ld+json</code> 完整 EducationalOrganization（含 name、alternateName、url、parentOrganization、knowsAbout、address）<br>
@@ -88,8 +88,8 @@
   <strong>3.</strong> <code>og:description</code> 缺失（社群分享時無預覽文字）<br>
   <strong>4.</strong> <code>og:url</code> 缺失（社群分享時無法正確標示正式 URL）<br>
   <strong>5.</strong> <code>og:type</code> 缺失（無法判斷為 <code>website</code> 或 <code>article</code>）<br>
-  <strong>6.</strong> 3 張圖片 <code>alt=""</code>（其中視覺性 icon 應改為裝飾語意）<br>
-  <strong>7.</strong> DOM ID <code>TcuRpageFeatureTitle</code> 出現 2 次（template-generated，需加唯一 ID prefix）</div>
+  <strong>6.</strong> 6 張圖片缺少 <code>alt</code> 屬性（9 張 img 中 6 張無 alt）<br>
+  <strong>7.</strong> 29 個 DOM ID 重複（Hln_* template-generated 系列 + TcuRpageFeatureTitle，需加唯一 ID prefix）</div>
 <div class="geo-summary tech">[Diff vs 2026-07-04 Wayback snapshot]<br>
   <strong>1.</strong> <code>&lt;h2&gt;</code> 4 → 20（+16，heading 結構完整化）<br>
   <strong>2.</strong> <code>application/ld+json</code> 0 → 1（補上 EducationalOrganization schema）<br>
