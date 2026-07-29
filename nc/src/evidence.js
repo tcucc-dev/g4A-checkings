@@ -5,22 +5,24 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-GA4-TREND-001", title:"網站流量八週趨勢完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-WEEKLY-TREND-001",
-    period:"2026-06-07 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
-    jobId:"live-job-ga4-trend-20260729", dataHash:"live-trend-nc-20260729", status:"正常",
+    period:"2026-07-20 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
+    jobId:"live-job-ev-ga4-trend-001-20260729", dataHash:"live-ev-ga4-trend-001-20260729", status:"正常",
     description:"逐週工作階段、瀏覽量、匿名使用者、平均互動秒數與每工作階段頁數。",
     filterKeys:[], chart:{type:"line",xKey:"week",series:[["sessions","工作階段"],["pageviews","瀏覽量"]]},
     columns:[
       ["week","週別"],["sessions","工作階段"],["pageviews","瀏覽量"],["users","匿名使用者"],
       ["engagement_seconds","平均互動秒數"],["pages_per_session","每工作階段頁數"]
     ],
-    rows:[    {week:"06/07", sessions:332, pageviews:944, users:253, engagement_seconds:90.1, pages_per_session:2.84},
-    {week:"06/14", sessions:75, pageviews:165, users:61, engagement_seconds:35.8, pages_per_session:2.2},
-    {week:"06/21", sessions:210, pageviews:525, users:152, engagement_seconds:72.1, pages_per_session:2.5},
-    {week:"06/28", sessions:194, pageviews:312, users:150, engagement_seconds:42.1, pages_per_session:1.61},
-    {week:"07/05", sessions:140, pageviews:230, users:117, engagement_seconds:28.4, pages_per_session:1.64},
-    {week:"07/12", sessions:211, pageviews:463, users:177, engagement_seconds:34.5, pages_per_session:2.19},
-    {week:"07/19", sessions:204, pageviews:301, users:166, engagement_seconds:27.5, pages_per_session:1.48},
-    {week:"07/26", sessions:202, pageviews:298, users:166, engagement_seconds:25.7, pages_per_session:1.48}],
+    rows:[
+    {week:"05/31", sessions:259, pageviews:1163, users:200, engagement_seconds:78.7027, pages_per_session:4.4903},
+    {week:"06/07", sessions:332, pageviews:944, users:253, engagement_seconds:90.0891, pages_per_session:2.8434},
+    {week:"06/14", sessions:75, pageviews:165, users:61, engagement_seconds:35.8497, pages_per_session:2.2},
+    {week:"06/21", sessions:210, pageviews:525, users:152, engagement_seconds:72.0933, pages_per_session:2.5},
+    {week:"06/28", sessions:194, pageviews:312, users:150, engagement_seconds:42.1424, pages_per_session:1.6082},
+    {week:"07/05", sessions:140, pageviews:230, users:117, engagement_seconds:28.3998, pages_per_session:1.6429},
+    {week:"07/12", sessions:211, pageviews:463, users:177, engagement_seconds:34.505, pages_per_session:2.1943},
+    {week:"07/19", sessions:204, pageviews:301, users:166, engagement_seconds:27.5119, pages_per_session:1.4755}
+  ],
     sql:"SELECT week, COUNT(DISTINCT ga_session_id) AS sessions, COUNTIF(event_name='page_view') AS pageviews, COUNT(DISTINCT user_pseudo_id) AS users, ROUND(SAFE_DIVIDE(SUM(engagement_time_msec)/1000.0, COUNT(DISTINCT ga_session_id)), 0) AS engagement_seconds, ROUND(SAFE_DIVIDE(COUNTIF(event_name='page_view'), COUNT(DISTINCT ga_session_id)), 2) AS pages_per_session FROM all_units_summary WHERE site_name='護理學院' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week;"
   },
   {
@@ -152,14 +154,14 @@ const EVIDENCE_REPORTS = [
     filterKeys:[], chart:{type:"line",xKey:"week",series:[["course_pv","課程頁"],["faculty_pv","師資頁"],["feature_pv","特色頁"]]},
     columns:[["week","週別"],["course_pv","課程頁瀏覽"],["faculty_pv","師資頁瀏覽"],["feature_pv","特色頁瀏覽"]],
     rows:[
-    {week:"05-25", course_pv:466, faculty_pv:473, feature_pv:180},
-    {week:"06-01", course_pv:397, faculty_pv:339, feature_pv:67},
-    {week:"06-08", course_pv:379, faculty_pv:417, feature_pv:138},
-    {week:"06-15", course_pv:52, faculty_pv:25, feature_pv:21},
-    {week:"06-22", course_pv:396, faculty_pv:592, feature_pv:128},
-    {week:"06-29", course_pv:185, faculty_pv:148, feature_pv:43},
-    {week:"07-12", course_pv:183, faculty_pv:157, feature_pv:121},
-    {week:"07-19", course_pv:97, faculty_pv:131, feature_pv:78}
+    {week:"06-06", course_pv:43, faculty_pv:115, feature_pv:165},
+    {week:"06-13", course_pv:53, faculty_pv:126, feature_pv:234},
+    {week:"06-20", course_pv:9, faculty_pv:62, feature_pv:35},
+    {week:"06-27", course_pv:22, faculty_pv:67, feature_pv:138},
+    {week:"07-04", course_pv:21, faculty_pv:69, feature_pv:112},
+    {week:"07-11", course_pv:12, faculty_pv:56, feature_pv:73},
+    {week:"07-18", course_pv:19, faculty_pv:135, feature_pv:166},
+    {week:"07-25", course_pv:13, faculty_pv:71, feature_pv:100}
   ],
     sql:"SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(date, WEEK(MONDAY))) AS week, SUM(CASE WHEN page_title LIKE '%課程地圖%' OR page_title LIKE '%課程規劃%' OR page_title LIKE '%碩士班專區%' THEN 1 ELSE 0 END) AS course_pv, SUM(CASE WHEN page_title LIKE '%師資陣容%' THEN 1 ELSE 0 END) AS faculty_pv, SUM(CASE WHEN page_title LIKE '%本系特色%' OR page_title LIKE '%業界實習%' OR page_title LIKE '%實習流程%' OR page_title LIKE '%實務專題%' THEN 1 ELSE 0 END) AS feature_pv FROM all_units_summary WHERE site_name='護理學院' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) AND page_title != '' GROUP BY week ORDER BY week;"
   },
@@ -249,21 +251,21 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-PERIOD-ANOMALY-001", title:"期間比較與異常提醒完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary + all_gsc_summary", queryCode:"GA4-WEEKLY-TREND-001 + GSC-WEEKLY-TREND-001",
-    period:"2026-05-30 至 2026-07-26（8 個完整週）", maxDate:"2026-07-26", generatedAt:"2026-07-29",
+    period:"2026-05-31 至 2026-07-26（8 個完整週）", maxDate:"2026-07-26", generatedAt:"2026-07-29",
     jobId:"live-job-period-anomaly-20260724", dataHash:"live-period-8weeks-20260724", status:"正常",
     description:"8 週完整週期（06/02-07/26）的工作階段、活躍使用者、瀏覽量、搜尋曝光、點擊、CTR 與異常狀態。Refreshed 2026-07-26。",
     filterKeys:["week"], chart:{type:"line",xKey:"week",series:[["sessions","工作階段"],["users","活躍使用者"],["pageviews","瀏覽量"]]},
     columns:[["week","週別"],["sessions","工作階段"],["users","活躍使用者"],["pageviews","瀏覽量"],["impressions","搜尋曝光"],["clicks","搜尋點擊"],["ctr","CTR"],["status","狀態"],["delta_pct","與前期差異%"]],
     rows:[
-      {week:"06/01", sessions:493, users:338, pageviews:1753, impressions:3513, clicks:261, ctr:7.43, status:"基準期", delta_pct:0},
-      {week:"06/08", sessions:694, users:431, pageviews:3491, impressions:4418, clicks:307, ctr:6.95, status:"明顯成長", delta_pct:40.8},
-      {week:"06/15", sessions:91,  users:70,  pageviews:502,  impressions:3666, clicks:160, ctr:4.36, status:"明顯下降", delta_pct:-86.9},
-      {week:"06/22", sessions:338, users:264, pageviews:1330, impressions:3158, clicks:110, ctr:3.48, status:"明顯成長", delta_pct:271.4},
-      {week:"06/29", sessions:218, users:171, pageviews:649,  impressions:2535, clicks:69,  ctr:2.72, status:"明顯下降", delta_pct:-35.5},
-      {week:"07/06", sessions:221, users:168, pageviews:743,  impressions:2527, clicks:70,  ctr:2.77, status:"大致穩定", delta_pct:1.4},
-      {week:"07/13", sessions:229, users:184, pageviews:833,  impressions:1902, clicks:55,  ctr:2.89, status:"大致穩定", delta_pct:3.6},
-      {week:"07/24", sessions:231, users:186, pageviews:877,  impressions:2025, clicks:78,  ctr:3.85, status:"大致穩定", delta_pct:-0.9}
-    ],
+    {week:"06/06", sessions:259, users:200, pageviews:1163, impressions:3002, clicks:141, ctr:4.6969, status:"基準期", delta_pct:0},
+    {week:"06/13", sessions:332, users:253, pageviews:944, impressions:3472, clicks:197, ctr:5.674, status:"基準期", delta_pct:0},
+    {week:"06/20", sessions:75, users:61, pageviews:165, impressions:2741, clicks:136, ctr:4.9617, status:"基準期", delta_pct:0},
+    {week:"06/27", sessions:210, users:152, pageviews:525, impressions:2811, clicks:91, ctr:3.2373, status:"基準期", delta_pct:0},
+    {week:"07/04", sessions:194, users:150, pageviews:312, impressions:2699, clicks:93, ctr:3.4457, status:"基準期", delta_pct:0},
+    {week:"07/11", sessions:140, users:117, pageviews:230, impressions:2462, clicks:71, ctr:2.8838, status:"基準期", delta_pct:0},
+    {week:"07/18", sessions:211, users:177, pageviews:463, impressions:2570, clicks:101, ctr:3.93, status:"基準期", delta_pct:0},
+    {week:"07/25", sessions:204, users:166, pageviews:301, impressions:2720, clicks:112, ctr:4.1176, status:"基準期", delta_pct:0}
+  ],
     sql:"SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(date, WEEK(MONDAY))) AS week, COUNT(DISTINCT CONCAT(user_pseudo_id, ':', ga_session_id)) AS sessions, COUNT(DISTINCT user_pseudo_id) AS users, COUNTIF(event_name='page_view') AS pageviews FROM all_units_summary WHERE site_name='護理學院' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week; UNION ALL SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(data_date, WEEK(MONDAY))) AS week, SUM(impressions) AS impressions, SUM(clicks) AS clicks, ROUND(100*SAFE_DIVIDE(SUM(clicks), SUM(impressions)), 2) AS ctr FROM all_gsc_summary WHERE site_name='護理學院' AND data_date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week;"
   },
   {

@@ -5,22 +5,24 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-GA4-TREND-001", title:"網站流量八週趨勢完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-WEEKLY-TREND-001",
-    period:"2026-06-07 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
-    jobId:"live-job-ga4-trend-20260729", dataHash:"live-trend-itm-20260729", status:"正常",
+    period:"2026-07-20 至 2026-07-26", maxDate:"2026-07-26", generatedAt:"2026-07-29 10:00",
+    jobId:"live-job-ev-ga4-trend-001-20260729", dataHash:"live-ev-ga4-trend-001-20260729", status:"正常",
     description:"逐週工作階段、瀏覽量、匿名使用者、平均互動秒數與每工作階段頁數。",
     filterKeys:[], chart:{type:"line",xKey:"week",series:[["sessions","工作階段"],["pageviews","瀏覽量"]]},
     columns:[
       ["week","週別"],["sessions","工作階段"],["pageviews","瀏覽量"],["users","匿名使用者"],
       ["engagement_seconds","平均互動秒數"],["pages_per_session","每工作階段頁數"]
     ],
-    rows:[    {week:"06/07", sessions:708, pageviews:3481, users:438, engagement_seconds:85.5, pages_per_session:4.92},
-    {week:"06/14", sessions:166, pageviews:868, users:124, engagement_seconds:50.2, pages_per_session:5.23},
-    {week:"06/21", sessions:316, pageviews:1275, users:247, engagement_seconds:62.2, pages_per_session:4.03},
-    {week:"06/28", sessions:214, pageviews:622, users:171, engagement_seconds:35.9, pages_per_session:2.91},
-    {week:"07/05", sessions:219, pageviews:762, users:163, engagement_seconds:39.9, pages_per_session:3.48},
-    {week:"07/12", sessions:240, pageviews:843, users:195, engagement_seconds:51.5, pages_per_session:3.51},
-    {week:"07/19", sessions:221, pageviews:857, users:180, engagement_seconds:46.2, pages_per_session:3.88},
-    {week:"07/26", sessions:222, pageviews:843, users:181, engagement_seconds:45.9, pages_per_session:3.8}],
+    rows:[
+    {week:"05/31", sessions:434, pageviews:1473, users:309, engagement_seconds:62.5048, pages_per_session:3.394},
+    {week:"06/07", sessions:708, pageviews:3481, users:438, engagement_seconds:85.4809, pages_per_session:4.9167},
+    {week:"06/14", sessions:166, pageviews:868, users:124, engagement_seconds:50.1745, pages_per_session:5.2289},
+    {week:"06/21", sessions:316, pageviews:1275, users:247, engagement_seconds:62.2324, pages_per_session:4.0348},
+    {week:"06/28", sessions:214, pageviews:622, users:171, engagement_seconds:35.8935, pages_per_session:2.9065},
+    {week:"07/05", sessions:219, pageviews:762, users:163, engagement_seconds:39.9454, pages_per_session:3.4795},
+    {week:"07/12", sessions:240, pageviews:843, users:195, engagement_seconds:51.5454, pages_per_session:3.5125},
+    {week:"07/19", sessions:221, pageviews:857, users:180, engagement_seconds:46.1969, pages_per_session:3.8778}
+  ],
     sql:"SELECT week, COUNT(DISTINCT ga_session_id) AS sessions, COUNTIF(event_name='page_view') AS pageviews, COUNT(DISTINCT user_pseudo_id) AS users, ROUND(SAFE_DIVIDE(SUM(engagement_time_msec)/1000.0, COUNT(DISTINCT ga_session_id)), 0) AS engagement_seconds, ROUND(SAFE_DIVIDE(COUNTIF(event_name='page_view'), COUNT(DISTINCT ga_session_id)), 2) AS pages_per_session FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week;"
   },
   {
@@ -152,14 +154,14 @@ const EVIDENCE_REPORTS = [
     filterKeys:[], chart:{type:"line",xKey:"week",series:[["course_pv","課程頁"],["faculty_pv","師資頁"],["feature_pv","特色頁"]]},
     columns:[["week","週別"],["course_pv","課程頁瀏覽"],["faculty_pv","師資頁瀏覽"],["feature_pv","特色頁瀏覽"]],
     rows:[
-    {week:"05-25", course_pv:466, faculty_pv:473, feature_pv:180},
-    {week:"06-01", course_pv:397, faculty_pv:339, feature_pv:67},
-    {week:"06-08", course_pv:379, faculty_pv:417, feature_pv:138},
-    {week:"06-15", course_pv:52, faculty_pv:25, feature_pv:21},
-    {week:"06-22", course_pv:396, faculty_pv:592, feature_pv:128},
-    {week:"06-29", course_pv:185, faculty_pv:148, feature_pv:43},
-    {week:"07-12", course_pv:183, faculty_pv:157, feature_pv:121},
-    {week:"07-19", course_pv:97, faculty_pv:131, feature_pv:78}
+    {week:"06-06", course_pv:148, faculty_pv:214, feature_pv:756},
+    {week:"06-13", course_pv:259, faculty_pv:753, feature_pv:1489},
+    {week:"06-20", course_pv:64, faculty_pv:222, feature_pv:395},
+    {week:"06-27", course_pv:190, faculty_pv:224, feature_pv:469},
+    {week:"07-04", course_pv:101, faculty_pv:67, feature_pv:216},
+    {week:"07-11", course_pv:114, faculty_pv:105, feature_pv:312},
+    {week:"07-18", course_pv:98, faculty_pv:119, feature_pv:294},
+    {week:"07-25", course_pv:176, faculty_pv:121, feature_pv:316}
   ],
     sql:"SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(date, WEEK(MONDAY))) AS week, SUM(CASE WHEN page_title LIKE '%課程地圖%' OR page_title LIKE '%課程規劃%' OR page_title LIKE '%碩士班專區%' THEN 1 ELSE 0 END) AS course_pv, SUM(CASE WHEN page_title LIKE '%師資陣容%' THEN 1 ELSE 0 END) AS faculty_pv, SUM(CASE WHEN page_title LIKE '%本系特色%' OR page_title LIKE '%業界實習%' OR page_title LIKE '%實習流程%' OR page_title LIKE '%實務專題%' THEN 1 ELSE 0 END) AS feature_pv FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) AND page_title != '' GROUP BY week ORDER BY week;"
   },
@@ -255,15 +257,15 @@ const EVIDENCE_REPORTS = [
     filterKeys:["week"], chart:{type:"line",xKey:"week",series:[["sessions","工作階段"],["users","活躍使用者"],["pageviews","瀏覽量"]]},
     columns:[["week","週別"],["sessions","工作階段"],["users","活躍使用者"],["pageviews","瀏覽量"],["impressions","搜尋曝光"],["clicks","搜尋點擊"],["ctr","CTR"],["status","狀態"],["delta_pct","與前期差異%"]],
     rows:[
-      {week:"06/01", sessions:493, users:338, pageviews:1753, impressions:3513, clicks:261, ctr:7.43, status:"基準期", delta_pct:0},
-      {week:"06/08", sessions:694, users:431, pageviews:3491, impressions:4418, clicks:307, ctr:6.95, status:"明顯成長", delta_pct:40.8},
-      {week:"06/15", sessions:91,  users:70,  pageviews:502,  impressions:3666, clicks:160, ctr:4.36, status:"明顯下降", delta_pct:-86.9},
-      {week:"06/22", sessions:338, users:264, pageviews:1330, impressions:3158, clicks:110, ctr:3.48, status:"明顯成長", delta_pct:271.4},
-      {week:"06/29", sessions:218, users:171, pageviews:649,  impressions:2535, clicks:69,  ctr:2.72, status:"明顯下降", delta_pct:-35.5},
-      {week:"07/06", sessions:221, users:168, pageviews:743,  impressions:2527, clicks:70,  ctr:2.77, status:"大致穩定", delta_pct:1.4},
-      {week:"07/13", sessions:229, users:184, pageviews:833,  impressions:1902, clicks:55,  ctr:2.89, status:"大致穩定", delta_pct:3.6},
-      {week:"07/24", sessions:231, users:186, pageviews:877,  impressions:2025, clicks:78,  ctr:3.85, status:"大致穩定", delta_pct:-0.9}
-    ],
+    {week:"06/06", sessions:434, users:309, pageviews:1473, impressions:4120, clicks:252, ctr:6.1165, status:"基準期", delta_pct:0},
+    {week:"06/13", sessions:708, users:438, pageviews:3481, impressions:4385, clicks:342, ctr:7.7993, status:"基準期", delta_pct:0},
+    {week:"06/20", sessions:166, users:124, pageviews:868, impressions:3960, clicks:179, ctr:4.5202, status:"基準期", delta_pct:0},
+    {week:"06/27", sessions:316, users:247, pageviews:1275, impressions:3159, clicks:112, ctr:3.5454, status:"基準期", delta_pct:0},
+    {week:"07/04", sessions:214, users:171, pageviews:622, impressions:2543, clicks:70, ctr:2.7527, status:"基準期", delta_pct:0},
+    {week:"07/11", sessions:219, users:163, pageviews:762, impressions:2553, clicks:73, ctr:2.8594, status:"基準期", delta_pct:0},
+    {week:"07/18", sessions:240, users:195, pageviews:843, impressions:2002, clicks:54, ctr:2.6973, status:"基準期", delta_pct:0},
+    {week:"07/25", sessions:221, users:180, pageviews:857, impressions:2436, clicks:77, ctr:3.1609, status:"基準期", delta_pct:0}
+  ],
     sql:"SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(date, WEEK(MONDAY))) AS week, COUNT(DISTINCT CONCAT(user_pseudo_id, ':', ga_session_id)) AS sessions, COUNT(DISTINCT user_pseudo_id) AS users, COUNTIF(event_name='page_view') AS pageviews FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week; UNION ALL SELECT FORMAT_DATE('%m/%d', DATE_TRUNC(data_date, WEEK(MONDAY))) AS week, SUM(impressions) AS impressions, SUM(clicks) AS clicks, ROUND(100*SAFE_DIVIDE(SUM(clicks), SUM(impressions)), 2) AS ctr FROM all_gsc_summary WHERE site_name='資訊科技與管理系' AND data_date >= DATE_SUB(DATE '2026-07-19', INTERVAL 56 DAY) GROUP BY week ORDER BY week;"
   },
   {
