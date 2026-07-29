@@ -69,8 +69,8 @@ for d in $DEPTS; do
 
     popd > /dev/null
 
-    mkdir -p "../$STAGING/$d"
-    cp -r "$d/dist/." "../$STAGING/$d/"
+    mkdir -p "$STAGING/$d"
+    cp -r "$d/dist/." "$STAGING/$d/"
     echo -e "${GREEN}  ✓ $d dist → staging/$d${NC}"
 done
 

@@ -2,11 +2,14 @@
   "name": "tcu-webinsight-reports",
   "version": "1.0.0",
   "private": true,
-  "description": "TCU department web insight reports (ITM + NC), deployed via Vercel monorepo (rootDirectory per project)",
+  "description": "TCU department web insight reports (ITM + NC), deployable as a single Vercel project at the repository root or as separate Vite projects per department.",
   "scripts": {
-    "build:itm": "cd itm && npm install && npm run build",
-    "build:nc": "cd nc && npm install && npm run build",
-    "dev:itm": "cd itm && npm run dev",
-    "dev:nc": "cd nc && npm run dev"
+    "build": "node scripts/build-vercel.mjs",
+    "build:itm": "npm run build --prefix itm",
+    "build:nc": "npm run build --prefix nc",
+    "dev:itm": "npm run dev --prefix itm",
+    "dev:nc": "npm run dev --prefix nc",
+    "preview:itm": "npm run preview --prefix itm",
+    "preview:nc": "npm run preview --prefix nc"
   }
 }

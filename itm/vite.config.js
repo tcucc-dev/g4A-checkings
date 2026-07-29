@@ -1,10 +1,16 @@
 import { defineConfig } from 'vite';
 
-// Base path resolution:
-// - Vercel (VERCEL=1): deploy at root, use '/' for clean URLs
-// - GitHub Pages (default): use sub-path under /g4A-checkings/<dept>/
-const isVercel = !!process.env.VERCEL;
-const basePath = isVercel ? '/' : '/g4A-checkings/itm/';
+// Base path resolution (priority order):
+//   1. VITE_BASE_PATH env var (used by root combined Vercel deploy):
+//        ITM -> /itm/,  NC -> /nc/
+//   2. VERCEL env var set (used by per-department Vercel projects):
+//        base = '/'
+//   3. Default (GitHub Pages sub-path under /g4A-checkings/<dept>/):
+//        ITM -> /g4A-checkings/itm/,  NC -> /g4A-checkings/nc/
+const defaultBase = '/g4A-checkings/itm/';
+const basePath =
+  process.env.VITE_BASE_PATH ||
+  (process.env.VERCEL ? '/' : defaultBase);
 
 export default defineConfig({
   base: basePath,
