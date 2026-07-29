@@ -47,10 +47,10 @@
 <!-- GEO TOP CARD (v54 advantage: visible in all 5 views) -->
 <section class="section geo-top-card" id="geo-top" data-role="manager marketing web it evidence">
   <div class="geo-ring-wrap">
-    <svg viewBox="0 0 240 240" class="geo-ring-svg" role="img" aria-label="GEO 綜合評分 65/100">
+    <svg viewBox="0 0 240 240" class="geo-ring-svg" role="img" aria-label="GEO 綜合評分 71/100">
       <circle cx="120" cy="120" r="100" fill="none" stroke="#fde9d6" stroke-width="22"/>
-      <circle cx="120" cy="120" r="100" fill="none" stroke="#c2410c" stroke-width="22" stroke-dasharray="367.57 565.49" stroke-dashoffset="0" transform="rotate(-90 120 120)" stroke-linecap="butt"/>
-      <text x="120" y="118" text-anchor="middle" font-size="64" font-weight="900" fill="#1e293b" font-family="system-ui,sans-serif">65</text>
+      <circle cx="120" cy="120" r="100" fill="none" stroke="#c2410c" stroke-width="22" stroke-dasharray="446.11 182.21" stroke-dashoffset="0" transform="rotate(-90 120 120)" stroke-linecap="butt"/>
+      <text x="120" y="118" text-anchor="middle" font-size="64" font-weight="900" fill="#1e293b" font-family="system-ui,sans-serif">71</text>
       <text x="120" y="148" text-anchor="middle" font-size="14" fill="#94a3b8" font-weight="700" font-family="system-ui,sans-serif">/100</text>
     </svg>
   </div>
@@ -69,9 +69,9 @@
     </div>
     <div class="geo-summary boss">目前這個系所網站 GEO 基礎大約 <strong>71 分（中等偏上）</strong>。<br><br>
 簡單說三件事：<br>
-<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>內容完備 — 有 1 個 H1 + EducationalOrganization JSON-LD（含 name、alternateName、url、parentOrganization、knowsAbout、address）+ 完整護理學制介紹頁（課程、師資、特色、實習），但 h2 從 20 降至 5（內容深度變淺）。<br>
-<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>缺所有「技術名片」 — 完全沒有 canonical、og:title、og:description、og:url、og:type、hreflang；AI Overview 與社群分享無法正確呈現「慈濟大學護理學院」，這是最關鍵的修復點。<br>
-<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>改版倒退 — 自 2026-07-04 Wayback：h2 從 20 降至 5（內容深度變淺）、29 個 DOM ID 重複（多為 Hln_* template-generated）；71 分反映內容完整、但技術標籤仍待補齊、頁面結構需恢復。</div>
+<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>網站內容齊全 — 護理學院、五專、二技、大學部、碩士班的入學介紹都寫好了，學生和家長從 Google 搜尋能找到系所基本資訊。<br>
+<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>但內容深度變淺 — 對比三週前，主頁的小標題從 20 個減為 5 個；想了解更多護理學程細節的訪客，可能找不到入口。<br>
+<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>分享與搜尋預覽失效 — 當家長把網站貼到 LINE 或 Facebook 時，會看到空白或亂碼（缺技術標籤）；建議本月請電算中心補上「網站名片」。</div>
     <div class="geo-summary tech">[GEO audit @ 2026-07-29] Crawl results: https://nc.tcu.edu.tw/<br>
 <strong>✓ 已實作：</strong><br>
   <strong>1.</strong> <code>&lt;h1&gt;</code> × 1（單一標題，正確）<br>
@@ -104,11 +104,11 @@
   <strong>3.</strong> 新增 <code>&lt;link rel="alternate" hreflang="en-US" href="https://nc.tcu.edu.tw/?Lang=en"&gt;</code> 多語系標記<br>
 <strong>預期：</strong>AI Overview / 搜尋結果呈現系所名稱 + 聯絡資訊 + 課程摘要。</div>
     <div class="geo-detail-list">
-      <div><span>①</span> 主題與實體清楚度 <strong>15／20</strong></div>
-      <div><span>②</span> 招生問題回答能力 <strong>20／20</strong></div>
-      <div><span>③</span> 證據與可信度 <strong>20／20</strong></div>
-      <div><span>④</span> 內容結構與可擷取性 <strong>12／20</strong></div>
-      <div><span>⑤</span> 技術 GEO <strong>4／20</strong></div>
+      <div><span>①</span> 主題清楚度（網站主題是否明確） <strong>15／20</strong></div>
+      <div><span>②</span> 招生資訊完整度（能否回答學生和家長的問題） <strong>20／20</strong></div>
+      <div><span>③</span> 可信度（聯絡資訊和地址是否完整） <strong>20／20</strong></div>
+      <div><span>④</span> 內容深度（網站章節數和說明完整性） <strong>12／20</strong></div>
+      <div><span>⑤</span> 技術名片（社群分享和搜尋預覽標籤） <strong>4／20</strong></div>
     </div>
   </div>
 </section>
