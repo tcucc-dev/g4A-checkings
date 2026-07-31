@@ -7,24 +7,24 @@ window.WEBINSIGHT = window.WEBINSIGHT || {};
 window.WEBINSIGHT.DATA = {
  weeks:['06/07','06/14','06/21','06/28','07/05','07/12','07/19','07/26'],
  kpis:[
- {k:"本週造訪人數",v:"202",trend:"-6.0%",avg:"-6.0% 較前週",up:false,desc:"近一週有幾個人實際造訪了網站",src:"all_units_summary｜GA4-SESSION-001",spark:[187,139,215,202]},
+ {k:"本週造訪人數",v:"166",trend:"-5.7%",avg:"-5.7% 較前週",up:false,desc:"近一週有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[151,117,176,166]},
 {k:"Google 搜尋點擊",v:"113",trend:"+7.6%",avg:"+7.6% 較前週",up:true,desc:"從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[87,73,105,113]},
-{k:"Google 搜尋點擊率",v:"4.07%",trend:"+0.47pt",avg:"+0.47pt 較前週",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[3.29,2.96,4.1,4.07]},
-{k:"課程頁到達率",v:"6.4%",trend:"課程 13",avg:"教師 51 / 特色 89",up:true,desc:"看「課程介紹」的人佔全站比例",src:"all_units_summary｜FUNNEL-COURSE-001",spark:[11.2, 5.0, 5.6, 6.4]}
- ],
+{k:"Google 搜尋點擊率",v:"4.07%",trend:"-0.03pt",avg:"-0.03pt 較前週",up:false,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[3.29,2.96,4.1,4.07]},
+{k:"課程頁到達率",v:"6.9%",trend:"課程 14",avg:"教師 67 / 特色 105",up:true,desc:"看「課程介紹」的人佔全站比例",src:"all_units_summary｜FUNNEL-COURSE-001",spark:[9.6,8.6,8.8,6.9]}
+],
  traffic:{a:[332,75,210,194,140,211,204,202],b:[944,165,525,312,230,463,301,298]},
  search:{a:[3472,2741,2811,2699,2462,2570,2720,2775],b:[197,136,91,93,71,101,112,113]},
  funnel:{a:[26, 5, 16, 14, 11, 16, 15, 13],b:[52, 6, 21, 19, 13, 21, 19, 18],c:[98, 4, 22, 14, 9, 17, 14, 14]},
  decisions:[
-  {p:"P1",id:"SEO-001",title:"改善高曝光、低點擊搜尋入口",reason:"Google 搜尋帶來的點擊這一週 113 次，前一週 105 次（+7.6%）；曝光 2,560 → 2,775。8 週曝光維持穩定。",who:"單位網站管理人",support:"電算中心提供 query × url 證據",due:"2 週"},
-  {p:"P1",id:"FUNNEL-001",title:"把首頁與師資頁改為下一步導覽中心",reason:"近一週 課程頁/師資頁/特色頁 工作階段分別為 13/51/89。護理學院 page_title 多以「師資」「活動」「公告」為主，建議加強課程頁入口。",who:"單位網站管理人",support:"電算中心建 device split 報表",due:"3 週"},
-  {p:"P2",id:"MOBILE-001",title:"檢查手機招生與聯絡路徑",reason:"近一週裝置別工作階段需以最新 query 重新驗證（資料庫已更新至 07/25）。",who:"單位網站管理人",support:"電算中心技術支援",due:"4 週"}
+ {p:"P1",id:"SEO-001",title:"改善高曝光、低點擊搜尋入口",reason:"Google 搜尋帶來的點擊這一週 113 次，前一週 105 次（+7.6%）；曝光 2560 → 2775（+8.4%）。",who:"單位網站管理人",support:"電算中心提供 query × url 證據",due:"2 週"},
+ {p:"P1",id:"FUNNEL-001",title:"把首頁與師資頁改為下一步導覽中心",reason:"近一週 課程頁/師資頁/特色頁 工作階段分別為 14/67/105，課程頁到達率 6.9%。",who:"單位網站管理人",support:"電算中心建 device split 報表",due:"3 週"},
+ {p:"P2",id:"MOBILE-001",title:"檢查手機招生與聯絡路徑",reason:"近一週裝置別工作階段需以最新 query 重新驗證（資料庫已更新至 2026-07-26）。",who:"單位網站管理人",support:"電算中心技術支援",due:"4 週"}
  ],
- issues:[
-  {id:"SEO-001",p:"P1",title:"高曝光零點擊搜尋入口",manager:"這禮拜 Google 搜尋帶來 113 個點擊，前一週 105 個（+7.6%），曝光 2,560 → 2,775。簡單說：搜尋護理學院的人變多，曝光與點擊都增加。",pages:"首頁、英文首頁、NC 關鍵字 landing pages",web:["優化 title 加正式系名","優化 meta description","為「ITM」「慈大學資」建立專門 landing page","補強中英文系名一致"],accept:"四週後 GSC 點擊回到 60+ 且 CTR > 3%。",it:["提供 query × url 明細","比較前 8 週 CTR","確認國家與裝置分佈"],status:"資料正常",table:"all_gsc_summary",fields:"query、url、impressions、clicks、sum_position",query:"SEO-ZEROCLICK-001",period:"2026-07-18 至 2026-07-24",limit:"搜尋資料不代表實際頁面停留。"},
+  issues:[
+  {id:"SEO-001",p:"P1",title:"高曝光零點擊搜尋入口",manager:"這禮拜 Google 搜尋帶來 113 個點擊，前一週 105 個（+7.6%），曝光 2560 → 2775。搜尋 ITM 的人看得到且點進來變多",pages:"首頁、英文首頁、NC 關鍵字 landing pages",web:["優化 title 加正式系名","優化 meta description","為「ITM」「慈大學資」建立專門 landing page","補強中英文系名一致"],accept:"四週後 GSC 點擊回到 60+ 且 CTR > 3%。",it:["提供 query × url 明細","比較前 8 週 CTR","確認國家與裝置分佈"],status:"資料正常",table:"all_gsc_summary",fields:"query、url、impressions、clicks、sum_position",query:"SEO-ZEROCLICK-001",period:"2026-07-20 至 2026-07-26",limit:"搜尋資料不代表實際頁面停留。"},
   {id:"FUNNEL-001",p:"P1",title:"課程頁到達率回升",manager:"近一週 課程頁工作階段 13、師資頁 51、特色頁 89。護理學院的 page_title 多為「師資」「活動」「公告」，建議為熱門師資頁加上報考入口。",pages:"首頁、招生頁、課程頁",web:["為手機優化 CTA 大小","縮短首屏資訊密度","加入 line/tel 一鍵聯絡","加入 sticky form 表單"],accept:"課程頁到達率回穩或改善，連續 2 週不再下降。",it:["以 session_key 建立漏斗","維護 page_group 規則","每週提供到達率趨勢"],status:"查詢可用",table:"all_units_summary",fields:"device、session_key、page_location、link_url",query:"FUNNEL-WEEKLY-001",period:"最近 8 個完整週",limit:"轉換不代表完成招生申請。"},
-  {id:"MOBILE-001",p:"P2",title:"手機裝置占比偏低",manager:"手機裝置占比需以最新資料重新驗證。本週資料截止 2026-07-25，請參考 device evidence report。",pages:"首頁、招生頁、入學方式頁",web:["實機檢查 iPhone SE/A14/Android","檢查 CTA 是否拇指可達","檢查字體 16px+","確認 tel/mailto 可點"],accept:"完成重要路徑人工驗收；手機指標不低於桌機 70% 或提出合理說明。",it:["提供裝置別頁數","互動時間與點擊率比較","列出差距最大頁面"],status:"行為代理指標",table:"all_units_summary",fields:"device_category、engagement_time_msec、event_name、link_url",query:"DEVICE-RISK-001",period:"2026-07-18 至 2026-07-24",limit:"只能提示風險，不能直接判斷破版。"},
-  {id:"DATA-001",p:"P2",title:"GSC 點擊與 GA4 自然搜尋數字差異",manager:"近一週 Google 搜尋帶來 112 個點擊，本校網站統計顯示 204 個到訪工作階段。兩者數字差 92 是正常的，因為它們用不同方式計算（Google vs 本校網站 GA4）。",pages:"無需修改頁面",web:["閱讀報告時分清楚 GSC 點擊與 GA4 工作階段"],accept:"主管報告固定顯示定義差異。",it:["固定差異說明","檢查時區與站台篩選","保留兩個數值"],status:"已說明",table:"all_gsc_summary＋all_units_summary",fields:"clicks、source、medium、session_key",query:"DATA-CROSSSOURCE-001",period:"2026-07-18 至 2026-07-24",limit:"兩套系統的事件與歸因方式不同。"}
+  {id:"MOBILE-001",p:"P2",title:"手機裝置占比偏低",manager:"手機裝置占比需以最新資料重新驗證。本週資料截止 2026-07-25，請參考 device evidence report。",pages:"首頁、招生頁、入學方式頁",web:["實機檢查 iPhone SE/A14/Android","檢查 CTA 是否拇指可達","檢查字體 16px+","確認 tel/mailto 可點"],accept:"完成重要路徑人工驗收；手機指標不低於桌機 70% 或提出合理說明。",it:["提供裝置別頁數","互動時間與點擊率比較","列出差距最大頁面"],status:"行為代理指標",table:"all_units_summary",fields:"device_category、engagement_time_msec、event_name、link_url",query:"DEVICE-RISK-001",period:"2026-07-20 至 2026-07-26",limit:"只能提示風險，不能直接判斷破版。"},
+  {id:"DATA-001",p:"P2",title:"GSC 點擊與 GA4 自然搜尋數字差異",manager:"近一週 Google 搜尋帶來 112 個點擊，本校網站統計顯示 204 個到訪工作階段。兩者數字差 92 是正常的，因為它們用不同方式計算（Google vs 本校網站 GA4）。",pages:"無需修改頁面",web:["閱讀報告時分清楚 GSC 點擊與 GA4 工作階段"],accept:"主管報告固定顯示定義差異。",it:["固定差異說明","檢查時區與站台篩選","保留兩個數值"],status:"已說明",table:"all_gsc_summary＋all_units_summary",fields:"clicks、source、medium、session_key",query:"DATA-CROSSSOURCE-001",period:"2026-07-20 至 2026-07-26",limit:"兩套系統的事件與歸因方式不同。"}
  ],
  webRows:[
   ["SEO-001","/ (Top 1)",71,18,4.7,"優化 title 加正式系名 + meta description","點擊率提升至 3%+"],
