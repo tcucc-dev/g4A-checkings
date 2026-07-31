@@ -1,4 +1,4 @@
-// src/data.js — refreshed 2026-07-29 with live BigQuery @ 2026-07-26
+// src/data.js — max_date 2026-07-29 with live BigQuery @ 2026-07-26
 // Cutoff (smallest max_date across 3 sources): 2026-07-26 (GSC is the bottleneck)
 // Periods: 2026-06-07 to 2026-07-26 | Weeks: 8 (Sunday-aligned)
 // New "latest complete week" = 2026-07-20 ~ 2026-07-26 (Sunday-aligned, GA4 + GSC aligned)
@@ -81,7 +81,7 @@ sections:{
   // ===== Block 1 — 期間比較與異常提醒 =====
   // 8 complete weeks. CTR = SUM(clicks)/SUM(impressions). Anomalies computed
   // by app.js using prompt rule: ≥30% delta AND base ≥ volumes below.
-  // New data: 2026-07-29 (today) ; latest complete week = 07/20 ~ 07/26 (Sunday-aligned)
+  // New data: 2026-07-29 ; latest complete week = 07/20 ~ 07/26 (Sunday-aligned)
   trends:[
     {week:"06/07", users:438, sessions:708, pageviews:3481, impressions:4385, clicks:342},
     {week:"06/14", users:124, sessions:166, pageviews:868, impressions:3960, clicks:179},
