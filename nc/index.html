@@ -59,6 +59,7 @@
       <div class="geo-info-left">
         <div class="geo-eyebrow">nc.tcu.edu.tw GEO 自評（v56 hybrid）</div>
         <div class="geo-headline">69<span class="geo-headline-sub">/100</span></div>
+        <div class="geo-subscores" data-test="geo-subscores"><div><span>主題清楚度（網站主題是否明確）</span> <strong>14／20</strong></div><div><span>招生資訊完整度（能否回答學生和家長的問題）</span> <strong>20／20</strong></div><div><span>可信度（聯絡資訊和地址是否完整）</span> <strong>20／20</strong></div><div><span>內容深度（網站章節數和說明完整性）</span> <strong>13／20</strong></div><div><span>技術名片（社群分享和搜尋預覽標籤）</span> <strong>2／20</strong></div></div>
       </div>
       <div class="geo-info-right">
         <div class="geo-pills" role="tablist" aria-label="報告視角切換">
@@ -67,51 +68,25 @@
         </div>
       </div>
     </div>
-    <div class="geo-summary boss">目前這個系所網站 GEO 基礎大約 <strong>69 分（待加強）</strong>。<br><br>
-簡單說三件事：<br>
-<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>網站內容齊全 — 護理學院、五專、二技、大學部、碩士班的入學介紹都寫好了，學生和家長從 Google 搜尋能找到系所基本資訊。<br>
-<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>但內容深度偏淺 — 對比三週前，主頁的小標題從 20 個減為 5 個（HTML 改版後被簡化）；想了解更多護理學程細節的訪客，可能找不到入口。<br>
-<strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>分享與搜尋預覽失效 — 當家長把網站貼到 LINE 或 Facebook 時，會看到空白或亂碼（缺技術標籤）；建議本月請電算中心補上「網站名片」。</div>
+    <div class="geo-summary boss">目前這個系所網站 GEO 基礎大約 <strong>69 分（待加強）</strong>。<br><br>簡單說三件事：<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>內容齊全 — 護理學院的課程、師資、招生介紹都寫好了，學生和家長從 Google 搜尋能找到基本資訊。<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>但內容深度偏淺 — 對比三週前，主頁的小標題從 20 個減為 5 個；想了解更多護理學程細節的訪客，可能找不到入口。<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>分享與搜尋預覽失效 — 當家長把網站貼到 LINE 或 Facebook 時，會看到空白或亂碼（缺技術名片）；建議本月請電算中心補上「網站名片」。</div>
     <div class="geo-summary tech">[GEO audit @ 2026-07-31] Crawl results: https://nc.tcu.edu.tw/<br>
 <strong>✓ 已實作：</strong><br>
   <strong>1.</strong> <code>&lt;h1&gt;</code> × 1（單一標題，正確）<br>
-  <strong>2.</strong> <code>&lt;h2&gt;</code> × 5（heading hierarchy 變淺，原有 20 個降至 5 個）<br>
-  <strong>3.</strong> <code>&lt;title&gt;</code> 內含正式中文系名「慈濟大學護理學院」<br>
-  <strong>4.</strong> <code>&lt;meta name="description"&gt;</code> 91 chars（含護理教育學制完整列表）<br>
-  <strong>5.</strong> <code>application/ld+json</code> 完整 EducationalOrganization（含 name、alternateName、url、parentOrganization、knowsAbout、address）<br>
+  <strong>2.</strong> <code>&lt;title&gt;</code> 內含正式中文系名「慈濟大學護理學院」<br>
+  <strong>3.</strong> <code>application/ld+json</code> 完整 EducationalOrganization（含 name、alternateName、url、parentOrganization、knowsAbout、address）<br>
+  <strong>4.</strong> <code>&lt;meta name="description"&gt;</code> 95 chars（含護理教育學制完整列表）<br>
 <strong>△ 待觀察：</strong><br>
-  <strong>1.</strong> <code>&lt;link rel="canonical"&gt;</code> 缺失（建議宣告 https://nc.tcu.edu.tw/ 為正式網址）<br>
-  <strong>2.</strong> <code>og:image</code> 指向 <code>/var/file/14/1014/msys_1014_2081373_28918.png</code>（系統檔路徑，建議改為正式主視覺 URL）<br>
+  <strong>1.</strong> <code>og:image</code> 指向 <code>/var/file/14/1014/msys_1014_2081373_28918.png</code>（系統檔路徑，建議改為正式主視覺 URL）<br>
 <strong>✗ 待修補：</strong><br>
-  <strong>1.</strong> <code>&lt;link rel="alternate" hreflang="en-US"&gt;</code> 缺失（缺英文版多語系標記）<br>
-  <strong>2.</strong> <code>og:title</code> 缺失（AI Overview 無法顯示英文系名）<br>
+  <strong>1.</strong> <code>&lt;link rel="canonical"&gt;</code> 缺失（建議宣告 https://nc.tcu.edu.tw/ 為正式網址）<br>
+  <strong>2.</strong> <code>og:title</code> 缺失（AI Overview 無法顯示系所名稱）<br>
   <strong>3.</strong> <code>og:description</code> 缺失（社群分享時無預覽文字）<br>
-  <strong>4.</strong> <code>og:url</code> 缺失（社群分享時無法正確標示正式 URL）<br>
-  <strong>5.</strong> <code>og:type</code> 缺失（無法判斷為 <code>website</code> 或 <code>article</code>）<br>
-  <strong>6.</strong> 6 張圖片缺少 <code>alt</code> 屬性（9 張 img 中 6 張無 alt）<br>
-  <strong>7.</strong> 29 個 DOM ID 重複（Hln_* template-generated 系列 + TcuRpageFeatureTitle，需加唯一 ID prefix）</div>
-<div class="geo-summary tech">[Diff vs 2026-07-04 Wayback snapshot]<br>
-  <strong>1.</strong> <code>&lt;h2&gt;</code> 4 → 20（+16，heading 結構完整化）<br>
-  <strong>2.</strong> <code>application/ld+json</code> 0 → 1（補上 EducationalOrganization schema）<br>
-  <strong>3.</strong> DOM ID 衝突 26 → 1（-25，大量修正 template 重複 ID）<br>
-  <strong>4.</strong> <code>&lt;title&gt;</code>「護理學院 - College of Nursing」→ 「慈濟大學護理學院」（補上全銜）<br>
-  <strong>5.</strong> <code>&lt;meta description&gt;</code> 由英文改為中文（含五專/二技/四技/學士後/碩士班 完整學制說明）<br>
-  <strong>6.</strong> <code>&lt;img&gt;</code> 5 → 17（+12，新增多張視覺圖片）<br>
-  <strong>7.</strong> 仍未補：canonical、hreflang、og:title/description/url/type<br>
-<strong>下一步建議（P0）：</strong><br>
-  <strong>1.</strong> 補 <code>&lt;link rel="canonical" href="https://nc.tcu.edu.tw/"&gt;</code>（已有 EducationalOrganization schema，但缺 canonical 整合）<br>
-  <strong>2.</strong> 補齊 <code>og:title</code>「慈濟大學護理學院」、<code>og:description</code>、<code>og:url</code>、<code>og:type=website</code>；將 <code>og:image</code> 從系統檔路徑改為正式 CDN URL<br>
-  <strong>3.</strong> 新增 <code>&lt;link rel="alternate" hreflang="en-US" href="https://nc.tcu.edu.tw/?Lang=en"&gt;</code> 多語系標記<br>
-<strong>預期：</strong>AI Overview / 搜尋結果呈現系所名稱 + 聯絡資訊 + 課程摘要。</div>
-    <div class="geo-detail-list">
-      <div><span>①</span> 主題清楚度（網站主題是否明確） <strong>14／20</strong></div>
-      <div><span>②</span> 招生資訊完整度（能否回答學生和家長的問題） <strong>20／20</strong></div>
-      <div><span>③</span> 可信度（聯絡資訊和地址是否完整） <strong>20／20</strong></div>
-      <div><span>④</span> 內容深度（網站章節數和說明完整性） <strong>13／20</strong></div>
-      <div><span>⑤</span> 技術名片（社群分享和搜尋預覽標籤） <strong>2／20</strong></div>
-    </div>
-  </div>
-</section>
+  <strong>4.</strong> <code>og:url</code> 缺失<br>
+  <strong>5.</strong> <code>og:type</code> 缺失<br>
+  <strong>6.</strong> <code>hreflang="en-US"</code> 缺失（缺英文版多語系標記）<br>
+  <strong>7.</strong> <code>&lt;h2&gt;</code> × 5（heading hierarchy 變淺，原有 20 個降至 5 個）<br>
+  <strong>8.</strong> 6 張圖片 <code>alt=""</code>（9 張 img 中 6 張缺少 alt）<br>
+  <strong>9.</strong> 31 個 DOM ID 重複（Hln_* template-generated 系列，需加唯一 ID prefix）</div></section>
 
 <section class="section" id="m-summary" data-role="manager">
   <h2>一、主管摘要</h2><p class="lead">主管只需判斷成效是否改善、優先處理哪三件事、由誰負責、何時驗收。</p>
@@ -254,12 +229,12 @@
       <summary>查看數據證據 — EV-BRAND-NONBRAND-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-BRAND-NONBRAND-001</div>
-        <div><strong>報告期間：</strong>2026-07-21 至 2026-07-27</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
         <div><strong>最新資料日期：</strong>2026-07-29</div>
         <div><strong>查詢代碼：</strong>GSC-KEYWORD-BRAND-001</div>
         <div><strong>資料來源：</strong>all_gsc_summary</div>
         <div><strong>指標定義：</strong>CTR = SUM(clicks) / NULLIF(SUM(impressions), 0) ；平均排名 = SUM(sum_position) / NULLIF(SUM(impressions), 0)</div>
-        <div><strong>品牌詞集合：</strong>慈濟大學、慈大、慈濟、Tzu Chi、TCU、tcu、資管、資訊科技與管理、ITM、itm</div>
+        <div><strong>品牌詞集合：</strong>慈濟大學、慈大、慈濟、Tzu Chi、TCU、tcu、護理學院、護理系、慈濟護理</div>
         <div><strong>分類規則：</strong>query 若包含任一品牌詞字串（不區分大小寫、全半形）則為 brand；其餘為 nonbrand。「資訊／科技／管理／大學」單獨出現不視為 brand。</div>
         <div><strong>限制：</strong>同 query 包含多個同義詞時合併為單一字詞；landing page 為該 query 最高曝光的代表頁，非全部到達頁。</div>
       </div>
@@ -289,7 +264,7 @@
       <summary>查看數據證據 — EV-CONTENT-MATRIX-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-CONTENT-MATRIX-001</div>
-        <div><strong>報告期間：</strong>2026-07-21 至 2026-07-27</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
         <div><strong>最新資料日期：</strong>2026-07-29</div>
         <div><strong>查詢代碼：</strong>GA4-PAGE-MATRIX-001</div>
         <div><strong>資料來源：</strong>all_units_summary</div>
@@ -329,7 +304,7 @@
       <summary>查看數據證據 — EV-SOURCE-QUALITY-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-SOURCE-QUALITY-001</div>
-        <div><strong>報告期間：</strong>2026-07-21 至 2026-07-27</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
         <div><strong>最新資料日期：</strong>2026-07-29</div>
         <div><strong>查詢代碼：</strong>GA4-SOURCE-QUALITY-001</div>
         <div><strong>資料來源：</strong>all_units_summary</div>
@@ -365,7 +340,7 @@
       <summary>查看數據證據 — EV-AI-REFERRAL-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-AI-REFERRAL-001</div>
-        <div><strong>報告期間：</strong>2026-07-21 至 2026-07-27</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
         <div><strong>最新資料日期：</strong>2026-07-29</div>
         <div><strong>查詢代碼：</strong>AI-REFERRAL-EVIDENCE-001</div>
         <div><strong>資料來源：</strong>all_units_summary（page_referrer 欄位）</div>
@@ -399,7 +374,7 @@
       <summary>查看數據證據 — EV-ADMISSION-CTA-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-ADMISSION-CTA-001</div>
-        <div><strong>報告期間：</strong>2026-07-21 至 2026-07-27</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
         <div><strong>最新資料日期：</strong>2026-07-29</div>
         <div><strong>查詢代碼：</strong>CTA-CATEGORY-001</div>
         <div><strong>資料來源：</strong>all_units_summary（click 事件中的 link_url / link_text）</div>
@@ -436,7 +411,7 @@
       <summary>查看數據證據 — EV-INTERNATIONAL-QUALITY-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-INTERNATIONAL-QUALITY-001</div>
-        <div><strong>報告期間：</strong>2026-07-21 至 2026-07-27</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
         <div><strong>最新資料日期：</strong>2026-07-29</div>
         <div><strong>查詢代碼：</strong>GA4-COUNTRY-001</div>
         <div><strong>資料來源：</strong>all_units_summary（country 欄位）</div>
@@ -470,7 +445,7 @@
       <summary>查看數據證據 — EV-USER-PATH-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-USER-PATH-001</div>
-        <div><strong>報告期間：</strong>2026-07-21 至 2026-07-27</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26</div>
         <div><strong>最新資料日期：</strong>2026-07-29</div>
         <div><strong>查詢代碼：</strong>GA4-LANDING-NEXT-001</div>
         <div><strong>資料來源：</strong>all_units_summary（page_view 事件）</div>
@@ -499,7 +474,7 @@
       <summary>查看數據證據 — EV-DATA-QUALITY-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-DATA-QUALITY-001</div>
-        <div><strong>報告期間：</strong>2026-07-21 至 2026-07-27（快照）</div>
+        <div><strong>報告期間：</strong>2026-07-20 至 2026-07-26（快照）</div>
         <div><strong>最新資料日期：</strong>2026-07-29</div>
         <div><strong>查詢代碼：</strong>DATA-QUALITY-SCAN-001</div>
         <div><strong>資料來源：</strong>首頁原始碼掃描 + all_units_summary unknown-source 檢查</div>
@@ -685,7 +660,7 @@
       <tr><td>招生→課程／師資／特色到達率</td><td><a class="ev-link" href="#ev-EV-FUNNEL-001">EV-FUNNEL-001</a></td><td>all_units_summary</td><td>逐週母體、到達數、到達率與頁面群組</td><td>雙方共同</td></tr>
       <tr><td>招生、電話、Email、表單、LINE 點擊</td><td><a class="ev-link" href="#ev-EV-CONTACT-001">EV-CONTACT-001</a></td><td>all_units_summary</td><td>頁面、連結類型、文字、網址與點擊數</td><td>雙方共同</td></tr>
       <tr><td>搜尋進站後行為</td><td><a class="ev-link" href="#ev-EV-SEARCH-BEHAVIOR-001">EV-SEARCH-BEHAVIOR-001</a></td><td>search_behavior_summary</td><td>query × page × active users × 互動 × 站內點擊</td><td>電算中心技術支援</td></tr>
-      <tr><td>可辨識 AI 轉介與到達頁</td><td><a class="ev-link" href="#ev-EV-AI-DETECTION-RULES-001">EV-AI-DETECTION-RULES-001</a></td><td>all_units_summary</td><td>AI 平台、到達頁、工作階段、瀏覽與互動</td><td>電算中心技術支援</td></tr>
+      <tr><td>可辨識 AI 轉介與到達頁</td><td><a class="ev-link" href="#ev-EV-AI-REFERRAL-001">EV-AI-REFERRAL-001</a></td><td>all_units_summary</td><td>AI 平台、到達頁、工作階段、瀏覽與互動</td><td>電算中心技術支援</td></tr>
       <tr><td>資料新鮮度與完整性</td><td><a class="ev-link" href="#ev-EV-WEBSITE-GOVERNANCE-001">EV-WEBSITE-GOVERNANCE-001</a></td><td>三張 BigQuery 報表</td><td>最大日期、列數、缺值率、狀態與 Job ID</td><td>電算中心技術支援</td></tr>
       <tr><td>GEO 技術準備度</td><td><a class="ev-link" href="#ev-EV-GEO-SOURCE-001">EV-GEO-SOURCE-001</a></td><td>網站原始碼掃描</td><td>H1、JSON-LD、網域、alt、iframe、OG 與 FAQ</td><td>網站管理人＋電算中心</td></tr>
       <tr><td>區段 4 — 期間比較與異常提醒</td><td><a class="ev-link" href="#ev-EV-PERIOD-ANOMALY-001">EV-PERIOD-ANOMALY-001</a></td><td>all_units_summary + all_gsc_summary</td><td>8 週完整週比較、CTR、異常規則</td><td>電算中心技術支援</td></tr>
