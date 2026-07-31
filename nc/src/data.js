@@ -277,7 +277,7 @@ sections:{
   ],
 
   // ===== Block 10 — 資料品質與網站治理 =====
-  // Refreshed 2026-07-27 (HTML scan via https://itm.tcu.edu.tw/).
+  // Refreshed 2026-07-31 (HTML scan via https://nc.tcu.edu.tw/).
   // 3 empty alt found (down from 16) — slight improvement.
   data_quality_snapshot:[
     {issue_type:"missing_canonical",  affected_count:1,  example:"首頁 <link rel=canonical> 缺失",                 severity:"中", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex <link rel=\"canonical\">"},
