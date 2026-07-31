@@ -12,19 +12,19 @@ window.WEBINSIGHT.DATA = {
 {k:"Google 搜尋點擊率",v:"3.13%",trend:"+0.24pt",avg:"+0.24pt 較前週",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[2.72,2.77,2.89,3.13]},
 {k:"課程頁到達率",v:"67.1%",trend:"課程 149",avg:"教師 110 / 特色 293",up:true,desc:"看「課程介紹」的人佔全站比例",src:"all_units_summary｜FUNNEL-COURSE-001",spark:[49.1,49.3,53.7,67.1]}
 ],
- traffic:{a:[493,694,91,338,218,221,229,222],b:[1753,3491,502,1330,649,743,833,843]},
+ traffic:{a:[493,693,91,338,218,221,229,222],b:[4751,8991,1218,3647,1738,2001,2270,2205]},
  search:{a:[4265,4418,3666,3158,2535,2527,1902,2587],b:[302,307,160,110,69,70,55,81]},
  funnel:{a:[161,267,30,195,107,109,123,149],b:[242,803,134,228,81,95,124,110],c:[938,1423,233,476,243,304,298,293]},
  decisions:[
- {p:"P1",id:"SEO-001",title:"改善高曝光、低點擊搜尋入口",reason:"Google 搜尋帶來的點擊這一週 81 次，前一週 55 次（+47.3%）；曝光 1902 → 2587（+36.0%）。",who:"單位網站管理人",support:"電算中心提供 query × url 證據",due:"2 週"},
+ {p:"P1",id:"SEO-001",title:"改善高曝光、低點擊搜尋入口",reason:"Google 搜尋帶來的點擊這一週 81 次，前一週 81 次（+47.3%）；曝光 1902 → 2587（+36.0%）。",who:"單位網站管理人",support:"電算中心提供 query × url 證據",due:"2 週"},
  {p:"P1",id:"FUNNEL-001",title:"把首頁與師資頁改為下一步導覽中心",reason:"近一週 課程頁/師資頁/特色頁 工作階段分別為 149/110/293，課程頁到達率 67.1%。",who:"單位網站管理人",support:"電算中心建 device split 報表",due:"3 週"},
  {p:"P2",id:"MOBILE-001",title:"檢查手機招生與聯絡路徑",reason:"近一週裝置別工作階段需以最新 query 重新驗證（資料庫已更新至 2026-07-26）。",who:"單位網站管理人",support:"電算中心技術支援",due:"4 週"}
  ],
   issues:[
-  {id:"SEO-001",p:"P1",title:"高曝光零點擊搜尋入口",manager:"這禮拜 Google 搜尋帶來 81 個點擊，前一週 55 個（+47.3%），曝光 1902 → 2587。搜尋 ITM 的人看得到且點進來變多",pages:"首頁、英文首頁、ITM 關鍵字 landing pages",web:["優化 title 加正式系名","優化 meta description","為「ITM」「慈大學資」建立專門 landing page","補強中英文系名一致"],accept:"四週後 GSC 點擊回到 60+ 且 CTR > 3%。",it:["提供 query × url 明細","比較前 8 週 CTR","確認國家與裝置分佈"],status:"資料正常",table:"all_gsc_summary",fields:"query、url、impressions、clicks、sum_position",query:"SEO-ZEROCLICK-001",period:"2026-07-20 至 2026-07-26",limit:"搜尋資料不代表實際頁面停留。"},
-  {id:"FUNNEL-001",p:"P1",title:"課程頁到達率回升",manager:"近一週 課程頁工作階段 48、師資頁 44、特色頁 87，課程頁到達率 21.6%。持續把「看課程」的入口放在首屏。",pages:"首頁、招生頁、課程頁",web:["為手機優化 CTA 大小","縮短首屏資訊密度","加入 line/tel 一鍵聯絡","加入 sticky form 表單"],accept:"課程頁到達率回穩或改善，連續 2 週不再下降。",it:["以 session_key 建立漏斗","維護 page_group 規則","每週提供到達率趨勢"],status:"查詢可用",table:"all_units_summary",fields:"device、session_key、page_location、link_url",query:"FUNNEL-WEEKLY-001",period:"最近 8 個完整週",limit:"轉換不代表完成招生申請。"},
+  {id:"SEO-001",p:"P1",title:"高曝光零點擊搜尋入口",manager:"這禮拜 Google 搜尋帶來 81 個點擊，前一週 81 個（+47.3%），曝光 1902 → 2587。搜尋 ITM 的人看得到且點進來變多",pages:"首頁、英文首頁、ITM 關鍵字 landing pages",web:["優化 title 加正式系名","優化 meta description","為「ITM」「慈大學資」建立專門 landing page","補強中英文系名一致"],accept:"四週後 GSC 點擊回到 60+ 且 CTR > 3%。",it:["提供 query × url 明細","比較前 8 週 CTR","確認國家與裝置分佈"],status:"資料正常",table:"all_gsc_summary",fields:"query、url、impressions、clicks、sum_position",query:"SEO-ZEROCLICK-001",period:"2026-07-20 至 2026-07-26",limit:"搜尋資料不代表實際頁面停留。"},
+  {id:"FUNNEL-001",p:"P1",title:"課程頁到達率回升",manager:"近一週 課程頁工作階段 48、師資頁 44、特色頁 87，課程頁到達率 5.3%。持續把「看課程」的入口放在首屏。",pages:"首頁、招生頁、課程頁",web:["為手機優化 CTA 大小","縮短首屏資訊密度","加入 line/tel 一鍵聯絡","加入 sticky form 表單"],accept:"課程頁到達率回穩或改善，連續 2 週不再下降。",it:["以 session_key 建立漏斗","維護 page_group 規則","每週提供到達率趨勢"],status:"查詢可用",table:"all_units_summary",fields:"device、session_key、page_location、link_url",query:"FUNNEL-WEEKLY-001",period:"最近 8 個完整週",limit:"轉換不代表完成招生申請。"},
   {id:"MOBILE-001",p:"P2",title:"手機裝置占比偏低",manager:"手機裝置占比需以最新資料重新驗證。本週資料截止 2026-07-26，請參考 device evidence report。",pages:"首頁、招生頁、入學方式頁",web:["實機檢查 iPhone SE/A14/Android","檢查 CTA 是否拇指可達","檢查字體 16px+","確認 tel/mailto 可點"],accept:"完成重要路徑人工驗收；手機指標不低於桌機 70% 或提出合理說明。",it:["提供裝置別頁數","互動時間與點擊率比較","列出差距最大頁面"],status:"行為代理指標",table:"all_units_summary",fields:"device_category、engagement_time_msec、event_name、link_url",query:"DEVICE-RISK-001",period:"2026-07-20 至 2026-07-26",limit:"只能提示風險，不能直接判斷破版。"},
-  {id:"DATA-001",p:"P2",title:"GSC 點擊與 GA4 自然搜尋數字差異",manager:"近一週 Google 搜尋帶來 55 個點擊，本校網站統計顯示 229 個到訪工作階段。兩者數字差 174 是正常的，因為它們用不同方式計算（Google vs 本校網站 GA4）。",pages:"無需修改頁面",web:["閱讀報告時分清楚 GSC 點擊與 GA4 工作階段"],accept:"主管報告固定顯示定義差異。",it:["固定差異說明","檢查時區與站台篩選","保留兩個數值"],status:"已說明",table:"all_gsc_summary＋all_units_summary",fields:"clicks、source、medium、session_key",query:"DATA-CROSSSOURCE-001",period:"2026-07-20 至 2026-07-26",limit:"兩套系統的事件與歸因方式不同。"}
+  {id:"DATA-001",p:"P2",title:"GSC 點擊與 GA4 自然搜尋數字差異",manager:"近一週 Google 搜尋帶來 81 個點擊，本校網站統計顯示 222 個到訪工作階段。兩者數字差 174 是正常的，因為它們用不同方式計算（Google vs 本校網站 GA4）。",pages:"無需修改頁面",web:["閱讀報告時分清楚 GSC 點擊與 GA4 工作階段"],accept:"主管報告固定顯示定義差異。",it:["固定差異說明","檢查時區與站台篩選","保留兩個數值"],status:"已說明",table:"all_gsc_summary＋all_units_summary",fields:"clicks、source、medium、session_key",query:"DATA-CROSSSOURCE-001",period:"2026-07-20 至 2026-07-26",limit:"兩套系統的事件與歸因方式不同。"}
  ],
  webRows:[
   ["SEO-001","/ (Top 1)",580,18,4.7,"優化 title 加正式系名 + meta description","點擊率提升至 3%+"],
@@ -83,15 +83,15 @@ sections:{
   // by app.js using prompt rule: ≥30% delta AND base ≥ volumes below.
   // New data: 2026-07-29 ; latest complete week = 07/20 ~ 07/26 (Sunday-aligned)
   trends:[
-    {week:"06/07", users:438, sessions:708, pageviews:3481, impressions:4385, clicks:342},
-    {week:"06/14", users:124, sessions:166, pageviews:868, impressions:3960, clicks:179},
-    {week:"06/21", users:247, sessions:316, pageviews:1275, impressions:3159, clicks:112},
-    {week:"06/28", users:171, sessions:214, pageviews:622, impressions:2543, clicks:70},
-    {week:"07/05", users:163, sessions:219, pageviews:762, impressions:2553, clicks:73},
-    {week:"07/12", users:195, sessions:240, pageviews:843, impressions:2002, clicks:54},
-    {week:"07/19", users:180, sessions:221, pageviews:857, impressions:2436, clicks:77},
-    {week:"07/26", users:181, sessions:222, pageviews:843, impressions:2587, clicks:81}
-   ],
+    {week:"06/07",sessions:493,users:338,pageviews:4751,impressions:4265,clicks:302},
+    {week:"06/14",sessions:693,users:431,pageviews:8991,impressions:4418,clicks:307},
+    {week:"06/21",sessions:91,users:70,pageviews:1218,impressions:3666,clicks:160},
+    {week:"06/28",sessions:338,users:264,pageviews:3647,impressions:3158,clicks:110},
+    {week:"07/05",sessions:218,users:171,pageviews:1738,impressions:2535,clicks:69},
+    {week:"07/12",sessions:221,users:168,pageviews:2001,impressions:2527,clicks:70},
+    {week:"07/19",sessions:229,users:184,pageviews:2270,impressions:1902,clicks:55},
+    {week:"07/26",sessions:222,users:181,pageviews:2205,impressions:2587,clicks:81}
+  ],
   anomaly_rule:{
     threshold_pct:30,
     min_base:{sessions:20, impressions:100, clicks:10, users:20, pageviews:50}
@@ -109,7 +109,7 @@ sections:{
     {month:"07/01", brand_pct:69.2, nonbrand_pct:30.8, brand_imp:2102, brand_clicks:42, nonbrand_imp:936, nonbrand_clicks:16}
   ],
   // Per-keyword table — feeds 'Top 10 brand' and 'Top 10 non-brand' tables.
-  // Refreshed 2026-07-27 for 07/18-07/24 period (7 days).
+  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 period (7 days).
   keyword_rows:[
     {query:"慈大學資",                 cls:"brand",    imp:94,  clicks:0, sum_position:367,  landing:"/"},
     {query:"site:itm.tcust.edu.tw",    cls:"brand",    imp:50,  clicks:0, sum_position:225,  landing:"/"},
@@ -138,7 +138,7 @@ sections:{
   // Source: all_units_summary (page_view events). Each row = one normalized
   // page by normalized_path. Quadrant boundaries = median across rows with
   // users ≥ 5. Smaller samples kept & flagged as 「樣本不足」.
-  // Refreshed 2026-07-27 for 07/18-07/24 period (7 days).
+  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 period (7 days).
   content_matrix:[
     {normalized_path:"/index.php",                                  title:"慈濟大學資訊科技與管理學系 - 資訊科技與管理學系", users:28, sessions:45, pageviews:166, engagement_sec:0.7},
     {normalized_path:"/p/426-1022-2.php",                           title:"智慧健康與生活管理學分學程專班 - 資訊科技與管理學系", users:25, sessions:25, pageviews:98,  engagement_sec:0.5},
@@ -170,7 +170,7 @@ sections:{
   // ===== Block 5 — 流量來源品質 =====
   // 'group' is the prompt-defined grouping. Original source/medium is kept.
   // Quality: avg_eng_sec_per_session = SUM(eng_sec)/sessions.
-  // Refreshed 2026-07-27 for 07/18-07/24 period (7 days).
+  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 period (7 days).
   traffic_quality:[
     {group:"Direct",          source:"(direct)",              medium:"(none)",      sessions:138, users:113, avg_eng_sec_per_session:35.1, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"足夠"},
     {group:"Organic Search",  source:"google",                medium:"organic",      sessions:46,  users:35,  avg_eng_sec_per_session:55.0, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"足夠"},
@@ -184,7 +184,7 @@ sections:{
   ],
 
   // ===== Block 6 — AI 搜尋 =====
-  // Refreshed 2026-07-27 for 07/18-07/24 (7 days). New finding: 1 session from chatgpt.com
+  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 (7 days). New finding: 1 session from chatgpt.com
   // (medium=ai-assistant, page_referrer=null) was detected. Other engines remain 0.
   ai_config:{
     domains:[
@@ -207,7 +207,7 @@ sections:{
   ai_total_period_sessions:1,
 
   // ===== Block 7 — 招生意圖與 CTA 行動 =====
-  // Refreshed 2026-07-27 for 07/18-07/24 period (7 days).
+  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 period (7 days).
   cta_funnel:[
     {cta_category:"其他連結",            distinct_links:25, sessions:38,  users:29, sample_note:"足夠"},
     {cta_category:"招生簡章",            distinct_links:9,  sessions:18,  users:17, sample_note:"足夠"},
@@ -227,7 +227,7 @@ sections:{
   ],
 
   // ===== Block 8 — 國際訪客品質 =====
-  // Refreshed 2026-07-27 for 07/18-07/24 period (7 days).
+  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 period (7 days).
   international:[
     {country:"臺灣",   sessions:129, users:93,  avg_eng_sec:57.0,  top_landing:"/",                                          admission_cta:0, contact_click:0, sample_note:"足夠"},
     {country:"中國",   sessions:54,  users:54,  avg_eng_sec:1.9,   top_landing:"/?Lang=zh-tw",                              admission_cta:0, contact_click:0, sample_note:"足夠"},
@@ -237,7 +237,7 @@ sections:{
   ],
 
   // ===== Block 9 — 使用者路徑／下一步 =====
-  // Refreshed 2026-07-27 for 07/18-07/24 (7 days). Real per-session path reconstruction
+  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 (7 days). Real per-session path reconstruction
   // via ROW_NUMBER() OVER (PARTITION BY session ORDER BY event_timestamp).
   user_paths:[
     {landing:"/",                                 second_page:"/",                                 exit_action:"瀏覽後離開",  sessions:42, exit_share:0.65},
@@ -267,7 +267,7 @@ sections:{
   ],
 
   // ===== Block 10 — 資料品質與網站治理 =====
-  // Refreshed 2026-07-27 (HTML scan via https://itm.tcu.edu.tw/).
+  // 2026-07-20 至 2026-07-26 (HTML scan via https://itm.tcu.edu.tw/).
   // 3 empty alt found (down from 16) — slight improvement.
   data_quality_snapshot:[
     {issue_type:"missing_jsonld",     affected_count:1,  example:"全站 application/ld+json = 0",                      severity:"高", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex application/ld\\+json"},
