@@ -144,18 +144,18 @@ const EVIDENCE_REPORTS = [
     id:"EV-FUNNEL-001", title:"招生內容到達率八週完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"FUNNEL-COURSE-FACULTY-FEATURE-001",
     period:"2026-07-25 至 2026-07-31（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-31", generatedAt:"2026-08-03T12:00:00Z",
-    jobId:"not captured", dataHash:"sha256:5900eab67bdd9e217a1f7fbad1cfbc8aea51c965014bf062de4ed29654e65b50", status:"查詢可用",
+    jobId:"not captured", dataHash:"sha256:0d529fcab14f86673747503a529f6854e45f5a1a8e8a8489df7935741977f46d", status:"查詢可用",
     description:"每週課程頁、師資頁、特色頁瀏覽量，用於追蹤招生到達率趨勢。",
     filterKeys:[], chart:{type:"line",xKey:"week",series:[["course_pv","課程頁"],["faculty_pv","師資頁"],["feature_pv","特色頁"]]},
     columns:[["week","週別"],["course_pv","課程頁瀏覽"],["faculty_pv","師資頁瀏覽"],["feature_pv","特色頁瀏覽"]],
     rows:[
-    {week:"06/07",course_pv:0,faculty_pv:164,feature_pv:8},
-    {week:"06/14",course_pv:12,faculty_pv:204,feature_pv:5},
-    {week:"06/28",course_pv:1,faculty_pv:125,feature_pv:7},
-    {week:"07/05",course_pv:1,faculty_pv:69,feature_pv:13},
-    {week:"07/12",course_pv:1,faculty_pv:81,feature_pv:9},
-    {week:"07/19",course_pv:0,faculty_pv:150,feature_pv:15},
-    {week:"07/26",course_pv:1,faculty_pv:97,feature_pv:13}
+    {week:"07/25",course_pv:0,faculty_pv:17,feature_pv:0},
+    {week:"07/26",course_pv:1,faculty_pv:9,feature_pv:1},
+    {week:"07/27",course_pv:0,faculty_pv:14,feature_pv:1},
+    {week:"07/28",course_pv:0,faculty_pv:33,feature_pv:2},
+    {week:"07/29",course_pv:0,faculty_pv:33,feature_pv:2},
+    {week:"07/30",course_pv:0,faculty_pv:35,feature_pv:2},
+    {week:"07/31",course_pv:0,faculty_pv:27,feature_pv:6}
   ],
     sql:"SELECT FORMAT_DATE('%m/%d', DATE_ADD(DATE_TRUNC(date, WEEK(MONDAY)), INTERVAL 6 DAY)) AS week, SUM(CASE WHEN page_title LIKE '%課程地圖%' OR page_title LIKE '%課程規劃%' OR page_title LIKE '%碩士班專區%' THEN 1 ELSE 0 END) AS course_pv, SUM(CASE WHEN page_title LIKE '%師資陣容%' THEN 1 ELSE 0 END) AS faculty_pv, SUM(CASE WHEN page_title LIKE '%本系特色%' OR page_title LIKE '%業界實習%' OR page_title LIKE '%實習流程%' OR page_title LIKE '%實務專題%' THEN 1 ELSE 0 END) AS feature_pv FROM all_units_summary WHERE site_name='護理學院' AND date BETWEEN DATE '2026-06-01' AND DATE '2026-07-26' AND page_title != '' GROUP BY week ORDER BY week;"
   },
