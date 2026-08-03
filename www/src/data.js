@@ -121,19 +121,23 @@ window.WEBINSIGHT.DATA = {
     {normalized_path:"/admissions",title:"招生資訊",users:47,sessions:47,pageviews:94,engagement_sec:0.3},
     {normalized_path:"/research",title:"研究發展",users:18,sessions:18,pageviews:47,engagement_sec:0.3}
   ],
-  geo_block:{
-    score:62,
-    subs:{"主題清楚度（網站主題是否明確）":15,"招生資訊完整度（能否回答學生和家長的問題）":18,"可信度（聯絡資訊和地址是否完整）":12,"內容深度（網站章節數和說明完整性）":12,"技術名片（社群分享和搜尋預覽標籤）":5},
-    boss_summary:"網站基本資訊完整，但社群分享預覽與部分內容仍有優化空間。",
-    tech_summary:"[GEO audit @ 2026-07-31] 目前 6 個待修項目：og:title 簡短度、hreflang 標記、JSON-LD 結構化資料、img alt 描述、canonical 設置、duplicate DOM ID。",
+    geo_block:{
+    score:58,
+    subs:{"主題清楚度（網站主題是否明確）":12,"招生資訊完整度（能否回答學生和家長的問題）":16,"可信度（聯絡資訊和地址是否完整）":18,"內容深度（網站章節數和說明完整性）":8,"技術名片（社群分享和搜尋預覽標籤）":4},
+    boss_summary:"校首頁主題清楚（h1×1、有 JSON-LD CollegeOrUniversity 結構），聯絡資訊完整（地址/電話/email都有），但內容深度淺（h2 只有 3 個）、技術名片嚴重缺失（缺少 og:title/og:description/og:url、canonical、hreflang）。",
+    tech_summary:"[GEO audit @ 2026-07-31] www.tcu.edu.tw 網頁內容結構：h1×1（含 logo,結構 OK）、h2×3（內容深度不足）、1 個 JSON-LD 結構化資料（CollegeOrUniversity,良好）。Open Graph 部分：og:image 有但 og:title/og:description/og:url 缺失；canonical 缺失；hreflang 0 entries（無中英文版標記）。圖片 18 張，0 張缺少 alt（良好）；iframe 1 個缺 title。DOM ID 重複 6 個（16 occurrences）。主選單存在主要導覽區。",
     issues:[
-      {type:"canonical",count:1,desc:"首頁缺少 canonical 標籤",severity:"高",suggested_owner:"電算中心",status:"未處理"},
-      {type:"open_graph",count:3,desc:"og:title、og:description、og:image 設定不完整",severity:"高",suggested_owner:"電算中心",status:"未處理"},
-      {type:"hreflang",count:1,desc:"缺少 zh-hant / en 標記",severity:"中",suggested_owner:"電算中心",status:"未處理"},
-      {type:"structured_data",count:1,desc:"缺少 JSON-LD Organization 標記",severity:"中",suggested_owner:"電算中心",status:"未處理"},
-      {type:"image_alt",count:6,desc:"6 個圖片缺少 alt 文字",severity:"中",suggested_owner:"電算中心",status:"未處理"},
-      {type:"duplicate_id",count:31,desc:"DOM 有 31 個重複 ID",severity:"低",suggested_owner:"電算中心",status:"未處理"}
-    ]
+      {type:"h1",count:1,desc:"h1×1 含 logo 圖片,結構 OK 但無文字標題",severity:"中",suggested_owner:"電算中心",status:"可改進"},
+      {type:"h2",count:3,desc:"h2 只有 3 個章節,內容深度不足",severity:"高",suggested_owner:"電算中心",status:"未處理"},
+      {type:"meta_description",count:1,desc:"description 101 字,長度 OK 但為推廣性質,缺少實際資訊",severity:"低",suggested_owner:"電算中心",status:"可改進"},
+      {type:"canonical",count:0,desc:"缺少 canonical 標籤",severity:"高",suggested_owner:"電算中心",status:"未處理"},
+      {type:"open_graph",count:3,desc:"og:title / og:description / og:url 缺失（僅 og:image 有）",severity:"高",suggested_owner:"電算中心",status:"未處理"},
+      {type:"hreflang",count:0,desc:"缺少 hreflang 標記(0 entries)",severity:"中",suggested_owner:"電算中心",status:"未處理"},
+      {type:"iframe_title",count:1,desc:"iframe 缺 title 屬性",severity:"中",suggested_owner:"電算中心",status:"未處理"},
+      {type:"duplicate_id",count:6,desc:"DOM ID 重複 6 個(總 16 occurrences)",severity:"低",suggested_owner:"電算中心",status:"未處理"}
+    ],
+    crawl_date:"2026-07-31",
+    source_url:"https://www.tcu.edu.tw/"
   }
 }
 };
