@@ -7,12 +7,12 @@ window.WEBINSIGHT = window.WEBINSIGHT || {};
 window.WEBINSIGHT.DATA = {
  weeks:['06/07','06/14','06/28','07/05','07/12','07/19','07/26'],
  kpis:[
-  {k:"本週造訪人數",v:"5514",trend:"+5.3%",avg:"+5.3% 較前週",up:true,desc:"近一週有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[6014,5228,5238,5514]},
-  {k:"本週工作階段",v:"9428",trend:"-5.8%",avg:"-5.8% 較前週",up:false,desc:"近一週網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[12959,9841,10012,9428]},
-  {k:"Google 搜尋點擊",v:"4195",trend:"-7.3%",avg:"-7.3% 較前週",up:false,desc:"從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[6789,4966,4525,4195]},
-  {k:"Google 搜尋點擊率",v:"7.85%",trend:"-0.12pt",avg:"-0.12pt 較前週",up:false,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[8.71,8.21,7.97,7.85]}
- ],
- traffic:{a:[16393,20337,16840,12959,9841,10012,9428],b:[27546,33085,28023,21667,16051,18863,15026]},
+{k:"本週造訪人數",v:"5514",trend:"+5.3%",avg:"+5.3% 較前週",up:true,desc:"近一週有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[6014,5228,5238,5514]},
+{k:"Google 搜尋點擊",v:"4195",trend:"-7.3%",avg:"-7.3% 較前週",up:false,desc:"從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[6789,4966,4525,4195]},
+{k:"Google 搜尋點擊率",v:"7.85%",trend:"-0.12pt",avg:"-0.12pt 較前週",up:false,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[8.71,8.21,7.97,7.85]},
+{k:"本週工作階段",v:"9428",trend:"-5.8%",avg:"-5.8% 較前週",up:false,desc:"近一週網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[12959,9841,10012,9428]}
+],
+ traffic:{a:[18096,22430,18686,14352,10927,11128,10500],b:[27546,33085,28023,21667,16051,18863,15026]},
  search:{a:[100231,102521,92501,77919,60511,56808,53459],b:[9111,8880,8264,6789,4966,4525,4195]},
  funnel:{a:[86,80,0,0,0,0,0],b:[48,52,0,0,0,0,0],c:[18,16,0,0,0,0,0]},
  decisions:[
@@ -70,13 +70,13 @@ window.WEBINSIGHT.DATA = {
 },
  sections:{
   trends:[
-    {week:"06/07",sessions:16393,users:8207,pageviews:27546,impressions:100231,clicks:9111},
-    {week:"06/14",sessions:20337,users:11482,pageviews:33085,impressions:102521,clicks:8880},
-    {week:"06/28",sessions:16840,users:7912,pageviews:28023,impressions:92501,clicks:8264},
-    {week:"07/05",sessions:12959,users:6014,pageviews:21667,impressions:77919,clicks:6789},
-    {week:"07/12",sessions:9841,users:5228,pageviews:16051,impressions:60511,clicks:4966},
-    {week:"07/19",sessions:10012,users:5238,pageviews:18863,impressions:56808,clicks:4525},
-    {week:"07/26",sessions:9428,users:5514,pageviews:15026,impressions:53459,clicks:4195}
+    {week:"06/07",sessions:18096,users:8247,pageviews:27546,impressions:100231,clicks:9111},
+    {week:"06/14",sessions:22430,users:11601,pageviews:33085,impressions:102521,clicks:8880},
+    {week:"06/28",sessions:18686,users:8039,pageviews:28023,impressions:92501,clicks:8264},
+    {week:"07/05",sessions:14352,users:6077,pageviews:21667,impressions:77919,clicks:6789},
+    {week:"07/12",sessions:10927,users:5317,pageviews:16051,impressions:60511,clicks:4966},
+    {week:"07/19",sessions:11128,users:5335,pageviews:18863,impressions:56808,clicks:4525},
+    {week:"07/26",sessions:10500,users:5669,pageviews:15026,impressions:53459,clicks:4195}
   ],
   anomaly_rule:{
     threshold_pct:30,

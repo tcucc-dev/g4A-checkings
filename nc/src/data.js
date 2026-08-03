@@ -5,15 +5,15 @@
 
 window.WEBINSIGHT = window.WEBINSIGHT || {};
 window.WEBINSIGHT.DATA = {
- weeks:['06/07','06/14','06/21','06/28','07/05','07/12','07/19','07/26'],
+ weeks:['06/07','06/14','06/28','07/05','07/12','07/19','07/26'],
  kpis:[
- {k:"本週造訪人數",v:"166",trend:"-5.7%",avg:"-5.7% 較前週",up:false,desc:"近一週有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[151,117,176,166]},
+{k:"本週造訪人數",v:"160",trend:"-5.9%",avg:"-5.9% 較前週",up:false,desc:"近一週有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[144,111,170,160]},
 {k:"Google 搜尋點擊",v:"113",trend:"+7.6%",avg:"+7.6% 較前週",up:true,desc:"從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[87,73,105,113]},
 {k:"Google 搜尋點擊率",v:"4.07%",trend:"-0.03pt",avg:"-0.03pt 較前週",up:false,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[3.29,2.96,4.1,4.07]},
-{k:"課程頁到達率",v:"6.9%",trend:"課程 14",avg:"教師 67 / 特色 105",up:true,desc:"看「課程介紹」的人佔全站比例",src:"all_units_summary｜FUNNEL-COURSE-001",spark:[9.6,8.6,8.8,6.9]}
+{k:"本週工作階段",v:"185",trend:"-5.1%",avg:"-5.1% 較前週",up:false,desc:"近一週網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[166,126,195,185]}
 ],
- traffic:{a:[268,321,57,236,187,139,215,202],b:[4453,3825,550,2357,1393,1047,2027,1395]},
- search:{a:[3039,3531,2552,2908,2644,2466,2560,2775],b:[151,202,127,93,87,73,105,113]},
+ traffic:{a:[268,321,236,187,139,215,202],b:[1123,933,556,304,233,464,298]},
+ search:{a:[3039,3531,2908,2644,2466,2560,2775],b:[151,202,93,87,73,105,113]},
  funnel:{a:[45,51,4,26,18,12,19,14],b:[122,126,52,76,66,56,136,67],c:[159,233,27,149,107,79,162,105]},
  decisions:[
  {p:"P1",id:"SEO-001",title:"改善高曝光、低點擊搜尋入口",reason:"Google 搜尋帶來的點擊這一週 113 次，前一週 105 次（+7.6%）；曝光 2560 → 2775（+8.4%）。",who:"單位網站管理人",support:"電算中心提供 query × url 證據",due:"2 週"},
@@ -84,14 +84,13 @@ sections:{
   // by app.js using prompt rule: ≥30% delta AND base ≥ volumes below.
   // New data: 2026-07-29 ; latest complete week = 07/20 ~ 07/26 (Sunday-aligned)
   trends:[
-    {week:"06/07",sessions:268,users:205,pageviews:4453,impressions:3039,clicks:151},
-    {week:"06/14",sessions:321,users:249,pageviews:3825,impressions:3531,clicks:202},
-    {week:"06/21",sessions:57,users:45,pageviews:550,impressions:2552,clicks:127},
-    {week:"06/28",sessions:236,users:171,pageviews:2357,impressions:2908,clicks:93},
-    {week:"07/05",sessions:187,users:151,pageviews:1393,impressions:2644,clicks:87},
-    {week:"07/12",sessions:139,users:117,pageviews:1047,impressions:2466,clicks:73},
-    {week:"07/19",sessions:215,users:176,pageviews:2027,impressions:2560,clicks:105},
-    {week:"07/26",sessions:202,users:166,pageviews:1395,impressions:2775,clicks:113}
+    {week:"06/07",sessions:268,users:205,pageviews:1123,impressions:3039,clicks:151},
+    {week:"06/14",sessions:321,users:249,pageviews:933,impressions:3531,clicks:202},
+    {week:"06/28",sessions:236,users:171,pageviews:556,impressions:2908,clicks:93},
+    {week:"07/05",sessions:187,users:151,pageviews:304,impressions:2644,clicks:87},
+    {week:"07/12",sessions:139,users:117,pageviews:233,impressions:2466,clicks:73},
+    {week:"07/19",sessions:215,users:176,pageviews:464,impressions:2560,clicks:105},
+    {week:"07/26",sessions:202,users:166,pageviews:298,impressions:2775,clicks:113}
   ],
   anomaly_rule:{
     threshold_pct:30,
