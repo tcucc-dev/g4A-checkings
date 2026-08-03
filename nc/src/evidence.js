@@ -353,9 +353,9 @@ const EVIDENCE_REPORTS = [
     columns:[["group","分組"],["source","source"],["medium","medium"],["sessions","工作階段"],["users","活躍使用者"],["avg_eng_sec_per_session","平均互動秒/工作階段"],["internal_clicks","站內點擊"],["downloads","下載"],["cta_clicks","CTA 點擊"],["sample_note","樣本狀態"]],
     rows:[
     {group:"direct",source:"(direct)",medium:"(none)",sessions:104,users:88,avg_eng_sec_per_session:0.0,internal_clicks:0,downloads:0,cta_clicks:0,sample_note:"足夠"},
-    {group:"organic",source:"google",medium:"organic",sessions:79,users:70,avg_eng_sec_per_session:nan,internal_clicks:0,downloads:0,cta_clicks:0,sample_note:"足夠"},
-    {group:"ai",source:"chatgpt.com",medium:"ai-assistant",sessions:1,users:1,avg_eng_sec_per_session:nan,internal_clicks:0,downloads:0,cta_clicks:0,sample_note:"資料不足"},
-    {group:"organic",source:"yahoo",medium:"organic",sessions:1,users:1,avg_eng_sec_per_session:nan,internal_clicks:0,downloads:0,cta_clicks:0,sample_note:"資料不足"}
+    {group:"organic",source:"google",medium:"organic",sessions:79,users:70,avg_eng_sec_per_session:null,internal_clicks:0,downloads:0,cta_clicks:0,sample_note:"足夠"},
+    {group:"ai",source:"chatgpt.com",medium:"ai-assistant",sessions:1,users:1,avg_eng_sec_per_session:null,internal_clicks:0,downloads:0,cta_clicks:0,sample_note:"資料不足"},
+    {group:"organic",source:"yahoo",medium:"organic",sessions:1,users:1,avg_eng_sec_per_session:null,internal_clicks:0,downloads:0,cta_clicks:0,sample_note:"資料不足"}
   ],
     sql:"SELECT CASE WHEN source='(direct)' OR medium='(none)' THEN 'Direct' WHEN source='google' AND medium='organic' THEN 'Organic Search' WHEN REGEXP_CONTAINS(COALESCE(page_referrer,''), r'chatgpt|perplexity|gemini|copilot|claude|openai') THEN 'AI Referral' WHEN medium='referral' AND source LIKE '%edu%' OR source LIKE 'lle%' THEN 'Internal Referral' WHEN medium='referral' THEN 'External Referral' WHEN source='facebook.com' OR source='twitter.com' OR medium='social' THEN 'Social' ELSE 'Other' END AS group, source, medium, COUNT(DISTINCT ga_session_id) AS sessions, COUNT(DISTINCT user_pseudo_id) AS users, ROUND(SAFE_DIVIDE(SUM(engagement_time_msec)/1000.0, COUNT(DISTINCT ga_session_id)), 1) AS avg_eng_sec_per_session, SUM(CASE WHEN event_name='click' AND link_class IN ('internal-cta','internal-link') THEN 1 ELSE 0 END) AS internal_clicks, SUM(CASE WHEN link_url LIKE '%.pdf' OR link_url LIKE '%.doc%' OR link_url LIKE '%.xls%' THEN 1 ELSE 0 END) AS downloads, SUM(CASE WHEN event_name='click' AND link_class='admission-cta' THEN 1 ELSE 0 END) AS cta_clicks FROM all_units_summary WHERE site_name='護理學院' AND date BETWEEN DATE '2026-07-20' AND DATE '2026-07-26' GROUP BY group, source, medium ORDER BY sessions DESC;"
   },
@@ -384,20 +384,20 @@ const EVIDENCE_REPORTS = [
     filterKeys:["category"], chart:{type:"bar",xKey:"link_text",series:[["clicks","點擊"]]},
     columns:[["category","CTA 類別"],["link_text","連結文字"],["source_page","來源頁"],["destination","目的地"],["clicks","點擊"],["users","使用者"],["valid_events","有效事件"],["valid_rate","有效率"]],
     rows:[
-    {category:"其他連結", link_text:"nan", source_page:"p/412-1014-2992.php", destination:"https://tcunursing.tcu.edu.tw/?page_id=4469", clicks:14, users:11, valid_events:14, valid_rate:1},
+    {category:"其他連結", link_text:"null", source_page:"p/412-1014-2992.php", destination:"https://tcunursing.tcu.edu.tw/?page_id=4469", clicks:14, users:11, valid_events:14, valid_rate:1},
     {category:"其他連結", link_text:"護理學系(四年制、二年制)", source_page:"p/412-1014-2992.php", destination:"https://tcunursing.tcu.edu.tw/?page_id=4469", clicks:10, users:9, valid_events:10, valid_rate:1},
-    {category:"其他連結", link_text:"nan", source_page:"p/412-1014-2992.php", destination:"https://dbm.tcu.edu.tw/?page_id=159", clicks:8, users:7, valid_events:8, valid_rate:1},
+    {category:"其他連結", link_text:"null", source_page:"p/412-1014-2992.php", destination:"https://dbm.tcu.edu.tw/?page_id=159", clicks:8, users:7, valid_events:8, valid_rate:1},
     {category:"其他連結", link_text:"師資陣容", source_page:"p/412-1014-2992.php", destination:"https://dbm.tcu.edu.tw/?page_id=159", clicks:8, users:7, valid_events:8, valid_rate:1},
-    {category:"其他連結", link_text:"nan", source_page:"", destination:"https://tcunursing.tcu.edu.tw/", clicks:7, users:4, valid_events:7, valid_rate:1},
+    {category:"其他連結", link_text:"null", source_page:"", destination:"https://tcunursing.tcu.edu.tw/", clicks:7, users:4, valid_events:7, valid_rate:1},
     {category:"其他連結", link_text:"師資成員", source_page:"", destination:"https://nc.tcu.edu.tw/p/412-1014-2992.php", clicks:7, users:6, valid_events:7, valid_rate:1},
     {category:"其他連結", link_text:"慈濟大學護理學院 College of Nursing", source_page:"", destination:"https://nc.tcu.edu.tw/", clicks:6, users:5, valid_events:6, valid_rate:1},
-    {category:"其他連結", link_text:"nan", source_page:"p/412-1014-2992.php", destination:"https://na.tcu.edu.tw/p/412-1015-3071.php", clicks:6, users:5, valid_events:6, valid_rate:1},
+    {category:"其他連結", link_text:"null", source_page:"p/412-1014-2992.php", destination:"https://na.tcu.edu.tw/p/412-1015-3071.php", clicks:6, users:5, valid_events:6, valid_rate:1},
     {category:"其他連結", link_text:"護理科(五專)", source_page:"p/412-1014-2992.php", destination:"https://na.tcu.edu.tw/p/412-1015-3071.php", clicks:6, users:5, valid_events:6, valid_rate:1},
     {category:"其他連結", link_text:"02 護理學院簡介 認識護理學院各學制與學習方向。 ›", source_page:"", destination:"https://nc.tcu.edu.tw/#Dyn_2_3", clicks:5, users:5, valid_events:5, valid_rate:1},
     {category:"其他連結", link_text:"學院行政人員", source_page:"p/412-1014-4934.php?Lang=zh-tw", destination:"https://nc.tcu.edu.tw/p/412-1014-4934.php?Lang=zh-tw#cmb_90_1", clicks:5, users:3, valid_events:5, valid_rate:1},
     {category:"其他連結", link_text:"護理學系（四年制、二年制）", source_page:"", destination:"https://tcunursing.tcu.edu.tw/", clicks:5, users:3, valid_events:5, valid_rate:1},
     {category:"招生入口", link_text:"五專護理科招生", source_page:"", destination:"https://admissions.tcu.edu.tw/?page_id=22279", clicks:4, users:3, valid_events:4, valid_rate:1},
-    {category:"其他連結", link_text:"nan", source_page:"", destination:"https://na.tcu.edu.tw/p/412-1015-3208.php?Lang=zh-tw", clicks:4, users:4, valid_events:4, valid_rate:1},
+    {category:"其他連結", link_text:"null", source_page:"", destination:"https://na.tcu.edu.tw/p/412-1015-3208.php?Lang=zh-tw", clicks:4, users:4, valid_events:4, valid_rate:1},
     {category:"其他連結", link_text:"04 師資成員 查看教師專長、研究與教學領域。 ›", source_page:"", destination:"https://nc.tcu.edu.tw/p/412-1014-2992.php", clicks:4, users:4, valid_events:4, valid_rate:1}
   ],
     sql:"SELECT CASE WHEN link_url LIKE 'line.me%' OR link_url LIKE '%line.me%' THEN 'LINE' WHEN link_url LIKE 'tel:%' THEN '電話' WHEN link_url LIKE 'mailto:%' THEN 'Email' WHEN link_url LIKE '%.pdf' OR link_url LIKE '%.doc%' OR link_url LIKE '%.xls%' THEN '下載文件' WHEN (page_title LIKE '%招生%' OR link_text LIKE '%招生%') AND (link_url LIKE '%adm%' OR link_url LIKE '%recruit%' OR link_url LIKE '%p/16%' OR link_url LIKE '%p/406%') THEN '招生簡章' WHEN (page_title LIKE '%入學%' OR link_text LIKE '%入學%') THEN '入學方式' WHEN link_url LIKE '%apply%' OR link_text LIKE '%報名%' THEN '報名系統' ELSE '其他連結' END AS category, ANY_VALUE(link_text) AS link_text, ANY_VALUE(page_title) AS source_page, link_url AS destination, COUNT(*) AS clicks, COUNT(DISTINCT user_pseudo_id) AS users, 1.0 AS valid_rate FROM all_units_summary WHERE site_name='護理學院' AND date BETWEEN DATE '2026-07-20' AND DATE '2026-07-26' AND event_name='click' AND link_url IS NOT NULL AND link_url != '' GROUP BY category, destination ORDER BY clicks DESC LIMIT 50;"
