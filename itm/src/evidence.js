@@ -627,7 +627,7 @@ function evInit(){
 
 // === Vite ESM: expose to window for inline onclick handlers ===
 // (HTML attribute onclick="evOpen(...)" needs function in window scope)
-if (typeof window !== "undefined") {
+if (typeof window !== "undefined" && typeof window !== null) {
   window.evOpen = evOpen;
   window.evReport = evReport;
   window.evEsc = evEsc;
