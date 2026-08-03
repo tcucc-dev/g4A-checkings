@@ -1,0 +1,1 @@
+function ul(n){};typeof window<"u">&&(window.setView=ul);console.log('after');console.log(typeof window.setView);

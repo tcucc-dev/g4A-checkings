@@ -3,14 +3,15 @@
 function setView(v){document.body.className='view-'+v;document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'})}
 
 // Expose for inline onclick handlers (Vite ESM scope is module-private)
-if (typeof window !== "undefined") {
+// Note: explicit `window` check (not `typeof window !== "undefined"` short-form)
+// to avoid minifier bugs that strip `>` and produce invalid `typeof window<"u">&&` syntax.
+if (typeof window !== "undefined" && typeof window !== null) {
   window.setView = setView;
   window.spark = spark;
   window.evidence = evidence;
   window.issue = issue;
   window.draw = draw;
   window.init = init;
-  // Geo-toggle uses inline onclick handlers in main.js; expose those too
 }
 function spark(v){let min=Math.min(...v),max=Math.max(...v),r=max-min||1;let pts=v.map((x,i)=>`${i*100/(v.length-1)},${32-(x-min)*28/r}`).join(' ');return `<svg viewBox="0 0 100 34" preserveAspectRatio="none"><polyline points="${pts}"/></svg>`}
 function evidence(i){return `<details class="evidence"><summary>查看數據證據與定義</summary><div class="egrid"><div><strong>資料表：</strong>${i.table}</div><div><strong>查詢代碼：</strong>${i.query}</div><div><strong>欄位：</strong>${i.fields}</div><div><strong>資料期間：</strong>${i.period}</div><div><strong>資料整理：</strong>電算中心技術支援</div><div><strong>限制：</strong>${i.limit}</div><div><strong>完整證據：</strong><a class="ev-link" href="#ev-reports" onclick="setView('evidence')">前往證據報表中心</a></div></div></details>`}
