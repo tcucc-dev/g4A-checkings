@@ -5,15 +5,15 @@
 
 window.WEBINSIGHT = window.WEBINSIGHT || {};
 window.WEBINSIGHT.DATA = {
- weeks:['06/07','06/14','06/28','07/05','07/12','07/19','07/26'],
+ weeks:['07/25','07/26','07/27','07/28','07/29','07/30','07/31'],
  kpis:[
-{k:"本週造訪人數",v:"5514",trend:"+5.3%",avg:"+5.3% 較前週",up:true,desc:"近一週有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[6014,5228,5238,5514]},
-{k:"Google 搜尋點擊",v:"4195",trend:"-7.3%",avg:"-7.3% 較前週",up:false,desc:"從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[6789,4966,4525,4195]},
-{k:"Google 搜尋點擊率",v:"7.85%",trend:"-0.12pt",avg:"-0.12pt 較前週",up:false,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[8.71,8.21,7.97,7.85]},
-{k:"本週工作階段",v:"9428",trend:"-5.8%",avg:"-5.8% 較前週",up:false,desc:"近一週網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[12959,9841,10012,9428]}
+{k:"本週造訪人數",v:"6508",trend:"-12.8%",avg:"-12.8% 較前一日",up:false,desc:"近 7 天有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[1780,1389,1331,1169]},
+{k:"本週工作階段",v:"10734",trend:"-12.8%",avg:"-12.8% 較前一日",up:false,desc:"近 7 天網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[2171,1752,1724,1503]},
+{k:"Google 搜尋點擊",v:"4423",trend:"-31.1%",avg:"-31.1% 較前一日",up:false,desc:"近 7 天從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[708,741,756,521]},
+{k:"Google 搜尋點擊率",v:"7.86%",trend:"—",avg:"近 7 天平均",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[8.07,8.02,8.11,7.2]}
 ],
- traffic:{a:[18096,22430,18686,14352,10927,11128,10500],b:[27546,33085,28023,21667,16051,18863,15026]},
- search:{a:[100231,102521,92501,77919,60511,56808,53459],b:[9111,8880,8264,6789,4966,4525,4195]},
+ traffic:{a:[974,950,1660,2171,1752,1724,1503],b:[1356,1344,2826,3409,2838,2858,2512]},
+ search:{a:[5113,7609,8985,8778,9242,9326,7235],b:[348,621,728,708,741,756,521]},
  funnel:{a:[86,80,0,0,0,0,0],b:[48,52,0,0,0,0,0],c:[18,16,0,0,0,0,0]},
  decisions:[
   {p:"P1",id:"SEO-001",title:"優化首頁主視覺元數據",reason:"近一週 Google 搜尋帶來 4195 個點擊（-7.3%），曝光 53459（-5.9%）。校首頁若 og:title/og:description 優化，可提升 CTR 從 7.85% 到 4-5%。",who:"電算中心網站管理人",support:"電算中心提供 BigQuery evidence",due:"2 週"},
@@ -70,13 +70,13 @@ window.WEBINSIGHT.DATA = {
 },
  sections:{
   trends:[
-    {week:"06/07",sessions:18096,users:8247,pageviews:27546,impressions:100231,clicks:9111},
-    {week:"06/14",sessions:22430,users:11601,pageviews:33085,impressions:102521,clicks:8880},
-    {week:"06/28",sessions:18686,users:8039,pageviews:28023,impressions:92501,clicks:8264},
-    {week:"07/05",sessions:14352,users:6077,pageviews:21667,impressions:77919,clicks:6789},
-    {week:"07/12",sessions:10927,users:5317,pageviews:16051,impressions:60511,clicks:4966},
-    {week:"07/19",sessions:11128,users:5335,pageviews:18863,impressions:56808,clicks:4525},
-    {week:"07/26",sessions:10500,users:5669,pageviews:15026,impressions:53459,clicks:4195}
+    {week:"07/25",sessions:974,users:917,pageviews:1356,impressions:5113,clicks:348},
+    {week:"07/26",sessions:950,users:847,pageviews:1344,impressions:7609,clicks:621},
+    {week:"07/27",sessions:1660,users:1286,pageviews:2826,impressions:8985,clicks:728},
+    {week:"07/28",sessions:2171,users:1780,pageviews:3409,impressions:8778,clicks:708},
+    {week:"07/29",sessions:1752,users:1389,pageviews:2838,impressions:9242,clicks:741},
+    {week:"07/30",sessions:1724,users:1331,pageviews:2858,impressions:9326,clicks:756},
+    {week:"07/31",sessions:1503,users:1169,pageviews:2512,impressions:7235,clicks:521}
   ],
   anomaly_rule:{
     threshold_pct:30,

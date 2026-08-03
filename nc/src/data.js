@@ -5,15 +5,15 @@
 
 window.WEBINSIGHT = window.WEBINSIGHT || {};
 window.WEBINSIGHT.DATA = {
- weeks:['06/07','06/14','06/28','07/05','07/12','07/19','07/26'],
+ weeks:['07/25','07/26','07/27','07/28','07/29','07/30','07/31'],
  kpis:[
-{k:"本週造訪人數",v:"160",trend:"-5.9%",avg:"-5.9% 較前週",up:false,desc:"近一週有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[144,111,170,160]},
-{k:"Google 搜尋點擊",v:"113",trend:"+7.6%",avg:"+7.6% 較前週",up:true,desc:"從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[87,73,105,113]},
-{k:"Google 搜尋點擊率",v:"4.07%",trend:"-0.03pt",avg:"-0.03pt 較前週",up:false,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[3.29,2.96,4.1,4.07]},
-{k:"本週工作階段",v:"185",trend:"-5.1%",avg:"-5.1% 較前週",up:false,desc:"近一週網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[166,126,195,185]}
+{k:"本週造訪人數",v:"204",trend:"-2.7%",avg:"-2.7% 較前一日",up:false,desc:"近 7 天有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[43,40,34,31]},
+{k:"本週工作階段",v:"249",trend:"-2.7%",avg:"-2.7% 較前一日",up:false,desc:"近 7 天網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[46,52,37,36]},
+{k:"Google 搜尋點擊",v:"128",trend:"-22.2%",avg:"-22.2% 較前一日",up:false,desc:"近 7 天從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[21,23,18,14]},
+{k:"Google 搜尋點擊率",v:"4.66%",trend:"—",avg:"近 7 天平均",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[5.9,5.72,5.2,3.62]}
 ],
- traffic:{a:[268,321,236,187,139,215,202],b:[1123,933,556,304,233,464,298]},
- search:{a:[3039,3531,2908,2644,2466,2560,2775],b:[151,202,93,87,73,105,113]},
+ traffic:{a:[21,20,37,46,52,37,36],b:[31,24,71,73,173,97,112]},
+ search:{a:[240,373,640,356,402,346,387],b:[13,16,23,21,23,18,14]},
  funnel:{a:[45,51,4,26,18,12,19,14],b:[122,126,52,76,66,56,136,67],c:[159,233,27,149,107,79,162,105]},
  decisions:[
  {p:"P1",id:"SEO-001",title:"改善高曝光、低點擊搜尋入口",reason:"Google 搜尋帶來的點擊這一週 113 次，前一週 105 次（+7.6%）；曝光 2560 → 2775（+8.4%）。",who:"單位網站管理人",support:"電算中心提供 query × url 證據",due:"2 週"},
@@ -84,13 +84,13 @@ sections:{
   // by app.js using prompt rule: ≥30% delta AND base ≥ volumes below.
   // New data: 2026-07-29 ; latest complete week = 07/20 ~ 07/26 (Sunday-aligned)
   trends:[
-    {week:"06/07",sessions:268,users:205,pageviews:1123,impressions:3039,clicks:151},
-    {week:"06/14",sessions:321,users:249,pageviews:933,impressions:3531,clicks:202},
-    {week:"06/28",sessions:236,users:171,pageviews:556,impressions:2908,clicks:93},
-    {week:"07/05",sessions:187,users:151,pageviews:304,impressions:2644,clicks:87},
-    {week:"07/12",sessions:139,users:117,pageviews:233,impressions:2466,clicks:73},
-    {week:"07/19",sessions:215,users:176,pageviews:464,impressions:2560,clicks:105},
-    {week:"07/26",sessions:202,users:166,pageviews:298,impressions:2775,clicks:113}
+    {week:"07/25",sessions:21,users:20,pageviews:31,impressions:240,clicks:13},
+    {week:"07/26",sessions:20,users:19,pageviews:24,impressions:373,clicks:16},
+    {week:"07/27",sessions:37,users:35,pageviews:71,impressions:640,clicks:23},
+    {week:"07/28",sessions:46,users:43,pageviews:73,impressions:356,clicks:21},
+    {week:"07/29",sessions:52,users:40,pageviews:173,impressions:402,clicks:23},
+    {week:"07/30",sessions:37,users:34,pageviews:97,impressions:346,clicks:18},
+    {week:"07/31",sessions:36,users:31,pageviews:112,impressions:387,clicks:14}
   ],
   anomaly_rule:{
     threshold_pct:30,
