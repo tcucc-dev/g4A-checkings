@@ -1,7 +1,7 @@
 // scripts/build-vercel.mjs
 // Cross-platform build script for combined Vercel deployment.
-// Builds ITM and NC Vite apps with explicit base paths and assembles them
-// under dist/ alongside the root landing page and 404 page.
+// Builds all 3 department Vite apps (ITM, NC, WWW) with explicit base paths
+// and assembles them under dist/ alongside the root landing page and 404 page.
 
 import { execFileSync } from 'node:child_process';
 import {
@@ -20,16 +20,20 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const REPO_ROOT = path.resolve(path.dirname(__filename), '..');
 const DIST = path.join(REPO_ROOT, 'dist');
-const ITM_DIR = path.join(REPO_ROOT, 'itm');
-const NC_DIR = path.join(REPO_ROOT, 'nc');
+
+const APPS = [
+  { dir: path.join(REPO_ROOT, 'itm'), basePath: '/itm/' },
+  { dir: path.join(REPO_ROOT, 'nc'),  basePath: '/nc/' },
+  { dir: path.join(REPO_ROOT, 'www'), basePath: '/www/' },
+];
+
 const IS_WIN = process.platform === 'win32';
 const NPM_BIN = IS_WIN ? 'npm.cmd' : 'npm';
 
 const REQUIRED_FILES = [
   path.join(DIST, 'index.html'),
   path.join(DIST, '404.html'),
-  path.join(DIST, 'itm', 'index.html'),
-  path.join(DIST, 'nc', 'index.html'),
+  ...APPS.map(a => path.join(DIST, path.basename(a.dir), 'index.html')),
 ];
 
 function log(msg) {
@@ -42,7 +46,8 @@ function fail(msg) {
 }
 
 function buildApp(appDir, basePath) {
-  log(`Building ${path.basename(appDir)} with VITE_BASE_PATH=${basePath}`);
+  const name = path.basename(appDir);
+  log(`Building ${name} with VITE_BASE_PATH=${basePath}`);
   if (!existsSync(path.join(appDir, 'package.json'))) {
     fail(`Missing package.json in ${appDir}`);
   }
@@ -93,34 +98,31 @@ function main() {
   copyFileSync(root404, path.join(DIST, '404.html'));
   log('Copied root 404.html');
 
-  // 5-8. Build ITM and NC, copy dist trees
-  buildApp(ITM_DIR, '/itm/');
-  copyTree(path.join(ITM_DIR, 'dist'), path.join(DIST, 'itm'));
+  // 5-N. Build all apps, copy dist trees
+  for (const app of APPS) {
+    const name = path.basename(app.dir);
+    buildApp(app.dir, app.basePath);
+    copyTree(path.join(app.dir, 'dist'), path.join(DIST, name));
+  }
 
-  buildApp(NC_DIR, '/nc/');
-  copyTree(path.join(NC_DIR, 'dist'), path.join(DIST, 'nc'));
-
-  // 10. Verify required files exist
+  // N+1. Verify required files exist
   for (const f of REQUIRED_FILES) {
     if (!existsSync(f)) {
       fail(`Required file missing: ${f}`);
     }
   }
 
-  // 11-12. Verify HTML asset references
-  const itmHtml = readFileSync(path.join(DIST, 'itm', 'index.html'), 'utf8');
-  if (!itmHtml.includes('/itm/assets/')) {
-    fail('dist/itm/index.html does not reference /itm/assets/');
+  // N+2. Verify HTML asset references
+  for (const app of APPS) {
+    const name = path.basename(app.dir);
+    const html = readFileSync(path.join(DIST, name, 'index.html'), 'utf8');
+    if (!html.includes(`${app.basePath}assets/`)) {
+      fail(`dist/${name}/index.html does not reference ${app.basePath}assets/`);
+    }
+    log(`dist/${name}/index.html references ${app.basePath}assets/ ✓`);
   }
-  log('dist/itm/index.html references /itm/assets/ ✓');
 
-  const ncHtml = readFileSync(path.join(DIST, 'nc', 'index.html'), 'utf8');
-  if (!ncHtml.includes('/nc/assets/')) {
-    fail('dist/nc/index.html does not reference /nc/assets/');
-  }
-  log('dist/nc/index.html references /nc/assets/ ✓');
-
-  // 13. Print output tree (best effort — recursive)
+  // N+3. Print output tree (best effort)
   log('Final dist/ tree:');
   function walk(dir, prefix = '') {
     const entries = readdirSync(dir, { withFileTypes: true });
