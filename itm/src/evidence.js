@@ -6,7 +6,7 @@ const EVIDENCE_REPORTS = [
     id:"EV-GA4-TREND-001", title:"網站流量八週趨勢完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-WEEKLY-TREND-001",
     period:"2026-07-25 至 2026-07-31（7 天 daily, 1 minggu ke belakang dari 2026-07-31）", maxDate:"2026-07-31", generatedAt:"2026-08-03T12:00:00Z",
-    jobId:"not captured", dataHash:"sha256:b72c37645ac16b06dbd3bc0f1a75a17b01c26190b102061cf892c6131e7d9eb9", status:"正常",
+    jobId:"not captured", dataHash:"sha256:3f817420927acb6d3f0de7ff7c93de47212bb3240963adf787b9bde4d1c149d7", status:"正常",
     description:"逐週工作階段、瀏覽量、匿名使用者、平均互動秒數與每工作階段頁數。",
     filterKeys:[], chart:{type:"line",xKey:"week",series:[["sessions","工作階段"],["pageviews","瀏覽量"]]},
     columns:[
@@ -14,13 +14,13 @@ const EVIDENCE_REPORTS = [
       ["engagement_seconds","平均互動秒數"],["pages_per_session","每工作階段頁數"]
     ],
     rows:[
-    {week:"07/25",sessions:15,pageviews:35,users:14,engagement_seconds:24.9,pages_per_session:2.33},
-    {week:"07/26",sessions:18,pageviews:39,users:17,engagement_seconds:16.4,pages_per_session:2.17},
-    {week:"07/27",sessions:38,pageviews:170,users:33,engagement_seconds:49.7,pages_per_session:4.47},
-    {week:"07/28",sessions:45,pageviews:116,users:40,engagement_seconds:11.5,pages_per_session:2.58},
-    {week:"07/29",sessions:45,pageviews:177,users:30,engagement_seconds:20.5,pages_per_session:3.93},
-    {week:"07/30",sessions:40,pageviews:186,users:34,engagement_seconds:44.9,pages_per_session:4.65},
-    {week:"07/31",sessions:47,pageviews:148,users:42,engagement_seconds:20.0,pages_per_session:3.15}
+    {week:"07/25",sessions:15,pageviews:35,users:14,engagement_seconds:1.0,pages_per_session:2.33},
+    {week:"07/26",sessions:17,pageviews:39,users:17,engagement_seconds:1.1,pages_per_session:2.29},
+    {week:"07/27",sessions:36,pageviews:170,users:33,engagement_seconds:1.2,pages_per_session:4.72},
+    {week:"07/28",sessions:42,pageviews:116,users:39,engagement_seconds:1.3,pages_per_session:2.76},
+    {week:"07/29",sessions:40,pageviews:177,users:29,engagement_seconds:0.9,pages_per_session:4.42},
+    {week:"07/30",sessions:40,pageviews:186,users:34,engagement_seconds:0.7,pages_per_session:4.65},
+    {week:"07/31",sessions:45,pageviews:148,users:41,engagement_seconds:0.8,pages_per_session:3.29}
   ],
     sql:"SELECT week, COUNT(DISTINCT ga_session_id) AS sessions, COUNTIF(event_name='page_view') AS pageviews, COUNT(DISTINCT user_pseudo_id) AS users, ROUND(SAFE_DIVIDE(SUM(engagement_time_msec)/1000.0, COUNT(DISTINCT ga_session_id)), 0) AS engagement_seconds, ROUND(SAFE_DIVIDE(COUNTIF(event_name='page_view'), COUNT(DISTINCT ga_session_id)), 2) AS pages_per_session FROM all_units_summary WHERE site_name='資訊科技與管理系' AND date BETWEEN DATE '2026-06-01' AND DATE '2026-07-26' GROUP BY week ORDER BY week;"
   },
