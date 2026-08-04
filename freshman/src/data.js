@@ -38,7 +38,7 @@ window.WEBINSIGHT.DATA = {
  ],
  quality:[
 ["all_units_summary","2026-08-01","正常","page_view、session_key、link_url 可查詢"],
-["all_gsc_summary","2026-07-31","正常","曝光、點擊、查詢字詞可查詢"],
+["all_gsc_summary","2026-07-26","正常","曝光、點擊、查詢字詞可查詢"],
 ["search_behavior_summary","2026-08-02","注意","不得跨 query 直接加總 active_users"]
  ],
  queries:[

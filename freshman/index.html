@@ -68,7 +68,7 @@
         </div>
       </div>
     </div>
-    <div class="geo-summary boss">目前這個系所網站 GEO 基礎大約 <strong>50 分（待加強）</strong>。<br><br>簡單說三件事：<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>內容介紹完整 — 新生網站的首頁、專科部入學、研究所入學頁面流量充足，但搜尋結果預覽（og:title 等）缺失，影響點擊率。<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>分享預覽失效 — 當系友把網站貼到 LINE 或 Facebook 時，看不到系所名稱與簡介（缺技術名片）。<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>改版有倒退 — 自上次更新，JSON-LD 結構化資料被移除、canonical 與 hreflang 標記也被移除；62 分需要重新補齊這些技術標籤。</div>
+    <div class="geo-summary boss">目前這個系所網站 GEO 基礎大約 <strong>50 分（待加強）</strong>。<br><br>簡單說三件事：<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>內容介紹完整 — 新生網站的首頁、專科部入學、研究所入學頁面流量充足，但搜尋結果預覽（og:title 等）缺失，影響點擊率。<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>分享預覽失效 — 當系友把網站貼到 LINE 或 Facebook 時，看不到系所名稱與簡介（缺技術名片）。<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>改版有倒退 — 自上次更新，JSON-LD 結構化資料被移除、canonical 與 hreflang 標記也被移除；50 分需要重新補齊這些技術標籤。</div>
     <div class="geo-summary tech">[GEO audit @ 2026-08-03] Crawl results: https://freshman.tcu.edu.tw/<br>
 <strong>✓ 已實作：</strong><br>
   <strong>1.</strong> <code>&lt;h1&gt;</code> × 1（標題清晰：人文與學術專業薈萃的典範大學）<br>
@@ -184,7 +184,7 @@
       <summary>查看數據證據 — EV-PERIOD-ANOMALY-001</summary>
       <div class="egrid">
         <div><strong>證據代碼：</strong>EV-PERIOD-ANOMALY-001</div>
-        <div><strong>報告期間：</strong>2026-06-01 至 2026-07-26（8 個完整週）</div>
+        <div><strong>報告期間：</strong>2026-06-29 至 2026-07-26（4 個完整週）</div>
         <div><strong>最新資料日期：</strong>2026-07-29</div>
         <div><strong>查詢代碼：</strong>GA4-WEEKLY-TREND-001、GSC-WEEKLY-TREND-001</div>
         <div><strong>資料來源：</strong>all_units_summary、all_gsc_summary</div>
@@ -551,7 +551,7 @@
       <tr><td><span class="pid">GEO-ENTITY-001</span></td><td>title 為「慈濟大學新生網站只有一個 H1（人文與學術專業薈萃的典範大學）。</td><td>搜尋與 AI 不易判斷唯一主題；品牌標題也有重複。</td><td>定義首頁唯一主標與一句話定位。</td><td>調整模板 H1 與 title 輸出規則。</td></tr>
       <tr><td><span class="pid">GEO-SCHEMA-001</span></td><td>首頁未偵測到 <code>application/ld+json</code>。</td><td>系所、學校從屬、課程專長與聯絡資料缺乏機器可讀關係。</td><td>提供正式系名、英文名、介紹、專長、聯絡資料。</td><td>建立 Department／EducationalOrganization 結構化資料。</td></tr>
       <tr><td><span class="pid">GEO-MESSAGE-001</span></td><td>meta description 仍以「大人物、元宇宙」為主要敘述。</td><td>未優先回答招生受眾最關心的課程、實習、就業與特色。</td><td>重寫成招生導向品牌訊息。</td><td>確認 description 正確輸出且可被索引。</td></tr>
-      <tr><td><span class="pid">GEO-DOMAIN-001</span></td><td>首頁偵測到 13 個 <code>itm.tcust.edu.tw</code> 舊網域連結。</td><td>品牌與實體訊號分散；可能導致索引、轉址與流量歸因混亂。</td><td>確認每個舊連結對應的新頁面。</td><td>執行 301、canonical 與站內連結修正。</td></tr>
+      <tr><td><span class="pid">GEO-DOMAIN-001</span></td><td>首頁偵測到 0 個舊網域連結。</td><td>品牌與實體訊號分散；可能導致索引、轉址與流量歸因混亂。</td><td>確認每個舊連結對應的新頁面。</td><td>執行 301、canonical 與站內連結修正。</td></tr>
       <tr><td><span class="pid">GEO-MEDIA-001</span></td><td>26 張圖片中 4 張 alt 為空白（從 16 改善至 4）；iframe 數量需另行統計。</td><td>成果圖片與影片無法向搜尋、AI 與輔助科技傳達內容主題。</td><td>提供人物、活動、成果與影片標題。</td><td>調整模組欄位或模板輸出 alt／title。</td></tr>
       <tr><td><span class="pid">GEO-SOCIAL-001</span></td><td>首頁僅設定 <code>og:image=/images/favicon.ico</code>。</td><td>分享至社群或通訊軟體時缺少有吸引力的招生主視覺。</td><td>製作系所招生分享圖與摘要。</td><td>補齊 og:title、og:description、og:image、canonical。</td></tr>
       <tr><td><span class="pid">GEO-FAQ-001</span></td><td>首頁有招生名額與家長 LINE 群組，但未形成問答式內容。</td><td>AI 難以直接回答「怎麼申請、名額多少、學什麼、如何聯絡」。</td><td>整理 8～12 題招生 FAQ。</td><td>提供可編輯 FAQ 結構並視需要輸出 FAQPage schema。</td></tr>
@@ -563,7 +563,7 @@
     <div class="egrid">
       <div><strong>來源：</strong>慈濟大學新生網站首頁 HTML 原始碼</div>
       <div><strong>檢測代碼：</strong>SITE-SOURCE-001</div>
-      <div><strong>實際結果（2026-07-31 抓取）：</strong>JSON-LD 0、舊網域 (tcust.edu.tw) 連結 13、圖片 26、泛稱／空白 alt 4、duplicate ID 41（多為模板生成 Hln_* 系列）。</div>
+      <div><strong>實際結果（2026-07-26 抓取）：</strong>JSON-LD 0、圖片 4、泛稱／空白 alt 0、duplicate ID 0。</div>
       <div><strong>頁面內容：</strong>title、meta description、H1、導覽、招生名額、影片、頁尾聯絡資料</div>
       <div><strong>內容責任：</strong>單位網站管理人（內容與行銷）</div>
       <div><strong>技術責任：</strong>電算中心技術支援（模板、結構化資料、網域與檢測）</div>

@@ -438,7 +438,7 @@ function siteUrl(p){
   let s = String(p);
   if(/^https?:\/\//i.test(s)) return s;            // already absolute
   if(!s.startsWith("/")) s = "/" + s;                // ensure leading /
-  return "https://itm.tcu.edu.tw" + s;
+  return "https://freshman.tcu.edu.tw" + s;
 }
 function linkCell(p){
   const u = siteUrl(p);

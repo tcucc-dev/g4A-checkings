@@ -135,7 +135,7 @@ function initThreeBackground() {
 // ============================================================
 const GLOSSARY = {
   'GEO': '讓生成式 AI 更容易理解、摘要與引用網站內容的優化方法。',
-  'GEO 自評': '本報表依 5 項 KPI（主題、招生問答、證據、結構、技術）對 itm.tcu.edu.tw 原始碼評分；非 Google 官方分數。',
+  'GEO 自評': '本報表依 5 項 KPI（主題、招生問答、證據、結構、技術）對 freshman.tcu.edu.tw 原始碼評分；非 Google 官方分數。',
   'JSON-LD': '以 JSON 格式標記結構化資料的標準；搜尋引擎靠它建立 entity graph。',
   'canonical': '告訴搜尋引擎頁面正式網址，避免重複頁面混淆。',
   'hreflang': '標記頁面語系／地區變體，避免多語系被當重複。',
