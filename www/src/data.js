@@ -1,82 +1,32 @@
-// src/data.js — www.tcu.edu.tw (慈濟大學中文版首頁) max_date 2026-07-29
-// Cutoff (smallest max_date across 3 sources): 2026-07-26 (GSC is the bottleneck)
-// Periods: 2026-06-07 to 2026-07-26 (7 weeks - 06/21 missing data, data upload interrupted)
-// New "latest complete week" = 2026-07-20 ~ 2026-07-26 (Sunday-aligned)
+// src/data.js — max_date 2026-08-01 (GSC bottleneck) | live BigQuery @ 2026-07-26
+// Cutoff (smallest max_date across 3 sources): 2026-08-01
+// Periods: 2026-07-20 to 2026-07-26 (7 days daily, 1 minggu ke belakang dari GSC max 2026-08-01)
+// Site: 慈濟大學中文版首頁
 
 window.WEBINSIGHT = window.WEBINSIGHT || {};
 window.WEBINSIGHT.DATA = {
- weeks:['07/25','07/26','07/27','07/28','07/29','07/30','07/31'],
+ weeks:["07/20","07/21","07/22","07/23","07/24","07/25","07/26"],
  kpis:[
-{k:"本週造訪人數",v:"6508",trend:"-12.8%",avg:"-12.8% 較前一日",up:false,desc:"近 7 天有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[1780,1389,1331,1169]},
-{k:"本週工作階段",v:"10734",trend:"-12.8%",avg:"-12.8% 較前一日",up:false,desc:"近 7 天網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[2171,1752,1724,1503]},
-{k:"Google 搜尋點擊",v:"4423",trend:"-31.1%",avg:"-31.1% 較前一日",up:false,desc:"近 7 天從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[708,741,756,521]},
-{k:"Google 搜尋點擊率",v:"7.86%",trend:"—",avg:"近 7 天平均",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[8.07,8.02,8.11,7.2]}
+{k:"本週造訪人數",v:"7,802",trend:"—",avg:"近 7 天",up:true,desc:"近 7 天有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[1288, 1244, 1144, 1149, 1117, 965, 895]},
+{k:"本週工作階段",v:"10,518",trend:"—",avg:"近 7 天",up:true,desc:"近 7 天網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[1856, 1793, 1603, 1631, 1541, 1063, 1031]},
+{k:"Google 搜尋點擊",v:"4,195",trend:"—",avg:"近 7 天",up:true,desc:"近 7 天從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[]},
+{k:"Google 搜尋點擊率",v:"7.85%",trend:"—",avg:"近 7 天平均",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[]}
 ],
- traffic:{a:[974,950,1660,2171,1752,1724,1503],b:[1356,1344,2826,3409,2838,2858,2512]},
- search:{a:[5113,7609,8985,8778,9242,9326,7235],b:[348,621,728,708,741,756,521]},
- funnel:{a:[3,1,1,0,0,2,2],b:[0,0,0,0,0,0,0],c:[4,3,1,3,7,13,1]},
- decisions:[
-  {p:"P1",id:"SEO-001",title:"優化首頁主視覺元數據",reason:"近一週 Google 搜尋帶來 4195 個點擊（-7.3%），曝光 53459（-5.9%）。校首頁若 og:title/og:description 優化，可提升 CTR 從 7.85% 到 4-5%。",who:"電算中心網站管理人",support:"電算中心提供 BigQuery evidence",due:"2 週"},
-  {p:"P2",id:"TRAFFIC-001",title:"減少自然搜尋流量流失",reason:"本週 sessions 9428（-5.8% vs 前週 10012）。需要關注熱門頁面進入路徑與內部連結跳轉率。",who:"電算中心網站管理人",support:"電算中心提供 path × bounce 證據",due:"3 週"},
-  {p:"P2",id:"SOURCE-001",title:"增加直接進站流量",reason:"直接進站 4679 工作階段、自然搜尋 4614 工作階段。直接進站比例高代表品牌認知強，但若自然搜尋下降則需關注 SEO。",who:"電算中心網站管理人",support:"電算中心設備流量分析",due:"4 週"}
- ],
- issues:[
-  {id:"SEO-001",p:"P1",title:"校首頁 og:title 與 meta description 標準化",manager:"校首頁的 og:title、og:description 若以「慈濟大學」取代「慈濟大學 - 慈濟大學」具體訊息，可讓社群分享與 Google 搜尋預覽更精準。目前 4195 個點擊 / 53459 曝光 = CTR 7.85%。",pages:"https://www.tcu.edu.tw/",web:["設定 og:title 為慈濟大學中文版首頁 + 描述","加 structured data (Organization, WebSite)","確保 og:image 為校徽圖片","補強中英文版分流標示"],accept:"兩週內 GSC 點擊回升且 CTR > 4%。",it:["提供 BigQuery 對比 evidence WebInsight 概覽","每週更新 CTR 趨勢","確認 hreflang 標籤"],status:"資料正常",table:"all_gsc_summary",fields:"query、url、impressions、clicks、sum_position",query:"SEO-001",period:"2026-07-20 至 2026-07-26",limit:"搜尋資料以校方 Google Search Console 為來源。"},
-  {id:"TRAFFIC-001",p:"P2",title:"前週流量下降追蹤",manager:"本週 sessions 9428 較前週 10012 下降 5.8%。需追蹤 hot pages 與 device split 對比。",pages:"首頁、入學方式頁、學系頁",web:["檢查行動版速度","檢查 video embed 影響 LCP","優化大圖尺寸","補強導覽選單層級"],accept:"下週 sessions 回到 10K+ 區間。",it:["提供 device × path 明細","分析 last 7 day 比較","列出 high depth pages"],status:"資料正常",table:"all_units_summary",fields:"date、event_name、ga_session_id、page_location、device_category",query:"TRAFFIC-001",period:"2026-07-20 至 2026-07-26",limit:"流量變化可能源自外部因素。"},
-  {id:"FUNNEL-001",p:"P2",title:"學系頁與招生頁漏斗",manager:"近一週 學系頁 / 招生頁 / 研究頁 工作階段分別為 86 / 48 / 18。funnel 比例偏向直接造訪，需要檢查校首頁能見度與導覽連結。",pages:"首頁→學系頁、招生頁",web:["新增首頁→學系頁導覽入口","補強學系頁清晰 QA","新增熱門學系 quick links"],accept:"學系頁到達率保持 35%+。",it:["以 funnel matrix 計算 path","提供 8 週趨勢","拍攝不同裝置實機驗證"],status:"查詢可用",table:"all_units_summary",fields:"page_location、page_title、ga_session_id",query:"FUNNEL-001",period:"2026-07-20 至 2026-07-26",limit:"漏斗代表查看了頁面，不代表完成任何申請。"},
-  {id:"DATA-001",p:"P2",title:"GSC 與 GA4 數據差異",manager:"近一週 Google 搜尋帶來 4195 個點擊，本校網站統計顯示 9428 個到訪工作階段。兩者數字差源自不同計算方式（Google vs 本校網站 GA4）。",pages:"無需修改頁面",web:["閱讀報告時分清楚 GSC 點擊與 GA4 工作階段"],accept:"主管報告固定顯示定義差異。",it:["固定差異說明","檢查時區與站台篩選","保留兩個數值"],status:"已說明",table:"all_gsc_summary＋all_units_summary",fields:"clicks、source、medium、session_key",query:"DATA-CROSSSOURCE-001",period:"2026-07-20 至 2026-07-26",limit:"兩套系統的事件與歸因方式不同。"}
- ],
- webRows:[
-  ["SEO-001","/ (Top 1)",10691,839,3.5,"設定 og:title 為慈濟大學中文版首頁","點擊率提升至 4%+"],
-  ["SEO-001","/index.php (Top 2)",8909,699,4.1,"補強中英文分流標示","點擊率提升至 4%+"],
-  ["SEO-001","/page/about (Top 3)",6682,524,5.2,"優化關鍵字密度","點擊率提升至 4%+"],
-  ["SEO-001","/news (Top 4)",5345,419,6.0,"補強新聞分類 meta","點擊率提升至 4%+"],
-  ["SEO-001","/academics (Top 5)",4454,349,7.1,"補強學系頁 H1 結構","點擊率提升至 4%+"],
-  ["FUNNEL-001","首頁 → 學系頁 → 招生頁","—","—","—","新增導覽入口","漏斗改善"],
-  ["TRAFFIC-001","首頁 → 英文首頁","—","—","—","補強中英文版 hreflang","英文版曝光回升"]
- ],
- quality:[
-  ["all_units_summary","2026-07-29","正常","page_view、session_key、link_url 可查詢"],
-  ["all_gsc_summary","2026-07-27","正常","曝光、點擊、查詢字詞可查詢"],
-  ["search_behavior_summary","2026-07-29","正常","行為事件可查詢"]
- ],
- queries:[
-  ["GA4-WEEKLY-TREND-001","all_units_summary","七週工作階段與瀏覽量","date、event_name、user_pseudo_id、ga_session_id","正常","每週自動更新"],
-  ["GSC-WEEKLY-TREND-001","all_gsc_summary","七週曝光與點擊","data_date、impressions、clicks","正常","固定完整週"],
-  ["FUNNEL-WEEKLY-001","all_units_summary","學系頁到達率","event_timestamp、page_location、page_title、user_pseudo_id、ga_session_id","正常","維護 page_group 規則"],
-  ["SEO-ZEROCLICK-001","all_gsc_summary","高曝光零點擊","query、url、impressions、clicks、sum_position","正常","提供網站管理人"],
-  ["DEVICE-RISK-001","all_units_summary","裝置別行為風險","device_category、engagement_time_msec、link_url","代理指標","只提示風險"],
-  ["DATA-CROSSSOURCE-001","兩表交叉","GA4／GSC 差異說明","clicks、source、medium、session_key","已說明","保留兩套數值"]
- ],
- audience:{
-  source:[
-    {name:"直接進站",sessions:4679},
-    {name:"自然搜尋",sessions:4614},
-    {name:"外部推薦",sessions:174},
-    {name:"AI 推薦",sessions:2}
-  ],
-  device:[
-    {name:"desktop",sessions:6488},
-    {name:"mobile",sessions:2888},
-    {name:"tablet",sessions:93}
-  ],
-  country:[
-    {name:"臺灣",sessions:7738},
-    {name:"中國",sessions:1342},
-    {name:"日本",sessions:50},
-    {name:"其他國家",sessions:217}
-  ],
-  total:9428
-},
+ traffic:{a:[1856, 1793, 1603, 1631, 1541, 1063, 1031],b:[2828, 2598, 2305, 2325, 2270, 1356, 1344]},
+ search:{a:[0,0,0,0,0,0,53459],b:[0,0,0,0,0,0,4195]},
+ funnel:{a:[1288, 1244, 1144, 1149, 1117, 965, 895],b:[2828, 2598, 2305, 2325, 2270, 1356, 1344],c:[0,0,0,0,0,0,0]},
+ audience:{total:10518,country:[{name:"Taiwan",sessions:8645,users:3966,share:82.2},{name:"China",sessions:1481,users:1467,share:14.1},{name:"Japan",sessions:51,users:28,share:0.5},{name:"Indonesia",sessions:46,users:25,share:0.4}],device:[{name:"tablet",sessions:94,users:63,share:0.9},{name:"desktop",sessions:7529,users:3946,share:71.6},{name:"mobile",sessions:2928,users:1665,share:27.8}],source:[{name:"(direct)/(none)",medium:"other",sessions:5315,users:2923,share:50.5},{name:"google/organic",medium:"organic",sessions:4722,users:2467,share:44.9},{name:"bing/organic",medium:"organic",sessions:197,users:97,share:1.9},{name:"tcust.edu.tw/referral",medium:"internal",sessions:124,users:66,share:1.2},{name:"tw.search.yahoo.com/referral",medium:"other",sessions:90,users:47,share:0.9}]},
+
  sections:{
   trends:[
-    {week:"07/25",sessions:974,users:917,pageviews:1356,impressions:5113,clicks:348},
-    {week:"07/26",sessions:950,users:847,pageviews:1344,impressions:7609,clicks:621},
-    {week:"07/27",sessions:1660,users:1286,pageviews:2826,impressions:8985,clicks:728},
-    {week:"07/28",sessions:2171,users:1780,pageviews:3409,impressions:8778,clicks:708},
-    {week:"07/29",sessions:1752,users:1389,pageviews:2838,impressions:9242,clicks:741},
-    {week:"07/30",sessions:1724,users:1331,pageviews:2858,impressions:9326,clicks:756},
-    {week:"07/31",sessions:1503,users:1169,pageviews:2512,impressions:7235,clicks:521}
+    {week:"06/07",sessions:22240,users:11548,pageviews:32701,impressions:102315,clicks:8708},
+    {week:"06/14",sessions:1448,users:1098,pageviews:2209,impressions:94483,clicks:8630},
+    {week:"06/21",sessions:17373,users:7530,pageviews:26019,impressions:92424,clicks:8420},
+    {week:"06/28",sessions:14765,users:6195,pageviews:22409,impressions:82190,clicks:7104},
+    {week:"07/05",sessions:10905,users:5322,pageviews:15911,impressions:60336,clicks:5000},
+    {week:"07/12",sessions:11192,users:5350,pageviews:19034,impressions:58298,clicks:4638},
+    {week:"07/19",sessions:10330,users:5451,pageviews:14913,impressions:53655,clicks:4236},
+    {week:"07/26",sessions:1031,users:895,pageviews:1344,impressions:7609,clicks:621},
   ],
   anomaly_rule:{
     threshold_pct:30,

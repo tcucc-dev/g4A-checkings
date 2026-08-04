@@ -5,7 +5,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-GA4-TREND-001", title:"網站流量八週趨勢完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-WEEKLY-TREND-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang dari 2026-07-26）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang dari 2026-07-26）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:3f817420927acb6d3f0de7ff7c93de47212bb3240963adf787b9bde4d1c149d7", status:"正常",
     description:"逐週工作階段、瀏覽量、匿名使用者、平均互動秒數與每工作階段頁數。",
     filterKeys:[], chart:{type:"line",xKey:"week",series:[["sessions","工作階段"],["pageviews","瀏覽量"]]},
@@ -27,7 +27,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-GA4-AUDIENCE-001", title:"國家、裝置與流量來源完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-AUDIENCE-SOURCE-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:76d0b418e4b170345d14b5988378c9f2354a725e417fa420a863eab9fecf5e99", status:"正常",
     description:"近一週使用者來源國家、使用的裝置類別與流量來源／媒介分布。",
     filterKeys:["dimension"], chart:{type:"bar",xKey:"name",series:[["sessions","工作階段"]]},
@@ -62,7 +62,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-GSC-PAGE-001", title:"GSC 頁面曝光點擊完整報表", sourceType:"BigQuery",
     sourceTable:"all_gsc_summary", queryCode:"GSC-PAGE-EVIDENCE-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:a317196984cd338bc71598ad112b5bea60c82eb2824ec727f1c8e39a08ad29f2", status:"需改善",
     description:"Google 搜尋結果中各頁面的曝光、點擊與平均排名（前 20 名）。",
     filterKeys:[], chart:{type:"bar",xKey:"path",series:[["imp","曝光"]]},
@@ -81,7 +81,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-SEARCH-BEHAVIOR-001", title:"搜尋字詞到達後行為完整報表", sourceType:"BigQuery",
     sourceTable:"search_behavior_summary", queryCode:"SEARCH-BEHAVIOR-EVIDENCE-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:2823e2492f70d4d2872f91105454ff376ec05b0c86d57e687c36e3cdc5ca8d79", status:"注意",
     description:"搜尋字詞 × 後續站內行為：曝光、Google 點擊、總互動事件、到達頁數。",
     filterKeys:[], chart:{type:"bar",xKey:"query",series:[["imp","曝光"]]},
@@ -103,7 +103,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-AI-REFERRAL-001", title:"AI 搜尋引擎 referrer 完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"AI-REFERRAL-EVIDENCE-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:a6615084cee92103670892f0c556662f19f21141dccb1e42857a2882cec65e3e", status:"查詢可用",
     description:"從 ChatGPT、Perplexity、Gemini、Claude 等 AI 搜尋引擎（透過 page_referrer、Google source/medium 屬性）偵測到的工作階段清單。",
     filterKeys:["ai_engine"], chart:{type:"bar",xKey:"ai_engine",series:[["sessions","工作階段"]]},
@@ -116,7 +116,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-DATA-QUALITY-001", title:"三張資料表品質檢核完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary、all_gsc_summary、search_behavior_summary", queryCode:"DATA-QUALITY-EVIDENCE-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:297b437d0fc045e258f0e5bdb589dcb174892c972c78efd31f602c55797f8e06", status:"正常",
     description:"三張主要資料表的最新日期、總列數、最新 BigQuery Job ID 與定義檢核結果。",
     filterKeys:["table_name"], chart:{type:"bar",xKey:"table_name",series:[["recent_rows","近一週列數"]]},
@@ -131,7 +131,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-FUNNEL-001", title:"招生內容到達率八週完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"FUNNEL-COURSE-FACULTY-FEATURE-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:7e969e5e6ea4d5286d4afce275035769e2c332088d71e7bb8f3b85f91672c9a4", status:"查詢可用",
     description:"每週課程頁、師資頁、特色頁瀏覽量，用於追蹤招生到達率趨勢。",
     filterKeys:[], chart:{type:"line",xKey:"week",series:[["course_pv","課程頁"],["faculty_pv","師資頁"],["feature_pv","特色頁"]]},
@@ -150,7 +150,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-CONTACT-001", title:"聯絡方式與招生窗口完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary（衍生）+ HTML 原始碼", queryCode:"CONTACT-INFO-EVIDENCE-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:24c91d4ad87a4d53a4bf7ea3e55da4c1422bf3aa940cd28681e62e6df6479769", status:"資料正常",
     description:"從新生網站網頁 HTML 與 GA4 連結點擊目標解析出的聯絡電話、Email、LINE 群組、招生窗口。",
     filterKeys:["type"], chart:{type:"bar",xKey:"name",series:[["clicks","近一週點擊次數"]]},
@@ -167,7 +167,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-GEO-SOURCE-001", title:"GEO 技術原始碼完整檢核報表", sourceType:"網站原始碼掃描",
     sourceTable:"首頁 HTML", queryCode:"SITE-SOURCE-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"非 BigQuery", dataHash:"sha256:ff4f58b55f34edd2130013bbb7792aa8efa097e5ca8de966597a56250b6c4def", status:"需改善",
     description:"這份報表不是 BigQuery 行為數據，而是 GEO／SEO 技術掃描證據。",
     filterKeys:["category","result"], chart:{type:"bar",xKey:"category",series:[["issue_count","問題數"]]},
@@ -190,7 +190,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-SEO-001", title:"高曝光零點擊搜尋字詞完整報表", sourceType:"BigQuery",
     sourceTable:"search_behavior_summary", queryCode:"SEO-ZEROCLICK-EVIDENCE-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:abc9276ccc111fdad2452ca591ffaf1c8b21368ea5a957bff0e182fa576dd2c6", status:"需改善",
     description:"近一週曝光 ≥10 但點擊 = 0 的搜尋字詞清單，含建議修正方向。",
     filterKeys:["recommendation"], chart:{type:"bar",xKey:"query",series:[["imp","曝光"]]},
@@ -207,7 +207,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-PAGES-TABLE-001", title:"Top 10 高曝光頁面表格完整版", sourceType:"BigQuery",
     sourceTable:"all_gsc_summary", queryCode:"GSC-PAGES-TOP10-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:597741c7b1bb5c43e70fdbf362f7fca6f3830a1d49cfdcab1b4f19a8447c08f5", status:"資料正常",
     description:"Top 10 高曝光頁面完整表格（含曝光、點擊、CTR、平均排名）。",
     filterKeys:[], chart:{type:"bar",xKey:"path",series:[["imp","曝光"]]},
@@ -230,7 +230,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-PERIOD-ANOMALY-001", title:"期間比較與異常提醒完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary + all_gsc_summary", queryCode:"GA4-WEEKLY-TREND-001 + GSC-WEEKLY-TREND-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:b208984b0bb6cc9fea1844a63f9b94ca83d40df2a74ec13ad84eea9f24695251", status:"正常",
     description:"8 週完整週期（06/01-07/26）的工作階段、活躍使用者、瀏覽量、搜尋曝光、點擊、CTR 與異常狀態。Refreshed 2026-08-03T11:18:00Z。",
     filterKeys:["week"], chart:{type:"line",xKey:"week",series:[["sessions","工作階段"],["users","活躍使用者"],["pageviews","瀏覽量"]]},
@@ -250,7 +250,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-BRAND-NONBRAND-001", title:"品牌詞 vs 非品牌詞完整報表", sourceType:"BigQuery",
     sourceTable:"all_gsc_summary", queryCode:"GSC-KEYWORD-BRAND-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:ab79ca0132dbc4d783f87a76b5ba17d6df7b9d4ed1bf78fc896eaed17446267b", status:"正常",
     description:"搜尋字詞的品牌/非品牌分類、曝光、點擊、CTR、平均排名、到達頁（07/20-07/26 期間）。Refreshed 2026-08-03T11:18:00Z。",
     filterKeys:["cls"], chart:{type:"bar",xKey:"query",series:[["imp","曝光"],["clicks","點擊"]]},
@@ -282,7 +282,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-CONTENT-MATRIX-001", title:"內容效益矩陣完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-PAGE-MATRIX-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:365d761966271707f0fa46f0fa0ee3076c44b01a4d40c6446cd7199a666dfb59", status:"正常",
     description:"正規化 URL 的活躍使用者、工作階段、瀏覽量與平均互動時間；用於四象限分類（07/20-07/26 期間）。Refreshed 2026-08-03T11:18:00Z。",
     filterKeys:["quadrant"], chart:{type:"scatter",xKey:"users",series:[["engagement_sec","平均互動秒/使用者"]]},
@@ -309,7 +309,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-SOURCE-QUALITY-001", title:"流量來源品質完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-SOURCE-QUALITY-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:8fe75a6e5b482eb35b4284244606c1f7130408f571364c80d47036aae2040b79", status:"正常",
     description:"依 source × medium 彙總的工作階段、活躍使用者、互動時間與頁內事件（07/20-07/26 期間）。Refreshed 2026-08-03T11:18:00Z。",
     filterKeys:["group"], chart:{type:"bar",xKey:"source",series:[["sessions","工作階段"],["avg_eng_sec_per_session","平均互動秒/工作階段"]]},
@@ -325,7 +325,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-AI-DETECTION-RULES-001", title:"AI 平台 referrer 完整報表（已修正）", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"AI-REFERRAL-EVIDENCE-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:18f9be2da8fa4b52f20106efc66e0e6a17604e04326218393dd14b1a36a29756", status:"已說明",
     description:"從 ChatGPT / Perplexity / Gemini / Copilot / Claude 等 AI 搜尋引擎 referrer 進站的工作階段。Refreshed 2026-08-03T11:18:00Z：偵測到 1 個來自 chatgpt.com 的工作階段（medium=ai-assistant, 2026-07-26），其餘平台 0。",
     columns:[["pattern_name","偵測模式"],["regex","正規表達式"],["supported","已實作"],["field_definitions","欄位定義"],["limitations","限制說明"]],
@@ -341,7 +341,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-ADMISSION-CTA-001", title:"招生 CTA 行動次數完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary click 事件", queryCode:"CTA-CATEGORY-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:19fdeec8e7303172071fe3493f2761420da121159f5b1c856ae16626b0722a5a", status:"行動代理指標",
     description:"依 CTA 類別（招生簡章、入學方式、報名、LINE、tel、mailto、表單、其他連結、PDF/DOC/XLSX） 彙總的點擊次數與使用者數（07/20-07/26 期間）。Refreshed 2026-08-03T11:18:00Z。",
     filterKeys:["category"], chart:{type:"bar",xKey:"link_text",series:[["clicks","點擊"]]},
@@ -358,7 +358,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-INTERNATIONAL-QUALITY-001", title:"國際訪客品質完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-COUNTRY-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:c4fa434a77b5d328d19e593807fef59cd9ea214f859fcbe349e860d063263f01", status:"正常",
     description:"依國家彙總的工作階段、活躍使用者、平均互動、到達頁與 CTA 點擊（07/20-07/26 期間）。Refreshed 2026-08-03T11:18:00Z。",
     filterKeys:["country"], chart:{type:"bar",xKey:"country",series:[["sessions","工作階段"],["avg_eng_sec","平均互動秒/工作階段"]]},
@@ -380,7 +380,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-USER-PATH-001", title:"使用者路徑（入口→第二頁）完整報表", sourceType:"BigQuery",
     sourceTable:"all_units_summary", queryCode:"GA4-LANDING-NEXT-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:5f69fc7ddcc4e142091f57cc1ce962c60890fa93f8f113ccb3a810d4d4cd7c1b", status:"路徑代理",
     description:"依 page_view 事件彙總的「入口頁 → 第二頁」共同出現次數（2026-07-20 至 2026-07-26 期間，5 個完整天）。本期資料以 ROW_NUMBER() OVER (PARTITION BY session ORDER BY event_timestamp) 重建單一工作階段內的時序。Refreshed 2026-08-03T11:18:00Z：本期 150/177 工作階段僅有 1 個 page_view，入口頁和第二頁多為同一頁（self-loop），故右側「入口頁重點轉換」表全為 0。",
     filterKeys:["landing"], chart:{type:"bar",xKey:"landing",series:[["sessions","工作階段"]]},
@@ -402,7 +402,7 @@ const EVIDENCE_REPORTS = [
   {
     id:"EV-WEBSITE-GOVERNANCE-001", title:"資料品質與網站治理完整報表", sourceType:"BigQuery + 網站原始碼掃描",
     sourceTable:"all_units_summary + 首頁 HTML", queryCode:"DATA-QUALITY-SCAN-001",
-    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T12:00:00Z",
+    period:"2026-07-20 至 2026-07-26（7 天 daily, 1 minggu ke belakang）", maxDate:"2026-07-26", generatedAt:"2026-08-03T14:00:00Z",
     jobId:"not captured", dataHash:"sha256:71f7c3468723de7b59b1e48311b2f9a753d8373cbaed29fc792451c79627107e", status:"待改善",
     description:"本期資料品質快照：問題類型、影響數、嚴重性、建議負責、狀態、證據規則。Refreshed 2026-08-03T11:18:00Z（3 empty_alt, 從 16 改善）。",
     filterKeys:["severity"], chart:{type:"bar",xKey:"issue_type",series:[["affected_count","影響數"]]},
