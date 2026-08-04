@@ -1,5 +1,6 @@
 {
   "installCommand": "npm ci --prefix itm && npm ci --prefix nc && npm ci --prefix www && npm ci --prefix freshman",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "framework": null
 }
