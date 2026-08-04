@@ -25,6 +25,7 @@ const APPS = [
   { dir: path.join(REPO_ROOT, 'itm'), basePath: '/itm/' },
   { dir: path.join(REPO_ROOT, 'nc'),  basePath: '/nc/' },
   { dir: path.join(REPO_ROOT, 'www'), basePath: '/www/' },
+  { dir: path.join(REPO_ROOT, 'freshman'), basePath: '/freshman/' },
 ];
 
 const IS_WIN = process.platform === 'win32';
