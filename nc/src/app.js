@@ -73,9 +73,9 @@ else init();
 // 9 chart types from prompt 10 spec — vanilla Canvas API
 
 // ─── Shared utilities ────────────────────────────────────
-const CC = {blue:"#2f6fed", teal:"#0f8b8d", orange:"#d97706", green:"#1d8a5a", red:"#c2413b", gray:"#7b8797", navy:"#15334a", muted:"#647581", line:"#dce5e9"};
-const CM = {t:20, r:80, b:36, l:64};
-const dpr = window.devicePixelRatio || 1;
+
+// CC and CM inlined at every call site to avoid Vite/Terser TDZ reordering.
+
 
 function resizeCanvas(c, h) {
   if (!c) return null;
@@ -98,9 +98,9 @@ function plotBox(w, h, m) {
 }
 
 function drawAxes(ctx, box, yMin, yMax, ySteps, xLabels, xTickStep) {
-  ctx.strokeStyle = CC.line;
+  ctx.strokeStyle = "#dce5e9";
   ctx.lineWidth = 1;
-  setFont(ctx, 10, false, CC.muted);
+  setFont(ctx, 10, false, "#647581");
   ctx.textAlign = 'right';
   ctx.textBaseline = 'middle';
   for (let i = 0; i <= ySteps; i++) {
@@ -184,13 +184,13 @@ function renderSection4Trends() {
   const prev = data[data.length - 2];
 
   drawLineChart("chartTrendsGA4", data, [
-    {key:"sessions",  label:"工作階段",   color:CC.blue},
-    {key:"users",     label:"活躍使用者", color:CC.green},
-    {key:"pageviews", label:"瀏覽量",     color:CC.orange}
+    {key:"sessions",  label:"工作階段",   color:"#2f6fed"},
+    {key:"users",     label:"活躍使用者", color:"#1d8a5a"},
+    {key:"pageviews", label:"瀏覽量",     color:"#d97706"}
   ]);
   drawLineChart("chartTrendsGSC", data, [
-    {key:"impressions", label:"曝光", color:CC.blue},
-    {key:"clicks",      label:"點擊", color:CC.orange}
+    {key:"impressions", label:"曝光", color:"#2f6fed"},
+    {key:"clicks",      label:"點擊", color:"#d97706"}
   ]);
 
   const ctrEl = document.getElementById("ctr-current-value");
@@ -279,7 +279,7 @@ function drawLineChart(canvasId, data, series) {
   if (!out) return;
   const {ctx, w, h} = out;
   ctx.clearRect(0, 0, w, h);
-  const box = plotBox(w, h, CM);
+  const box = plotBox(w, h, {t:20, r:80, b:36, l:64});
   const labels = data.map(d => d.week);
   const all = [];
   series.forEach(s => data.forEach(d => all.push(d[s.key] || 0)));
@@ -307,7 +307,7 @@ function drawLineChart(canvasId, data, series) {
   series.forEach((s) => {
     ctx.fillStyle = s.color;
     ctx.fillRect(lx, ly, 12, 3);
-    setFont(ctx, 11, false, CC.navy);
+    setFont(ctx, 11, false, "#15334a");
     ctx.textAlign = "left";
     ctx.textBaseline = "middle";
     ctx.fillText(s.label, lx + 18, ly + 1);
@@ -327,7 +327,7 @@ function renderSection4Brand() {
     if (out) {
       const {ctx, w, h} = out;
       ctx.clearRect(0, 0, w, h);
-      const box = plotBox(w, h, CM);
+      const box = plotBox(w, h, {t:20, r:80, b:36, l:64});
       const barW = (box.w / data.length) * 0.6;
       const gap = (box.w / data.length) * 0.4;
       data.forEach((d, i) => {
@@ -335,11 +335,11 @@ function renderSection4Brand() {
         const y0 = box.y + box.h;
         const hB = (d.brand_pct / 100) * box.h;
         const hN = (d.nonbrand_pct / 100) * box.h;
-        ctx.fillStyle = CC.blue;
+        ctx.fillStyle = "#2f6fed";
         ctx.fillRect(x, y0 - hB, barW, hB);
-        ctx.fillStyle = CC.gray;
+        ctx.fillStyle = "#7b8797";
         ctx.fillRect(x, y0 - hB - hN, barW, hN);
-        setFont(ctx, 12, true, CC.navy);
+        setFont(ctx, 12, true, "#15334a");
         ctx.textAlign = "center";
         ctx.textBaseline = "top";
         ctx.fillText(d.month, x + barW/2, y0 + 6);
@@ -348,9 +348,9 @@ function renderSection4Brand() {
         ctx.fillText(d.brand_pct + "%", x + barW/2, y0 - hB/2);
         ctx.fillText(d.nonbrand_pct + "%", x + barW/2, y0 - hB - hN/2);
       });
-      ctx.fillStyle = CC.blue; ctx.fillRect(box.x, box.y - 22, 14, 10);
-      ctx.fillStyle = CC.gray; ctx.fillRect(box.x + 110, box.y - 22, 14, 10);
-      setFont(ctx, 11, false, CC.navy);
+      ctx.fillStyle = "#2f6fed"; ctx.fillRect(box.x, box.y - 22, 14, 10);
+      ctx.fillStyle = "#7b8797"; ctx.fillRect(box.x + 110, box.y - 22, 14, 10);
+      setFont(ctx, 11, false, "#15334a");
       ctx.textAlign = "left"; ctx.textBaseline = "middle";
       ctx.fillText("品牌詞曝光", box.x + 20, box.y - 17);
       ctx.fillText("非品牌詞曝光", box.x + 130, box.y - 17);
@@ -363,19 +363,19 @@ function renderSection4Brand() {
     if (out) {
       const {ctx, w, h} = out;
       ctx.clearRect(0, 0, w, h);
-      const box = plotBox(w, h, CM);
+      const box = plotBox(w, h, {t:20, r:80, b:36, l:64});
       const latest = data[data.length - 1];
       const ratio = latest.nonbrand_pct;
       const fillH = (ratio / 100) * box.h;
-      ctx.fillStyle = CC.gray;
+      ctx.fillStyle = "#7b8797";
       ctx.fillRect(box.x + box.w/2 - 40, box.y + box.h - fillH, 80, fillH);
-      ctx.strokeStyle = CC.line;
+      ctx.strokeStyle = "#dce5e9";
       ctx.strokeRect(box.x + box.w/2 - 40, box.y, 80, box.h);
-      setFont(ctx, 22, true, CC.navy);
+      setFont(ctx, 22, true, "#15334a");
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText(latest.nonbrand_pct + "%", box.x + box.w/2, box.y + box.h/2);
-      setFont(ctx, 11, false, CC.muted);
+      setFont(ctx, 11, false, "#647581");
       ctx.fillText("非品牌曝光比例", box.x + box.w/2, box.y + box.h + 16);
       ctx.fillText("(" + latest.month + ")", box.x + box.w/2, box.y + box.h + 32);
     }
@@ -461,7 +461,7 @@ function renderBrandSplit() {
   if (!out) return;
   const {ctx, w, h} = out;
   ctx.clearRect(0, 0, w, h);
-  const box = plotBox(w, h, CM);
+  const box = plotBox(w, h, {t:20, r:80, b:36, l:64});
   const barCount = data.length;
   const barW = (box.w / barCount) * 0.6;
   const gap = (box.w / barCount) * 0.4;
@@ -470,11 +470,11 @@ function renderBrandSplit() {
     const y0 = box.y + box.h;
     const hBrand = (d.brand_pct / 100) * box.h;
     const hNon = (d.nonbrand_pct / 100) * box.h;
-    ctx.fillStyle = CC.blue;
+    ctx.fillStyle = "#2f6fed";
     ctx.fillRect(x, y0 - hBrand, barW, hBrand);
-    ctx.fillStyle = CC.gray;
+    ctx.fillStyle = "#7b8797";
     ctx.fillRect(x, y0 - hBrand - hNon, barW, hNon);
-    setFont(ctx, 12, true, CC.navy);
+    setFont(ctx, 12, true, "#15334a");
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
     ctx.fillText(d.month, x + barW/2, y0 + 6);
@@ -483,10 +483,10 @@ function renderBrandSplit() {
     ctx.fillText(d.brand_pct + '%', x + barW/2, y0 - hBrand/2);
     ctx.fillText(d.nonbrand_pct + '%', x + barW/2, y0 - hBrand - hNon/2);
   });
-  ctx.fillStyle = CC.blue; ctx.fillRect(box.x, box.y - 18, 14, 10);
-  setFont(ctx, 11, false, CC.navy); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = "#2f6fed"; ctx.fillRect(box.x, box.y - 18, 14, 10);
+  setFont(ctx, 11, false, "#15334a"); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
   ctx.fillText('品牌詞曝光', box.x + 20, box.y - 13);
-  ctx.fillStyle = CC.gray; ctx.fillRect(box.x + 110, box.y - 18, 14, 10);
+  ctx.fillStyle = "#7b8797"; ctx.fillRect(box.x + 110, box.y - 18, 14, 10);
   ctx.fillText('非品牌詞曝光', box.x + 130, box.y - 13);
   function renderTop10(items, target) {
     if (!items || !items.length) {
@@ -546,7 +546,7 @@ function renderSection4Content() {
     if (out) {
       const {ctx, w, h} = out;
       ctx.clearRect(0, 0, w, h);
-      const box = plotBox(w, h, CM);
+      const box = plotBox(w, h, {t:20, r:80, b:36, l:64});
       const maxX = Math.max(...data.map(d => d.users), 1);
       const maxY = Math.max(...data.map(d => d.engagement_sec), 1);
       const midX = box.x + (medUsers / maxX) * box.w;
@@ -555,15 +555,15 @@ function renderSection4Content() {
       ctx.fillStyle = "rgba(150,160,170,0.06)";
       ctx.fillStyle = "rgba(150,160,170,0.06)";
       ctx.fillStyle = "rgba(150,160,170,0.06)";
-      ctx.strokeStyle = CC.muted; ctx.setLineDash([3, 3]); ctx.lineWidth = 1;
+      ctx.strokeStyle = "#647581"; ctx.setLineDash([3, 3]); ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(midX, box.y); ctx.lineTo(midX, box.y + box.h); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(box.x, midY); ctx.lineTo(box.x + box.w, midY); ctx.stroke();
       ctx.setLineDash([]);
-      setFont(ctx, 10, true, CC.muted);
+      setFont(ctx, 10, true, "#647581");
       ctx.textAlign = "left"; ctx.textBaseline = "top";
       ctx.fillText("中位數 使用者 ≈ " + medUsers.toFixed(1), midX + 6, box.y + 4);
       ctx.fillText("中位數 互動 ≈ " + medEng.toFixed(1) + " 秒", box.x + 6, midY + 4);
-      setFont(ctx, 10, false, CC.muted);
+      setFont(ctx, 10, false, "#647581");
       ctx.textAlign = "center"; ctx.textBaseline = "top";
       ctx.fillText("0", box.x, box.y + box.h + 4);
       ctx.fillText(maxX.toFixed(0), box.x + box.w, box.y + box.h + 4);
@@ -577,7 +577,7 @@ function renderSection4Content() {
         const highU = d.users >= medUsers;
         const highE = d.engagement_sec >= medEng;
         // Single neutral color (gray) for ALL dots so the chart looks consistent
-        const color = CC.gray;
+        const color = "#7b8797";
         ctx.fillStyle = color;
         ctx.globalAlpha = d.users >= 5 ? 0.85 : 0.35;
         ctx.beginPath(); ctx.arc(x, y, d.users >= 5 ? FIXED_R : FIXED_R - 2, 0, 6.3); ctx.fill();
@@ -612,7 +612,7 @@ function renderSection4Content() {
         }
       });
       c.addEventListener("mouseleave", () => { tooltip.style.display = "none"; });
-      setFont(ctx, 11, true, CC.muted);
+      setFont(ctx, 11, true, "#647581");
       ctx.textAlign = "center"; ctx.textBaseline = "top";
       ctx.fillText("高互動／高使用者", box.x + box.w * 0.75, box.y + 4);
       ctx.fillText("低互動／高使用者", box.x + box.w * 0.75, box.y + box.h - 24);
@@ -686,8 +686,8 @@ function renderSection4Source() {
     )).join('');
   }
 
-  drawHBar("chartTrafficCount", data, d => d.sessions, Math.max(1, ...data.map(d => d.sessions || 0)), d => d.source + " (" + d.medium + ")", "", CC.blue);
-  drawHBar("chartTrafficEng", data, d => d.avg_eng_sec_per_session, Math.max(1, ...data.map(d => d.avg_eng_sec_per_session || 0)), d => d.source + " (" + d.medium + ")", "秒", CC.teal);
+  drawHBar("chartTrafficCount", data, d => d.sessions, Math.max(1, ...data.map(d => d.sessions || 0)), d => d.source + " (" + d.medium + ")", "", "#2f6fed");
+  drawHBar("chartTrafficEng", data, d => d.avg_eng_sec_per_session, Math.max(1, ...data.map(d => d.avg_eng_sec_per_session || 0)), d => d.source + " (" + d.medium + ")", "秒", "#0f8b8d");
 
   const tbl = document.getElementById("tableTrafficQuality");
   if (tbl) {
@@ -730,7 +730,7 @@ function drawHBar(canvasId, data, getter, maxV, labelFn, suffix, color) {
   if (!out) return;
   const {ctx, w, h} = out;
   ctx.clearRect(0, 0, w, h);
-  const box = plotBox(w, h, CM);
+  const box = plotBox(w, h, {t:20, r:80, b:36, l:64});
   const itemH = box.h / data.length;
   const barH = itemH * 0.7;
   data.forEach((d, i) => {
@@ -739,15 +739,15 @@ function drawHBar(canvasId, data, getter, maxV, labelFn, suffix, color) {
     const barW = (v / maxV) * box.w;
     ctx.fillStyle = color;
     ctx.fillRect(box.x, y, barW, barH);
-    setFont(ctx, 11, false, CC.navy);
+    setFont(ctx, 11, false, "#15334a");
     ctx.textAlign = "right";
     ctx.textBaseline = "middle";
     ctx.fillText(labelFn(d), box.x - 8, y + barH / 2);
-    setFont(ctx, 11, true, CC.navy);
+    setFont(ctx, 11, true, "#15334a");
     ctx.textAlign = "left";
     ctx.fillText((v || 0).toFixed(v < 10 ? 1 : 0) + suffix, box.x + barW + 4, y + barH / 2);
   });
-  setFont(ctx, 9, false, CC.muted);
+  setFont(ctx, 9, false, "#647581");
   ctx.textBaseline = "top";
   ctx.textAlign = "center";
   for (let i = 1; i <= 4; i++) {
@@ -788,24 +788,24 @@ function renderSection4AI() {
     if (out) {
       const {ctx, w, h} = out;
       ctx.clearRect(0, 0, w, h);
-      const box = plotBox(w, h, CM);
+      const box = plotBox(w, h, {t:20, r:80, b:36, l:64});
       const itemH = box.h / data.length;
       const barH = itemH * 0.7;
       const maxV = Math.max(1, ...data.map(d => d.sessions || 0));
       data.forEach((d, i) => {
         const y = box.y + i * itemH + (itemH - barH) / 2;
         const barW = (d.sessions / maxV) * box.w;
-        ctx.fillStyle = d.sessions ? CC.orange : CC.gray;
+        ctx.fillStyle = d.sessions ? "#d97706" : "#7b8797";
         ctx.fillRect(box.x, y, barW, barH);
-        setFont(ctx, 11, false, CC.navy);
+        setFont(ctx, 11, false, "#15334a");
         ctx.textAlign = "right"; ctx.textBaseline = "middle";
         ctx.fillText(d.platform, box.x - 8, y + barH / 2);
-        setFont(ctx, 11, true, CC.navy);
+        setFont(ctx, 11, true, "#15334a");
         ctx.textAlign = "left";
         ctx.fillText(d.sessions, box.x + barW + 4, y + barH / 2);
       });
       if (total === 0) {
-        setFont(ctx, 13, true, CC.muted);
+        setFont(ctx, 13, true, "#647581");
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText("本期沒有辨識到 AI 平台轉介流量", box.x + box.w / 2, box.y + box.h / 2);
@@ -868,19 +868,19 @@ function renderSection4CTA() {
     if (out) {
       const {ctx, w, h} = out;
       ctx.clearRect(0, 0, w, h);
-      const box = plotBox(w, h, CM);
+      const box = plotBox(w, h, {t:20, r:80, b:36, l:64});
       const itemH = box.h / data.length;
       const barH = itemH * 0.7;
       const maxV = Math.max(1, ...data.map(d => d.sessions || 0));
       data.forEach((d, i) => {
         const y = box.y + i * itemH + (itemH - barH) / 2;
         const barW = (d.sessions / maxV) * box.w;
-        ctx.fillStyle = d.sessions > 0 ? CC.blue : CC.gray;
+        ctx.fillStyle = d.sessions > 0 ? "#2f6fed" : "#7b8797";
         ctx.fillRect(box.x, y, barW, barH);
-        setFont(ctx, 11, false, CC.navy);
+        setFont(ctx, 11, false, "#15334a");
         ctx.textAlign = "right"; ctx.textBaseline = "middle";
         ctx.fillText(d.cta_category, box.x - 8, y + barH / 2);
-        setFont(ctx, 11, true, CC.navy);
+        setFont(ctx, 11, true, "#15334a");
         ctx.textAlign = "left";
         ctx.fillText(d.sessions + " 次 (" + (d.users || 0) + " 使用者)", box.x + barW + 4, y + barH / 2);
       });
@@ -938,8 +938,8 @@ function renderSection4Intl() {
     )).join('');
   }
 
-  drawHBar("chartIntlSessions", data, d => d.sessions, Math.max(1, ...data.map(d => d.sessions || 0)), d => d.country, "", CC.blue);
-  drawHBar("chartIntlEng", data, d => d.avg_eng_sec, Math.max(1, ...data.map(d => d.avg_eng_sec || 0)), d => d.country, " 秒", CC.teal);
+  drawHBar("chartIntlSessions", data, d => d.sessions, Math.max(1, ...data.map(d => d.sessions || 0)), d => d.country, "", "#2f6fed");
+  drawHBar("chartIntlEng", data, d => d.avg_eng_sec, Math.max(1, ...data.map(d => d.avg_eng_sec || 0)), d => d.country, " 秒", "#0f8b8d");
 
   const tbl = document.getElementById("tableInternational");
   if (tbl) {
@@ -1089,5 +1089,35 @@ function renderReports() {
 
 
 renderReports();
+
+
+// Vite ESM module-private TDZ workaround: rebind renderReports under a
+// window-stable name. The minifier reorders const decls vs function decls
+// in ways that put const Ue/On/dpr in TDZ when the chart functions try
+// to read them. Using (0,eval)("window") is un-foolable by the minifier.
+try {
+  (0, eval)("window").setView = setView;
+  (0, eval)("window").spark = spark;
+  (0, eval)("window").evidence = evidence;
+  (0, eval)("window").issue = issue;
+  (0, eval)("window").draw = draw;
+  (0, eval)("window").init = init;
+  (0, eval)("window").drawLineChart = drawLineChart;
+  (0, eval)("window").drawHBar = drawHBar;
+  (0, eval)("window").renderReports = renderReports;
+  (0, eval)("window").webinsightRerender = () => renderReports();
+} catch (_) {}
+
+// Wait for DOM + data to be ready, then render
+function _waitForDataAndRender(attempts) {
+  if (WEBINSIGHT.DATA && WEBINSIGHT.DATA.sections) {
+    renderReports();
+  } else if (attempts > 0) {
+    setTimeout(function() { _waitForDataAndRender(attempts - 1); }, 50);
+  } else {
+    renderReports();
+  }
+}
+setTimeout(function() { _waitForDataAndRender(50); }, 100);
 
 export { init, setView, spark, evidence, issue, draw };

@@ -1,19 +1,19 @@
-// src/data.js — max_date 2026-08-01 (GSC bottleneck) | live BigQuery @ 2026-07-26
-// Cutoff (smallest max_date across 3 sources): 2026-08-01
-// Periods: 2026-07-20 to 2026-07-26 (7 days daily, 1 minggu ke belakang dari GSC max 2026-08-01)
+// src/data.js — max_date 2026-08-02 (GSC bottleneck) | live BigQuery @ 2026-08-03
+// Cutoff (smallest max_date across 3 sources): 2026-08-02
+// Periods: 2026-07-27 to 2026-08-02 (7 days daily, 1 minggu ke belakang dari GSC max 2026-08-02)
 // Site: 慈濟大學中文版首頁
 
 window.WEBINSIGHT = window.WEBINSIGHT || {};
 window.WEBINSIGHT.DATA = {
- weeks:["07/20","07/21","07/22","07/23","07/24","07/25","07/26"],
+ weeks:["07/27","07/28","07/29","07/30","07/31","08/01","08/02"],
  kpis:[
-{k:"本週造訪人數",v:"7,802",trend:"—",avg:"近 7 天",up:true,desc:"近 7 天有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[1288, 1244, 1144, 1149, 1117, 965, 895]},
-{k:"本週工作階段",v:"10,518",trend:"—",avg:"近 7 天",up:true,desc:"近 7 天網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[1856, 1793, 1603, 1631, 1541, 1063, 1031]},
-{k:"Google 搜尋點擊",v:"4,195",trend:"—",avg:"近 7 天",up:true,desc:"近 7 天從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[]},
-{k:"Google 搜尋點擊率",v:"7.85%",trend:"—",avg:"近 7 天平均",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[]}
+{k:"本週造訪人數",v:"8710",trend:"+33.7%",avg:"前 7 天",up:true,desc:"近 7 天有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[1307, 1814, 1435, 1370, 1195, 779, 810]},
+{k:"本週工作階段",v:"11825",trend:"+34.4%",avg:"前 7 天",up:true,desc:"近 7 天網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[1868, 2436, 1988, 1968, 1696, 936, 933]},
+{k:"Google 搜尋點擊",v:"4573",trend:"+33.1%",avg:"前 7 天",up:true,desc:"近 7 天從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[728, 708, 741, 756, 521, 437, 682]},
+{k:"Google 搜尋點擊率",v:"7.71%",trend:"-0.8%",avg:"前 7 天平均",up:false,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[728, 708, 741, 756, 521, 437, 682]}
 ],
- traffic:{a:[1856, 1793, 1603, 1631, 1541, 1063, 1031],b:[2828, 2598, 2305, 2325, 2270, 1356, 1344]},
- search:{a:[0,0,0,0,0,0,53459],b:[0,0,0,0,0,0,4195]},
+ traffic:{a:[1868,2436,1988,1968,1696,936,933],b:[2826,3409,2838,2858,2512,1334,1314]},
+ search:{a:[8985,8778,9242,9326,7235,6106,9627],b:[728,708,741,756,521,437,682]},
  funnel:{a:[1288, 1244, 1144, 1149, 1117, 965, 895],b:[2828, 2598, 2305, 2325, 2270, 1356, 1344],c:[0,0,0,0,0,0,0]},
  audience:{total:10518,country:[{name:"Taiwan",sessions:8645,users:3966,share:82.2},{name:"China",sessions:1481,users:1467,share:14.1},{name:"Japan",sessions:51,users:28,share:0.5},{name:"Indonesia",sessions:46,users:25,share:0.4}],device:[{name:"tablet",sessions:94,users:63,share:0.9},{name:"desktop",sessions:7529,users:3946,share:71.6},{name:"mobile",sessions:2928,users:1665,share:27.8}],source:[{name:"(direct)/(none)",medium:"other",sessions:5315,users:2923,share:50.5},{name:"google/organic",medium:"organic",sessions:4722,users:2467,share:44.9},{name:"bing/organic",medium:"organic",sessions:197,users:97,share:1.9},{name:"tcust.edu.tw/referral",medium:"internal",sessions:124,users:66,share:1.2},{name:"tw.search.yahoo.com/referral",medium:"other",sessions:90,users:47,share:0.9}]},
 

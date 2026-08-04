@@ -1,19 +1,19 @@
-// src/data.js — max_date 2026-08-01 (GSC bottleneck) | live BigQuery @ 2026-07-26
-// Cutoff (smallest max_date across 3 sources): 2026-08-01
-// Periods: 2026-07-20 to 2026-07-26 (7 days daily, 1 minggu ke belakang dari GSC max 2026-08-01)
+// src/data.js — max_date 2026-08-02 (GSC bottleneck) | live BigQuery @ 2026-08-03
+// Cutoff (smallest max_date across 3 sources): 2026-08-02
+// Periods: 2026-07-27 to 2026-08-02 (7 days daily, 1 minggu ke belakang dari GSC max 2026-08-02)
 // Site: 慈大新鮮人
 
 window.WEBINSIGHT = window.WEBINSIGHT || {};
 window.WEBINSIGHT.DATA = {
- weeks:["07/20","07/21","07/22","07/23","07/24","07/25","07/26"],
+ weeks:["07/27","07/28","07/29","07/30","07/31","08/01","08/02"],
  kpis:[
-{k:"本週造訪人數",v:"2,818",trend:"—",avg:"近 7 天",up:true,desc:"近 7 天有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[595, 484, 482, 396, 360, 242, 259]},
-{k:"本週工作階段",v:"3,921",trend:"—",avg:"近 7 天",up:true,desc:"近 7 天網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[882, 737, 669, 546, 467, 306, 314]},
-{k:"Google 搜尋點擊",v:"1,301",trend:"—",avg:"近 7 天",up:true,desc:"近 7 天從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[]},
-{k:"Google 搜尋點擊率",v:"7.14%",trend:"—",avg:"近 7 天平均",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[]}
+{k:"本週造訪人數",v:"2231",trend:"+0.4%",avg:"前 7 天",up:true,desc:"近 7 天有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[368, 373, 318, 318, 298, 310, 246]},
+{k:"本週工作階段",v:"2894",trend:"-5.3%",avg:"前 7 天",up:true,desc:"近 7 天網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[504, 468, 417, 425, 385, 390, 305]},
+{k:"Google 搜尋點擊",v:"1162",trend:"+11.3%",avg:"前 7 天",up:true,desc:"近 7 天從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[197, 195, 181, 178, 132, 118, 161]},
+{k:"Google 搜尋點擊率",v:"6.68%",trend:"-3.5%",avg:"前 7 天平均",up:false,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[197, 195, 181, 178, 132, 118, 161]}
 ],
- traffic:{a:[882, 737, 669, 546, 467, 306, 314],b:[2895, 2058, 1701, 1411, 1177, 796, 776]},
- search:{a:[0,0,0,0,0,0,18231],b:[0,0,0,0,0,0,1301]},
+ traffic:{a:[504,468,417,425,385,390,305],b:[1254,1109,956,1130,976,897,728]},
+ search:{a:[2871,2873,2527,2470,2106,1870,2677],b:[197,195,181,178,132,118,161]},
  funnel:{a:[595, 484, 482, 396, 360, 242, 259],b:[2895, 2058, 1701, 1411, 1177, 796, 776],c:[0,0,0,0,0,0,0]},
  audience:{total:3921,country:[{name:"Taiwan",sessions:3669,users:1801,share:93.6},{name:"China",sessions:95,users:95,share:2.4},{name:"United States",sessions:19,users:19,share:0.5},{name:"Japan",sessions:17,users:15,share:0.4}],device:[{name:"desktop",sessions:1638,users:805,share:41.8},{name:"tablet",sessions:84,users:59,share:2.1},{name:"mobile",sessions:2207,users:1138,share:56.3}],source:[{name:"(direct)/(none)",medium:"other",sessions:2047,users:1081,share:52.2},{name:"google/organic",medium:"organic",sessions:1694,users:818,share:43.2},{name:"cse.google.com/referral",medium:"other",sessions:42,users:16,share:1.1},{name:"bing/organic",medium:"organic",sessions:32,users:14,share:0.8},{name:"mail.google.com/referral",medium:"other",sessions:18,users:5,share:0.5}]},
 

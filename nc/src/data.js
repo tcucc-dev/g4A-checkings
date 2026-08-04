@@ -1,24 +1,24 @@
-// src/data.js — max_date 2026-08-01 (GSC bottleneck) | live BigQuery @ 2026-07-26
-// Cutoff (smallest max_date across 3 sources): 2026-08-01
-// Periods: 2026-07-20 to 2026-07-26 (7 days daily, 1 minggu ke belakang dari GSC max 2026-08-01)
-// Site: 護理學院
+// src/data.js — max_date 2026-08-02 (GSC bottleneck) | live BigQuery @ 2026-08-03
+// Cutoff (smallest max_date across 3 sources): 2026-08-02
+// Periods: 2026-07-27 to 2026-08-02 (7 days daily, 1 minggu ke belakang dari GSC max 2026-08-02)
+// Site: 護理學系
 
 window.WEBINSIGHT = window.WEBINSIGHT || {};
 window.WEBINSIGHT.DATA = {
- weeks:["07/20","07/21","07/22","07/23","07/24","07/25","07/26"],
+ weeks:["07/27","07/28","07/29","07/30","07/31","08/01","08/02"],
  kpis:[
-{k:"本週造訪人數",v:"177",trend:"—",avg:"近 7 天",up:true,desc:"近 7 天有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[26, 26, 28, 31, 26, 21, 19]},
-{k:"本週工作階段",v:"202",trend:"—",avg:"近 7 天",up:true,desc:"近 7 天網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[29, 35, 34, 35, 26, 23, 20]},
-{k:"Google 搜尋點擊",v:"113",trend:"—",avg:"近 7 天",up:true,desc:"近 7 天從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[]},
-{k:"Google 搜尋點擊率",v:"4.07%",trend:"—",avg:"近 7 天平均",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[]}
+{k:"本週造訪人數",v:"574",trend:"+13.4%",avg:"前 7 天",up:true,desc:"近 7 天有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[94, 99, 75, 80, 87, 64, 75]},
+{k:"本週工作階段",v:"617",trend:"+12.4%",avg:"前 7 天",up:true,desc:"近 7 天網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[101, 107, 86, 86, 95, 66, 76]},
+{k:"Google 搜尋點擊",v:"293",trend:"+7.7%",avg:"前 7 天",up:true,desc:"近 7 天從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[51, 38, 34, 46, 34, 35, 55]},
+{k:"Google 搜尋點擊率",v:"5.78%",trend:"-6.5%",avg:"前 7 天平均",up:false,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[51, 38, 34, 46, 34, 35, 55]}
 ],
- traffic:{a:[29, 35, 34, 35, 26, 23, 20],b:[28, 72, 52, 49, 42, 31, 24]},
- search:{a:[0,0,0,0,0,0,2775],b:[0,0,0,0,0,0,113]},
+ traffic:{a:[101,107,86,86,95,66,76],b:[176,182,130,179,170,95,96]},
+ search:{a:[829,769,656,773,669,526,849],b:[51,38,34,46,34,35,55]},
  funnel:{a:[26, 26, 28, 31, 26, 21, 19],b:[28, 72, 52, 49, 42, 31, 24],c:[0,0,0,0,0,0,0]},
  audience:{total:202,country:[{name:"Taiwan",sessions:149,users:115,share:73.8},{name:"China",sessions:35,users:35,share:17.3},{name:"United States",sessions:5,users:4,share:2.5},{name:"Singapore",sessions:4,users:4,share:2.0}],device:[{name:"desktop",sessions:131,users:100,share:64.9},{name:"tablet",sessions:2,users:2,share:1.0},{name:"mobile",sessions:69,users:64,share:34.2}],source:[{name:"(direct)/(none)",medium:"other",sessions:118,users:94,share:58.4},{name:"google/organic",medium:"organic",sessions:82,users:70,share:40.6},{name:"yahoo/organic",medium:"organic",sessions:1,users:1,share:0.5},{name:"chatgpt.com/ai-assistant",medium:"ai",sessions:1,users:1,share:0.5}]},
 
 // Generated chart data block for NC
-// Period: 2026-06-07 to 2026-07-26 (this week = 07/20-07/26) + 7 prior 7-day periods
+// Period: 2026-06-15 to 2026-08-02 (this week = 07/27-08/02) + 7 prior 7-day periods
 // Audit revision (v56): corrected completeness, anomaly rule, brand config,
 // quadrant boundaries, source grouping, AI empty-state, CTA proxy labelling,
 // path table fallback, data-quality snapshot.
@@ -56,7 +56,7 @@ sections:{
     {month:"07/01", brand_pct:19.0, nonbrand_pct:81.0, brand_imp:1735, brand_clicks:45, nonbrand_imp:7406, nonbrand_clicks:280}
   ],
   // Per-keyword table — feeds 'Top 10 brand' and 'Top 10 non-brand' tables.
-  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 period (7 days, 護理學院).
+  // 2026-07-27 至 2026-08-02 for 2026-07-27 至 2026-08-02 period (7 days).
   keyword_rows:[
     {query:"site:nc.tcu.edu.tw",                       cls:"brand",    imp:170, clicks:0, sum_position:10480, landing:"/"},
     {query:"liyun kuo",                                cls:"nonbrand", imp:80,  clicks:1, sum_position:614,  landing:"/p/406-1014-64703,r1026.php"},
@@ -94,7 +94,7 @@ sections:{
   // Source: all_units_summary (page_view events). Each row = one normalized
   // page by normalized_path. Quadrant boundaries = median across rows with
   // users ≥ 5. Smaller samples kept & flagged as 「樣本不足」.
-  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 period (7 days, 護理學院).
+  // 2026-07-27 至 2026-08-02 for 2026-07-27 至 2026-08-02 period (7 days).
   content_matrix:[
     {normalized_path:"/",                                            title:"慈濟大學護理學院 - 慈濟大學護理學院", users:56, sessions:71, pageviews:98, engagement_sec:0.0},
     {normalized_path:"/p/412-1014-2992.php",                        title:"系科所組成員 - 慈濟大學護理學院", users:16, sessions:17, pageviews:19, engagement_sec:0.0},
@@ -126,7 +126,7 @@ sections:{
   // ===== Block 5 — 流量來源品質 =====
   // 'group' is the prompt-defined grouping. Original source/medium is kept.
   // Quality: avg_eng_sec_per_session = SUM(eng_sec)/sessions.
-  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 period (7 days, 護理學院).
+  // 2026-07-27 至 2026-08-02 for 2026-07-27 至 2026-08-02 period (7 days).
   traffic_quality:[
     {group:"Direct",          source:"(direct)",      medium:"(none)",      sessions:119, users:94,  avg_eng_sec_per_session:19.4, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"足夠"},
     {group:"Organic Search",  source:"google",        medium:"organic",      sessions:83,  users:70,  avg_eng_sec_per_session:26.8, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"足夠"},
@@ -135,7 +135,7 @@ sections:{
   ],
 
   // ===== Block 6 — AI 搜尋 =====
-  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 (7 days). New finding: 1 session from chatgpt.com
+  // 2026-07-27 至 2026-08-02 for 2026-07-27 至 2026-08-02 period (7 days).
   // (medium=ai-assistant, page_referrer=null) was detected. Other engines remain 0.
   ai_config:{
     domains:[
@@ -158,7 +158,7 @@ sections:{
   ai_total_period_sessions:2,
 
   // ===== Block 7 — 招生意圖與 CTA 行動 =====
-  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 period (7 days, 護理學院).
+  // 2026-07-27 至 2026-08-02 for 2026-07-27 至 2026-08-02 period (7 days).
   cta_funnel:[
     {cta_category:"其他連結",            distinct_links:2, sessions:8,   users:5,   sample_note:"樣本較少"},
     {cta_category:"招生簡章",            distinct_links:0, sessions:0,   users:0,   sample_note:"資料不足"},
@@ -181,7 +181,7 @@ sections:{
   ],
 
   // ===== Block 8 — 國際訪客品質 =====
-  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 period (7 days, 護理學院).
+  // 2026-07-27 至 2026-08-02 for 2026-07-27 至 2026-08-02 period (7 days).
   international:[
     {country:"臺灣",     sessions:153, users:117, avg_eng_sec:28.7, top_landing:"/",                                       admission_cta:0, contact_click:0, sample_note:"足夠"},
     {country:"中國",     sessions:34,  users:34,  avg_eng_sec:1.4,  top_landing:"/?Lang=zh-tw",                            admission_cta:0, contact_click:0, sample_note:"足夠"},
@@ -193,7 +193,7 @@ sections:{
   ],
 
   // ===== Block 9 — 使用者路徑／下一步 =====
-  // 2026-07-20 至 2026-07-26 for 2026-07-20 至 2026-07-26 (7 days, 護理學院). Real per-session path reconstruction
+  // 2026-07-27 至 2026-08-02 for 2026-07-27 至 2026-08-02 period (7 days).
   // via ROW_NUMBER() OVER (PARTITION BY session ORDER BY event_timestamp).
   user_paths:[
     {landing:"/",                                          second_page:"/",                                          exit_action:"瀏覽後離開", sessions:71, exit_share:0.92},
