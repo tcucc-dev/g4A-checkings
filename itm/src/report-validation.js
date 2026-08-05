@@ -1,21 +1,10 @@
 // src/report-validation.js
-// Validates REPORT_DATA structure at module load time. If critical
-// validation fails, the report will not initialize (alerts in console
-// and the renderer skips DOM mutations).
-//
-// This file is the single point that asserts invariants on the generated
-// data. Add new checks here when adding new fields to REPORT_DATA.
+// Validates REPORT_DATA + DOM integration at module load time.
+// Returns a structured result {ok, errors, warnings}.
+// Stops report initialization when critical validation fails.
 
 (function () {
   'use strict';
-
-  function getReportData() {
-    return window.WEBINSIGHT && window.WEBINSIGHT.REPORT_DATA;
-  }
-
-  function getEvidenceRaw() {
-    return window.WEBINSIGHT && window.WEBINSIGHT.EVIDENCE_REPORTS_RAW;
-  }
 
   var errors = [];
   var warnings = [];
@@ -23,47 +12,43 @@
   function err(msg) { errors.push(msg); }
   function warn(msg) { warnings.push(msg); }
 
-  function isISODate(s) {
-    return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s);
-  }
-
-  function isSlashDate(s) {
-    return typeof s === 'string' && /^\d{4}\/\d{2}\/\d{2}$/.test(s);
-  }
-
+  function isISODate(s) { return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s); }
+  function isSlashDate(s) { return typeof s === 'string' && /^\d{4}\/\d{2}\/\d{2}$/.test(s); }
   function toIso(s) {
     if (isISODate(s)) return s;
     if (isSlashDate(s)) return s.replace(/\//g, '-');
     return null;
   }
 
+  // Calculate score from subscores
+  function calculateScore(geo) {
+    if (!geo || !Array.isArray(geo.subscores)) return 0;
+    return geo.subscores.reduce(function (total, item) { return total + Number(item.score || 0); }, 0);
+  }
+  function calculateMaximum(geo) {
+    if (!geo || !Array.isArray(geo.subscores)) return 0;
+    return geo.subscores.reduce(function (total, item) { return total + Number(item.maximum || 0); }, 0);
+  }
+
   function validate() {
     errors = [];
     warnings = [];
+    var d = window.WEBINSIGHT && window.WEBINSIGHT.REPORT_DATA;
+    if (!d) { err('REPORT_DATA is missing'); return; }
 
-    var d = getReportData();
-    if (!d) {
-      err('REPORT_DATA is missing — check generated-report-data.js load order');
-      return;
-    }
+    // ===== Metadata =====
+    if (!d.meta) { err('REPORT_DATA.meta missing'); return; }
+    if (!d.meta.siteName) err('meta.siteName missing');
+    if (!d.meta.siteDomain) err('meta.siteDomain missing');
+    if (!d.meta.updatedAt || !isSlashDate(d.meta.updatedAt)) err('meta.updatedAt missing or not YYYY/MM/DD');
+    if (typeof d.meta.sourceCount !== 'number' || d.meta.sourceCount < 1) err('meta.sourceCount must be positive number');
 
-    // ===== meta =====
-    if (!d.meta) { err('REPORT_DATA.meta is missing'); return; }
-    if (!d.meta.siteName) err('REPORT_DATA.meta.siteName missing');
-    if (!d.meta.siteDomain) err('REPORT_DATA.meta.siteDomain missing');
-    if (!d.meta.updatedAt || !isSlashDate(d.meta.updatedAt)) err('REPORT_DATA.meta.updatedAt missing or not YYYY/MM/DD');
-    if (typeof d.meta.sourceCount !== 'number' || d.meta.sourceCount < 1) err('REPORT_DATA.meta.sourceCount must be a positive number');
-
-    // ===== periods =====
-    if (!d.periods) { err('REPORT_DATA.periods is missing'); return; }
+    // ===== Periods =====
+    if (!d.periods) { err('REPORT_DATA.periods missing'); return; }
     var p = d.periods;
     function checkPeriod(name, range) {
-      if (!range || !range.start || !range.end) {
-        err('periods.' + name + ' missing start/end');
-        return;
-      }
-      var s = toIso(range.start);
-      var e = toIso(range.end);
+      if (!range || !range.start || !range.end) { err('periods.' + name + ' missing start/end'); return; }
+      var s = toIso(range.start); var e = toIso(range.end);
       if (!s) { err('periods.' + name + '.start not a date: ' + range.start); return; }
       if (!e) { err('periods.' + name + '.end not a date: ' + range.end); return; }
       if (s > e) err('periods.' + name + ' start (' + s + ') is after end (' + e + ')');
@@ -72,109 +57,183 @@
     checkPeriod('previous', p.previous);
     checkPeriod('trend', p.trend);
 
-    // ===== chartLabels =====
-    if (!Array.isArray(d.chartLabels) || d.chartLabels.length < 1) {
-      err('REPORT_DATA.chartLabels missing or empty');
-    }
+    // ===== Chart labels =====
+    if (!Array.isArray(d.chartLabels) || d.chartLabels.length < 1) err('chartLabels missing or empty');
 
-    // ===== metrics =====
-    if (!d.metrics) { err('REPORT_DATA.metrics missing'); return; }
+    // ===== Metrics =====
+    if (!d.metrics) { err('metrics missing'); return; }
     var m = d.metrics;
-    if (!Array.isArray(m.kpis) || m.kpis.length !== 4) {
-      err('REPORT_DATA.metrics.kpis must be array of 4');
+    if (!Array.isArray(m.weeks) || m.weeks.length !== d.chartLabels.length) {
+      err('metrics.weeks length (' + (m.weeks || []).length + ') != chartLabels length (' + d.chartLabels.length + ')');
     }
-    ['kpis', 'traffic', 'search', 'funnel', 'audience', 'sections'].forEach(function (k) {
-      if (m[k] === undefined) err('metrics.' + k + ' missing');
+    if (!Array.isArray(m.kpis) || m.kpis.length !== 4) err('metrics.kpis must be array of 4');
+
+    // Check chart series lengths
+    ['traffic', 'search', 'funnel'].forEach(function (k) {
+      if (!m[k]) { err('metrics.' + k + ' missing'); return; }
+      var sub = m[k];
+      var subKeys = Object.keys(sub);
+      subKeys.forEach(function (sk) {
+        if (Array.isArray(sub[sk]) && sub[sk].length !== d.chartLabels.length) {
+          warn('metrics.' + k + '.' + sk + ' length (' + sub[sk].length + ') != chartLabels length (' + d.chartLabels.length + ')');
+        }
+      });
     });
 
-    // chart array lengths match chartLabels
-    if (Array.isArray(d.chartLabels) && m.traffic && m.traffic.a && m.traffic.a.length !== d.chartLabels.length) {
-      warn('metrics.traffic.a length (' + m.traffic.a.length + ') != chartLabels length (' + d.chartLabels.length + ')');
-    }
-    if (Array.isArray(d.chartLabels) && m.search && m.search.a && m.search.a.length !== d.chartLabels.length) {
-      warn('metrics.search.a length (' + m.search.a.length + ') != chartLabels length (' + d.chartLabels.length + ')');
-    }
-    if (Array.isArray(d.chartLabels) && m.funnel && m.funnel.a && m.funnel.a.length !== d.chartLabels.length) {
-      warn('metrics.funnel.a length (' + m.funnel.a.length + ') != chartLabels length (' + d.chartLabels.length + ')');
+    // ===== Data preservation (prompt 22 §1) =====
+    // Verify all datasets known to have data are not empty
+    if (d.metrics.sections) {
+      var sec = d.metrics.sections;
+      var requiredDatasets = {
+        'content_matrix': 25,
+        'traffic_quality': 9,
+        'ai_platforms': 5,
+        'cta_funnel': 9,
+        'cta_links': 4,
+        'international': 5,
+        'user_paths': 17,
+        'user_path_transitions': 5,
+        'data_quality_snapshot': 8
+      };
+      Object.keys(requiredDatasets).forEach(function (k) {
+        var n = Array.isArray(sec[k]) ? sec[k].length : 0;
+        if (n < requiredDatasets[k] / 2) {
+          err('metrics.sections.' + k + ' has ' + n + ' entries, expected at least ' + (requiredDatasets[k] / 2) + ' (pre-refactor had ' + requiredDatasets[k] + ')');
+        }
+      });
     }
 
-    // ===== geo =====
-    if (!d.geo) { err('REPORT_DATA.geo missing'); return; }
+    // ===== GEO =====
+    if (!d.geo) { err('geo missing'); return; }
     var g = d.geo;
     if (!Array.isArray(g.subscores) || g.subscores.length === 0) {
-      err('REPORT_DATA.geo.subscores missing or empty');
+      err('geo.subscores missing or empty');
     } else {
-      var subscoreSum = 0;
-      var maxSum = 0;
-      var hasDuplicateOverall = false;
       g.subscores.forEach(function (s, i) {
         if (typeof s.score !== 'number') err('subscore[' + i + '].score must be number');
-        if (typeof s.max !== 'number') err('subscore[' + i + '].max must be number');
+        if (typeof s.maximum !== 'number') err('subscore[' + i + '].maximum must be number');
         if (s.score < 0) err('subscore[' + i + '].score negative');
-        if (s.score > s.max) err('subscore[' + i + '].score (' + s.score + ') > max (' + s.max + ')');
-        subscoreSum += s.score;
-        maxSum += s.max;
-        if (s.overall != null) hasDuplicateOverall = true;
+        if (s.score > s.maximum) err('subscore[' + i + '].score > maximum');
+        if ('overall' in s) err('subscore[' + i + '] has "overall" field — must be calculated, not stored');
       });
-      if (g.maximumScore && maxSum !== g.maximumScore) {
-        err('geo.maximumScore (' + g.maximumScore + ') != sum of subscore max (' + maxSum + ')');
+      var maxSum = calculateMaximum(g);
+      if (typeof g.maximumScore === 'number' && maxSum !== g.maximumScore) {
+        err('subscore maximum sum (' + maxSum + ') != geo.maximumScore (' + g.maximumScore + ')');
       }
-      if (hasDuplicateOverall) {
-        err('geo.subscores contains an "overall" field — overall score must be calculated, not stored');
-      }
-      if (!g.auditDate || !isISODate(g.auditDate)) err('geo.auditDate missing or not YYYY-MM-DD');
-      if (!g.auditedUrl) err('geo.auditedUrl missing');
-    }
-
-    // ===== evidence raw =====
-    var ev = getEvidenceRaw();
-    if (!ev) {
-      err('EVIDENCE_REPORTS_RAW missing — check generated-evidence-data.js load order');
-    } else {
-      // No unresolved {{...}} placeholders
-      var rawStr = JSON.stringify(ev);
-      var placeholderRe = /\{\{[A-Z_]+\}\}/g;
-      var match;
-      while ((match = placeholderRe.exec(rawStr)) !== null) {
-        if (match[0] !== '{{MAX_DATE_OLD}}' && match[0] !== '{{ACTUAL_RESULT_DATE}}') {
-          // Some are intentional, only flag missing required ones
+      if (calculateScore(g) > maxSum) err('calculated score > maximum');
+      if (!g.managerSummary) err('geo.managerSummary missing');
+      else {
+        if (!g.managerSummary.introduction) err('geo.managerSummary.introduction missing');
+        if (!Array.isArray(g.managerSummary.findings) || g.managerSummary.findings.length === 0) {
+          err('geo.managerSummary.findings missing or empty');
         }
       }
-      // Check that each EV-* record has maxDate from {{CURRENT_END}} or {{MAX_DATE_GA4}}
+      if (!g.technicalAudit) err('geo.technicalAudit missing');
+      else {
+        ['implemented', 'warnings', 'missing'].forEach(function (k) {
+          if (!Array.isArray(g.technicalAudit[k])) err('geo.technicalAudit.' + k + ' not an array');
+        });
+        // Check each row has {n, label, value or note}
+        ['implemented', 'warnings', 'missing'].forEach(function (k) {
+          (g.technicalAudit[k] || []).forEach(function (item, i) {
+            if (typeof item.n !== 'number') err('geo.technicalAudit.' + k + '[' + i + '].n not number');
+            if (!item.label) err('geo.technicalAudit.' + k + '[' + i + '].label missing');
+          });
+        });
+      }
+    }
+
+    // ===== Evidence =====
+    var raw = window.WEBINSIGHT.EVIDENCE_REPORTS_RAW;
+    if (!raw) { err('EVIDENCE_REPORTS_RAW missing'); return; }
+    if (!Array.isArray(raw) || raw.length < 20) err('EVIDENCE_REPORTS_RAW should have at least 20 records');
+
+    // Resolve placeholders using the central resolver if available, so we
+    // can scan the actually-rendered string the user will see.
+    var ev = raw;
+    if (typeof window.WEBINSIGHT.RESOLVE_EVIDENCE_PERIODS === 'function') {
+      try { ev = window.WEBINSIGHT.RESOLVE_EVIDENCE_PERIODS(raw); }
+      catch (e) { warn('RESOLVE_EVIDENCE_PERIODS threw: ' + e.message); }
+    }
+
+    // Check for unresolved placeholders in the resolved evidence
+    var placeholderRe = /\{\{[A-Z0-9_]+\}\}/g;
+    var evStr = JSON.stringify(ev);
+    var placeholders = evStr.match(placeholderRe) || [];
+    if (placeholders.length > 0) {
+      var perReport = {};
       ev.forEach(function (r) {
-        if (r.maxDate && /\d{4}-\d{2}-\d{2}/.test(r.maxDate)) {
-          // Not a placeholder
+        if (!r) return;
+        var s = JSON.stringify(r);
+        var m = s.match(placeholderRe);
+        if (m && m.length) {
+          perReport[r.id] = Array.from(new Set(m));
         }
+      });
+      err('Found ' + placeholders.length + ' unresolved placeholders after resolution: ' +
+          Object.keys(perReport).slice(0, 5).map(function (id) {
+            return id + '=[' + perReport[id].slice(0, 3).join(',') + ']';
+          }).join(';'));
+    }
+
+    // ===== DOM integration =====
+    // Only check DOM when document is ready (otherwise elements don't exist yet).
+    if (typeof document !== 'undefined' && document.readyState !== 'loading') {
+      var requiredIds = [
+        'reportPeriod', 'reportUpdatedAt', 'reportSite', 'reportSources',
+        '[data-geo-score-svg]',
+        '[data-geo-score-text]',
+        '[data-geo-max-text]',
+        '[data-geo-ring-progress]',
+        '[data-geo-headline]',
+        '[data-geo-subscores]',
+        '[data-geo-manager]',
+        '[data-geo-technical]',
+        '[data-geo-eyebrow]',
+        '[data-geo-audit-date]'
+      ];
+      requiredIds.forEach(function (sel) {
+        var el;
+        if (sel.charAt(0) === '[') {
+          el = document.querySelector(sel);
+        } else {
+          el = document.getElementById(sel);
+        }
+        if (!el) err('DOM missing element: ' + sel);
       });
     }
   }
 
-  function runValidation() {
+  function run() {
     validate();
-    if (errors.length) {
-      console.error('[report-validation] ' + errors.length + ' ERROR(S):');
-      errors.forEach(function (e) { console.error('  ✗ ' + e); });
-    }
-    if (warnings.length) {
-      console.warn('[report-validation] ' + warnings.length + ' WARNING(S):');
-      warnings.forEach(function (w) { console.warn('  ⚠ ' + w); });
-    }
-    if (errors.length === 0) {
-      console.log('[report-validation] OK — REPORT_DATA structure valid');
-    }
-    return errors.length === 0;
+    return { ok: errors.length === 0, errors: errors.slice(), warnings: warnings.slice() };
   }
 
-  // Expose for testing
+  // Expose
   window.WEBINSIGHT = window.WEBINSIGHT || {};
-  window.WEBINSIGHT.VALIDATE_REPORT = runValidation;
+  window.WEBINSIGHT.VALIDATE_REPORT_DATA = run;
   window.WEBINSIGHT.VALIDATION_ERRORS = function () { return errors.slice(); };
   window.WEBINSIGHT.VALIDATION_WARNINGS = function () { return warnings.slice(); };
 
   // Run on init
+  function onReady() {
+    var result = run();
+    if (!result.ok) {
+      console.error('[report-validation] ' + result.errors.length + ' ERROR(S):');
+      result.errors.forEach(function (e) { console.error('  ✗ ' + e); });
+    }
+    if (result.warnings.length > 0) {
+      console.warn('[report-validation] ' + result.warnings.length + ' WARNING(S):');
+      result.warnings.forEach(function (w) { console.warn('  ⚠ ' + w); });
+    }
+    if (result.ok) {
+      console.log('[report-validation] OK — REPORT_DATA structure valid');
+    }
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', runValidation);
+    document.addEventListener('DOMContentLoaded', onReady);
   } else {
-    runValidation();
+    onReady();
   }
 })();

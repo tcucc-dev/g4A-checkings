@@ -281,13 +281,141 @@ function initPrintButton() {
 // ============================================================
 // BOOT
 // ============================================================
+// Logical initialization order (prompt 23 §12):
+//   1. Load generated report data   (import order in main.js head)
+//   2. Load generated evidence data (import order)
+//   3. Backward-compatible aliases  (data.js / evidence.js run on import)
+//   4. Run report data validation   (VALIDATE_REPORT_DATA)
+//   5. Stop on critical failure
+//   6. Render report metadata + GEO (RENDER_REPORT — runs on DOMContentLoaded)
+//   7. Initialize evidence content  (evidence-renderer.js evInit)
+//   8. Run DOM integration validation
+//   9. Init charts, toggles, glossary, Three.js, etc.
 function boot() {
+  // ----- Step 4+5: Validate report data -----
+  var validationResult = null;
+  if (window.WEBINSIGHT && typeof window.WEBINSIGHT.VALIDATE_REPORT_DATA === 'function') {
+    validationResult = window.WEBINSIGHT.VALIDATE_REPORT_DATA();
+  }
+  if (!validationResult || !validationResult.ok) {
+    console.error('[boot] Validation failed — report rendering stopped.');
+    if (validationResult && validationResult.errors) {
+      console.error('[boot] Errors:', validationResult.errors);
+    }
+    // Non-destructive: keep Three.js + glossary (page chrome), show banner.
+    initThreeBackground();
+    initGlossaryTooltips();
+    initPrintButton();
+    showValidationError((validationResult && validationResult.errors) || ['Unknown validation failure']);
+    return;
+  }
+
+  // ----- Step 6: Render report metadata + GEO -----
+  // report-renderer.js self-initializes on DOMContentLoaded; kick it
+  // explicitly here in case the DOM is already ready (Vite async modules).
+  if (typeof window.WEBINSIGHT.RENDER_REPORT === 'function') {
+    try { window.WEBINSIGHT.RENDER_REPORT(); }
+    catch (e) { console.error('[boot] RENDER_REPORT failed:', e); }
+  } else if (document.readyState !== 'loading') {
+    // DOM ready but renderer not yet attached — wait one tick
+    setTimeout(function () {
+      if (typeof window.WEBINSIGHT.RENDER_REPORT === 'function') {
+        try { window.WEBINSIGHT.RENDER_REPORT(); } catch (e) {}
+      }
+    }, 0);
+  }
+
+  // ----- Step 7: Initialize evidence content -----
+  if (typeof window.evInit === 'function') {
+    try { window.evInit(); }
+    catch (e) { console.error('[boot] evInit failed:', e); }
+  }
+
+  // ----- Step 8: DOM integration validation -----
+  var domOK = validateDOMIntegration();
+  if (!domOK) {
+    console.error('[boot] DOM integration validation failed — some containers missing.');
+  }
+
+  // ----- Step 9: Init charts, toggles, glossary, Three.js, etc. -----
   initThreeBackground();
   initGlossaryTooltips();
   initPrintButton();
-  // v56+: kick the report renderer after data.js has populated window.WEBINSIGHT.DATA
-  // app.js calls init() itself once window.WEBINSIGHT.DATA is set and DOM is ready (Vite ESM)
-  console.log('[TCU WebInsight v49] ready — Three.js + glossary');
+
+  // app.js calls init() and renderReports() itself with its own deferral.
+  // geo-toggle.js self-initializes. Glossary already wired above.
+
+  console.log('[TCU WebInsight v49] ready — three.js + glossary + renderers');
+}
+
+// Verify required DOM containers exist (prompt 23 §12 step 8).
+// Returns true if everything required is present; false otherwise.
+function validateDOMIntegration() {
+  if (typeof document === 'undefined') return true;
+  var required = [
+    'reportPeriod',
+    'reportUpdatedAt',
+    'reportSite',
+    'reportSources',
+    '[data-geo-score-svg]',
+    '[data-geo-score-text]',
+    '[data-geo-max-text]',
+    '[data-geo-ring-progress]',
+    '[data-geo-headline]',
+    '[data-geo-subscores]',
+    '[data-geo-manager]',
+    '[data-geo-technical]',
+    '[data-geo-eyebrow]',
+    '[data-geo-audit-date]',
+    'evidenceIndex',
+    'evidenceReports',
+    'kpis'
+  ];
+  var missing = [];
+  required.forEach(function (sel) {
+    var el;
+    if (sel.charAt(0) === '[') {
+      el = document.querySelector(sel);
+    } else {
+      el = document.getElementById(sel);
+    }
+    if (!el) missing.push(sel);
+  });
+  if (missing.length > 0) {
+    console.error('[boot] DOM missing containers:', missing);
+    return false;
+  }
+  return true;
+}
+
+// Show small non-destructive error message in the report area (prompt 22 §12)
+function showValidationError(errors) {
+  try {
+    var main = document.querySelector('main') || document.body;
+    var banner = document.createElement('div');
+    banner.setAttribute('role', 'alert');
+    banner.style.cssText = 'background:#fef2f2;border:2px solid #b91c1c;color:#7f1d1d;padding:16px 20px;margin:20px;border-radius:8px;font-size:14px;';
+    var h = document.createElement('h3');
+    h.textContent = '⚠ 報告初始化已停止';
+    h.style.cssText = 'margin:0 0 8px 0;color:#7f1d1d;font-size:16px;';
+    banner.appendChild(h);
+    var p = document.createElement('p');
+    p.textContent = '資料驗證失敗，請檢查瀏覽器 Console：';
+    p.style.cssText = 'margin:4px 0;';
+    banner.appendChild(p);
+    var ul = document.createElement('ul');
+    ul.style.cssText = 'margin:8px 0 0 16px;padding:0;';
+    errors.slice(0, 10).forEach(function (err) {
+      var li = document.createElement('li');
+      li.textContent = err;
+      li.style.cssText = 'margin:2px 0;font-family:monospace;font-size:12px;';
+      ul.appendChild(li);
+    });
+    banner.appendChild(ul);
+    main.insertBefore(banner, main.firstChild);
+  } catch (e) {
+    console.error('[boot] Could not show validation banner:', e);
+  }
 }
 
 if (document.readyState === 'loading') {

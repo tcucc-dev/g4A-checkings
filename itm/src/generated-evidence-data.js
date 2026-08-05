@@ -34,6 +34,7 @@ window.WEBINSIGHT.RESOLVE_EVIDENCE_PERIODS = function(records) {
   if (!window.WEBINSIGHT.REPORT_DATA) return records;
   var p = window.WEBINSIGHT.REPORT_DATA.periods;
   var d = window.WEBINSIGHT.REPORT_DATA.meta;
+  var g = window.WEBINSIGHT.REPORT_DATA.geo || {};
   var maxGa4 = (window.WEBINSIGHT.REPORT_DATA.meta && window.WEBINSIGHT.REPORT_DATA.meta.maxDateGa4) || p.current.end.replace(/\//g, '-');
   var updates = {
     'CURRENT_START': p.current.start.replace(/\//g, '-'),
@@ -42,8 +43,13 @@ window.WEBINSIGHT.RESOLVE_EVIDENCE_PERIODS = function(records) {
     'PREVIOUS_END':   p.previous.end.replace(/\//g, '-'),
     'TREND_START':    p.trend.start.replace(/\//g, '-'),
     'TREND_END':      p.trend.end.replace(/\//g, '-'),
+    'MAX_DATE':       maxGa4,
     'MAX_DATE_GA4':   maxGa4,
-    'UPDATE_DATE':    d.updatedAt ? d.updatedAt.replace(/\//g, '-') : ''
+    'MAX_DATE_OLD':   maxGa4,
+    'UPDATED_AT':     d.updatedAt ? d.updatedAt.replace(/\//g, '-') : '',
+    'UPDATE_DATE':    d.updatedAt ? d.updatedAt.replace(/\//g, '-') : '',
+    'ACTUAL_RESULT_DATE': maxGa4,
+    'GEO_AUDIT_DATE': g.auditDate || ''
   };
   // period string variants — also handle slash format
   var updatesSlash = {
@@ -53,8 +59,13 @@ window.WEBINSIGHT.RESOLVE_EVIDENCE_PERIODS = function(records) {
     'PREVIOUS_END':   p.previous.end,
     'TREND_START':    p.trend.start,
     'TREND_END':      p.trend.end,
+    'MAX_DATE':       p.current.end,
     'MAX_DATE_GA4':   p.current.end,
-    'UPDATE_DATE':    d.updatedAt || ''
+    'MAX_DATE_OLD':   p.current.end,
+    'UPDATED_AT':     d.updatedAt || '',
+    'UPDATE_DATE':    d.updatedAt || '',
+    'ACTUAL_RESULT_DATE': p.current.end,
+    'GEO_AUDIT_DATE': g.auditDate || ''
   };
   function resolveStr(s) {
     if (typeof s !== 'string') return s;
@@ -64,17 +75,13 @@ window.WEBINSIGHT.RESOLVE_EVIDENCE_PERIODS = function(records) {
     s = s.replace(/\{\{PREVIOUS_END\}\}/g, updates.PREVIOUS_END);
     s = s.replace(/\{\{TREND_START\}\}/g, updates.TREND_START);
     s = s.replace(/\{\{TREND_END\}\}/g, updates.TREND_END);
+    s = s.replace(/\{\{MAX_DATE\}\}/g, updates.MAX_DATE);
     s = s.replace(/\{\{MAX_DATE_GA4\}\}/g, updates.MAX_DATE_GA4);
+    s = s.replace(/\{\{MAX_DATE_OLD\}\}/g, updates.MAX_DATE_OLD);
+    s = s.replace(/\{\{UPDATED_AT\}\}/g, updates.UPDATED_AT);
     s = s.replace(/\{\{UPDATE_DATE\}\}/g, updates.UPDATE_DATE);
-    // also support slash placeholders for period strings
-    s = s.replace(/\{\{CURRENT_START\}\/\}/g, updatesSlash.CURRENT_START);
-    s = s.replace(/\{\{CURRENT_END\}\/\}/g, updatesSlash.CURRENT_END);
-    s = s.replace(/\{\{PREVIOUS_START\}\/\}/g, updatesSlash.PREVIOUS_START);
-    s = s.replace(/\{\{PREVIOUS_END\}\/\}/g, updatesSlash.PREVIOUS_END);
-    s = s.replace(/\{\{TREND_START\}\/\}/g, updatesSlash.TREND_START);
-    s = s.replace(/\{\{TREND_END\}\/\}/g, updatesSlash.TREND_END);
-    s = s.replace(/\{\{MAX_DATE_GA4\}\/\}/g, updatesSlash.MAX_DATE_GA4);
-    s = s.replace(/\{\{UPDATE_DATE\}\/\}/g, updatesSlash.UPDATE_DATE);
+    s = s.replace(/\{\{ACTUAL_RESULT_DATE\}\}/g, updates.ACTUAL_RESULT_DATE);
+    s = s.replace(/\{\{GEO_AUDIT_DATE\}\}/g, updates.GEO_AUDIT_DATE);
     return s;
   }
   function deepResolve(o) {
