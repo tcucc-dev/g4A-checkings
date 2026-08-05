@@ -14,7 +14,13 @@
   <div style="font-size:13px;letter-spacing:.14em;color:#bde8ec;font-weight:800">TCU WEBINSIGHT · MANAGER REPORT · v56</div>
   <h1>資訊科技與管理學系｜GEO × SEO 行銷決策與改善報告</h1>
   <p>一份完整的主管決策報告，整合 GEO 驗收、5 角色視圖、BigQuery 證據報表中心、hover 術語資料庫、與過期頁面偵測。</p>
-  <div class="meta"><span>報告期間：2026/07/27 – 2026/08/02</span><span>資料更新：2026/08/04</span><span>站台：itm.tcu.edu.tw</span><span>資料源：3 張 BigQuery 報表</span><span>內嵌證據儀表板範本 v4.0</span></div>
+  <div class="meta">
+    <span id="reportPeriod">報告期間：2026/07/27 – 2026/08/02</span>
+    <span id="reportUpdatedAt">資料更新：2026/08/04</span>
+    <span id="reportSite">站台：itm.tcu.edu.tw</span>
+    <span id="reportSources">資料源：3 張 BigQuery 報表</span>
+    <span>內嵌證據儀表板範本 v4.0</span>
+  </div>
   <div class="hero-actions"><button onclick="window.print()">列印目前視圖</button><button onclick="setView('all')">完整母報告</button></div>
 </header>
 <div class="tabs">
@@ -47,19 +53,19 @@
 <!-- GEO TOP CARD (v54 advantage: visible in all 5 views) -->
 <section class="section geo-top-card" id="geo-top" data-role="manager marketing web it evidence">
   <div class="geo-ring-wrap">
-    <svg viewBox="0 0 240 240" class="geo-ring-svg" role="img" aria-label="GEO 綜合評分 62/100">
+    <svg viewBox="0 0 240 240" class="geo-ring-svg" role="img" data-geo-aria-label-template="GEO 綜合評分 {score}/{max}">
       <circle cx="120" cy="120" r="100" fill="none" stroke="#fde9d6" stroke-width="22"/>
-      <circle cx="120" cy="120" r="100" fill="none" stroke="#c2410c" stroke-width="22" stroke-dasharray="389.56 238.76" stroke-dashoffset="0" transform="rotate(-90 120 120)" stroke-linecap="butt"/>
-      <text x="120" y="118" text-anchor="middle" font-size="64" font-weight="900" fill="#1e293b" font-family="system-ui,sans-serif">62</text>
-      <text x="120" y="148" text-anchor="middle" font-size="14" fill="#94a3b8" font-weight="700" font-family="system-ui,sans-serif">/100</text>
+      <circle cx="120" cy="120" r="100" fill="none" stroke="#c2410c" stroke-width="22" data-geo-ring-progress stroke-dasharray="389.56 238.76" stroke-dashoffset="0" transform="rotate(-90 120 120)" stroke-linecap="butt"/>
+      <text x="120" y="118" text-anchor="middle" font-size="64" font-weight="900" fill="#1e293b" font-family="system-ui,sans-serif" data-geo-score-text>62</text>
+      <text x="120" y="148" text-anchor="middle" font-size="14" fill="#94a3b8" font-weight="700" font-family="system-ui,sans-serif" data-geo-max-text>/100</text>
     </svg>
   </div>
   <div class="geo-info">
     <div class="geo-info-head">
       <div class="geo-info-left">
-        <div class="geo-eyebrow">itm.tcu.edu.tw GEO 自評（v56 hybrid）</div>
-        <div class="geo-headline">62<span class="geo-headline-sub">/100</span></div>
-        <div class="geo-subscores" data-test="geo-subscores"><div><span>主題清楚度（網站主題是否明確）</span> <strong>11／20</strong></div><div><span>招生資訊完整度（能否回答學生和家長的問題）</span> <strong>18／20</strong></div><div><span>可信度（聯絡資訊和地址是否完整）</span> <strong>20／20</strong></div><div><span>內容深度（網站章節數和說明完整性）</span> <strong>11／20</strong></div><div><span>技術名片（社群分享和搜尋預覽標籤）</span> <strong>2／20</strong></div></div>
+        <div class="geo-eyebrow" data-geo-eyebrow>itm.tcu.edu.tw GEO 自評（v56 hybrid）</div>
+        <div class="geo-headline" data-geo-headline>62<span class="geo-headline-sub">/100</span></div>
+        <div class="geo-subscores" data-geo-subscores data-test="geo-subscores"><div><span>主題清楚度（網站主題是否明確）</span> <strong>11／20</strong></div><div><span>招生資訊完整度（能否回答學生和家長的問題）</span> <strong>18／20</strong></div><div><span>可信度（聯絡資訊和地址是否完整）</span> <strong>20／20</strong></div><div><span>內容深度（網站章節數和說明完整性）</span> <strong>11／20</strong></div><div><span>技術名片（社群分享和搜尋預覽標籤）</span> <strong>2／20</strong></div></div>
       </div>
       <div class="geo-info-right">
         <div class="geo-pills" role="tablist" aria-label="報告視角切換">
@@ -68,8 +74,8 @@
         </div>
       </div>
     </div>
-    <div class="geo-summary boss">目前這個系所網站 GEO 基礎大約 <strong>62 分（待加強）</strong>。<br><br>簡單說三件事：<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>內容介紹完整 — 資訊科技與管理系的課程（大數據、雲端、互動多媒體）、師資、招生資訊都有，但缺少讓搜尋引擎讀懂的「資料名片」。<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>分享預覽失效 — 當系友把網站貼到 LINE 或 Facebook 時，看不到系所名稱與簡介（缺技術名片）。<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>改版有倒退 — 自上次更新，JSON-LD 結構化資料被移除、canonical 與 hreflang 標記也被移除；62 分需要重新補齊這些技術標籤。</div>
-    <div class="geo-summary tech">[GEO audit @ 2026-08-04] Crawl results: https://itm.tcu.edu.tw/<br>
+    <div class="geo-summary boss" data-geo-manager>目前這個系所網站 GEO 基礎大約 <strong>62 分（待加強）</strong>。<br><br>簡單說三件事：<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>內容介紹完整 — 資訊科技與管理系的課程（大數據、雲端、互動多媒體）、師資、招生資訊都有，但缺少讓搜尋引擎讀懂的「資料名片」。<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>分享預覽失效 — 當系友把網站貼到 LINE 或 Facebook 時，看不到系所名稱與簡介（缺技術名片）。<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>改版有倒退 — 自上次更新，JSON-LD 結構化資料被移除、canonical 與 hreflang 標記也被移除；62 分需要重新補齊這些技術標籤。</div>
+    <div class="geo-summary tech" data-geo-technical>[GEO audit @ 2026-08-04] Crawl results: https://itm.tcu.edu.tw/<br>
 <strong>✓ 已實作：</strong><br>
   <strong>1.</strong> <code>&lt;h1&gt;</code> × 2（標題結構問題 — 出現兩個 H1，應合併為單一標題）<br>
   <strong>2.</strong> <code>&lt;h2&gt;</code> × 13（heading hierarchy OK，內容深度提升）<br>

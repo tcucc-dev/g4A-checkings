@@ -1,10 +1,16 @@
 // ===== Entry: Vite ES module =====
 // These imports trigger side-effect init scripts loaded sequentially after DOM ready.
-import './data.js';          // sets window.WEBINSIGHT.DATA
-import './evidence.js';      // EVIDENCE_REPORTS + helpers
-import './glossary.js';      // glossary+tooltip
-import './geo-toggle.js';    // 主管/技術人員 pill
-import './app.js';           // KPI/decisions/etc renderer
+// Order matters: data → validation → renderers → app (so renderers can validate + use REPORT_DATA).
+import './generated-report-data.js';   // window.WEBINSIGHT.REPORT_DATA (single source of truth)
+import './generated-evidence-data.js'; // window.WEBINSIGHT.EVIDENCE_REPORTS_RAW (with date placeholders)
+import './report-validation.js';       // validates REPORT_DATA + EVIDENCE_REPORTS_RAW
+import './report-renderer.js';         // renders header dates + GEO (calculated from sub-scores)
+import './evidence-renderer.js';       // EVIDENCE_REPORTS renderers (filters, sort, paginate, CSV, charts)
+import './data.js';                    // legacy compat — sets window.WEBINSIGHT.DATA = REPORT_DATA.metrics
+import './evidence.js';                // legacy compat — sets window.WEBINSIGHT.EVIDENCE_REPORTS = resolved
+import './glossary.js';                // glossary+tooltip
+import './geo-toggle.js';              // 主管/技術人員 pill
+import './app.js';                     // KPI/decisions/etc renderer
 // main.js itself (below) handles Three.js BG + glossary per-v49 logic.
 // Three.js + glossary logic from v49 already lives in main.js body (this file).
 
