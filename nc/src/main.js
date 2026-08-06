@@ -1,9 +1,13 @@
 // ===== Entry: Vite ES module =====
 // These imports trigger side-effect init scripts loaded sequentially after DOM ready.
-// Order matters: data → shim → evidence → renderers → app (so app.js can read DATA).
+// Order matters: data → validation → renderers → app (mirrors ITM).
+// (Step 4 will add generated-evidence-data.js before evidence.js; not yet generated.)
 import './generated-report-data.js'; // window.WEBINSIGHT.REPORT_DATA (single source of truth)
+import './report-validation.js';       // validates REPORT_DATA structure (ok/errors/warnings)
+import './report-renderer.js';         // renders header dates + GEO (no-op if DOM hooks absent)
+import './evidence-renderer.js';       // EVIDENCE_REPORTS renderer (filters/sort/paginate/CSV/charts)
 import './template_data.js';          // legacy compat — sets window.WEBINSIGHT.DATA = REPORT_DATA.metrics
-import './evidence.js';      // EVIDENCE_REPORTS + helpers
+import './evidence.js';      // EVIDENCE_REPORTS + helpers (legacy 72KB; Step 4 will split into shim + generated-evidence-data.js)
 import './glossary.js';      // glossary+tooltip
 import '/nc/geo-toggle.js';    // 主管/技術人員 pill
 import './app.js';           // KPI/decisions/etc renderer
