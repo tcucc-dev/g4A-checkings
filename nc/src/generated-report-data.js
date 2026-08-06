@@ -5,8 +5,8 @@
 // All other files (index.html, app.js, main.js, evidence-renderer.js,
 // report-renderer.js) read from window.WEBINSIGHT.REPORT_DATA.
 //
-// Latest refresh: 2026-08-03 (Mon)
-// Cutoff (smallest max_date across 3 sources): 2026-08-02
+// Latest refresh: 2026-08-06 (Thu)
+// Cutoff (smallest max_date across 3 sources): 2026-08-02 (GSC); GA4 through 2026-08-03
 // Site: 護理學系 (nc.tcu.edu.tw)
 //
 // Migration note (2026-08-06, NC migration): this file now contains the FULL
@@ -21,8 +21,15 @@ window.WEBINSIGHT.REPORT_DATA = {
     siteName: "護理學系",
     siteDomain: "nc.tcu.edu.tw",
     reportVersion: "v56",
-    updatedAt: "2026/08/03",
-    sourceCount: 3
+    updatedAt: "2026/08/06",
+    sourceCount: 3,
+    maxDateGa4: "2026-08-03",
+    maxDateGsc: "2026-08-02",
+    // 2026-08-06 patch: previous KPI values (574/617/293/5.78%) were inflated
+    // vs ground-truth BigQuery. Replaced with: users=194, sessions=261,
+    // gsc_clicks=111, gsc_ctr=4.09%. Source queries used in fix:
+    //   site_name='護理學院' AND date BETWEEN '2026-07-27' AND '2026-08-02'
+    patchedFromBq: true
   },
 
   periods: {
@@ -36,15 +43,15 @@ window.WEBINSIGHT.REPORT_DATA = {
   metrics: {
     weeks:["07/27","07/28","07/29","07/30","07/31","08/01","08/02"],
     kpis:[
-{k:"本週造訪人數",v:"574",trend:"+13.4%",avg:"前 7 天",up:true,desc:"近 7 天有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[94, 99, 75, 80, 87, 64, 75]},
-{k:"本週工作階段",v:"617",trend:"+12.4%",avg:"前 7 天",up:true,desc:"近 7 天網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[101, 107, 86, 86, 95, 66, 76]},
-{k:"Google 搜尋點擊",v:"293",trend:"+7.7%",avg:"前 7 天",up:true,desc:"近 7 天從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[51, 38, 34, 46, 34, 35, 55]},
-{k:"Google 搜尋點擊率",v:"5.78%",trend:"-6.5%",avg:"前 7 天平均",up:false,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[51, 38, 34, 46, 34, 35, 55]}
+{k:"本週造訪人數",v:"194",trend:"+16.9%",avg:"前 7 天",up:true,desc:"近 7 天有幾個獨立訪客實際造訪了網站",src:"all_units_summary｜GA4-USERS-001",spark:[44, 52, 58, 38, 42, 19, 8]},
+{k:"本週工作階段",v:"261",trend:"+29.2%",avg:"前 7 天",up:true,desc:"近 7 天網站被造訪的次數（含重複訪客）",src:"all_units_summary｜GA4-SESSIONS-001",spark:[37, 46, 52, 37, 36, 19, 8]},
+{k:"Google 搜尋點擊",v:"111",trend:"-1.8%",avg:"前 7 天",up:false,desc:"近 7 天從 Google 搜尋點進來的人數",src:"all_gsc_summary｜GSC-KPI-001",spark:[20, 15, 13, 14, 23, 14, 12]},
+{k:"Google 搜尋點擊率",v:"4.09%",trend:"+0.4%",avg:"前 7 天平均",up:true,desc:"看到搜尋結果後真的點進來的比率",src:"all_gsc_summary｜GSC-CTR-001",spark:[20, 15, 13, 14, 23, 14, 12]}
 ],
-    traffic:{a:[101,107,86,86,95,66,76],b:[176,182,130,179,170,95,96]},
-    search:{a:[829,769,656,773,669,526,849],b:[51,38,34,46,34,35,55]},
+    traffic:{a:[44,52,58,38,42,19,8],b:[71,73,173,97,112,24,9]},
+    search:{a:[640,356,402,346,387,278,304],b:[23,21,23,18,14,5,7]},
     funnel:{a:[26, 26, 28, 31, 26, 21, 19],b:[28, 72, 52, 49, 42, 31, 24],c:[0,0,0,0,0,0,0]},
-    audience:{total:202,country:[{name:"Taiwan",sessions:149,users:115,share:73.8},{name:"China",sessions:35,users:35,share:17.3},{name:"United States",sessions:5,users:4,share:2.5},{name:"Singapore",sessions:4,users:4,share:2.0}],device:[{name:"desktop",sessions:131,users:100,share:64.9},{name:"tablet",sessions:2,users:2,share:1.0},{name:"mobile",sessions:69,users:64,share:34.2}],source:[{name:"(direct)/(none)",medium:"other",sessions:118,users:94,share:58.4},{name:"google/organic",medium:"organic",sessions:82,users:70,share:40.6},{name:"yahoo/organic",medium:"organic",sessions:1,users:1,share:0.5},{name:"chatgpt.com/ai-assistant",medium:"ai",sessions:1,users:1,share:0.5}]},
+    audience:{total:261,country:[{name:"Taiwan",sessions:149,users:115,share:73.8},{name:"China",sessions:35,users:35,share:17.3},{name:"United States",sessions:5,users:4,share:2.5},{name:"Singapore",sessions:4,users:4,share:2.0}],device:[{name:"desktop",sessions:131,users:100,share:64.9},{name:"tablet",sessions:2,users:2,share:1.0},{name:"mobile",sessions:69,users:64,share:34.2}],source:[{name:"(direct)/(none)",medium:"other",sessions:118,users:94,share:58.4},{name:"google/organic",medium:"organic",sessions:82,users:70,share:40.6},{name:"yahoo/organic",medium:"organic",sessions:1,users:1,share:0.5},{name:"chatgpt.com/ai-assistant",medium:"ai",sessions:1,users:1,share:0.5}]},
     decisions: [],
     issues: [],
     webRows: [],
