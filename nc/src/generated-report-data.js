@@ -51,7 +51,7 @@ window.WEBINSIGHT.REPORT_DATA = {
     traffic:{a:[44,52,58,38,42,19,8],b:[71,73,173,97,112,24,9]},
     search:{a:[640,356,402,346,387,278,304],b:[23,21,23,18,14,5,7]},
     funnel:{a:[26, 26, 28, 31, 26, 21, 19],b:[28, 72, 52, 49, 42, 31, 24],c:[0,0,0,0,0,0,0]},
-    audience:{total:261,country:[{name:"Taiwan",sessions:149,users:115,share:73.8},{name:"China",sessions:35,users:35,share:17.3},{name:"United States",sessions:5,users:4,share:2.5},{name:"Singapore",sessions:4,users:4,share:2.0}],device:[{name:"desktop",sessions:131,users:100,share:64.9},{name:"tablet",sessions:2,users:2,share:1.0},{name:"mobile",sessions:69,users:64,share:34.2}],source:[{name:"(direct)/(none)",medium:"other",sessions:118,users:94,share:58.4},{name:"google/organic",medium:"organic",sessions:82,users:70,share:40.6},{name:"yahoo/organic",medium:"organic",sessions:1,users:1,share:0.5},{name:"chatgpt.com/ai-assistant",medium:"ai",sessions:1,users:1,share:0.5}]},
+    audience:{total:261,country:[{name:"Taiwan",sessions:212,users:147,share:81.2},{name:"China",sessions:35,users:35,share:13.4},{name:"Singapore",sessions:4,users:3,share:1.5},{name:"United States",sessions:3,users:3,share:1.1}],device:[{name:"desktop",sessions:181,users:123,share:69.3},{name:"mobile",sessions:81,users:72,share:31.0}],source:[{name:"(direct)/(none)",medium:"other",sessions:148,users:104,share:56.7},{name:"google/organic",medium:"organic",sessions:105,users:83,share:40.2},{name:"chatgpt.com/ai-assistant",medium:"ai",sessions:2,users:2,share:0.8},{name:"perplexity.ai/ai-assistant",medium:"ai",sessions:2,users:1,share:0.8}]},
     decisions: [],
     issues: [],
     webRows: [],
