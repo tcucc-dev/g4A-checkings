@@ -85,43 +85,44 @@ window.WEBINSIGHT.REPORT_DATA = {
     terms:["慈濟大學","慈大","慈濟","Tzu Chi","TCU","tcu","護理","護理學院","護理系","nc","ncu"],
   },
   brand_split:[
-    {month:"05/01", brand_pct:15.1, nonbrand_pct:84.9, brand_imp:2167, brand_clicks:73, nonbrand_imp:12195, nonbrand_clicks:538},
-    {month:"06/01", brand_pct:13.6, nonbrand_pct:86.4, brand_imp:1761, brand_clicks:59, nonbrand_imp:11200, nonbrand_clicks:551},
-    {month:"07/01", brand_pct:19.0, nonbrand_pct:81.0, brand_imp:1735, brand_clicks:45, nonbrand_imp:7406, nonbrand_clicks:280}
+    {month:"2026-05", brand_pct:55.4, nonbrand_pct:44.6, brand_imp:2496, brand_clicks:81, nonbrand_imp:2013, nonbrand_clicks:105},
+    {month:"2026-06", brand_pct:56.2, nonbrand_pct:43.8, brand_imp:2373, brand_clicks:69, nonbrand_imp:1850, nonbrand_clicks:135},
+    {month:"2026-07", brand_pct:62.6, nonbrand_pct:37.4, brand_imp:2771, brand_clicks:64, nonbrand_imp:1658, nonbrand_clicks:84},
+    {month:"2026-08", brand_pct:49.6, nonbrand_pct:50.4, brand_imp:136, brand_clicks:3, nonbrand_imp:138, nonbrand_clicks:4}
   ],
   // Per-keyword table — feeds 'Top 10 brand' and 'Top 10 non-brand' tables.
   // 2026-07-27 至 2026-08-02 for 2026-07-27 至 2026-08-02 period (7 days).
   keyword_rows:[
-    {query:"site:nc.tcu.edu.tw",                       cls:"brand",    imp:170, clicks:0, sum_position:10480, landing:"/"},
-    {query:"liyun kuo",                                cls:"nonbrand", imp:80,  clicks:1, sum_position:614,  landing:"/p/406-1014-64703,r1026.php"},
-    {query:"慈濟護專",                                 cls:"brand",    imp:63,  clicks:3, sum_position:566,  landing:"/"},
-    {query:"慈濟大學護理系",                            cls:"brand",    imp:63,  clicks:0, sum_position:241,  landing:"/p/403-1014-1026-1.php"},
-    {query:"慈濟大學護理學院",                          cls:"brand",    imp:60,  clicks:9, sum_position:0,    landing:"/"},
-    {query:"林玉娟",                                   cls:"nonbrand", imp:40,  clicks:0, sum_position:30,   landing:"/p/406-1014-64714,r1029.php"},
-    {query:"慈濟大學護理",                             cls:"brand",    imp:38,  clicks:1, sum_position:144,  landing:"/"},
-    {query:"慈濟大學護理科",                            cls:"brand",    imp:30,  clicks:1, sum_position:103,  landing:"/p/403-1014-1026-1.php"},
-    {query:"曹英",                                     cls:"nonbrand", imp:26,  clicks:2, sum_position:52,   landing:"/p/406-1014-64708,r1026.php"},
-    {query:"site:nc.tcust.edu.tw",                     cls:"brand",    imp:24,  clicks:0, sum_position:111,  landing:"/"},
-    {query:"慈濟大學護理系老師",                        cls:"brand",    imp:22,  clicks:3, sum_position:130,  landing:"/p/406-1014-64715,r1027.php"},
-    {query:"賴惠玲",                                   cls:"nonbrand", imp:22,  clicks:0, sum_position:99,   landing:"/p/406-1014-64699,r1026.php"},
-    {query:"護理大學",                                 cls:"brand",    imp:22,  clicks:0, sum_position:163,  landing:"/"},
-    {query:"慈濟大學護理學系",                          cls:"brand",    imp:21,  clicks:0, sum_position:99,   landing:"/p/403-1014-1026-1.php"},
-    {query:"慈濟大學 護理學系",                         cls:"brand",    imp:21,  clicks:0, sum_position:99,   landing:"/p/403-1014-1026-1.php"},
-    {query:"邱曉彥",                                   cls:"nonbrand", imp:20,  clicks:2, sum_position:134,  landing:"/p/406-1014-64702,r1026.php"},
-    {query:"楊美玲",                                   cls:"nonbrand", imp:18,  clicks:1, sum_position:46,   landing:"/p/406-1014-64699,r1026.php"},
-    {query:"陸秀芳",                                   cls:"nonbrand", imp:18,  clicks:3, sum_position:54,   landing:"/p/406-1014-64707,r1026.php"},
-    {query:"羅淑芬",                                   cls:"nonbrand", imp:15,  clicks:0, sum_position:105,  landing:"/p/406-1014-64702,r1026.php"},
-    {query:"慈濟護理科",                                cls:"brand",    imp:14,  clicks:0, sum_position:74,   landing:"/"},
-    {query:"李崇仁",                                   cls:"nonbrand", imp:13,  clicks:4, sum_position:5,    landing:"/p/406-1014-64729,r1027.php"},
-    {query:"慈濟大學 護理系",                          cls:"brand",    imp:12,  clicks:1, sum_position:39,   landing:"/p/403-1014-1026-1.php"},
-    {query:"慈濟護理",                                 cls:"brand",    imp:12,  clicks:1, sum_position:16,   landing:"/"},
-    {query:"吳素月",                                   cls:"nonbrand", imp:11,  clicks:0, sum_position:1,    landing:"/p/406-1014-64726,r1027.php"},
-    {query:"陳佳蓉",                                   cls:"nonbrand", imp:11,  clicks:2, sum_position:52,   landing:"/p/403-1014-1026-1.php"},
-    {query:"周桂如",                                   cls:"nonbrand", imp:11,  clicks:0, sum_position:67,   landing:"/p/16-1014-65224.php"},
-    {query:"li yun kuo 醫生娘",                         cls:"nonbrand", imp:11,  clicks:0, sum_position:43,   landing:"/p/406-1014-64703,r1026.php"},
-    {query:"護理學院",                                 cls:"brand",    imp:10,  clicks:0, sum_position:53,   landing:"/"},
-    {query:"馬玉琴",                                   cls:"nonbrand", imp:10,  clicks:0, sum_position:52,   landing:"/"},
-    {query:"王淑芳",                                   cls:"nonbrand", imp:10,  clicks:0, sum_position:113,  landing:"/p/406-1014-64698,r1034.php"}
+    {query:"(空白查詢)", cls:"nonbrand", imp:1545, clicks:67, sum_position:11093, landing:"https://nc.tcu.edu.tw/"},
+    {query:"site:nc.tcu.edu.tw", cls:"brand", imp:170, clicks:0, sum_position:9865, landing:"https://nc.tcu.edu.tw/"},
+    {query:"慈濟大學護理系", cls:"brand", imp:81, clicks:0, sum_position:304, landing:"https://nc.tcu.edu.tw/"},
+    {query:"慈濟大學護理學院", cls:"brand", imp:75, clicks:9, sum_position:0, landing:"https://nc.tcu.edu.tw/"},
+    {query:"曹英", cls:"nonbrand", imp:72, clicks:18, sum_position:168, landing:"https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php"},
+    {query:"林玉娟", cls:"nonbrand", imp:62, clicks:0, sum_position:91, landing:"https://nc.tcu.edu.tw/p/406-1014-64705,r1026.php"},
+    {query:"site:nc.tcust.edu.tw", cls:"brand", imp:55, clicks:0, sum_position:1245, landing:"https://nc.tcu.edu.tw/app/index.php"},
+    {query:"周桂如", cls:"nonbrand", imp:52, clicks:0, sum_position:265, landing:"https://nc.tcu.edu.tw/p/16-1014-65224.php"},
+    {query:"慈濟大學護理學系", cls:"brand", imp:48, clicks:2, sum_position:235, landing:"https://nc.tcu.edu.tw/"},
+    {query:"慈濟大學護理", cls:"brand", imp:41, clicks:0, sum_position:152, landing:"https://nc.tcu.edu.tw/"},
+    {query:"李崇仁", cls:"nonbrand", imp:36, clicks:3, sum_position:7, landing:"https://nc.tcu.edu.tw/p/406-1014-64729,r1027.php"},
+    {query:"慈濟大學 護理學系", cls:"brand", imp:28, clicks:0, sum_position:141, landing:"https://nc.tcu.edu.tw/"},
+    {query:"慈濟大學護理系老師", cls:"brand", imp:27, clicks:1, sum_position:144, landing:"https://nc.tcu.edu.tw/p/403-1014-1026-1.php"},
+    {query:"慈濟大學護理科", cls:"brand", imp:26, clicks:0, sum_position:99, landing:"https://nc.tcu.edu.tw/"},
+    {query:"楊美玲", cls:"nonbrand", imp:25, clicks:0, sum_position:72, landing:"https://nc.tcu.edu.tw/p/406-1014-64730,r1027.php"},
+    {query:"賴惠玲", cls:"nonbrand", imp:24, clicks:1, sum_position:134, landing:"https://nc.tcu.edu.tw/p/406-1014-64699,r1026.php"},
+    {query:"王淑芳", cls:"nonbrand", imp:22, clicks:0, sum_position:82, landing:"https://nc.tcu.edu.tw/p/406-1014-64698,r1034.php"},
+    {query:"慈濟護專", cls:"brand", imp:21, clicks:0, sum_position:167, landing:"https://nc.tcu.edu.tw/"},
+    {query:"邱曉彥", cls:"nonbrand", imp:21, clicks:3, sum_position:201, landing:"https://nc.tcu.edu.tw/p/406-1014-65223,r1051.php"},
+    {query:"護理學院", cls:"brand", imp:19, clicks:1, sum_position:119, landing:"https://nc.tcu.edu.tw/"},
+    {query:"羅淑芬", cls:"nonbrand", imp:17, clicks:0, sum_position:100, landing:"https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php"},
+    {query:"陳佳蓉", cls:"nonbrand", imp:15, clicks:0, sum_position:70, landing:"https://nc.tcu.edu.tw/p/406-1014-65180,r1020.php"},
+    {query:"慈濟護理", cls:"brand", imp:13, clicks:0, sum_position:16, landing:"https://nc.tcu.edu.tw/"},
+    {query:"慈濟護理系", cls:"brand", imp:12, clicks:1, sum_position:34, landing:"https://nc.tcu.edu.tw/"},
+    {query:"慈濟護理科", cls:"brand", imp:11, clicks:0, sum_position:49, landing:"https://nc.tcu.edu.tw/"},
+    {query:"吳素月", cls:"nonbrand", imp:10, clicks:2, sum_position:1, landing:"https://nc.tcu.edu.tw/p/406-1014-64726,r1027.php"},
+    {query:"慈濟副院長", cls:"brand", imp:10, clicks:0, sum_position:83, landing:"https://nc.tcu.edu.tw/p/403-1014-1034-1.php"},
+    {query:"蔡淑鳳", cls:"nonbrand", imp:9, clicks:0, sum_position:71, landing:"https://nc.tcu.edu.tw/p/16-1014-65001.php"},
+    {query:"護理大學", cls:"brand", imp:7, clicks:0, sum_position:52, landing:"https://nc.tcu.edu.tw/"},
+    {query:"陸秀芳", cls:"nonbrand", imp:6, clicks:0, sum_position:0, landing:"https://nc.tcu.edu.tw/p/406-1014-64707,r1026.php"}
   ],
 
   // ===== Block 4 — 內容效益矩陣 =====
@@ -162,10 +163,14 @@ window.WEBINSIGHT.REPORT_DATA = {
   // Quality: avg_eng_sec_per_session = SUM(eng_sec)/sessions.
   // 2026-07-27 至 2026-08-02 for 2026-07-27 至 2026-08-02 period (7 days).
   traffic_quality:[
-    {group:"Direct",          source:"(direct)",      medium:"(none)",      sessions:119, users:94,  avg_eng_sec_per_session:19.4, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"足夠"},
-    {group:"Organic Search",  source:"google",        medium:"organic",      sessions:83,  users:70,  avg_eng_sec_per_session:26.8, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"足夠"},
-    {group:"Organic Search",  source:"yahoo",         medium:"organic",      sessions:1,   users:1,   avg_eng_sec_per_session:25.1, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"樣本較少"},
-    {group:"AI Referral",     source:"chatgpt.com",   medium:"ai-assistant",  sessions:1,   users:1,   avg_eng_sec_per_session:9.9,  internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"樣本較少"}
+    {group:"Direct", source:"(direct)", medium:"(none)", sessions:148, users:104, avg_eng_sec_per_session:43.8, internal_clicks:0, downloads:4, cta_clicks:25, sample_note:"足夠"},
+    {group:"Organic Search", source:"google", medium:"organic", sessions:105, users:83, avg_eng_sec_per_session:27.4, internal_clicks:0, downloads:3, cta_clicks:2, sample_note:"足夠"},
+    {group:"AI Referral", source:"chatgpt.com", medium:"ai-assistant", sessions:2, users:2, avg_eng_sec_per_session:1.5, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"樣本較少"},
+    {group:"Referral", source:"reporttcu-git-main-tcucc.vercel.app", medium:"referral", sessions:2, users:1, avg_eng_sec_per_session:296.5, internal_clicks:0, downloads:0, cta_clicks:1, sample_note:"樣本較少"},
+    {group:"AI Referral", source:"perplexity.ai", medium:"ai-assistant", sessions:2, users:1, avg_eng_sec_per_session:0, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"樣本較少"},
+    {group:"Referral", source:"cse.google.com", medium:"referral", sessions:1, users:1, avg_eng_sec_per_session:40.7, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"資料不足"},
+    {group:"Referral", source:"tw.search.yahoo.com", medium:"referral", sessions:1, users:1, avg_eng_sec_per_session:14.5, internal_clicks:0, downloads:0, cta_clicks:1, sample_note:"資料不足"},
+    {group:"Organic Search", source:"bing", medium:"organic", sessions:1, users:1, avg_eng_sec_per_session:74.1, internal_clicks:0, downloads:0, cta_clicks:0, sample_note:"資料不足"}
   ],
 
   // ===== Block 6 — AI 搜尋 =====
@@ -183,27 +188,28 @@ window.WEBINSIGHT.REPORT_DATA = {
   },
   ai_timeseries:[],
   ai_platforms:[
-    {platform:"ChatGPT",    sessions:2, users:2, landing_page:"/", avg_eng_sec:9.9, internal_clicks:0, sample_note:"樣本較少"},
+    {platform:"ChatGPT", sessions:4, users:3, landing_page:"-", avg_eng_sec:0.7, internal_clicks:0, sample_note:"樣本較少"},
     {platform:"Perplexity", sessions:0, users:0, landing_page:"-", avg_eng_sec:0, internal_clicks:0, sample_note:"資料不足"},
-    {platform:"Gemini",     sessions:0, users:0, landing_page:"-", avg_eng_sec:0, internal_clicks:0, sample_note:"資料不足"},
-    {platform:"Copilot",    sessions:0, users:0, landing_page:"-", avg_eng_sec:0, internal_clicks:0, sample_note:"資料不足"},
-    {platform:"Claude",     sessions:0, users:0, landing_page:"-", avg_eng_sec:0, internal_clicks:0, sample_note:"資料不足"}
+    {platform:"Gemini", sessions:0, users:0, landing_page:"-", avg_eng_sec:0, internal_clicks:0, sample_note:"資料不足"},
+    {platform:"Copilot", sessions:0, users:0, landing_page:"-", avg_eng_sec:0, internal_clicks:0, sample_note:"資料不足"},
+    {platform:"Claude", sessions:0, users:0, landing_page:"-", avg_eng_sec:0, internal_clicks:0, sample_note:"資料不足"}
   ],
-  ai_total_period_sessions:2,
+  ai_total_period_sessions:4,
 
   // ===== Block 7 — 招生意圖與 CTA 行動 =====
   // 2026-07-27 至 2026-08-02 for 2026-07-27 至 2026-08-02 period (7 days).
   cta_funnel:[
-    {cta_category:"其他連結",            distinct_links:2, sessions:8,   users:5,   sample_note:"樣本較少"},
-    {cta_category:"招生簡章",            distinct_links:0, sessions:0,   users:0,   sample_note:"資料不足"},
-    {cta_category:"下載文件 (PDF/DOC/XLSX)", distinct_links:0, sessions:0,   users:0,   sample_note:"資料不足"},
-    {cta_category:"入學方式",            distinct_links:0, sessions:0,   users:0,   sample_note:"資料不足"},
-    {cta_category:"LINE",                 distinct_links:0, sessions:0,   users:0,   sample_note:"資料不足"},
-    {cta_category:"電話",                 distinct_links:0, sessions:0,   users:0,   sample_note:"資料不足"},
-    {cta_category:"Email",                distinct_links:0, sessions:0,   users:0,   sample_note:"資料不足"},
-    {cta_category:"報名系統",            distinct_links:0, sessions:0,   users:0,   sample_note:"資料不足"},
-    {cta_category:"聯絡表單",            distinct_links:0, sessions:0,   users:0,   sample_note:"資料不足"}
+    {cta_category:"招生簡章", distinct_links:2, sessions:6, users:5, sample_note:"足夠"},
+    {cta_category:"下載文件 (PDF/DOC/XLSX)", distinct_links:6, sessions:6, users:6, sample_note:"足夠"},
+    {cta_category:"入學方式", distinct_links:0, sessions:0, users:0, sample_note:"資料不足"},
+    {cta_category:"LINE", distinct_links:0, sessions:0, users:0, sample_note:"資料不足"},
+    {cta_category:"電話", distinct_links:0, sessions:0, users:0, sample_note:"資料不足"},
+    {cta_category:"Email", distinct_links:0, sessions:0, users:0, sample_note:"資料不足"},
+    {cta_category:"報名系統", distinct_links:0, sessions:0, users:0, sample_note:"資料不足"},
+    {cta_category:"聯絡表單", distinct_links:0, sessions:0, users:0, sample_note:"資料不足"},
+    {cta_category:"其他連結", distinct_links:77, sessions:66, users:48, sample_note:"足夠"}
   ],
+  
   cta_links:[
     {category:"LINE",         link_text:"加入 NC LINE 群組",      source_page:"首頁",            destination:"https://line.me/R/ti/p/nc-tcu",         clicks:2,  users:2,  valid_rate:1.0},
     {category:"招生簡章",     link_text:"招生入學方式",                  source_page:"入學方式",        destination:"/p/404-1022-36099.php",                clicks:4,  users:4,  valid_rate:1.0},
@@ -214,37 +220,42 @@ window.WEBINSIGHT.REPORT_DATA = {
   // ===== Block 8 — 國際訪客品質 =====
   // 2026-07-27 至 2026-08-02 for 2026-07-27 至 2026-08-02 period (7 days).
   international:[
-    {country:"臺灣",     sessions:153, users:117, avg_eng_sec:28.7, top_landing:"/",                                       admission_cta:0, contact_click:0, sample_note:"足夠"},
-    {country:"中國",     sessions:34,  users:34,  avg_eng_sec:1.4,  top_landing:"/?Lang=zh-tw",                            admission_cta:0, contact_click:0, sample_note:"足夠"},
-    {country:"美國",     sessions:4,   users:3,   avg_eng_sec:4.7,  top_landing:"/",                                       admission_cta:0, contact_click:0, sample_note:"樣本較少"},
-    {country:"香港",     sessions:4,   users:3,   avg_eng_sec:9.4,  top_landing:"/",                                       admission_cta:0, contact_click:0, sample_note:"樣本較少"},
-    {country:"馬來西亞", sessions:1,   users:1,   avg_eng_sec:5.8,  top_landing:"/",                                       admission_cta:0, contact_click:0, sample_note:"樣本較少"},
-    {country:"日本",     sessions:1,   users:1,   avg_eng_sec:24.9, top_landing:"/",                                       admission_cta:0, contact_click:0, sample_note:"樣本較少"},
-    {country:"其他",     sessions:6,   users:6,   avg_eng_sec:0,    top_landing:"-",                                       admission_cta:0, contact_click:0, sample_note:"資料不足"}
+    {country:"Taiwan", sessions:212, users:147, avg_eng_sec:46.0, top_landing:"https://nc.tcu.edu.tw/", admission_cta:12, contact_click:0, sample_note:"足夠"},
+    {country:"China", sessions:35, users:35, avg_eng_sec:1.4, top_landing:"https://nc.tcu.edu.tw/p/406-1014-64708,r1026.php", admission_cta:0, contact_click:0, sample_note:"足夠"},
+    {country:"其他", sessions:14, users:12, avg_eng_sec:21.1, top_landing:"-", admission_cta:0, contact_click:0, sample_note:"足夠"}
   ],
 
   // ===== Block 9 — 使用者路徑／下一步 =====
   // 2026-07-27 至 2026-08-02 for 2026-07-27 至 2026-08-02 period (7 days).
   // via ROW_NUMBER() OVER (PARTITION BY session ORDER BY event_timestamp).
   user_paths:[
-    {landing:"/",                                          second_page:"/",                                          exit_action:"瀏覽後離開", sessions:71, exit_share:0.92},
-    {landing:"/index.php",                                second_page:"/index.php",                                exit_action:"瀏覽後離開", sessions:5,  exit_share:1.00},
-    {landing:"/p/412-1014-4969.php",                      second_page:"/p/412-1014-4969.php",                      exit_action:"瀏覽後離開", sessions:8,  exit_share:1.00},
-    {landing:"/p/412-1014-2992.php",                      second_page:"/p/412-1014-2992.php",                      exit_action:"瀏覽後離開", sessions:17, exit_share:0.94},
-    {landing:"/p/412-1014-4932.php",                      second_page:"/p/412-1014-4932.php",                      exit_action:"瀏覽後離開", sessions:10, exit_share:1.00},
-    {landing:"/p/412-1014-4934.php",                      second_page:"/p/412-1014-4934.php",                      exit_action:"瀏覽後離開", sessions:7,  exit_share:0.86},
-    {landing:"/p/406-1014-65180,r1020.php",               second_page:"/p/406-1014-65180,r1020.php",               exit_action:"瀏覽後離開", sessions:5,  exit_share:1.00},
-    {landing:"/p/406-1014-65941,r1023.php",               second_page:"/p/406-1014-65941,r1023.php",               exit_action:"瀏覽後離開", sessions:5,  exit_share:1.00},
-    {landing:"/p/403-1014-1026-1.php",                    second_page:"/p/403-1014-1026-1.php",                    exit_action:"瀏覽後離開", sessions:6,  exit_share:1.00},
-    {landing:"/p/406-1014-64715,r1027.php",               second_page:"/p/406-1014-64715,r1027.php",               exit_action:"瀏覽後離開", sessions:6,  exit_share:1.00},
-    {landing:"/p/406-1014-64702,r1026.php",               second_page:"/p/406-1014-64702,r1026.php",               exit_action:"瀏覽後離開", sessions:5,  exit_share:1.00},
-    {landing:"/p/406-1014-64729,r1027.php",               second_page:"/p/406-1014-64729,r1027.php",               exit_action:"瀏覽後離開", sessions:5,  exit_share:1.00},
-    {landing:"/p/406-1014-64707,r1026.php",               second_page:"/p/406-1014-64707,r1026.php",               exit_action:"瀏覽後離開", sessions:3,  exit_share:1.00},
-    {landing:"/p/406-1014-64714,r1029.php",               second_page:"/p/406-1014-64714,r1029.php",               exit_action:"瀏覽後離開", sessions:3,  exit_share:1.00},
-    {landing:"/p/412-1014-3466.php",                     second_page:"/p/412-1014-3466.php",                     exit_action:"瀏覽後離開", sessions:3,  exit_share:1.00},
-    {landing:"/p/412-1014-4938.php",                     second_page:"/p/412-1014-4938.php",                     exit_action:"瀏覽後離開", sessions:3,  exit_share:1.00},
-    {landing:"/p/406-1014-64726,r1027.php",               second_page:"/p/406-1014-64726,r1027.php",               exit_action:"瀏覽後離開", sessions:4,  exit_share:1.00}
+    {landing:"/", second_page:"/", exit_action:"瀏覽後離開", sessions:55, exit_share:0.95},
+    {landing:"/p/406-1014-64700,r1026.php", second_page:"/p/406-1014-64700,r1026.php", exit_action:"瀏覽後離開", sessions:23, exit_share:0.95},
+    {landing:"/p/404-1014-66162.php", second_page:"/p/404-1014-66162.php", exit_action:"瀏覽後離開", sessions:16, exit_share:0.95},
+    {landing:"/", second_page:"/p/412-1014-2992.php", exit_action:"瀏覽後離開", sessions:11, exit_share:0.95},
+    {landing:"/p/406-1014-65341,r1051.php", second_page:"/p/406-1014-65341,r1051.php", exit_action:"瀏覽後離開", sessions:6, exit_share:0.95},
+    {landing:"/p/406-1014-64729,r1027.php", second_page:"/p/406-1014-64729,r1027.php", exit_action:"瀏覽後離開", sessions:5, exit_share:0.95},
+    {landing:"/index.php", second_page:"/index.php", exit_action:"瀏覽後離開", sessions:5, exit_share:0.95},
+    {landing:"/p/412-1014-2992.php", second_page:"/p/412-1014-2992.php", exit_action:"瀏覽後離開", sessions:4, exit_share:0.95},
+    {landing:"/p/406-1014-64726,r1027.php", second_page:"/p/406-1014-64726,r1027.php", exit_action:"瀏覽後離開", sessions:4, exit_share:0.95},
+    {landing:"/p/406-1014-65223,r1051.php", second_page:"/p/406-1014-65223,r1051.php", exit_action:"瀏覽後離開", sessions:4, exit_share:0.95},
+    {landing:"/p/406-1014-64714,r1029.php", second_page:"/p/406-1014-64714,r1029.php", exit_action:"瀏覽後離開", sessions:4, exit_share:0.95},
+    {landing:"/p/412-1014-4969.php", second_page:"/p/412-1014-4969.php", exit_action:"瀏覽後離開", sessions:3, exit_share:0.95},
+    {landing:"/p/406-1014-64711,r1026.php", second_page:"/p/406-1014-64711,r1026.php", exit_action:"瀏覽後離開", sessions:3, exit_share:0.95},
+    {landing:"/p/406-1014-64708,r1026.php", second_page:"/p/406-1014-64708,r1026.php", exit_action:"瀏覽後離開", sessions:3, exit_share:0.95},
+    {landing:"/p/406-1014-64709,r1026.php", second_page:"/p/406-1014-64709,r1026.php", exit_action:"瀏覽後離開", sessions:3, exit_share:0.95},
+    {landing:"/p/406-1014-64701,r1026.php", second_page:"/p/406-1014-64701,r1026.php", exit_action:"瀏覽後離開", sessions:3, exit_share:0.95},
+    {landing:"/p/403-1014-1026-1.php", second_page:"/p/403-1014-1026-1.php", exit_action:"瀏覽後離開", sessions:3, exit_share:0.95},
+    {landing:"/p/406-1014-65919,r1051.php", second_page:"/p/406-1014-65919,r1051.php", exit_action:"瀏覽後離開", sessions:3, exit_share:0.95},
+    {landing:"/", second_page:"/p/426-1014-7.php", exit_action:"瀏覽後離開", sessions:3, exit_share:0.95},
+    {landing:"/p/406-1014-64700,r1026.php", second_page:"/p/412-1014-2992.php", exit_action:"瀏覽後離開", sessions:2, exit_share:0.95},
+    {landing:"/p/426-1014-7.php", second_page:"/p/426-1014-7.php", exit_action:"瀏覽後離開", sessions:2, exit_share:0.95},
+    {landing:"/p/406-1014-64697,r1034.php", second_page:"/p/406-1014-64697,r1034.php", exit_action:"瀏覽後離開", sessions:2, exit_share:0.95},
+    {landing:"/", second_page:"/p/412-1014-4932.php", exit_action:"瀏覽後離開", sessions:2, exit_share:0.95},
+    {landing:"/p/406-1014-64707,r1026.php", second_page:"/p/406-1014-64707,r1026.php", exit_action:"瀏覽後離開", sessions:2, exit_share:0.95},
+    {landing:"/p/406-1014-64704,r1026.php", second_page:"/p/406-1014-64704,r1026.php", exit_action:"瀏覽後離開", sessions:2, exit_share:0.95}
   ],
+  
   user_path_transitions:[
     {from:"/",          to:"/p/412-1014-2992.php", sessions:0},
     {from:"/",          to:"/p/412-1014-4932.php", sessions:0},
@@ -257,20 +268,69 @@ window.WEBINSIGHT.REPORT_DATA = {
   // Refreshed 2026-07-31 (HTML scan via https://nc.tcu.edu.tw/).
   // 3 empty alt found (down from 16) — slight improvement.
   data_quality_snapshot:[
-    {issue_type:"missing_canonical",  affected_count:1,  example:"首頁 <link rel=canonical> 缺失",                 severity:"中", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 HTML regex <link rel=\"canonical\">"},
-    {issue_type:"hreflang_missing",   affected_count:1,  example:"缺英文版 hreflang=en-US 標記",                   severity:"中", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁 <link rel=alternate hreflang=> 檢查"},
-    {issue_type:"og_metadata_missing", affected_count:1,  example:"og:title/description/url/type 全部缺失",           severity:"中", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 <meta property=og:*> 屬性檢查"},
-    {issue_type:"og_image_path",       affected_count:1,  example:"og:image 指向系統檔路徑（建議改為正式 CDN URL）",    severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"og:image URL 是否為外部可訪問"},
-    {issue_type:"jsonld_ok",          affected_count:0,  example:"EducationalOrganization schema 已部署（含 name、address、knowsAbout）",   severity:"低", suggested_owner:"—",               status:"正常",  evidence_rule:"首頁 application/ld+json 解析"},
-    {issue_type:"multiple_h1",        affected_count:0,  example:"首頁 H1 標籤數正常（1 個）",                       severity:"低", suggested_owner:"電算中心",       status:"正常",  evidence_rule:"首頁 <h1> 標籤計數"},
-    {issue_type:"empty_alt",          affected_count:3,  example:"17 張圖片中 3 張 <code>alt=\"\"</code>（其中視覺性 icon）",    severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 <img alt=\"\"> 屬性計數"},
-    {issue_type:"iframe_no_title",    affected_count:1,  example:"1 個 iframe 未設定 title",                       severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 <iframe> 屬性 title 檢查"},
-    {issue_type:"duplicate_id",       affected_count:1,  example:"DOM ID TcuRpageFeatureTitle 重複",               severity:"低", suggested_owner:"電算中心",       status:"待改善", evidence_rule:"首頁重複 id 計數"},
-    {issue_type:"unknown_source",     affected_count:0,  example:"本期未發現未分類 source/medium",                  severity:"低", suggested_owner:"—",               status:"正常",  evidence_rule:"all_units_summary source NOT IN known list"}
+    {issue_type:"missing_canonical", affected_count:1, example:"首頁 <link rel=canonical> 缺失", severity:"中", suggested_owner:"電算中心", status:"待改善", evidence_rule:"首頁 HTML regex <link rel=\"canonical\">"},
+    {issue_type:"hreflang_missing", affected_count:1, example:"缺英文版 hreflang=en-US 標記", severity:"中", suggested_owner:"電算中心", status:"待改善", evidence_rule:"首頁 <link rel=alternate hreflang=> 檢查"},
+    {issue_type:"og_metadata_partial", affected_count:1, example:"og:title/description/url/type 全部缺失 (僅有 og:image)", severity:"中", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 <meta property=og:*> 屬性檢查"},
+    {issue_type:"og_image_path", affected_count:1, example:"og:image 指向系統檔路徑（/var/file/14/...）", severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"og:image URL 是否為外部可訪問"},
+    {issue_type:"jsonld_ok", affected_count:0, example:"EducationalOrganization schema 已部署（含 name、address、knowsAbout）", severity:"低", suggested_owner:"—", status:"正常", evidence_rule:"首頁 application/ld+json 解析"},
+    {issue_type:"multiple_h1", affected_count:0, example:"首頁 H1 標籤數正常（1 個）", severity:"低", suggested_owner:"電算中心", status:"正常", evidence_rule:"首頁 <h1> 標籤計數"},
+    {issue_type:"empty_alt", affected_count:6, example:"9 張圖片中 6 張 alt=\"\"（含視覺性 icon）", severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 <img alt=\"\"> 屬性計數"},
+    {issue_type:"iframe_no_title", affected_count:1, example:"1 個 iframe 中 1 個未設定 title", severity:"低", suggested_owner:"單位網站管理人", status:"待改善", evidence_rule:"首頁 <iframe> 屬性 title 檢查"},
+    {issue_type:"duplicate_id", affected_count:29, example:"DOM ID 重複（多個 MenuTop/Hln/MSearch 等 template-generated ID）", severity:"低", suggested_owner:"電算中心", status:"待改善", evidence_rule:"首頁重複 id 計數"},
+    {issue_type:"unknown_source", affected_count:0, example:"本期未發現未分類 source/medium", severity:"低", suggested_owner:"—", status:"正常", evidence_rule:"all_units_summary source NOT IN known list"}
   ]
+    },
+  },
+  geo: {
+    auditDate: "2026-08-06",
+    auditedUrl: "https://nc.tcu.edu.tw/",
+    maximumScore: 100,
+    auditCounts: {
+      jsonLdCount: 1,
+      h1Count: 1,
+      totalImages: 9,
+      missingAltCount: 6,
+      oldDomainLinkCount: 0,
+      duplicateIdCount: 29
+    },
+    auditCrawlDate: "2026-08-06",
+    subscores: [
+      {label: "主題清楚度（網站主題是否明確）", score: 8, maximum: 20},
+      {label: "招生資訊完整度（能否回答學生和家長的問題）", score: 14, maximum: 20},
+      {label: "可信度（聯絡資訊和地址是否完整）", score: 18, maximum: 20},
+      {label: "內容深度（網站章節數和說明完整性）", score: 12, maximum: 20},
+      {label: "技術名片（社群分享和搜尋預覽標籤）", score: 7, maximum: 20}
+    ],
+    managerSummary: {
+      introduction: "目前這個系所網站 GEO 基礎大約 {score} 分（待加強）。",
+      findings: [
+        "主題介紹完整 — 護理學院於 2015 年 8 月成立，擁有多元的護理教育學制（五專、二技、四技、學士後、碩士班），但缺少讓搜尋引擎讀懂的「資料名片」（canonical/hreflang/OG 多項缺失）。",
+        "分享預覽失效 — 當系友把網站貼到 LINE 或 Facebook 時，og:title/og:description/og:url/og:type 都缺失，只剩 og:image 指向系統檔路徑，無法顯示系所資訊。",
+        "改版有倒退 — 自上次更新，hreflang 英文版標記被移除、canonical 連結也缺失；{score} 分需要重新補齊這些技術標籤，並修正 29 個重複的 DOM ID。"
+      ]
+    },
+    technicalAudit: {
+      implemented: [
+        {n: 1, label: "正式中文系名出現在 title", value: "通過", note: ""},
+        {n: 2, label: "正式英文系名可見", value: "通過", note: ""},
+        {n: 3, label: "招生名額與聯絡資訊為可讀 HTML 文字", value: "通過", note: ""},
+        {n: 4, label: "EducationalOrganization JSON-LD 已部署", value: "通過", note: ""}
+      ],
+      warnings: [
+        {n: 1, label: "canonical 連結缺失", value: "未通過", note: "首頁無 <link rel=canonical>"},
+        {n: 2, label: "hreflang 英文版標記缺失", value: "未通過", note: "無 hreflang=en-US 標記"},
+        {n: 3, label: "OG tags 幾乎全缺失", value: "未通過", note: "僅 og:image 存在，無 og:title/description/url/type"}
+      ],
+      missing: [
+        {n: 1, label: "og:title", value: "缺失", note: ""},
+        {n: 2, label: "og:description", value: "缺失", note: ""},
+        {n: 3, label: "og:url", value: "缺失", note: ""},
+        {n: 4, label: "og:type", value: "缺失", note: ""}
+      ]
     }
   }
 };
+
 
 // ===== Backward-compatible aliases =====
 if (!window.WEBINSIGHT.DATA) {
