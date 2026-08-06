@@ -28,3 +28,6 @@ _cache/
 
 # Downloaded test fixtures
 *_live.html
+
+# Claude Code worktree (transient, regenerated each session)
+.claude/
