@@ -3,7 +3,7 @@
 import './data.js';          // sets window.WEBINSIGHT.DATA
 import './evidence.js';      // EVIDENCE_REPORTS + helpers
 import './glossary.js';      // glossary+tooltip
-import './geo-toggle.js';    // 主管/技術人員 pill
+import '/nc/geo-toggle.js';    // 主管/技術人員 pill
 import './app.js';           // KPI/decisions/etc renderer
 // main.js itself (below) handles Three.js BG + glossary per-v49 logic.
 // Three.js + glossary logic from v49 already lives in main.js body (this file).

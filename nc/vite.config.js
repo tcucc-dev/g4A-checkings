@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { DynamicPublicDirectory } from 'vite-multiple-assets';
 
 // Base path resolution (priority order):
 //   1. VITE_BASE_PATH env var (used by root combined Vercel deploy):
@@ -14,6 +15,10 @@ const basePath =
 
 export default defineConfig({
   base: basePath,
+  publicDir: false,
+  plugins: [
+    DynamicPublicDirectory(['../shared'])
+  ],
   server: {
     port: 5173,
     host: '0.0.0.0',
@@ -24,6 +29,11 @@ export default defineConfig({
     target: 'esnext',
     outDir: 'dist',
     emptyOutDir: true,
-    assetsDir: 'assets'
+    assetsDir: 'assets',
+    rollupOptions: {
+      // /shared/* JS files are runtime URLs served by vite-multiple-assets.
+      // Tell Rollup to leave them alone (browser fetches at request time).
+      external: [/^\/[a-z0-9-]+\/(geo-toggle|style|stale-config)\.js$/]
+    }
   }
 });
