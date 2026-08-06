@@ -707,3 +707,54 @@ code{font-family:Consolas,monospace;font-size:13px;background:#f2f5f8;padding:1p
 }
 
 /* Mobile: also collapse (smaller screens even more constrained) */
+
+
+/* ============================================================
+ * v60 stale-pages compaction (2026-08-06) — Claude Code iteration
+ * The stale-pages section has a giant table (1,152px) and grid (430px).
+ * Collapse them by default; user clicks h3 header to expand.
+ * Saves ~1,500px on desktop view.
+ * ============================================================ */
+
+#stale-pages {
+  padding-bottom: 14px !important;
+}
+/* Hide the table-wrap and grid by default inside stale-pages */
+#stale-pages .table-wrap,
+#stale-pages .grid,
+#stale-pages .source-box {
+  display: none;
+}
+#stale-pages.expanded .table-wrap,
+#stale-pages.expanded .grid,
+#stale-pages.expanded .source-box {
+  display: block;
+}
+#stale-pages.expanded .grid {
+  display: grid;
+}
+/* Make h3 clickable toggle */
+#stale-pages h3 {
+  cursor: pointer;
+  user-select: none;
+  padding: 6px 12px;
+  background: var(--bg-subtle, #f4f4f5);
+  border-radius: 6px;
+  margin: 12px 0 !important;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+}
+#stale-pages h3::after {
+  content: "▼ 顯示完整清單";
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-muted, #71717a);
+}
+#stale-pages.expanded h3::after {
+  content: "▲ 收合";
+}
+#stale-pages h3:hover {
+  background: var(--accent-bg, #ecfdf5);
+}

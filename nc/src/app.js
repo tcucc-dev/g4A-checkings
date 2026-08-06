@@ -1121,12 +1121,19 @@ function _waitForDataAndRender(attempts) {
 setTimeout(function() { _waitForDataAndRender(50); }, 100);
 
 
-// v59: collapsible report blocks — toggle on block-head click
+// v59+v60: collapsible report blocks + stale-pages h3 toggle
 document.addEventListener('click', function(e) {
+  // Toggle report-block on block-head click
   const head = e.target.closest('.report-block > .block-head');
-  if (!head) return;
-  const block = head.parentElement;
-  block.classList.toggle('expanded');
+  if (head) {
+    head.parentElement.classList.toggle('expanded');
+    return;
+  }
+  // Toggle stale-pages on h3 click
+  const h3 = e.target.closest('#stale-pages h3');
+  if (h3) {
+    h3.closest('#stale-pages').classList.toggle('expanded');
+  }
 });
 
 export { init, setView, spark, evidence, issue, draw };
