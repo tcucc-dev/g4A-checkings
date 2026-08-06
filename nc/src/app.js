@@ -1120,4 +1120,13 @@ function _waitForDataAndRender(attempts) {
 }
 setTimeout(function() { _waitForDataAndRender(50); }, 100);
 
+
+// v59: collapsible report blocks — toggle on block-head click
+document.addEventListener('click', function(e) {
+  const head = e.target.closest('.report-block > .block-head');
+  if (!head) return;
+  const block = head.parentElement;
+  block.classList.toggle('expanded');
+});
+
 export { init, setView, spark, evidence, issue, draw };
