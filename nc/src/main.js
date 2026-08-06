@@ -1,6 +1,8 @@
 // ===== Entry: Vite ES module =====
 // These imports trigger side-effect init scripts loaded sequentially after DOM ready.
-import './template_data.js';          // sets window.WEBINSIGHT.DATA
+// Order matters: data → shim → evidence → renderers → app (so app.js can read DATA).
+import './generated-report-data.js'; // window.WEBINSIGHT.REPORT_DATA (single source of truth)
+import './template_data.js';          // legacy compat — sets window.WEBINSIGHT.DATA = REPORT_DATA.metrics
 import './evidence.js';      // EVIDENCE_REPORTS + helpers
 import './glossary.js';      // glossary+tooltip
 import '/nc/geo-toggle.js';    // 主管/技術人員 pill
