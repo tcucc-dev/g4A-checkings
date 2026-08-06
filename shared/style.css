@@ -663,23 +663,39 @@ code{font-family:Consolas,monospace;font-size:13px;background:#f2f5f8;padding:1p
 .report-block .block-subtitle,
 .report-block .scorecard-row,
 .report-block .section4-grid,
+.report-block .section4-chart,
+.report-block .chart-wrap,
 .report-block .section4-table-wrap,
+.report-block .section4-chart-wrap,
+.report-block .table-wrap,
 .report-block .ctr-row,
-.report-block .insight {
-  display: none;
+.report-block .insight,
+.report-block .note,
+.report-block .callout,
+.report-block > p,
+.report-block > h4:not(.block-head *) {
+  display: none !important;
 }
 .report-block.expanded .block-subtitle,
 .report-block.expanded .scorecard-row,
 .report-block.expanded .section4-grid,
+.report-block.expanded .section4-chart,
+.report-block.expanded .chart-wrap,
 .report-block.expanded .section4-table-wrap,
+.report-block.expanded .section4-chart-wrap,
+.report-block.expanded .table-wrap,
 .report-block.expanded .ctr-row,
-.report-block.expanded .insight {
-  display: block;
+.report-block.expanded .insight,
+.report-block.expanded .note,
+.report-block.expanded .callout,
+.report-block.expanded > p,
+.report-block.expanded > h4 {
+  display: block !important;
 }
 .report-block.expanded .scorecard-row,
 .report-block.expanded .section4-grid,
-.report-block.expanded .section4-table-wrap {
-  display: grid;
+.report-block.expanded .section4-chart-wrap {
+  display: grid !important;
 }
 .report-block .block-head {
   cursor: pointer;
