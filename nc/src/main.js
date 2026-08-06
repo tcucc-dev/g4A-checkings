@@ -1,6 +1,6 @@
 // ===== Entry: Vite ES module =====
 // These imports trigger side-effect init scripts loaded sequentially after DOM ready.
-import './data.js';          // sets window.WEBINSIGHT.DATA
+import './template_data.js';          // sets window.WEBINSIGHT.DATA
 import './evidence.js';      // EVIDENCE_REPORTS + helpers
 import './glossary.js';      // glossary+tooltip
 import '/nc/geo-toggle.js';    // 主管/技術人員 pill
