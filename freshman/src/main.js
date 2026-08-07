@@ -31,110 +31,154 @@ function initThreeBackground() {
   const mount = document.getElementById('three-bg');
   if (!mount) return;
 
-  // Scene + camera
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(
-    60,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-  );
-  camera.position.z = 50;
-
-  // Particles: 250 dots floating slowly
-  const COUNT = 250;
-  const positions = new Float32Array(COUNT * 3);
-  const colors = new Float32Array(COUNT * 3);
-
-  const palette = [
-    new THREE.Color('#1d7d78'),  // teal
-    new THREE.Color('#2563eb'),  // blue
-    new THREE.Color('#647581'),  // muted gray
-    new THREE.Color('#b45309'),  // amber
-  ];
-
-  for (let i = 0; i < COUNT; i++) {
-    // Spread across a wide area behind the report
-    positions[i * 3]     = (Math.random() - 0.5) * 100;  // x: -50..+50
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 60;   // y: -30..+30
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 40;   // z: -20..+20
-
-    const c = palette[Math.floor(Math.random() * palette.length)];
-    colors[i * 3]     = c.r;
-    colors[i * 3 + 1] = c.g;
-    colors[i * 3 + 2] = c.b;
+  // Guard: skip on browsers without WebGL (silent fallback instead of broken UI)
+  const hasWebGL = (() => {
+    try {
+      const c = document.createElement('canvas');
+      return !!(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl')));
+    } catch (_) { return false; }
+  })();
+  if (!hasWebGL) {
+    console.warn('[three-bg] WebGL unavailable — skipping particle background');
+    mount.style.background = 'radial-gradient(ellipse at top, rgba(29,125,120,0.06), transparent 60%)';
+    return;
   }
 
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  try {
+    // Scene + camera
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      60,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = 50;
 
-  // Soft circular sprite for each particle
-  const spriteCanvas = document.createElement('canvas');
-  spriteCanvas.width = spriteCanvas.height = 64;
-  const ctx = spriteCanvas.getContext('2d');
-  const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-  grad.addColorStop(0, 'rgba(255,255,255,1)');
-  grad.addColorStop(0.4, 'rgba(255,255,255,0.6)');
-  grad.addColorStop(1, 'rgba(255,255,255,0)');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, 64, 64);
-  const sprite = new THREE.CanvasTexture(spriteCanvas);
+    // Particles: 250 dots floating slowly
+    const COUNT = 250;
+    const positions = new Float32Array(COUNT * 3);
+    const colors = new Float32Array(COUNT * 3);
 
-  const material = new THREE.PointsMaterial({
-    size: 1.2,
-    map: sprite,
-    vertexColors: true,
-    transparent: true,
-    opacity: 0.65,
-    depthWrite: false,
-    blending: THREE.NormalBlending,
-  });
+    const palette = [
+      new THREE.Color('#1d7d78'),  // teal
+      new THREE.Color('#2563eb'),  // blue
+      new THREE.Color('#647581'),  // muted gray
+      new THREE.Color('#b45309'),  // amber
+    ];
 
-  const points = new THREE.Points(geometry, material);
-  scene.add(points);
+    for (let i = 0; i < COUNT; i++) {
+      // Spread across a wide area behind the report
+      positions[i * 3]     = (Math.random() - 0.5) * 100;  // x: -50..+50
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 60;   // y: -30..+30
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 40;   // z: -20..+20
 
-  // Renderer
-  const renderer = new THREE.WebGLRenderer({
-    alpha: true,
-    antialias: true,
-  });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setClearColor(0x000000, 0);  // transparent
-  mount.appendChild(renderer.domElement);
-
-  // Animate
-  const clock = new THREE.Clock();
-  function animate() {
-    const t = clock.getElapsedTime();
-    points.rotation.y = t * 0.03;
-    points.rotation.x = Math.sin(t * 0.2) * 0.05;
-
-    // Subtle mouse parallax
-    if (window.__mx !== undefined) {
-      points.rotation.y += window.__mx * 0.0008;
+      const c = palette[Math.floor(Math.random() * palette.length)];
+      colors[i * 3]     = c.r;
+      colors[i * 3 + 1] = c.g;
+      colors[i * 3 + 2] = c.b;
     }
 
-    renderer.render(scene, camera);
-    requestAnimationFrame(animate);
-  }
-  animate();
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-  // Mouse tracking (for parallax)
-  window.addEventListener('mousemove', (e) => {
-    window.__mx = (e.clientX / window.innerWidth - 0.5) * 2;
-  });
+    // Soft circular sprite for each particle
+    const spriteCanvas = document.createElement('canvas');
+    spriteCanvas.width = spriteCanvas.height = 64;
+    const ctx = spriteCanvas.getContext('2d');
+    const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grad.addColorStop(0, 'rgba(255,255,255,1)');
+    grad.addColorStop(0.4, 'rgba(255,255,255,0.6)');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 64, 64);
+    const sprite = new THREE.CanvasTexture(spriteCanvas);
 
-  // Resize
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+    const material = new THREE.PointsMaterial({
+      size: 1.2,
+      map: sprite,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.65,
+      depthWrite: false,
+      blending: THREE.NormalBlending,
+    });
+
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
+
+    // Renderer — try WebGL2 first, then WebGL1 fallback
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+        powerPreference: 'low-power',
+      });
+    } catch (_) {
+      renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: false,
+      });
+    }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+    renderer.setClearColor(0x000000, 0);  // transparent
+    // Ensure canvas fills the mount (covers full viewport)
+    renderer.domElement.style.position = 'fixed';
+    renderer.domElement.style.top = '0';
+    renderer.domElement.style.left = '0';
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
+    renderer.domElement.style.pointerEvents = 'none';
+    mount.appendChild(renderer.domElement);
 
-  // Expose for debugging
-  window.__three = { scene, camera, renderer, points };
+    // Mouse tracking (for parallax) — register BEFORE animate loop reads it
+    window.__mx = 0;
+    window.addEventListener('mousemove', (e) => {
+      window.__mx = (e.clientX / window.innerWidth - 0.5) * 2;
+    });
+
+    // Animate
+    const clock = new THREE.Clock();
+    let running = true;
+    function animate() {
+      if (!running) return;
+      const t = clock.getElapsedTime();
+      points.rotation.y = t * 0.03;
+      points.rotation.x = Math.sin(t * 0.2) * 0.05;
+
+      // Subtle mouse parallax
+      if (window.__mx !== undefined) {
+        points.rotation.y += window.__mx * 0.0008;
+      }
+
+      try {
+        renderer.render(scene, camera);
+      } catch (e) {
+        running = false;
+        console.warn('[three-bg] render error — stopped:', e);
+        return;
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Expose for debugging
+    window.__three = { scene, camera, renderer, points };
+    console.log('[three-bg] initialized', COUNT, 'particles');
+  } catch (e) {
+    console.error('[three-bg] init failed:', e);
+    mount.style.background = 'radial-gradient(ellipse at top, rgba(29,125,120,0.06), transparent 60%)';
+  }
 }
 
 // ============================================================
