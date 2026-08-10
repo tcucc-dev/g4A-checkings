@@ -2,463 +2,966 @@
   "meta": {
     "siteName": "慈濟大學新生網站",
     "siteDomain": "freshman.tcu.edu.tw",
-    "reportVersion": "3.0",
-    "updatedAt": "2026/08/02",
-    "maxDateGa4": "2026-08-02",
-    "maxDateGsc": "2026-08-02",
+    "reportVersion": "v3.0",
+    "updatedAt": "2026/08/10",
+    "maxDateGa4": "2026-08-07",
+    "maxDateGsc": "2026-08-07",
     "sourceCount": 3
   },
   "periods": {
     "current": {
-      "start": "2026/07/27",
-      "end": "2026/08/02"
+      "start": "2026/08/01",
+      "end": "2026/08/07"
     },
     "previous": {
-      "start": "2026/07/19",
-      "end": "2026/07/25"
+      "start": "2026/07/25",
+      "end": "2026/07/31"
     },
     "trend": {
-      "start": "2026/05/31",
-      "end": "2026/07/25"
+      "start": "2026/06/12",
+      "end": "2026/07/31"
     }
   },
   "kpis": {
     "users": {
       "label": "本週造訪人數",
-      "value": "2231",
-      "trend_pct": 0.4,
-      "avg": "前 7 天",
+      "value": 1840,
+      "trend_pct": 13.1,
+      "avg": "前 8 週平均 192",
       "src": "all_units_summary｜GA4-USERS-001"
     },
     "sessions": {
       "label": "本週工作階段",
-      "value": "2894",
-      "trend_pct": -5.3,
-      "avg": "前 7 天",
+      "value": 3333,
+      "trend_pct": 19.3,
+      "avg": "前 8 週平均 244",
       "src": "all_units_summary｜GA4-SESSIONS-001"
     },
     "gsc": {
       "label": "Google 搜尋點擊",
-      "value": "1162",
-      "trend_pct": 11.3,
-      "avg": "前 7 天",
+      "value": 1394,
+      "trend_pct": 22.5,
+      "avg": "前 8 週平均 130",
       "src": "all_gsc_summary｜GSC-KPI-001"
     },
     "ctr": {
       "label": "Google 搜尋點擊率",
-      "value": "6.68%",
-      "trend_pct": -3.5,
-      "avg": "前 7 天平均",
+      "value": "6.73%",
+      "trend_pct": 0.15,
+      "avg": "前 8 週平均 5.61%",
       "src": "all_gsc_summary｜GSC-CTR-001"
     }
   },
   "trendsGA4": [
     {
-      "week": "06/07",
-      "sessions": 1205,
-      "pageviews": 2289,
-      "users": 965
+      "week": "06/12",
+      "sessions": 222,
+      "users": 195,
+      "pageviews": 499
+    },
+    {
+      "week": "06/13",
+      "sessions": 146,
+      "users": 127,
+      "pageviews": 331
     },
     {
       "week": "06/14",
-      "sessions": 370,
-      "pageviews": 734,
-      "users": 313
+      "sessions": 159,
+      "users": 135,
+      "pageviews": 322
     },
     {
-      "week": "06/21",
-      "sessions": 888,
-      "pageviews": 1554,
-      "users": 692
+      "week": "06/15",
+      "sessions": 211,
+      "users": 189,
+      "pageviews": 412
+    },
+    {
+      "week": "06/22",
+      "sessions": 174,
+      "users": 147,
+      "pageviews": 310
+    },
+    {
+      "week": "06/23",
+      "sessions": 173,
+      "users": 147,
+      "pageviews": 260
+    },
+    {
+      "week": "06/24",
+      "sessions": 148,
+      "users": 133,
+      "pageviews": 298
+    },
+    {
+      "week": "06/25",
+      "sessions": 157,
+      "users": 139,
+      "pageviews": 287
+    },
+    {
+      "week": "06/26",
+      "sessions": 136,
+      "users": 118,
+      "pageviews": 218
+    },
+    {
+      "week": "06/27",
+      "sessions": 101,
+      "users": 92,
+      "pageviews": 181
     },
     {
       "week": "06/28",
-      "sessions": 1080,
-      "pageviews": 2859,
-      "users": 795
+      "sessions": 105,
+      "users": 92,
+      "pageviews": 195
+    },
+    {
+      "week": "06/29",
+      "sessions": 136,
+      "users": 118,
+      "pageviews": 202
+    },
+    {
+      "week": "06/30",
+      "sessions": 137,
+      "users": 112,
+      "pageviews": 506
+    },
+    {
+      "week": "07/01",
+      "sessions": 171,
+      "users": 147,
+      "pageviews": 620
+    },
+    {
+      "week": "07/02",
+      "sessions": 234,
+      "users": 189,
+      "pageviews": 731
+    },
+    {
+      "week": "07/03",
+      "sessions": 187,
+      "users": 154,
+      "pageviews": 369
+    },
+    {
+      "week": "07/04",
+      "sessions": 115,
+      "users": 102,
+      "pageviews": 236
     },
     {
       "week": "07/05",
-      "sessions": 860,
-      "pageviews": 2180,
-      "users": 614
+      "sessions": 107,
+      "users": 88,
+      "pageviews": 205
+    },
+    {
+      "week": "07/06",
+      "sessions": 150,
+      "users": 125,
+      "pageviews": 369
+    },
+    {
+      "week": "07/07",
+      "sessions": 139,
+      "users": 113,
+      "pageviews": 323
+    },
+    {
+      "week": "07/08",
+      "sessions": 145,
+      "users": 120,
+      "pageviews": 315
+    },
+    {
+      "week": "07/09",
+      "sessions": 127,
+      "users": 111,
+      "pageviews": 365
+    },
+    {
+      "week": "07/10",
+      "sessions": 94,
+      "users": 83,
+      "pageviews": 325
+    },
+    {
+      "week": "07/11",
+      "sessions": 100,
+      "users": 84,
+      "pageviews": 278
     },
     {
       "week": "07/12",
-      "sessions": 1051,
-      "pageviews": 2641,
-      "users": 727
+      "sessions": 85,
+      "users": 74,
+      "pageviews": 247
+    },
+    {
+      "week": "07/13",
+      "sessions": 196,
+      "users": 164,
+      "pageviews": 418
+    },
+    {
+      "week": "07/14",
+      "sessions": 155,
+      "users": 134,
+      "pageviews": 348
+    },
+    {
+      "week": "07/15",
+      "sessions": 182,
+      "users": 140,
+      "pageviews": 467
+    },
+    {
+      "week": "07/16",
+      "sessions": 185,
+      "users": 147,
+      "pageviews": 571
+    },
+    {
+      "week": "07/17",
+      "sessions": 139,
+      "users": 115,
+      "pageviews": 364
+    },
+    {
+      "week": "07/18",
+      "sessions": 111,
+      "users": 96,
+      "pageviews": 226
     },
     {
       "week": "07/19",
-      "sessions": 3748,
-      "pageviews": 10431,
-      "users": 1932
+      "sessions": 158,
+      "users": 135,
+      "pageviews": 393
+    },
+    {
+      "week": "07/20",
+      "sessions": 882,
+      "users": 595,
+      "pageviews": 2895
+    },
+    {
+      "week": "07/21",
+      "sessions": 737,
+      "users": 484,
+      "pageviews": 2058
+    },
+    {
+      "week": "07/22",
+      "sessions": 669,
+      "users": 482,
+      "pageviews": 1701
+    },
+    {
+      "week": "07/23",
+      "sessions": 546,
+      "users": 396,
+      "pageviews": 1411
+    },
+    {
+      "week": "07/24",
+      "sessions": 467,
+      "users": 360,
+      "pageviews": 1177
+    },
+    {
+      "week": "07/25",
+      "sessions": 306,
+      "users": 242,
+      "pageviews": 796
     },
     {
       "week": "07/26",
       "sessions": 314,
-      "pageviews": 776,
-      "users": 259
+      "users": 259,
+      "pageviews": 776
+    },
+    {
+      "week": "07/27",
+      "sessions": 497,
+      "users": 368,
+      "pageviews": 1254
+    },
+    {
+      "week": "07/28",
+      "sessions": 466,
+      "users": 373,
+      "pageviews": 1109
+    },
+    {
+      "week": "07/29",
+      "sessions": 415,
+      "users": 318,
+      "pageviews": 956
+    },
+    {
+      "week": "07/30",
+      "sessions": 423,
+      "users": 318,
+      "pageviews": 1130
+    },
+    {
+      "week": "07/31",
+      "sessions": 382,
+      "users": 298,
+      "pageviews": 976
     }
   ],
   "trendsGSC": [
     {
-      "week": "06/07",
-      "impressions": 17864,
-      "clicks": 1060
+      "week": "06/12",
+      "impressions": 2718,
+      "clicks": 175
+    },
+    {
+      "week": "06/13",
+      "impressions": 2146,
+      "clicks": 134
     },
     {
       "week": "06/14",
-      "impressions": 16985,
-      "clicks": 987
+      "impressions": 2870,
+      "clicks": 182
+    },
+    {
+      "week": "06/15",
+      "impressions": 2934,
+      "clicks": 138
+    },
+    {
+      "week": "06/16",
+      "impressions": 3272,
+      "clicks": 223
+    },
+    {
+      "week": "06/17",
+      "impressions": 3026,
+      "clicks": 222
+    },
+    {
+      "week": "06/18",
+      "impressions": 2080,
+      "clicks": 94
+    },
+    {
+      "week": "06/19",
+      "impressions": 1591,
+      "clicks": 62
+    },
+    {
+      "week": "06/20",
+      "impressions": 1652,
+      "clicks": 67
     },
     {
       "week": "06/21",
-      "impressions": 15713,
-      "clicks": 849
+      "impressions": 2257,
+      "clicks": 134
+    },
+    {
+      "week": "06/22",
+      "impressions": 2567,
+      "clicks": 154
+    },
+    {
+      "week": "06/23",
+      "impressions": 2577,
+      "clicks": 135
+    },
+    {
+      "week": "06/24",
+      "impressions": 2620,
+      "clicks": 150
+    },
+    {
+      "week": "06/25",
+      "impressions": 2510,
+      "clicks": 145
+    },
+    {
+      "week": "06/26",
+      "impressions": 2015,
+      "clicks": 66
+    },
+    {
+      "week": "06/27",
+      "impressions": 1649,
+      "clicks": 67
     },
     {
       "week": "06/28",
-      "impressions": 14923,
-      "clicks": 682
+      "impressions": 2162,
+      "clicks": 103
+    },
+    {
+      "week": "06/29",
+      "impressions": 2492,
+      "clicks": 100
+    },
+    {
+      "week": "06/30",
+      "impressions": 2120,
+      "clicks": 81
+    },
+    {
+      "week": "07/01",
+      "impressions": 2294,
+      "clicks": 108
+    },
+    {
+      "week": "07/02",
+      "impressions": 2492,
+      "clicks": 109
+    },
+    {
+      "week": "07/03",
+      "impressions": 2003,
+      "clicks": 118
+    },
+    {
+      "week": "07/04",
+      "impressions": 1705,
+      "clicks": 63
     },
     {
       "week": "07/05",
-      "impressions": 13947,
-      "clicks": 580
+      "impressions": 2007,
+      "clicks": 91
+    },
+    {
+      "week": "07/06",
+      "impressions": 2351,
+      "clicks": 82
+    },
+    {
+      "week": "07/07",
+      "impressions": 2333,
+      "clicks": 89
+    },
+    {
+      "week": "07/08",
+      "impressions": 2313,
+      "clicks": 68
+    },
+    {
+      "week": "07/09",
+      "impressions": 2260,
+      "clicks": 108
+    },
+    {
+      "week": "07/10",
+      "impressions": 1509,
+      "clicks": 70
+    },
+    {
+      "week": "07/11",
+      "impressions": 1470,
+      "clicks": 72
     },
     {
       "week": "07/12",
-      "impressions": 12888,
-      "clicks": 646
+      "impressions": 1903,
+      "clicks": 93
+    },
+    {
+      "week": "07/13",
+      "impressions": 2037,
+      "clicks": 104
+    },
+    {
+      "week": "07/14",
+      "impressions": 2021,
+      "clicks": 103
+    },
+    {
+      "week": "07/15",
+      "impressions": 2122,
+      "clicks": 114
+    },
+    {
+      "week": "07/16",
+      "impressions": 2111,
+      "clicks": 95
+    },
+    {
+      "week": "07/17",
+      "impressions": 1645,
+      "clicks": 77
+    },
+    {
+      "week": "07/18",
+      "impressions": 1424,
+      "clicks": 61
     },
     {
       "week": "07/19",
-      "impressions": 18679,
-      "clicks": 1412
+      "impressions": 2901,
+      "clicks": 265
+    },
+    {
+      "week": "07/20",
+      "impressions": 3180,
+      "clicks": 257
+    },
+    {
+      "week": "07/21",
+      "impressions": 3176,
+      "clicks": 248
+    },
+    {
+      "week": "07/22",
+      "impressions": 2906,
+      "clicks": 181
+    },
+    {
+      "week": "07/23",
+      "impressions": 2788,
+      "clicks": 194
+    },
+    {
+      "week": "07/24",
+      "impressions": 2366,
+      "clicks": 167
+    },
+    {
+      "week": "07/25",
+      "impressions": 1725,
+      "clicks": 100
     },
     {
       "week": "07/26",
-      "impressions": 2395,
+      "impressions": 2467,
       "clicks": 154
+    },
+    {
+      "week": "07/27",
+      "impressions": 2923,
+      "clicks": 197
+    },
+    {
+      "week": "07/28",
+      "impressions": 2912,
+      "clicks": 195
+    },
+    {
+      "week": "07/29",
+      "impressions": 2583,
+      "clicks": 181
+    },
+    {
+      "week": "07/30",
+      "impressions": 2527,
+      "clicks": 178
+    },
+    {
+      "week": "07/31",
+      "impressions": 2163,
+      "clicks": 133
     }
   ],
   "topKeywords": [
     {
-      "kw": "居留證",
+      "kw": "",
       "brand": false,
-      "impressions": 498,
-      "clicks": 1,
-      "ctr": 0.2,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
+      "impressions": 838,
+      "clicks": 3,
+      "ctr": 0.36,
+      "pos": 8.4,
+      "landing": "https://freshman.tcu.edu.tw/?p=2057"
     },
     {
-      "kw": "慈濟大學新生",
-      "brand": true,
-      "impressions": 430,
-      "clicks": 58,
-      "ctr": 13.49,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
+      "kw": "居留證",
+      "brand": false,
+      "impressions": 509,
+      "clicks": 4,
+      "ctr": 0.79,
+      "pos": 4.3,
+      "landing": "https://freshman.tcu.edu.tw/?p=2057"
     },
     {
       "kw": "花蓮 英文",
       "brand": false,
-      "impressions": 334,
+      "impressions": 266,
       "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
-    },
-    {
-      "kw": "site:freshman.tcu.edu.tw",
-      "brand": true,
-      "impressions": 289,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
-    },
-    {
-      "kw": "慈濟大學新生報到",
-      "brand": true,
-      "impressions": 262,
-      "clicks": 29,
-      "ctr": 11.07,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
-    },
-    {
-      "kw": "花蓮英文",
-      "brand": false,
-      "impressions": 198,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
-    },
-    {
-      "kw": "台灣居留證",
-      "brand": false,
-      "impressions": 198,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
-    },
-    {
-      "kw": "慈濟大學 新生",
-      "brand": true,
-      "impressions": 184,
-      "clicks": 26,
-      "ctr": 14.13,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
+      "ctr": 0.0,
+      "pos": 6.8,
+      "landing": "https://freshman.tcu.edu.tw/?p=2136"
     },
     {
       "kw": "台灣全長幾公里",
       "brand": false,
-      "impressions": 156,
+      "impressions": 162,
       "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
+      "ctr": 0.0,
+      "pos": 9.7,
+      "landing": "https://freshman.tcu.edu.tw/?p=2136"
     },
     {
-      "kw": "慈濟大學新生報到115",
-      "brand": true,
-      "impressions": 155,
-      "clicks": 20,
-      "ctr": 12.9,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
-    },
-    {
-      "kw": "c168",
+      "kw": "花蓮英文",
       "brand": false,
-      "impressions": 132,
+      "impressions": 159,
       "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
+      "ctr": 0.0,
+      "pos": 7.6,
+      "landing": "https://freshman.tcu.edu.tw/?p=2136"
     },
     {
-      "kw": "慈濟新生",
-      "brand": true,
-      "impressions": 124,
-      "clicks": 17,
-      "ctr": 13.71,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
+      "kw": "台灣居留證",
+      "brand": false,
+      "impressions": 144,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 5.7,
+      "landing": "https://freshman.tcu.edu.tw/?p=2057"
     },
     {
       "kw": "arc 居留 證",
       "brand": false,
-      "impressions": 112,
+      "impressions": 116,
       "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
+      "ctr": 0.0,
+      "pos": 3.9,
+      "landing": "https://freshman.tcu.edu.tw/?p=2057"
     },
     {
-      "kw": "慈濟大學",
+      "kw": "慈濟大學科系",
       "brand": true,
-      "impressions": 107,
-      "clicks": 7,
-      "ctr": 6.54,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
-    },
-    {
-      "kw": "tcu",
-      "brand": true,
-      "impressions": 94,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
-    },
-    {
-      "kw": "慈濟大學制服",
-      "brand": true,
-      "impressions": 88,
-      "clicks": 3,
-      "ctr": 3.41,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
+      "impressions": 110,
+      "clicks": 4,
+      "ctr": 3.64,
+      "pos": 2.4,
+      "landing": "https://freshman.tcu.edu.tw/?page_id=5173"
     },
     {
       "kw": "慈濟大學宿舍",
       "brand": true,
-      "impressions": 81,
-      "clicks": 12,
-      "ctr": 14.81,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
+      "impressions": 108,
+      "clicks": 17,
+      "ctr": 15.74,
+      "pos": 4.5,
+      "landing": "https://freshman.tcu.edu.tw/?p=2161"
     },
     {
       "kw": "台灣長度",
       "brand": false,
-      "impressions": 66,
+      "impressions": 100,
       "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
+      "ctr": 0.0,
+      "pos": 9.8,
+      "landing": "https://freshman.tcu.edu.tw/?p=2136"
+    },
+    {
+      "kw": "tcu",
+      "brand": true,
+      "impressions": 100,
+      "clicks": 1,
+      "ctr": 1.0,
+      "pos": 0.0,
       "landing": "https://freshman.tcu.edu.tw/"
     },
     {
       "kw": "慈濟大學學費",
       "brand": true,
-      "impressions": 65,
-      "clicks": 14,
-      "ctr": 21.54,
-      "pos": 0,
+      "impressions": 86,
+      "clicks": 17,
+      "ctr": 19.77,
+      "pos": 1.2,
+      "landing": "https://freshman.tcu.edu.tw/?p=2074"
+    },
+    {
+      "kw": "慈濟大學",
+      "brand": true,
+      "impressions": 77,
+      "clicks": 7,
+      "ctr": 9.09,
+      "pos": 0.7,
       "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學新生",
+      "brand": true,
+      "impressions": 75,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 0.0,
+      "landing": "https://freshman.tcu.edu.tw/?page_id=626"
     },
     {
       "kw": "慈濟制服",
       "brand": true,
-      "impressions": 60,
+      "impressions": 70,
       "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
+      "ctr": 0.0,
+      "pos": 8.2,
+      "landing": "https://freshman.tcu.edu.tw/?page_id=5213"
+    },
+    {
+      "kw": "慈濟大學制服",
+      "brand": true,
+      "impressions": 68,
+      "clicks": 2,
+      "ctr": 2.94,
+      "pos": 3.2,
+      "landing": "https://freshman.tcu.edu.tw/?page_id=5213"
+    },
+    {
+      "kw": "慈濟宿舍",
+      "brand": true,
+      "impressions": 61,
+      "clicks": 4,
+      "ctr": 6.56,
+      "pos": 5.2,
+      "landing": "https://freshman.tcu.edu.tw/?p=2161"
+    },
+    {
+      "kw": "慈濟大學 宿舍",
+      "brand": true,
+      "impressions": 57,
+      "clicks": 10,
+      "ctr": 17.54,
+      "pos": 4.1,
+      "landing": "https://freshman.tcu.edu.tw/?p=2161"
+    },
+    {
+      "kw": "慈濟大學新生報到115",
+      "brand": true,
+      "impressions": 47,
+      "clicks": 19,
+      "ctr": 40.43,
+      "pos": 0.3,
       "landing": "https://freshman.tcu.edu.tw/"
     },
     {
-      "kw": "花蓮天氣穿著",
-      "brand": false,
-      "impressions": 60,
-      "clicks": 1,
-      "ctr": 1.67,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
-    },
-    {
-      "kw": "台灣多長",
-      "brand": false,
-      "impressions": 52,
+      "kw": "慈濟新鮮人",
+      "brand": true,
+      "impressions": 47,
       "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
-    },
-    {
-      "kw": "arc居留證",
-      "brand": false,
-      "impressions": 44,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
-    },
-    {
-      "kw": "選課",
-      "brand": false,
-      "impressions": 42,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://freshman.tcu.edu.tw/"
+      "ctr": 0.0,
+      "pos": 0.0,
+      "landing": "https://freshman.tcu.edu.tw/?page_id=1987"
     }
   ],
   "topPages": [
     {
+      "url": "https://freshman.tcu.edu.tw/?p=2057",
+      "impressions": 2196,
+      "clicks": 10,
+      "ctr": 0.46,
+      "pos": 6.8,
+      "users": 0
+    },
+    {
+      "url": "https://freshman.tcu.edu.tw/?p=2136",
+      "impressions": 1497,
+      "clicks": 1,
+      "ctr": 0.07,
+      "pos": 10.0,
+      "users": 0
+    },
+    {
       "url": "https://freshman.tcu.edu.tw/",
-      "impressions": 3831,
-      "clicks": 188,
-      "ctr": 4.91,
-      "pos": 0,
+      "impressions": 1417,
+      "clicks": 494,
+      "ctr": 34.86,
+      "pos": 1.9,
+      "users": 0
+    },
+    {
+      "url": "https://freshman.tcu.edu.tw/?p=2074",
+      "impressions": 1331,
+      "clicks": 99,
+      "ctr": 7.44,
+      "pos": 3.5,
+      "users": 0
+    },
+    {
+      "url": "https://freshman.tcu.edu.tw/?page_id=1889",
+      "impressions": 825,
+      "clicks": 127,
+      "ctr": 15.39,
+      "pos": 1.6,
+      "users": 0
+    },
+    {
+      "url": "https://freshman.tcu.edu.tw/?p=2161",
+      "impressions": 756,
+      "clicks": 99,
+      "ctr": 13.1,
+      "pos": 4.8,
+      "users": 0
+    },
+    {
+      "url": "https://freshman.tcu.edu.tw/?page_id=643",
+      "impressions": 744,
+      "clicks": 15,
+      "ctr": 2.02,
+      "pos": 4.3,
+      "users": 0
+    },
+    {
+      "url": "https://freshman.tcu.edu.tw/?page_id=626",
+      "impressions": 729,
+      "clicks": 23,
+      "ctr": 3.16,
+      "pos": 1.5,
+      "users": 0
+    },
+    {
+      "url": "https://freshman.tcu.edu.tw/?p=2151",
+      "impressions": 718,
+      "clicks": 47,
+      "ctr": 6.55,
+      "pos": 4.2,
+      "users": 0
+    },
+    {
+      "url": "https://freshman.tcu.edu.tw/?page_id=1987",
+      "impressions": 635,
+      "clicks": 9,
+      "ctr": 1.42,
+      "pos": 1.5,
       "users": 0
     }
   ],
   "audience": {
-    "total": 3921,
     "country": [
       {
-        "name": "Taiwan",
-        "sessions": 3669,
-        "users": 1801,
-        "share": 93.6
+        "name": "臺灣",
+        "sessions": 3220,
+        "users": 0,
+        "share": 96.0
       },
       {
-        "name": "China",
-        "sessions": 95,
-        "users": 95,
-        "share": 2.4
+        "name": "中國",
+        "sessions": 50,
+        "users": 0,
+        "share": 1.5
       },
       {
-        "name": "United States",
-        "sessions": 19,
-        "users": 19,
-        "share": 0.5
+        "name": "馬來西亞",
+        "sessions": 25,
+        "users": 0,
+        "share": 0.7
       },
       {
-        "name": "Japan",
-        "sessions": 17,
-        "users": 15,
-        "share": 0.4
+        "name": "美國",
+        "sessions": 9,
+        "users": 0,
+        "share": 0.3
+      },
+      {
+        "name": "越南",
+        "sessions": 7,
+        "users": 0,
+        "share": 0.2
+      },
+      {
+        "name": "香港",
+        "sessions": 6,
+        "users": 0,
+        "share": 0.2
       }
     ],
     "device": [
       {
-        "name": "desktop",
-        "sessions": 1638,
-        "users": 805,
-        "share": 41.8
+        "name": "手機",
+        "sessions": 1776,
+        "users": 0,
+        "share": 52.9
       },
       {
-        "name": "tablet",
-        "sessions": 84,
-        "users": 59,
-        "share": 2.1
+        "name": "桌機",
+        "sessions": 1514,
+        "users": 0,
+        "share": 45.1
       },
       {
-        "name": "mobile",
-        "sessions": 2207,
-        "users": 1138,
-        "share": 56.3
+        "name": "平板",
+        "sessions": 65,
+        "users": 0,
+        "share": 1.9
       }
     ],
     "source": [
       {
-        "name": "(direct)/(none)",
-        "medium": "other",
-        "sessions": 2047,
-        "users": 1081,
-        "share": 52.2
+        "name": "(direct)",
+        "medium": "(none)",
+        "sessions": 1649,
+        "users": 0,
+        "share": 49.2
       },
       {
-        "name": "google/organic",
+        "name": "google",
         "medium": "organic",
-        "sessions": 1694,
-        "users": 818,
-        "share": 43.2
+        "sessions": 1542,
+        "users": 0,
+        "share": 46.0
       },
       {
-        "name": "cse.google.com/referral",
-        "medium": "other",
-        "sessions": 42,
-        "users": 16,
-        "share": 1.1
+        "name": "cse.google.com",
+        "medium": "referral",
+        "sessions": 46,
+        "users": 0,
+        "share": 1.4
       },
       {
-        "name": "bing/organic",
+        "name": "bing",
         "medium": "organic",
-        "sessions": 32,
-        "users": 14,
-        "share": 0.8
+        "sessions": 34,
+        "users": 0,
+        "share": 1.0
       },
       {
-        "name": "mail.google.com/referral",
-        "medium": "other",
-        "sessions": 18,
-        "users": 5,
-        "share": 0.5
+        "name": "tw.search.yahoo.com",
+        "medium": "referral",
+        "sessions": 14,
+        "users": 0,
+        "share": 0.4
+      },
+      {
+        "name": "mail.google.com",
+        "medium": "referral",
+        "sessions": 13,
+        "users": 0,
+        "share": 0.4
       }
-    ]
+    ],
+    "total": 3355
   },
-  "topIssues": [],
+  "topIssues": [
+    {
+      "severity": "high",
+      "title": "首頁缺 JSON-LD 結構化資料（AI 搜尋引擎看不懂你們是誰）",
+      "desc": "規則 jsonld_missing 觸發於 https://freshman.tcu.edu.tw/",
+      "owner": "電算中心",
+      "due": "2026-08-30"
+    },
+    {
+      "severity": "low",
+      "title": "缺 OG 社群分享標籤（Facebook/Line 分享不會有預覽）",
+      "desc": "規則 og_missing 觸發於 https://freshman.tcu.edu.tw/",
+      "owner": "單位網站管理人",
+      "due": "2026-09-30"
+    },
+    {
+      "severity": "low",
+      "title": "缺英文版 hreflang 標籤",
+      "desc": "規則 hreflang_missing 觸發於 https://freshman.tcu.edu.tw/",
+      "owner": "電算中心",
+      "due": "2026-09-30"
+    }
+  ],
   "geo": null,
   "evidence": [],
   "stalePages": []

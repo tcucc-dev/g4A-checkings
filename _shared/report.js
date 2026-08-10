@@ -13,6 +13,98 @@
   const $ = sel => document.querySelector(sel);
 
   /* ---------- BOOTSTRAP ---------- */
+  // Three.js animated background — runs regardless of data load
+  function initThreeBg() {
+    const canvas = document.getElementById('three-bg');
+    if (!canvas || !window.THREE) return;
+    // WebGL guard
+    try {
+      const test = document.createElement('canvas');
+      if (!(test.getContext('webgl2') || test.getContext('webgl'))) return;
+    } catch (_) { return; }
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 50;
+
+    // Floating particles — soft glow look
+    const COUNT = 180;
+    const positions = new Float32Array(COUNT * 3);
+    const colors = new Float32Array(COUNT * 3);
+    const sizes = new Float32Array(COUNT);
+    const palette = [
+      new THREE.Color('#1d7d78'),
+      new THREE.Color('#2563eb'),
+      new THREE.Color('#647581'),
+      new THREE.Color('#b45309'),
+      new THREE.Color('#4ee0c1'),
+    ];
+    for (let i = 0; i < COUNT; i++) {
+      positions[i * 3]     = (Math.random() - 0.5) * 100;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 60;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+      const c = palette[Math.floor(Math.random() * palette.length)];
+      colors[i * 3] = c.r; colors[i * 3 + 1] = c.g; colors[i * 3 + 2] = c.b;
+      sizes[i] = 0.4 + Math.random() * 0.8;
+    }
+    const geom = new THREE.BufferGeometry();
+    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geom.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    // Round-dot sprite via canvas texture
+    const dot = document.createElement('canvas');
+    dot.width = dot.height = 32;
+    const ctx = dot.getContext('2d');
+    const g = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+    g.addColorStop(0, 'rgba(255,255,255,1)');
+    g.addColorStop(0.4, 'rgba(255,255,255,0.6)');
+    g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, 32, 32);
+    const sprite = new THREE.CanvasTexture(dot);
+
+    const mat = new THREE.PointsMaterial({
+      size: 1.2,
+      map: sprite,
+      vertexColors: true,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.NormalBlending,
+      opacity: 0.6,
+    });
+    const points = new THREE.Points(geom, mat);
+    scene.add(points);
+
+    // Mouse parallax
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    let raf;
+    function tick() {
+      points.rotation.y += 0.0008;
+      points.rotation.x += 0.0004;
+      camera.position.x += (mouseX * 2 - camera.position.x) * 0.04;
+      camera.position.y += (-mouseY * 2 - camera.position.y) * 0.04;
+      camera.lookAt(scene.position);
+      renderer.render(scene, camera);
+      raf = requestAnimationFrame(tick);
+    }
+    tick();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  }
+
   async function init() {
     let data;
     try {
@@ -356,8 +448,9 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', () => { initThreeBg(); init(); });
   } else {
+    initThreeBg();
     init();
   }
 })();

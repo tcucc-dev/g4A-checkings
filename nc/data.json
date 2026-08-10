@@ -2,630 +2,953 @@
   "meta": {
     "siteName": "護理學系",
     "siteDomain": "nc.tcu.edu.tw",
-    "reportVersion": "3.0",
-    "updatedAt": "2026/08/02",
-    "maxDateGa4": "2026-08-02",
-    "maxDateGsc": "2026-08-02",
+    "reportVersion": "v3.0",
+    "updatedAt": "2026/08/10",
+    "maxDateGa4": "2026-08-08",
+    "maxDateGsc": "2026-08-07",
     "sourceCount": 3
   },
   "periods": {
     "current": {
-      "start": "2026/07/27",
-      "end": "2026/08/02"
+      "start": "2026/08/01",
+      "end": "2026/08/07"
     },
     "previous": {
-      "start": "2026/07/19",
-      "end": "2026/07/25"
+      "start": "2026/07/25",
+      "end": "2026/07/31"
     },
     "trend": {
-      "start": "2026/05/31",
-      "end": "2026/07/25"
+      "start": "2026/06/12",
+      "end": "2026/07/31"
     }
   },
   "kpis": {
     "users": {
       "label": "本週造訪人數",
-      "value": "574",
-      "trend_pct": 13.4,
-      "avg": "前 7 天",
+      "value": 194,
+      "trend_pct": -7.2,
+      "avg": "前 8 週平均 26",
       "src": "all_units_summary｜GA4-USERS-001"
     },
     "sessions": {
       "label": "本週工作階段",
-      "value": "617",
-      "trend_pct": 12.4,
-      "avg": "前 7 天",
+      "value": 222,
+      "trend_pct": -19.9,
+      "avg": "前 8 週平均 31",
       "src": "all_units_summary｜GA4-SESSIONS-001"
     },
     "gsc": {
       "label": "Google 搜尋點擊",
-      "value": "293",
-      "trend_pct": 7.7,
-      "avg": "前 7 天",
+      "value": 128,
+      "trend_pct": 0.0,
+      "avg": "前 8 週平均 15",
       "src": "all_gsc_summary｜GSC-KPI-001"
     },
     "ctr": {
       "label": "Google 搜尋點擊率",
-      "value": "5.78%",
-      "trend_pct": -6.5,
-      "avg": "前 7 天平均",
+      "value": "4.21%",
+      "trend_pct": -0.45,
+      "avg": "前 8 週平均 3.97%",
       "src": "all_gsc_summary｜GSC-CTR-001"
     }
   },
   "trendsGA4": [
     {
-      "week": "06/07",
-      "sessions": 331,
-      "pageviews": 944,
-      "users": 253
+      "week": "06/12",
+      "sessions": 75,
+      "users": 62,
+      "pageviews": 244
+    },
+    {
+      "week": "06/13",
+      "sessions": 25,
+      "users": 25,
+      "pageviews": 31
     },
     {
       "week": "06/14",
-      "sessions": 75,
-      "pageviews": 165,
-      "users": 61
+      "sessions": 18,
+      "users": 18,
+      "pageviews": 33
     },
     {
-      "week": "06/21",
-      "sessions": 210,
-      "pageviews": 525,
-      "users": 152
+      "week": "06/15",
+      "sessions": 57,
+      "users": 45,
+      "pageviews": 132
+    },
+    {
+      "week": "06/22",
+      "sessions": 37,
+      "users": 32,
+      "pageviews": 69
+    },
+    {
+      "week": "06/23",
+      "sessions": 34,
+      "users": 33,
+      "pageviews": 94
+    },
+    {
+      "week": "06/24",
+      "sessions": 32,
+      "users": 24,
+      "pageviews": 86
+    },
+    {
+      "week": "06/25",
+      "sessions": 45,
+      "users": 31,
+      "pageviews": 99
+    },
+    {
+      "week": "06/26",
+      "sessions": 41,
+      "users": 32,
+      "pageviews": 154
+    },
+    {
+      "week": "06/27",
+      "sessions": 21,
+      "users": 20,
+      "pageviews": 23
     },
     {
       "week": "06/28",
-      "sessions": 194,
-      "pageviews": 312,
-      "users": 150
+      "sessions": 26,
+      "users": 21,
+      "pageviews": 31
+    },
+    {
+      "week": "06/29",
+      "sessions": 32,
+      "users": 28,
+      "pageviews": 80
+    },
+    {
+      "week": "06/30",
+      "sessions": 31,
+      "users": 26,
+      "pageviews": 35
+    },
+    {
+      "week": "07/01",
+      "sessions": 37,
+      "users": 32,
+      "pageviews": 79
+    },
+    {
+      "week": "07/02",
+      "sessions": 40,
+      "users": 37,
+      "pageviews": 46
+    },
+    {
+      "week": "07/03",
+      "sessions": 16,
+      "users": 13,
+      "pageviews": 25
+    },
+    {
+      "week": "07/04",
+      "sessions": 12,
+      "users": 11,
+      "pageviews": 16
     },
     {
       "week": "07/05",
-      "sessions": 140,
-      "pageviews": 230,
-      "users": 117
+      "sessions": 19,
+      "users": 18,
+      "pageviews": 23
+    },
+    {
+      "week": "07/06",
+      "sessions": 19,
+      "users": 15,
+      "pageviews": 44
+    },
+    {
+      "week": "07/07",
+      "sessions": 27,
+      "users": 23,
+      "pageviews": 38
+    },
+    {
+      "week": "07/08",
+      "sessions": 19,
+      "users": 19,
+      "pageviews": 40
+    },
+    {
+      "week": "07/09",
+      "sessions": 32,
+      "users": 29,
+      "pageviews": 58
+    },
+    {
+      "week": "07/10",
+      "sessions": 14,
+      "users": 13,
+      "pageviews": 15
+    },
+    {
+      "week": "07/11",
+      "sessions": 10,
+      "users": 10,
+      "pageviews": 12
     },
     {
       "week": "07/12",
-      "sessions": 211,
-      "pageviews": 463,
-      "users": 177
+      "sessions": 18,
+      "users": 18,
+      "pageviews": 26
+    },
+    {
+      "week": "07/13",
+      "sessions": 36,
+      "users": 32,
+      "pageviews": 57
+    },
+    {
+      "week": "07/14",
+      "sessions": 22,
+      "users": 20,
+      "pageviews": 100
+    },
+    {
+      "week": "07/15",
+      "sessions": 42,
+      "users": 31,
+      "pageviews": 122
+    },
+    {
+      "week": "07/16",
+      "sessions": 42,
+      "users": 40,
+      "pageviews": 68
+    },
+    {
+      "week": "07/17",
+      "sessions": 26,
+      "users": 23,
+      "pageviews": 55
+    },
+    {
+      "week": "07/18",
+      "sessions": 25,
+      "users": 23,
+      "pageviews": 35
     },
     {
       "week": "07/19",
-      "sessions": 204,
-      "pageviews": 301,
-      "users": 166
+      "sessions": 22,
+      "users": 18,
+      "pageviews": 27
+    },
+    {
+      "week": "07/20",
+      "sessions": 29,
+      "users": 26,
+      "pageviews": 28
+    },
+    {
+      "week": "07/21",
+      "sessions": 35,
+      "users": 26,
+      "pageviews": 72
+    },
+    {
+      "week": "07/22",
+      "sessions": 34,
+      "users": 28,
+      "pageviews": 52
+    },
+    {
+      "week": "07/23",
+      "sessions": 35,
+      "users": 31,
+      "pageviews": 49
+    },
+    {
+      "week": "07/24",
+      "sessions": 26,
+      "users": 26,
+      "pageviews": 42
+    },
+    {
+      "week": "07/25",
+      "sessions": 23,
+      "users": 21,
+      "pageviews": 31
     },
     {
       "week": "07/26",
       "sessions": 20,
-      "pageviews": 24,
-      "users": 19
+      "users": 19,
+      "pageviews": 24
+    },
+    {
+      "week": "07/27",
+      "sessions": 44,
+      "users": 37,
+      "pageviews": 71
+    },
+    {
+      "week": "07/28",
+      "sessions": 52,
+      "users": 45,
+      "pageviews": 73
+    },
+    {
+      "week": "07/29",
+      "sessions": 58,
+      "users": 40,
+      "pageviews": 173
+    },
+    {
+      "week": "07/30",
+      "sessions": 38,
+      "users": 34,
+      "pageviews": 97
+    },
+    {
+      "week": "07/31",
+      "sessions": 42,
+      "users": 32,
+      "pageviews": 112
     }
   ],
   "trendsGSC": [
     {
-      "week": "06/07",
-      "impressions": 3472,
-      "clicks": 197
+      "week": "06/12",
+      "impressions": 428,
+      "clicks": 27
+    },
+    {
+      "week": "06/13",
+      "impressions": 294,
+      "clicks": 16
     },
     {
       "week": "06/14",
-      "impressions": 2741,
-      "clicks": 136
+      "impressions": 471,
+      "clicks": 22
+    },
+    {
+      "week": "06/15",
+      "impressions": 493,
+      "clicks": 26
+    },
+    {
+      "week": "06/16",
+      "impressions": 520,
+      "clicks": 23
+    },
+    {
+      "week": "06/17",
+      "impressions": 443,
+      "clicks": 24
+    },
+    {
+      "week": "06/18",
+      "impressions": 295,
+      "clicks": 10
+    },
+    {
+      "week": "06/19",
+      "impressions": 272,
+      "clicks": 18
+    },
+    {
+      "week": "06/20",
+      "impressions": 247,
+      "clicks": 13
     },
     {
       "week": "06/21",
-      "impressions": 2811,
-      "clicks": 91
+      "impressions": 282,
+      "clicks": 13
+    },
+    {
+      "week": "06/22",
+      "impressions": 451,
+      "clicks": 15
+    },
+    {
+      "week": "06/23",
+      "impressions": 469,
+      "clicks": 14
+    },
+    {
+      "week": "06/24",
+      "impressions": 496,
+      "clicks": 16
+    },
+    {
+      "week": "06/25",
+      "impressions": 396,
+      "clicks": 14
+    },
+    {
+      "week": "06/26",
+      "impressions": 396,
+      "clicks": 9
+    },
+    {
+      "week": "06/27",
+      "impressions": 321,
+      "clicks": 10
     },
     {
       "week": "06/28",
-      "impressions": 2699,
-      "clicks": 93
+      "impressions": 379,
+      "clicks": 15
+    },
+    {
+      "week": "06/29",
+      "impressions": 524,
+      "clicks": 21
+    },
+    {
+      "week": "06/30",
+      "impressions": 407,
+      "clicks": 16
+    },
+    {
+      "week": "07/01",
+      "impressions": 342,
+      "clicks": 15
+    },
+    {
+      "week": "07/02",
+      "impressions": 464,
+      "clicks": 10
+    },
+    {
+      "week": "07/03",
+      "impressions": 318,
+      "clicks": 7
+    },
+    {
+      "week": "07/04",
+      "impressions": 265,
+      "clicks": 9
     },
     {
       "week": "07/05",
-      "impressions": 2462,
-      "clicks": 71
+      "impressions": 324,
+      "clicks": 9
+    },
+    {
+      "week": "07/06",
+      "impressions": 377,
+      "clicks": 11
+    },
+    {
+      "week": "07/07",
+      "impressions": 497,
+      "clicks": 15
+    },
+    {
+      "week": "07/08",
+      "impressions": 376,
+      "clicks": 12
+    },
+    {
+      "week": "07/09",
+      "impressions": 333,
+      "clicks": 11
+    },
+    {
+      "week": "07/10",
+      "impressions": 269,
+      "clicks": 5
+    },
+    {
+      "week": "07/11",
+      "impressions": 286,
+      "clicks": 8
     },
     {
       "week": "07/12",
-      "impressions": 2570,
-      "clicks": 101
+      "impressions": 328,
+      "clicks": 11
+    },
+    {
+      "week": "07/13",
+      "impressions": 429,
+      "clicks": 10
+    },
+    {
+      "week": "07/14",
+      "impressions": 390,
+      "clicks": 17
+    },
+    {
+      "week": "07/15",
+      "impressions": 424,
+      "clicks": 21
+    },
+    {
+      "week": "07/16",
+      "impressions": 505,
+      "clicks": 12
+    },
+    {
+      "week": "07/17",
+      "impressions": 256,
+      "clicks": 18
+    },
+    {
+      "week": "07/18",
+      "impressions": 238,
+      "clicks": 12
     },
     {
       "week": "07/19",
-      "impressions": 2720,
-      "clicks": 112
+      "impressions": 318,
+      "clicks": 15
+    },
+    {
+      "week": "07/20",
+      "impressions": 382,
+      "clicks": 23
+    },
+    {
+      "week": "07/21",
+      "impressions": 557,
+      "clicks": 17
+    },
+    {
+      "week": "07/22",
+      "impressions": 489,
+      "clicks": 11
+    },
+    {
+      "week": "07/23",
+      "impressions": 434,
+      "clicks": 16
+    },
+    {
+      "week": "07/24",
+      "impressions": 300,
+      "clicks": 17
+    },
+    {
+      "week": "07/25",
+      "impressions": 240,
+      "clicks": 13
     },
     {
       "week": "07/26",
       "impressions": 373,
       "clicks": 16
+    },
+    {
+      "week": "07/27",
+      "impressions": 640,
+      "clicks": 23
+    },
+    {
+      "week": "07/28",
+      "impressions": 356,
+      "clicks": 21
+    },
+    {
+      "week": "07/29",
+      "impressions": 402,
+      "clicks": 23
+    },
+    {
+      "week": "07/30",
+      "impressions": 346,
+      "clicks": 18
+    },
+    {
+      "week": "07/31",
+      "impressions": 387,
+      "clicks": 14
     }
   ],
   "topKeywords": [
     {
-      "kw": "site:nc.tcu.edu.tw",
-      "brand": true,
-      "impressions": 170,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "liyun kuo",
+      "kw": "",
       "brand": false,
-      "impressions": 80,
-      "clicks": 1,
-      "ctr": 1.25,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64703,r1026.php"
-    },
-    {
-      "kw": "慈濟護專",
-      "brand": true,
-      "impressions": 63,
+      "impressions": 285,
       "clicks": 3,
-      "ctr": 4.76,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "慈濟大學護理系",
-      "brand": true,
-      "impressions": 63,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php"
-    },
-    {
-      "kw": "慈濟大學護理學院",
-      "brand": true,
-      "impressions": 60,
-      "clicks": 9,
-      "ctr": 15,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "林玉娟",
-      "brand": false,
-      "impressions": 40,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64714,r1029.php"
-    },
-    {
-      "kw": "慈濟大學護理",
-      "brand": true,
-      "impressions": 38,
-      "clicks": 1,
-      "ctr": 2.63,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "慈濟大學護理科",
-      "brand": true,
-      "impressions": 30,
-      "clicks": 1,
-      "ctr": 3.33,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php"
+      "ctr": 1.05,
+      "pos": 10.2,
+      "landing": "https://nc.tcu.edu.tw/p/412-1014-2990.php?Lang=zh-tw"
     },
     {
       "kw": "曹英",
       "brand": false,
+      "impressions": 59,
+      "clicks": 10,
+      "ctr": 16.95,
+      "pos": 2.5,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟大學護理系",
+      "brand": true,
+      "impressions": 46,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 1.0,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "楊美玲",
+      "brand": false,
+      "impressions": 35,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 1.1,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64730,r1027.php?Lang=zh-tw"
+    },
+    {
+      "kw": "周桂如",
+      "brand": false,
+      "impressions": 33,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 6.1,
+      "landing": "https://nc.tcu.edu.tw/p/16-1014-65224.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟護理系",
+      "brand": true,
       "impressions": 26,
       "clicks": 2,
       "ctr": 7.69,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64708,r1026.php"
+      "pos": 2.8,
+      "landing": "https://nc.tcu.edu.tw/"
     },
     {
-      "kw": "site:nc.tcust.edu.tw",
-      "brand": true,
+      "kw": "賴惠玲",
+      "brand": false,
       "impressions": 24,
       "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
+      "ctr": 0.0,
+      "pos": 5.6,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64699,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "王淑芳",
+      "brand": false,
+      "impressions": 22,
+      "clicks": 1,
+      "ctr": 4.55,
+      "pos": 3.4,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64698,r1034.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟護理",
+      "brand": true,
+      "impressions": 22,
+      "clicks": 2,
+      "ctr": 9.09,
+      "pos": 1.3,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "羅淑芬",
+      "brand": false,
+      "impressions": 20,
+      "clicks": 1,
+      "ctr": 5.0,
+      "pos": 6.3,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "林玉娟",
+      "brand": false,
+      "impressions": 20,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 0.4,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64705,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "李崇仁",
+      "brand": false,
+      "impressions": 20,
+      "clicks": 1,
+      "ctr": 5.0,
+      "pos": 0.5,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64729,r1027.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟大學護理學系",
+      "brand": true,
+      "impressions": 17,
+      "clicks": 1,
+      "ctr": 5.88,
+      "pos": 1.8,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學 護理系",
+      "brand": true,
+      "impressions": 15,
+      "clicks": 1,
+      "ctr": 6.67,
+      "pos": 1.0,
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
       "kw": "慈濟大學護理系老師",
       "brand": true,
-      "impressions": 22,
-      "clicks": 3,
-      "ctr": 13.64,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64715,r1027.php"
-    },
-    {
-      "kw": "賴惠玲",
-      "brand": false,
-      "impressions": 22,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64699,r1026.php"
-    },
-    {
-      "kw": "護理大學",
-      "brand": true,
-      "impressions": 22,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "慈濟大學護理學系",
-      "brand": true,
-      "impressions": 21,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php"
-    },
-    {
-      "kw": "慈濟大學 護理學系",
-      "brand": true,
-      "impressions": 21,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php"
-    },
-    {
-      "kw": "邱曉彥",
-      "brand": false,
-      "impressions": 20,
-      "clicks": 2,
-      "ctr": 10,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php"
-    },
-    {
-      "kw": "楊美玲",
-      "brand": false,
-      "impressions": 18,
+      "impressions": 14,
       "clicks": 1,
-      "ctr": 5.56,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64699,r1026.php"
+      "ctr": 7.14,
+      "pos": 4.9,
+      "landing": "https://nc.tcu.edu.tw/p/412-1014-4934.php?Lang=zh-tw"
     },
     {
-      "kw": "陸秀芳",
-      "brand": false,
-      "impressions": 18,
-      "clicks": 3,
-      "ctr": 16.67,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64707,r1026.php"
-    },
-    {
-      "kw": "羅淑芬",
-      "brand": false,
-      "impressions": 15,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php"
-    },
-    {
-      "kw": "慈濟護理科",
+      "kw": "慈濟大學護理學院",
       "brand": true,
       "impressions": 14,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
+      "clicks": 7,
+      "ctr": 50.0,
+      "pos": 0.3,
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
-      "kw": "李崇仁",
+      "kw": "蔡淑鳳",
       "brand": false,
+      "impressions": 14,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 7.8,
+      "landing": "https://nc.tcu.edu.tw/p/16-1014-65001.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟副院長",
+      "brand": true,
       "impressions": 13,
-      "clicks": 4,
-      "ctr": 30.77,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64729,r1027.php"
-    },
-    {
-      "kw": "慈濟大學 護理系",
-      "brand": true,
-      "impressions": 12,
-      "clicks": 1,
-      "ctr": 8.33,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php"
-    },
-    {
-      "kw": "慈濟護理",
-      "brand": true,
-      "impressions": 12,
-      "clicks": 1,
-      "ctr": 8.33,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/"
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 3.6,
+      "landing": "https://nc.tcu.edu.tw/p/403-1014-1034-1.php?Lang=zh-tw"
     },
     {
       "kw": "吳素月",
       "brand": false,
-      "impressions": 11,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64726,r1027.php"
+      "impressions": 13,
+      "clicks": 1,
+      "ctr": 7.69,
+      "pos": 0.1,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64726,r1027.php?Lang=zh-tw"
     },
     {
       "kw": "陳佳蓉",
       "brand": false,
-      "impressions": 11,
-      "clicks": 2,
-      "ctr": 18.18,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php"
-    },
-    {
-      "kw": "周桂如",
-      "brand": false,
-      "impressions": 11,
+      "impressions": 12,
       "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/16-1014-65224.php"
-    },
-    {
-      "kw": "li yun kuo 醫生娘",
-      "brand": false,
-      "impressions": 11,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64703,r1026.php"
-    },
-    {
-      "kw": "護理學院",
-      "brand": true,
-      "impressions": 10,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "馬玉琴",
-      "brand": false,
-      "impressions": 10,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "王淑芳",
-      "brand": false,
-      "impressions": 10,
-      "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64698,r1034.php"
+      "ctr": 0.0,
+      "pos": 3.9,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-65180,r1020.php?Lang=zh-tw"
     }
   ],
   "topPages": [
     {
+      "url": "https://nc.tcu.edu.tw/p/412-1014-2990.php?Lang=zh-tw",
+      "impressions": 424,
+      "clicks": 4,
+      "ctr": 0.94,
+      "pos": 9.6,
+      "users": 0
+    },
+    {
       "url": "https://nc.tcu.edu.tw/",
-      "impressions": 423,
-      "clicks": 14,
-      "ctr": 3.31,
-      "pos": 0,
+      "impressions": 353,
+      "clicks": 21,
+      "ctr": 5.95,
+      "pos": 3.2,
       "users": 0
     },
     {
-      "url": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php",
-      "impressions": 158,
-      "clicks": 4,
-      "ctr": 2.53,
-      "pos": 0,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64703,r1026.php",
-      "impressions": 91,
-      "clicks": 1,
-      "ctr": 1.1,
-      "pos": 0,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64714,r1029.php",
-      "impressions": 40,
+      "url": "https://nc.tcu.edu.tw/p/412-1014-5016.php?Lang=en",
+      "impressions": 108,
       "clicks": 0,
-      "ctr": 0,
-      "pos": 0,
+      "ctr": 0.0,
+      "pos": 2.6,
       "users": 0
     },
     {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64699,r1026.php",
-      "impressions": 40,
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw",
+      "impressions": 96,
+      "clicks": 20,
+      "ctr": 20.83,
+      "pos": 2.0,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/412-1014-2992.php",
+      "impressions": 90,
+      "clicks": 2,
+      "ctr": 2.22,
+      "pos": 6.1,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/412-1014-4932.php?Lang=zh-tw",
+      "impressions": 86,
       "clicks": 1,
-      "ctr": 2.5,
-      "pos": 0,
+      "ctr": 1.16,
+      "pos": 6.2,
       "users": 0
     },
     {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php",
-      "impressions": 35,
+      "url": "https://nc.tcu.edu.tw/p/406-1014-65341,r1051.php?Lang=zh-tw",
+      "impressions": 79,
       "clicks": 2,
-      "ctr": 5.71,
-      "pos": 0,
+      "ctr": 2.53,
+      "pos": 4.8,
       "users": 0
     },
     {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64708,r1026.php",
-      "impressions": 26,
-      "clicks": 2,
-      "ctr": 7.69,
-      "pos": 0,
+      "url": "https://nc.tcu.edu.tw/p/406-1014-65919,r1051.php?Lang=zh-tw",
+      "impressions": 73,
+      "clicks": 1,
+      "ctr": 1.37,
+      "pos": 9.8,
       "users": 0
     },
     {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64715,r1027.php",
-      "impressions": 22,
-      "clicks": 3,
-      "ctr": 13.64,
-      "pos": 0,
+      "url": "https://nc.tcu.edu.tw/p/16-1014-65224.php?Lang=zh-tw",
+      "impressions": 72,
+      "clicks": 1,
+      "ctr": 1.39,
+      "pos": 5.9,
       "users": 0
     },
     {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64707,r1026.php",
-      "impressions": 18,
-      "clicks": 3,
-      "ctr": 16.67,
-      "pos": 0,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64729,r1027.php",
-      "impressions": 13,
-      "clicks": 4,
-      "ctr": 30.77,
-      "pos": 0,
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64730,r1027.php?Lang=zh-tw",
+      "impressions": 66,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 3.4,
       "users": 0
     }
   ],
   "audience": {
-    "total": 202,
     "country": [
       {
-        "name": "Taiwan",
-        "sessions": 149,
-        "users": 115,
-        "share": 73.8
+        "name": "臺灣",
+        "sessions": 173,
+        "users": 0,
+        "share": 77.9
       },
       {
-        "name": "China",
-        "sessions": 35,
-        "users": 35,
-        "share": 17.3
+        "name": "中國",
+        "sessions": 39,
+        "users": 0,
+        "share": 17.6
       },
       {
-        "name": "United States",
-        "sessions": 5,
-        "users": 4,
-        "share": 2.5
+        "name": "越南",
+        "sessions": 2,
+        "users": 0,
+        "share": 0.9
       },
       {
-        "name": "Singapore",
-        "sessions": 4,
-        "users": 4,
-        "share": 2
+        "name": "美國",
+        "sessions": 2,
+        "users": 0,
+        "share": 0.9
+      },
+      {
+        "name": "Brazil",
+        "sessions": 1,
+        "users": 0,
+        "share": 0.5
+      },
+      {
+        "name": "香港",
+        "sessions": 1,
+        "users": 0,
+        "share": 0.5
       }
     ],
     "device": [
       {
-        "name": "desktop",
-        "sessions": 131,
-        "users": 100,
-        "share": 64.9
+        "name": "桌機",
+        "sessions": 143,
+        "users": 0,
+        "share": 64.4
       },
       {
-        "name": "tablet",
-        "sessions": 2,
-        "users": 2,
-        "share": 1
+        "name": "手機",
+        "sessions": 78,
+        "users": 0,
+        "share": 35.1
       },
       {
-        "name": "mobile",
-        "sessions": 69,
-        "users": 64,
-        "share": 34.2
+        "name": "平板",
+        "sessions": 1,
+        "users": 0,
+        "share": 0.5
       }
     ],
     "source": [
       {
-        "name": "(direct)/(none)",
-        "medium": "other",
-        "sessions": 118,
-        "users": 94,
-        "share": 58.4
+        "name": "(direct)",
+        "medium": "(none)",
+        "sessions": 120,
+        "users": 0,
+        "share": 54.1
       },
       {
-        "name": "google/organic",
+        "name": "google",
         "medium": "organic",
-        "sessions": 82,
-        "users": 70,
-        "share": 40.6
+        "sessions": 100,
+        "users": 0,
+        "share": 45.0
       },
       {
-        "name": "yahoo/organic",
-        "medium": "organic",
+        "name": "tw.search.yahoo.com",
+        "medium": "referral",
         "sessions": 1,
-        "users": 1,
+        "users": 0,
         "share": 0.5
       },
       {
-        "name": "chatgpt.com/ai-assistant",
-        "medium": "ai",
+        "name": "bing",
+        "medium": "organic",
         "sessions": 1,
-        "users": 1,
+        "users": 0,
         "share": 0.5
       }
-    ]
+    ],
+    "total": 222
   },
   "topIssues": [
     {
       "severity": "medium",
-      "title": "缺 canonical 標籤",
-      "desc": "1 個項目受影響 · 規則 首頁 HTML regex <link rel=\"canonical\">",
+      "title": "首頁缺 canonical 標籤",
+      "desc": "規則 canonical_missing 觸發於 https://nc.tcu.edu.tw/",
       "owner": "電算中心",
       "due": "2026-09-15"
     },
     {
-      "severity": "medium",
-      "title": "hreflang_missing",
-      "desc": "1 個項目受影響 · 規則 首頁 <link rel=alternate hreflang=> 檢查",
-      "owner": "電算中心",
-      "due": "2026-09-15"
-    },
-    {
-      "severity": "medium",
-      "title": "og_metadata_missing",
-      "desc": "1 個項目受影響 · 規則 首頁 <meta property=og:*> 屬性檢查",
+      "severity": "low",
+      "title": "缺 OG 社群分享標籤（Facebook/Line 分享不會有預覽）",
+      "desc": "規則 og_missing 觸發於 https://nc.tcu.edu.tw/",
       "owner": "單位網站管理人",
-      "due": "2026-09-15"
+      "due": "2026-09-30"
+    },
+    {
+      "severity": "low",
+      "title": "缺英文版 hreflang 標籤",
+      "desc": "規則 hreflang_missing 觸發於 https://nc.tcu.edu.tw/",
+      "owner": "電算中心",
+      "due": "2026-09-30"
     }
   ],
   "geo": null,
   "evidence": [],
-  "stalePages": [
-    {
-      "url": "https://nc.tcu.edu.tw/p/407-1014-503-1.php",
-      "year": null,
-      "impressions": 341,
-      "clicks": 0,
-      "pos": 10.1,
-      "note": "連續 8 週 0 點擊"
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/16-1014-65811.php",
-      "year": null,
-      "impressions": 295,
-      "clicks": 0,
-      "pos": 16.8,
-      "note": "連續 8 週 0 點擊"
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/404-1014-65431.php",
-      "year": null,
-      "impressions": 114,
-      "clicks": 0,
-      "pos": 32.5,
-      "note": "連續 8 週 0 點擊"
-    }
-  ]
+  "stalePages": []
 }
