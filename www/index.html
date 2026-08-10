@@ -32,10 +32,20 @@
       <span class="pill" id="report-updated">—</span>
       <span class="pill" id="report-version">—</span>
       <span class="pill date-picker">
-        <label for="date-start">起</label>
-        <input type="date" id="date-start" />
-        <label for="date-end">迄</label>
-        <input type="date" id="date-end" />
+        <span class="date-trigger">
+          <label>起</label>
+          <button type="button" class="date-btn" data-target="date-start" data-role="start">
+            <span class="date-display" id="date-start-display">—</span>
+          </button>
+          <input type="hidden" id="date-start" value="" />
+        </span>
+        <span class="date-trigger">
+          <label>迄</label>
+          <button type="button" class="date-btn" data-target="date-end" data-role="end">
+            <span class="date-display" id="date-end-display">—</span>
+          </button>
+          <input type="hidden" id="date-end" value="" />
+        </span>
         <button id="btn-apply-range" type="button">套用</button>
         <button id="btn-reset-range" type="button" title="回到最近 8 週">↻</button>
       </span>

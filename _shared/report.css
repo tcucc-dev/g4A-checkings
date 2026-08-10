@@ -148,6 +148,162 @@ body {
 .meta-bar .pill.date-picker button:hover {
   background: rgba(255,255,255,0.3);
 }
+/* 套用 button — bright accent so users immediately see it as the action button */
+.meta-bar .pill.date-picker button#btn-apply-range {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: white;
+  font-weight: 700;
+  padding: 6px 16px;
+  box-shadow: 0 2px 8px rgba(29, 125, 120, 0.35);
+  transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+.meta-bar .pill.date-picker button#btn-apply-range:hover {
+  background: #155f5b;
+  box-shadow: 0 3px 12px rgba(29, 125, 120, 0.45);
+  transform: translateY(-1px);
+}
+.meta-bar .pill.date-picker button#btn-apply-range:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(29, 125, 120, 0.35);
+}
+
+/* When 套用 is clicked, briefly flash to confirm the action */
+.meta-bar .pill.date-picker button#btn-apply-range.applied-flash {
+  animation: appliedFlash 0.6s ease-out;
+}
+@keyframes appliedFlash {
+  0%   { background: #4ee0c1; box-shadow: 0 0 0 6px rgba(78, 224, 193, 0.5); }
+  100% { background: var(--teal); box-shadow: 0 2px 8px rgba(29, 125, 120, 0.35); }
+}
+
+/* ===== CUSTOM DATE PICKER ===== */
+.meta-bar .pill.date-picker .date-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.meta-bar .pill.date-picker .date-trigger label {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-right: 2px;
+}
+.date-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.date-btn:hover { background: rgba(255,255,255,0.28); }
+.date-display {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.cal-popup {
+  position: absolute;
+  z-index: 1000;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.18);
+  padding: 12px;
+  width: 280px;
+  font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", "Segoe UI", "PingFang TC", sans-serif;
+  color: var(--ink);
+  user-select: none;
+  text-align: center;       /* center-justified everywhere */
+}
+.cal-popup[hidden] { display: none; }
+.cal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 4px 0;
+}
+.cal-title {
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;        /* center-justified */
+  flex: 1;
+  color: var(--navy);
+}
+.cal-nav {
+  background: transparent;
+  border: 1px solid var(--line);
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--navy);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+.cal-nav:hover { background: var(--soft); }
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;        /* center-justified */
+}
+.cal-dow > div {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+  padding: 6px 0;
+  text-align: center;        /* center-justified */
+}
+.cal-days { font-size: 13px; }
+.cal-day {
+  background: transparent;
+  border: none;
+  padding: 8px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 13px;
+  text-align: center;        /* center-justified */
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+.cal-day:hover { background: var(--soft); }
+.cal-day.cal-other-month { color: #cbd5e1; }
+.cal-day.cal-today { font-weight: 700; color: var(--teal); }
+.cal-day.cal-selected { background: var(--teal); color: white; font-weight: 700; }
+.cal-day.cal-selected:hover { background: var(--teal2); }
+.cal-day.cal-disabled { color: #e2e8f0; cursor: not-allowed; }
+.cal-day.cal-disabled:hover { background: transparent; }
+
+.cal-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+.cal-action {
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--navy);
+  font-family: inherit;
+}
+.cal-action:hover { background: var(--soft); }
 
 /* ===== MAIN LAYOUT ===== */
 main {
@@ -773,4 +929,212 @@ footer a { color: var(--teal); text-decoration: none; }
   font-size: 12px;
   color: var(--muted);
   margin-top: 4px;
+}
+
+/* ============================================================
+   MOBILE RESPONSIVE — single comprehensive breakpoint
+   ============================================================ */
+@media (max-width: 720px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  .site-header {
+    padding: 18px 16px 14px;
+  }
+  .site-header h1 {
+    font-size: 20px;
+  }
+  .site-header .breadcrumb {
+    font-size: 12px;
+  }
+  .site-header-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .site-header .actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .site-header .actions button {
+    padding: 8px 12px;
+    min-height: 36px;
+    font-size: 12px;
+  }
+  .meta-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .meta-bar .pill {
+    text-align: center;
+  }
+  .meta-bar .pill.date-picker {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+  }
+  .meta-bar .pill.date-picker > label {
+    align-self: flex-start;
+    font-size: 12px;
+  }
+  .meta-bar .pill.date-picker .date-trigger {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .meta-bar .pill.date-picker .date-btn {
+    flex: 1;
+    min-height: 36px;
+    font-size: 14px;
+  }
+  .meta-bar .pill.date-picker button#btn-apply-range {
+    width: 100%;
+    min-height: 44px;
+    font-size: 15px;
+    padding: 10px 16px;
+  }
+  .meta-bar .pill.date-picker button#btn-reset-range {
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  /* Main padding */
+  main {
+    padding: 0 12px 60px;
+  }
+
+  /* Sections — make headers wrap better */
+  .section {
+    margin-bottom: 16px;
+    border-radius: 8px;
+  }
+  .section-header {
+    padding: 14px 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .section-header h2 {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  .section-header h2 .num {
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .section-header .lead {
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .section-body {
+    padding: 14px 16px;
+  }
+
+  /* KPI cards — stack to 1 column on phones */
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .kpi-card {
+    padding: 14px 16px;
+  }
+  .kpi-card .value {
+    font-size: 28px;
+  }
+
+  /* Charts — single column, smaller height */
+  .charts-row {
+    grid-template-columns: 1fr;
+  }
+  .chart-card {
+    padding: 12px 12px;
+  }
+  .chart-card h3 {
+    font-size: 13px;
+  }
+  .chart-card canvas {
+    height: 220px !important;
+  }
+
+  /* Tables — sticky first column + horizontal scroll */
+  .tbl-wrap {
+    margin: 0 -16px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  table.data {
+    font-size: 12.5px;
+  }
+  table.data th {
+    font-size: 11px;
+    padding: 8px 10px;
+    white-space: normal;
+  }
+  table.data td {
+    padding: 7px 10px;
+  }
+  table.data td.url {
+    max-width: 200px;
+  }
+
+  /* Bar lists — name column smaller */
+  .bar-row {
+    grid-template-columns: 80px 1fr 60px;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .bar-row .val {
+    font-size: 11px;
+  }
+
+  /* Issue cards */
+  .issue-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .issue-item .who {
+    text-align: left;
+  }
+
+  /* Evidence grid */
+  .ev-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .ev-card {
+    padding: 12px 14px;
+  }
+
+  /* Mobile tap targets */
+  .kpi-card,
+  .issue-item,
+  .ev-card,
+  button {
+    min-height: 44px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 20px 12px;
+    font-size: 11px;
+  }
+
+  /* Three.js canvas — reduce particle count for low-end mobile */
+  /* (handled in JS, not CSS) */
+}
+
+@media (max-width: 480px) {
+  .site-header h1 {
+    font-size: 18px;
+  }
+  .kpi-card .value {
+    font-size: 24px;
+  }
+  table.data td.num {
+    font-size: 11px;
+  }
 }

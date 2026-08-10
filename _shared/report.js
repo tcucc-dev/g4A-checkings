@@ -252,17 +252,14 @@
       const fmt = d => d.toISOString().slice(0, 10);
       const defStart = fmt(startDate < new Date(firstWeek + 'T00:00:00') ? new Date(firstWeek + 'T00:00:00') : startDate);
       const defEnd = lastWeek;
-      $('#date-start').min = firstWeek;
-      $('#date-start').max = defEnd;
-      $('#date-start').value = defStart;
-      $('#date-end').min = firstWeek;
-      $('#date-end').max = defEnd;
-      $('#date-end').value = defEnd;
+      initDatePicker({ min: firstWeek, max: defEnd, defStart, defEnd });
       // Wire button handlers
       $('#btn-apply-range').addEventListener('click', () => applyDateRange(data));
       $('#btn-reset-range').addEventListener('click', () => {
         $('#date-start').value = defStart;
         $('#date-end').value = defEnd;
+        syncDateDisplay('date-start');
+        syncDateDisplay('date-end');
         applyDateRange(data);
       });
     }
@@ -347,6 +344,214 @@
   }
 
   /* ---------- DATE RANGE PICKER ---------- */
+
+  // Custom calendar popup — single shared element, appended to document.body
+  let calState = null;
+
+  // Format Date or YYYY-MM-DD string → display 'YYYY/MM/DD' (or '—' if empty)
+  function fmtDateDisp(v) {
+    if (!v) return '—';
+    const m = String(v).match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return '—';
+    return `${m[1]}/${m[2]}/${m[3]}`;
+  }
+
+  // Update the visible trigger display for a hidden input id
+  function syncDateDisplay(inputId) {
+    const disp = document.getElementById(inputId + '-display');
+    const inp = document.getElementById(inputId);
+    if (disp && inp) disp.textContent = fmtDateDisp(inp.value);
+  }
+
+  function buildCalendarPopup() {
+    const popup = document.createElement('div');
+    popup.className = 'cal-popup';
+    popup.hidden = true;
+    popup.setAttribute('role', 'dialog');
+    popup.innerHTML = `
+      <div class="cal-header">
+        <button type="button" class="cal-nav cal-prev" aria-label="上個月">‹</button>
+        <div class="cal-title"></div>
+        <button type="button" class="cal-nav cal-next" aria-label="下個月">›</button>
+      </div>
+      <div class="cal-grid cal-dow">
+        <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
+      </div>
+      <div class="cal-grid cal-days"></div>
+      <div class="cal-footer">
+        <button type="button" class="cal-action" data-action="clear">清除</button>
+        <button type="button" class="cal-action" data-action="today">今天</button>
+      </div>
+    `;
+    document.body.appendChild(popup);
+    return popup;
+  }
+
+  function renderCalendar() {
+    if (!calState) return;
+    const { popup, viewYear, viewMonth } = calState;
+    popup.querySelector('.cal-title').textContent = `${viewYear} 年 ${viewMonth + 1} 月`;
+
+    const daysHost = popup.querySelector('.cal-days');
+    daysHost.innerHTML = '';
+
+    const firstOfMonth = new Date(viewYear, viewMonth, 1);
+    // Sunday-first: getDay() returns 0 (Sun) .. 6 (Sat)
+    const leading = firstOfMonth.getDay();
+    const gridStart = new Date(viewYear, viewMonth, 1 - leading);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const rangeMin = calState.rangeMin ? new Date(calState.rangeMin + 'T00:00:00') : null;
+    const rangeMax = calState.rangeMax ? new Date(calState.rangeMax + 'T00:00:00') : null;
+
+    const curStart = $('#date-start').value;
+    const curEnd = $('#date-end').value;
+    const peerDate = calState.target === 'date-start' ? curEnd : curStart;
+    const peer = peerDate ? new Date(peerDate + 'T00:00:00') : null;
+
+    for (let i = 0; i < 42; i++) {
+      const d = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cal-day';
+      btn.textContent = String(d.getDate());
+      if (d.getMonth() !== viewMonth) btn.classList.add('cal-other-month');
+      if (d.getTime() === today.getTime()) btn.classList.add('cal-today');
+
+      const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      const cur = calState.target === 'date-start' ? curStart : curEnd;
+      if (cur && cur === iso) btn.classList.add('cal-selected');
+
+      // Disable out-of-range or (for start) > peer end, (for end) < peer start
+      let disabled = false;
+      if (rangeMin && d < rangeMin) disabled = true;
+      if (rangeMax && d > rangeMax) disabled = true;
+      if (peer) {
+        if (calState.target === 'date-start' && d > peer) disabled = true;
+        if (calState.target === 'date-end' && d < peer) disabled = true;
+      }
+      if (disabled) btn.classList.add('cal-disabled');
+
+      btn.addEventListener('click', (e) => {
+        if (btn.classList.contains('cal-disabled')) return;
+        e.stopPropagation();
+        const inp = document.getElementById(calState.target);
+        inp.value = iso;
+        syncDateDisplay(calState.target);
+        closeCalendar();
+      });
+      daysHost.appendChild(btn);
+    }
+  }
+
+  function openCalendar(btn) {
+    if (!calState || !calState.popup) return;
+    const targetId = btn.getAttribute('data-target');
+    const cur = $('#' + targetId).value;
+    const base = cur ? new Date(cur + 'T00:00:00') : new Date();
+    calState.target = targetId;
+    calState.viewYear = base.getFullYear();
+    calState.viewMonth = base.getMonth();
+    renderCalendar();
+    // Position beneath the button
+    const r = btn.getBoundingClientRect();
+    calState.popup.style.top = (window.scrollY + r.bottom + 6) + 'px';
+    calState.popup.style.left = (window.scrollX + r.left) + 'px';
+    calState.popup.hidden = false;
+  }
+
+  function closeCalendar() {
+    if (calState && calState.popup) calState.popup.hidden = true;
+  }
+
+  function initDatePicker(range) {
+    const popup = buildCalendarPopup();
+    calState = {
+      popup,
+      rangeMin: range.min,
+      rangeMax: range.max,
+    };
+
+    // Pre-fill hidden inputs (applyDateRange still reads .value from these)
+    $('#date-start').value = range.defStart;
+    $('#date-end').value = range.defEnd;
+    syncDateDisplay('date-start');
+    syncDateDisplay('date-end');
+
+    // Wire each trigger button to open the calendar
+    document.querySelectorAll('.date-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Toggle: clicking same button again closes
+        if (calState && calState.target === btn.getAttribute('data-target') && !calState.popup.hidden) {
+          closeCalendar();
+          return;
+        }
+        openCalendar(btn);
+      });
+    });
+
+    // Outside click + ESC close
+    document.addEventListener('click', () => { if (calState && !calState.popup.hidden) closeCalendar(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && calState && !calState.popup.hidden) closeCalendar();
+    });
+    // Reposition on scroll/resize while open
+    window.addEventListener('scroll', () => { if (calState && !calState.popup.hidden) {
+      const btn = document.querySelector(`.date-btn[data-target="${calState.target}"]`);
+      if (btn) {
+        const r = btn.getBoundingClientRect();
+        calState.popup.style.top = (window.scrollY + r.bottom + 6) + 'px';
+        calState.popup.style.left = (window.scrollX + r.left) + 'px';
+      }
+    }; }, true);
+    window.addEventListener('resize', () => { if (calState && !calState.popup.hidden) {
+      const btn = document.querySelector(`.date-btn[data-target="${calState.target}"]`);
+      if (btn) {
+        const r = btn.getBoundingClientRect();
+        calState.popup.style.top = (window.scrollY + r.bottom + 6) + 'px';
+        calState.popup.style.left = (window.scrollX + r.left) + 'px';
+      }
+    }; });
+
+    // Prevent click inside popup from bubbling to document
+    popup.addEventListener('click', (e) => e.stopPropagation());
+
+    // Wire static popup controls
+    popup.querySelector('.cal-prev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      let m = calState.viewMonth - 1, y = calState.viewYear;
+      if (m < 0) { m = 11; y--; }
+      calState.viewYear = y; calState.viewMonth = m;
+      renderCalendar();
+    });
+    popup.querySelector('.cal-next').addEventListener('click', (e) => {
+      e.stopPropagation();
+      let m = calState.viewMonth + 1, y = calState.viewYear;
+      if (m > 11) { m = 0; y++; }
+      calState.viewYear = y; calState.viewMonth = m;
+      renderCalendar();
+    });
+    popup.querySelectorAll('.cal-action').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const act = a.getAttribute('data-action');
+        const inp = document.getElementById(calState.target);
+        if (act === 'today') {
+          const t = new Date();
+          const iso = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
+          inp.value = iso;
+        } else if (act === 'clear') {
+          inp.value = '';
+        }
+        syncDateDisplay(calState.target);
+        closeCalendar();
+      });
+    });
+  }
+
   function applyDateRange(fullData) {
     const startStr = $('#date-start').value;
     const endStr = $('#date-end').value;
@@ -409,6 +614,28 @@
     renderKpis(fullData, { kpisOverride: kpiOverride });
     $('#report-period').textContent = `${startStr.replace(/-/g, '/')} – ${endStr.replace(/-/g, '/')} (${ga4.length} 週)`;
     renderTrends(fullData, { filtered: { ga4, gsc } });
+
+    // Visual feedback: flash the 套用 button so the user knows the click registered
+    const btn = $('#btn-apply-range');
+    if (btn) {
+      btn.classList.remove('applied-flash');
+      // Force reflow so the animation restarts even if class was just added
+      void btn.offsetWidth;
+      btn.classList.add('applied-flash');
+      setTimeout(() => btn.classList.remove('applied-flash'), 700);
+    }
+
+    // Re-trigger the entrance animation on the trends + audience + keywords sections
+    // so the user visually perceives that the data updated
+    const sectionsToReanimate = ['#trends', '#top-keywords', '#top-pages', '#audience', '#quick-view'];
+    sectionsToReanimate.forEach(sel => {
+      const el = $(sel);
+      if (!el) return;
+      el.style.animation = 'none';
+      // Force reflow
+      void el.offsetWidth;
+      el.style.animation = '';
+    });
   }
 
   /* ---------- TRENDS (charts) ---------- */
