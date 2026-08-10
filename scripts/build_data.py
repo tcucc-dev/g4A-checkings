@@ -21,6 +21,7 @@ from datetime import date
 sys.path.insert(0, 'C:/ai_auto/scripts')
 from fetch_dept_report import (
     get_bq_client, resolve_periods, fetch_kpis, fetch_weekly_trends,
+    taiwan_date_sql_ga4,
     PROJECT, DATASET,
 )
 
@@ -72,6 +73,28 @@ def safe_div(a, b):
         return 0
 
 
+# ===== Timezone =====
+# The `date` column in all_units_summary (GA4) is assigned in UTC, but Taiwan
+# users see their GA4 dashboard in Asia/Taipei (UTC+8). All GA4 date filters,
+# GROUP BY date, and aggregations must convert event_timestamp to Taiwan DATE
+# first, then use that derived column instead of `date`.
+#
+# GSC's all_gsc_summary only has a DATE-typed data_date column (no row-level
+# timestamp), so we cannot per-row reconstruct Taiwan-time. We treat data_date
+# as already Taiwan-aligned (the export is assumed to use Asia/Taipei TZ). If
+# the GSC export is later confirmed to be UTC, this needs a re-export with
+# the BigQuery Data Transfer Service configured for TZ=Asia/Taipei.
+TAIPEI_OFFSET_HOURS = 8  # Taiwan = UTC+8
+
+def taiwan_date_sql_ga4():
+    """SQL expression: converts GA4 event_timestamp (INT64 microseconds, UTC)
+    into a Taiwan DATE by adding the +8h offset before truncating to DATE."""
+    return (
+        f"DATE(TIMESTAMP_ADD(TIMESTAMP_MICROS(event_timestamp), "
+        f"INTERVAL {TAIPEI_OFFSET_HOURS} HOUR))"
+    )
+
+
 # ===== BQ queries =====
 
 def fetch_audience(client, cfg, current):
@@ -84,7 +107,7 @@ def fetch_audience(client, cfg, current):
       COUNT(DISTINCT ga_session_id) AS sessions,
       COUNT(DISTINCT user_pseudo_id) AS users
     FROM `{PROJECT}.{DATASET}.all_units_summary`
-    WHERE {cfg['bqFilter']} AND date BETWEEN '{current['start'].replace('/', '-')}' AND '{current['end'].replace('/', '-')}'
+    WHERE {cfg['bqFilter']} AND {taiwan_date_sql_ga4()} BETWEEN '{current['start'].replace('/', '-')}' AND '{current['end'].replace('/', '-')}'
     GROUP BY country, device_category, source_medium
     """
     rows = list(client.query(q).result())
@@ -208,12 +231,12 @@ def fetch_52w_trends(client, cfg):
     If a week exists in GA4 but has no GSC data, the GSC row is filled with zeros.
     """
     ga4_q = f"""
-    SELECT DATE_TRUNC(date, WEEK(SUNDAY)) AS week_start,
+    SELECT DATE_TRUNC({taiwan_date_sql_ga4()}, WEEK(SUNDAY)) AS week_start,
            COUNT(DISTINCT ga_session_id) AS sessions,
            COUNT(DISTINCT user_pseudo_id) AS users,
            COUNTIF(event_name='page_view') AS pageviews
     FROM `{PROJECT}.{DATASET}.all_units_summary`
-    WHERE {cfg['bqFilter']} AND date >= DATE_SUB(CURRENT_DATE(), INTERVAL 53 WEEK)
+    WHERE {cfg['bqFilter']} AND {taiwan_date_sql_ga4()} >= DATE_SUB(CURRENT_DATE(), INTERVAL 53 WEEK)
     GROUP BY week_start
     ORDER BY week_start
     """
