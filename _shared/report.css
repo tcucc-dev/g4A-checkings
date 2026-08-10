@@ -111,6 +111,43 @@ body {
   padding: 4px 10px;
   border-radius: 999px;
 }
+.meta-bar .pill.date-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.15);
+}
+.meta-bar .pill.date-picker label {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-right: 2px;
+}
+.meta-bar .pill.date-picker input[type="date"] {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: inherit;
+  width: 130px;
+}
+.meta-bar .pill.date-picker input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+.meta-bar .pill.date-picker button {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.meta-bar .pill.date-picker button:hover {
+  background: rgba(255,255,255,0.3);
+}
 
 /* ===== MAIN LAYOUT ===== */
 main {
@@ -283,13 +320,15 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+  align-items: start;
 }
-@media (max-width: 768px) { .charts-row { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .charts-row { grid-template-columns: 1fr; } }
 .chart-card {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 14px 16px;
   background: white;
+  min-width: 0;  /* prevent grid blowout from long canvas content */
 }
 .chart-card h3 {
   font-size: 14px;
@@ -304,8 +343,71 @@ main {
 }
 .chart-card canvas {
   width: 100% !important;
-  height: 200px !important;
+  /* Responsive height: never taller than the chart is wide, capped */
+  height: 320px !important;
+  max-height: 360px;
+  display: block;
 }
+@media (max-width: 1200px) {
+  .chart-card canvas { height: 280px !important; }
+}
+@media (max-width: 900px) {
+  .chart-card canvas { height: 260px !important; }
+}
+
+/* ===== TOOLTIPS (jargon glossary on hover) ===== */
+.term {
+  border-bottom: 1px dotted var(--teal);
+  cursor: help;
+  position: relative;
+  color: var(--navy);
+  font-weight: 600;
+}
+.term:hover { color: var(--teal); }
+
+/* The tooltip box — uses CSS only, no JS positioning needed */
+.term::after,
+.term::before {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 100;
+  white-space: normal;
+}
+.term::before {
+  content: '';
+  border: 6px solid transparent;
+  border-top-color: var(--navy);
+  bottom: calc(100% + 2px);
+}
+.term::after {
+  content: attr(data-tip);
+  background: var(--navy);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 400;
+  line-height: 1.5;
+  width: max-content;
+  max-width: 280px;
+  text-align: left;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.18);
+}
+.term:hover::after,
+.term:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
+}
+/* Hide tooltip when term is near right edge */
+.term.tip-right::after { left: auto; right: 0; transform: translateX(0); }
+.term.tip-right::before { left: auto; right: 12px; transform: translateX(0); }
+.term.tip-right:hover::after,
+.term.tip-right:hover::before { transform: translateX(0) translateY(-2px); }
 
 /* ===== TABLES ===== */
 .tbl-wrap {
@@ -538,4 +640,137 @@ footer a { color: var(--teal); text-decoration: none; }
   .section.collapsed .section-body { display: block !important; }
   main { padding: 0; margin: 0; }
   .charts-row { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===== EXPERT SECTIONS (10-20) ===== */
+
+/* Placeholder box (used for sections needing manual BQ) */
+.placeholder-box {
+  background: #f8fafc;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 16px 18px;
+  font-size: 13.5px;
+}
+.placeholder-box p { margin: 6px 0; }
+.placeholder-box pre { margin: 8px 0; }
+
+/* Content matrix (11) — 2x2 quadrant grid */
+.qm-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 720px) { .qm-grid { grid-template-columns: 1fr; } }
+.qm-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.qm-card h4 { font-size: 14px; margin-bottom: 4px; }
+.qm-card ul { color: var(--ink); }
+
+/* Persona cards (15) */
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+.persona-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.persona-card h4 {
+  font-size: 14px;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.persona-card .tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+.persona-card .tag {
+  background: var(--soft);
+  color: var(--ink);
+  font-size: 11.5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+}
+
+/* Marketing funnel (16) */
+.funnel { display: grid; gap: 10px; }
+.funnel-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 90px;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+@media (max-width: 640px) {
+  .funnel-row { grid-template-columns: 1fr; gap: 4px; }
+}
+.funnel-bar {
+  height: 18px;
+  background: var(--soft);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.funnel-bar > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+  transition: width 0.4s ease;
+}
+.funnel-val {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, monospace;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+/* GEO question cards (19) */
+.geo-q-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+.geo-q-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--muted);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.geo-q-card.pass { border-left-color: var(--ok-fg); }
+.geo-q-card.warn { border-left-color: var(--warn-fg); }
+.geo-q-card.fail { border-left-color: var(--bad-fg); }
+.geo-q-card .geo-q-label {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.geo-q-card .geo-q-name {
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 14px;
+  margin: 2px 0 6px;
+}
+.geo-q-card .geo-q-score {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--navy);
+}
+.geo-q-card .geo-q-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
 }

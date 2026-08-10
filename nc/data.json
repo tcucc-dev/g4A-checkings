@@ -5,624 +5,567 @@
     "reportVersion": "v3.0",
     "updatedAt": "2026/08/10",
     "maxDateGa4": "2026-08-08",
-    "maxDateGsc": "2026-08-07",
+    "maxDateGsc": "2026-08-08",
     "sourceCount": 3
   },
   "periods": {
     "current": {
-      "start": "2026/08/01",
-      "end": "2026/08/07"
+      "start": "2026/08/02",
+      "end": "2026/08/08"
     },
     "previous": {
-      "start": "2026/07/25",
-      "end": "2026/07/31"
+      "start": "2026/07/26",
+      "end": "2026/08/01"
     },
     "trend": {
-      "start": "2026/06/12",
-      "end": "2026/07/31"
+      "start": "2026/06/13",
+      "end": "2026/08/01"
     }
   },
   "kpis": {
     "users": {
       "label": "本週造訪人數",
-      "value": 194,
-      "trend_pct": -7.2,
+      "value": 195,
+      "trend_pct": -5.8,
       "avg": "前 8 週平均 26",
       "src": "all_units_summary｜GA4-USERS-001"
     },
     "sessions": {
       "label": "本週工作階段",
-      "value": 222,
-      "trend_pct": -19.9,
-      "avg": "前 8 週平均 31",
+      "value": 223,
+      "trend_pct": -18.3,
+      "avg": "前 8 週平均 30",
       "src": "all_units_summary｜GA4-SESSIONS-001"
     },
     "gsc": {
       "label": "Google 搜尋點擊",
-      "value": 128,
-      "trend_pct": 0.0,
+      "value": 137,
+      "trend_pct": 14.2,
       "avg": "前 8 週平均 15",
       "src": "all_gsc_summary｜GSC-KPI-001"
     },
     "ctr": {
       "label": "Google 搜尋點擊率",
-      "value": "4.21%",
-      "trend_pct": -0.45,
-      "avg": "前 8 週平均 3.97%",
+      "value": "4.58%",
+      "trend_pct": 0.27,
+      "avg": "前 8 週平均 3.91%",
       "src": "all_gsc_summary｜GSC-CTR-001"
     }
   },
-  "trendsGA4": [
-    {
-      "week": "06/12",
-      "sessions": 75,
-      "users": 62,
-      "pageviews": 244
-    },
-    {
-      "week": "06/13",
-      "sessions": 25,
-      "users": 25,
-      "pageviews": 31
-    },
-    {
-      "week": "06/14",
-      "sessions": 18,
-      "users": 18,
-      "pageviews": 33
-    },
-    {
-      "week": "06/15",
-      "sessions": 57,
-      "users": 45,
-      "pageviews": 132
-    },
-    {
-      "week": "06/22",
-      "sessions": 37,
-      "users": 32,
-      "pageviews": 69
-    },
-    {
-      "week": "06/23",
-      "sessions": 34,
-      "users": 33,
-      "pageviews": 94
-    },
-    {
-      "week": "06/24",
-      "sessions": 32,
-      "users": 24,
-      "pageviews": 86
-    },
-    {
-      "week": "06/25",
-      "sessions": 45,
-      "users": 31,
-      "pageviews": 99
-    },
-    {
-      "week": "06/26",
-      "sessions": 41,
-      "users": 32,
-      "pageviews": 154
-    },
-    {
-      "week": "06/27",
-      "sessions": 21,
-      "users": 20,
-      "pageviews": 23
-    },
-    {
-      "week": "06/28",
-      "sessions": 26,
-      "users": 21,
-      "pageviews": 31
-    },
-    {
-      "week": "06/29",
-      "sessions": 32,
-      "users": 28,
-      "pageviews": 80
-    },
-    {
-      "week": "06/30",
-      "sessions": 31,
-      "users": 26,
-      "pageviews": 35
-    },
-    {
-      "week": "07/01",
-      "sessions": 37,
-      "users": 32,
-      "pageviews": 79
-    },
-    {
-      "week": "07/02",
-      "sessions": 40,
-      "users": 37,
-      "pageviews": 46
-    },
-    {
-      "week": "07/03",
-      "sessions": 16,
-      "users": 13,
-      "pageviews": 25
-    },
-    {
-      "week": "07/04",
-      "sessions": 12,
-      "users": 11,
-      "pageviews": 16
-    },
-    {
-      "week": "07/05",
-      "sessions": 19,
-      "users": 18,
-      "pageviews": 23
-    },
-    {
-      "week": "07/06",
-      "sessions": 19,
-      "users": 15,
-      "pageviews": 44
-    },
-    {
-      "week": "07/07",
-      "sessions": 27,
-      "users": 23,
-      "pageviews": 38
-    },
-    {
-      "week": "07/08",
-      "sessions": 19,
-      "users": 19,
-      "pageviews": 40
-    },
-    {
-      "week": "07/09",
-      "sessions": 32,
-      "users": 29,
-      "pageviews": 58
-    },
-    {
-      "week": "07/10",
-      "sessions": 14,
-      "users": 13,
-      "pageviews": 15
-    },
-    {
-      "week": "07/11",
-      "sessions": 10,
-      "users": 10,
-      "pageviews": 12
-    },
-    {
-      "week": "07/12",
-      "sessions": 18,
-      "users": 18,
-      "pageviews": 26
-    },
-    {
-      "week": "07/13",
-      "sessions": 36,
-      "users": 32,
-      "pageviews": 57
-    },
-    {
-      "week": "07/14",
-      "sessions": 22,
-      "users": 20,
-      "pageviews": 100
-    },
-    {
-      "week": "07/15",
-      "sessions": 42,
-      "users": 31,
-      "pageviews": 122
-    },
-    {
-      "week": "07/16",
-      "sessions": 42,
-      "users": 40,
-      "pageviews": 68
-    },
-    {
-      "week": "07/17",
-      "sessions": 26,
-      "users": 23,
-      "pageviews": 55
-    },
-    {
-      "week": "07/18",
-      "sessions": 25,
-      "users": 23,
-      "pageviews": 35
-    },
-    {
-      "week": "07/19",
-      "sessions": 22,
-      "users": 18,
-      "pageviews": 27
-    },
-    {
-      "week": "07/20",
-      "sessions": 29,
-      "users": 26,
-      "pageviews": 28
-    },
-    {
-      "week": "07/21",
-      "sessions": 35,
-      "users": 26,
-      "pageviews": 72
-    },
-    {
-      "week": "07/22",
-      "sessions": 34,
-      "users": 28,
-      "pageviews": 52
-    },
-    {
-      "week": "07/23",
-      "sessions": 35,
-      "users": 31,
-      "pageviews": 49
-    },
-    {
-      "week": "07/24",
-      "sessions": 26,
-      "users": 26,
-      "pageviews": 42
-    },
-    {
-      "week": "07/25",
-      "sessions": 23,
-      "users": 21,
-      "pageviews": 31
-    },
-    {
-      "week": "07/26",
-      "sessions": 20,
-      "users": 19,
-      "pageviews": 24
-    },
-    {
-      "week": "07/27",
-      "sessions": 44,
-      "users": 37,
-      "pageviews": 71
-    },
-    {
-      "week": "07/28",
-      "sessions": 52,
-      "users": 45,
-      "pageviews": 73
-    },
-    {
-      "week": "07/29",
-      "sessions": 58,
-      "users": 40,
-      "pageviews": 173
-    },
-    {
-      "week": "07/30",
-      "sessions": 38,
-      "users": 34,
-      "pageviews": 97
-    },
-    {
-      "week": "07/31",
-      "sessions": 42,
-      "users": 32,
-      "pageviews": 112
-    }
-  ],
-  "trendsGSC": [
-    {
-      "week": "06/12",
-      "impressions": 428,
-      "clicks": 27
-    },
-    {
-      "week": "06/13",
-      "impressions": 294,
-      "clicks": 16
-    },
-    {
-      "week": "06/14",
-      "impressions": 471,
-      "clicks": 22
-    },
-    {
-      "week": "06/15",
-      "impressions": 493,
-      "clicks": 26
-    },
-    {
-      "week": "06/16",
-      "impressions": 520,
-      "clicks": 23
-    },
-    {
-      "week": "06/17",
-      "impressions": 443,
-      "clicks": 24
-    },
-    {
-      "week": "06/18",
-      "impressions": 295,
-      "clicks": 10
-    },
-    {
-      "week": "06/19",
-      "impressions": 272,
-      "clicks": 18
-    },
-    {
-      "week": "06/20",
-      "impressions": 247,
-      "clicks": 13
-    },
-    {
-      "week": "06/21",
-      "impressions": 282,
-      "clicks": 13
-    },
-    {
-      "week": "06/22",
-      "impressions": 451,
-      "clicks": 15
-    },
-    {
-      "week": "06/23",
-      "impressions": 469,
-      "clicks": 14
-    },
-    {
-      "week": "06/24",
-      "impressions": 496,
-      "clicks": 16
-    },
-    {
-      "week": "06/25",
-      "impressions": 396,
-      "clicks": 14
-    },
-    {
-      "week": "06/26",
-      "impressions": 396,
-      "clicks": 9
-    },
-    {
-      "week": "06/27",
-      "impressions": 321,
-      "clicks": 10
-    },
-    {
-      "week": "06/28",
-      "impressions": 379,
-      "clicks": 15
-    },
-    {
-      "week": "06/29",
-      "impressions": 524,
-      "clicks": 21
-    },
-    {
-      "week": "06/30",
-      "impressions": 407,
-      "clicks": 16
-    },
-    {
-      "week": "07/01",
-      "impressions": 342,
-      "clicks": 15
-    },
-    {
-      "week": "07/02",
-      "impressions": 464,
-      "clicks": 10
-    },
-    {
-      "week": "07/03",
-      "impressions": 318,
-      "clicks": 7
-    },
-    {
-      "week": "07/04",
-      "impressions": 265,
-      "clicks": 9
-    },
-    {
-      "week": "07/05",
-      "impressions": 324,
-      "clicks": 9
-    },
-    {
-      "week": "07/06",
-      "impressions": 377,
-      "clicks": 11
-    },
-    {
-      "week": "07/07",
-      "impressions": 497,
-      "clicks": 15
-    },
-    {
-      "week": "07/08",
-      "impressions": 376,
-      "clicks": 12
-    },
-    {
-      "week": "07/09",
-      "impressions": 333,
-      "clicks": 11
-    },
-    {
-      "week": "07/10",
-      "impressions": 269,
-      "clicks": 5
-    },
-    {
-      "week": "07/11",
-      "impressions": 286,
-      "clicks": 8
-    },
-    {
-      "week": "07/12",
-      "impressions": 328,
-      "clicks": 11
-    },
-    {
-      "week": "07/13",
-      "impressions": 429,
-      "clicks": 10
-    },
-    {
-      "week": "07/14",
-      "impressions": 390,
-      "clicks": 17
-    },
-    {
-      "week": "07/15",
-      "impressions": 424,
-      "clicks": 21
-    },
-    {
-      "week": "07/16",
-      "impressions": 505,
-      "clicks": 12
-    },
-    {
-      "week": "07/17",
-      "impressions": 256,
-      "clicks": 18
-    },
-    {
-      "week": "07/18",
-      "impressions": 238,
-      "clicks": 12
-    },
-    {
-      "week": "07/19",
-      "impressions": 318,
-      "clicks": 15
-    },
-    {
-      "week": "07/20",
-      "impressions": 382,
-      "clicks": 23
-    },
-    {
-      "week": "07/21",
-      "impressions": 557,
-      "clicks": 17
-    },
-    {
-      "week": "07/22",
-      "impressions": 489,
-      "clicks": 11
-    },
-    {
-      "week": "07/23",
-      "impressions": 434,
-      "clicks": 16
-    },
-    {
-      "week": "07/24",
-      "impressions": 300,
-      "clicks": 17
-    },
-    {
-      "week": "07/25",
-      "impressions": 240,
-      "clicks": 13
-    },
-    {
-      "week": "07/26",
-      "impressions": 373,
-      "clicks": 16
-    },
-    {
-      "week": "07/27",
-      "impressions": 640,
-      "clicks": 23
-    },
-    {
-      "week": "07/28",
-      "impressions": 356,
-      "clicks": 21
-    },
-    {
-      "week": "07/29",
-      "impressions": 402,
-      "clicks": 23
-    },
-    {
-      "week": "07/30",
-      "impressions": 346,
-      "clicks": 18
-    },
-    {
-      "week": "07/31",
-      "impressions": 387,
-      "clicks": 14
-    }
-  ],
+  "trends52w": {
+    "ga4": [
+      {
+        "week_start": "2025-12-07",
+        "week_label": "12/07",
+        "sessions": 70,
+        "users": 58,
+        "pageviews": 152
+      },
+      {
+        "week_start": "2025-12-14",
+        "week_label": "12/14",
+        "sessions": 171,
+        "users": 140,
+        "pageviews": 313
+      },
+      {
+        "week_start": "2025-12-21",
+        "week_label": "12/21",
+        "sessions": 192,
+        "users": 152,
+        "pageviews": 355
+      },
+      {
+        "week_start": "2025-12-28",
+        "week_label": "12/28",
+        "sessions": 273,
+        "users": 235,
+        "pageviews": 441
+      },
+      {
+        "week_start": "2026-01-04",
+        "week_label": "01/04",
+        "sessions": 178,
+        "users": 140,
+        "pageviews": 329
+      },
+      {
+        "week_start": "2026-01-11",
+        "week_label": "01/11",
+        "sessions": 163,
+        "users": 128,
+        "pageviews": 337
+      },
+      {
+        "week_start": "2026-01-18",
+        "week_label": "01/18",
+        "sessions": 180,
+        "users": 146,
+        "pageviews": 336
+      },
+      {
+        "week_start": "2026-01-25",
+        "week_label": "01/25",
+        "sessions": 161,
+        "users": 137,
+        "pageviews": 249
+      },
+      {
+        "week_start": "2026-02-01",
+        "week_label": "02/01",
+        "sessions": 155,
+        "users": 127,
+        "pageviews": 241
+      },
+      {
+        "week_start": "2026-02-08",
+        "week_label": "02/08",
+        "sessions": 179,
+        "users": 142,
+        "pageviews": 296
+      },
+      {
+        "week_start": "2026-02-15",
+        "week_label": "02/15",
+        "sessions": 80,
+        "users": 80,
+        "pageviews": 150
+      },
+      {
+        "week_start": "2026-02-22",
+        "week_label": "02/22",
+        "sessions": 254,
+        "users": 201,
+        "pageviews": 478
+      },
+      {
+        "week_start": "2026-03-01",
+        "week_label": "03/01",
+        "sessions": 290,
+        "users": 231,
+        "pageviews": 502
+      },
+      {
+        "week_start": "2026-03-08",
+        "week_label": "03/08",
+        "sessions": 233,
+        "users": 183,
+        "pageviews": 457
+      },
+      {
+        "week_start": "2026-03-15",
+        "week_label": "03/15",
+        "sessions": 197,
+        "users": 147,
+        "pageviews": 376
+      },
+      {
+        "week_start": "2026-03-22",
+        "week_label": "03/22",
+        "sessions": 212,
+        "users": 169,
+        "pageviews": 372
+      },
+      {
+        "week_start": "2026-03-29",
+        "week_label": "03/29",
+        "sessions": 224,
+        "users": 182,
+        "pageviews": 434
+      },
+      {
+        "week_start": "2026-04-05",
+        "week_label": "04/05",
+        "sessions": 216,
+        "users": 173,
+        "pageviews": 372
+      },
+      {
+        "week_start": "2026-04-12",
+        "week_label": "04/12",
+        "sessions": 221,
+        "users": 186,
+        "pageviews": 428
+      },
+      {
+        "week_start": "2026-04-19",
+        "week_label": "04/19",
+        "sessions": 235,
+        "users": 184,
+        "pageviews": 405
+      },
+      {
+        "week_start": "2026-04-26",
+        "week_label": "04/26",
+        "sessions": 265,
+        "users": 216,
+        "pageviews": 471
+      },
+      {
+        "week_start": "2026-05-03",
+        "week_label": "05/03",
+        "sessions": 295,
+        "users": 238,
+        "pageviews": 530
+      },
+      {
+        "week_start": "2026-05-10",
+        "week_label": "05/10",
+        "sessions": 254,
+        "users": 219,
+        "pageviews": 487
+      },
+      {
+        "week_start": "2026-05-17",
+        "week_label": "05/17",
+        "sessions": 236,
+        "users": 203,
+        "pageviews": 485
+      },
+      {
+        "week_start": "2026-05-24",
+        "week_label": "05/24",
+        "sessions": 246,
+        "users": 208,
+        "pageviews": 728
+      },
+      {
+        "week_start": "2026-05-31",
+        "week_label": "05/31",
+        "sessions": 259,
+        "users": 200,
+        "pageviews": 1163
+      },
+      {
+        "week_start": "2026-06-07",
+        "week_label": "06/07",
+        "sessions": 331,
+        "users": 253,
+        "pageviews": 944
+      },
+      {
+        "week_start": "2026-06-14",
+        "week_label": "06/14",
+        "sessions": 75,
+        "users": 61,
+        "pageviews": 165
+      },
+      {
+        "week_start": "2026-06-21",
+        "week_label": "06/21",
+        "sessions": 210,
+        "users": 152,
+        "pageviews": 525
+      },
+      {
+        "week_start": "2026-06-28",
+        "week_label": "06/28",
+        "sessions": 194,
+        "users": 150,
+        "pageviews": 312
+      },
+      {
+        "week_start": "2026-07-05",
+        "week_label": "07/05",
+        "sessions": 140,
+        "users": 117,
+        "pageviews": 230
+      },
+      {
+        "week_start": "2026-07-12",
+        "week_label": "07/12",
+        "sessions": 211,
+        "users": 177,
+        "pageviews": 463
+      },
+      {
+        "week_start": "2026-07-19",
+        "week_label": "07/19",
+        "sessions": 204,
+        "users": 166,
+        "pageviews": 301
+      },
+      {
+        "week_start": "2026-07-26",
+        "week_label": "07/26",
+        "sessions": 273,
+        "users": 207,
+        "pageviews": 574
+      },
+      {
+        "week_start": "2026-08-02",
+        "week_label": "08/02",
+        "sessions": 223,
+        "users": 195,
+        "pageviews": 416
+      }
+    ],
+    "gsc": [
+      {
+        "week_start": "2025-12-07",
+        "week_label": "12/07",
+        "impressions": 1435,
+        "clicks": 70
+      },
+      {
+        "week_start": "2025-12-14",
+        "week_label": "12/14",
+        "impressions": 2136,
+        "clicks": 84
+      },
+      {
+        "week_start": "2025-12-21",
+        "week_label": "12/21",
+        "impressions": 2289,
+        "clicks": 108
+      },
+      {
+        "week_start": "2025-12-28",
+        "week_label": "12/28",
+        "impressions": 2382,
+        "clicks": 135
+      },
+      {
+        "week_start": "2026-01-04",
+        "week_label": "01/04",
+        "impressions": 2285,
+        "clicks": 95
+      },
+      {
+        "week_start": "2026-01-11",
+        "week_label": "01/11",
+        "impressions": 1952,
+        "clicks": 90
+      },
+      {
+        "week_start": "2026-01-18",
+        "week_label": "01/18",
+        "impressions": 2136,
+        "clicks": 78
+      },
+      {
+        "week_start": "2026-01-25",
+        "week_label": "01/25",
+        "impressions": 1985,
+        "clicks": 89
+      },
+      {
+        "week_start": "2026-02-01",
+        "week_label": "02/01",
+        "impressions": 2112,
+        "clicks": 76
+      },
+      {
+        "week_start": "2026-02-08",
+        "week_label": "02/08",
+        "impressions": 2218,
+        "clicks": 72
+      },
+      {
+        "week_start": "2026-02-15",
+        "week_label": "02/15",
+        "impressions": 1704,
+        "clicks": 43
+      },
+      {
+        "week_start": "2026-02-22",
+        "week_label": "02/22",
+        "impressions": 3626,
+        "clicks": 166
+      },
+      {
+        "week_start": "2026-03-01",
+        "week_label": "03/01",
+        "impressions": 4345,
+        "clicks": 208
+      },
+      {
+        "week_start": "2026-03-08",
+        "week_label": "03/08",
+        "impressions": 3803,
+        "clicks": 167
+      },
+      {
+        "week_start": "2026-03-15",
+        "week_label": "03/15",
+        "impressions": 3076,
+        "clicks": 107
+      },
+      {
+        "week_start": "2026-03-22",
+        "week_label": "03/22",
+        "impressions": 2868,
+        "clicks": 123
+      },
+      {
+        "week_start": "2026-03-29",
+        "week_label": "03/29",
+        "impressions": 2821,
+        "clicks": 115
+      },
+      {
+        "week_start": "2026-04-05",
+        "week_label": "04/05",
+        "impressions": 2844,
+        "clicks": 120
+      },
+      {
+        "week_start": "2026-04-12",
+        "week_label": "04/12",
+        "impressions": 2685,
+        "clicks": 134
+      },
+      {
+        "week_start": "2026-04-19",
+        "week_label": "04/19",
+        "impressions": 2936,
+        "clicks": 136
+      },
+      {
+        "week_start": "2026-04-26",
+        "week_label": "04/26",
+        "impressions": 2577,
+        "clicks": 113
+      },
+      {
+        "week_start": "2026-05-03",
+        "week_label": "05/03",
+        "impressions": 3595,
+        "clicks": 147
+      },
+      {
+        "week_start": "2026-05-10",
+        "week_label": "05/10",
+        "impressions": 3035,
+        "clicks": 155
+      },
+      {
+        "week_start": "2026-05-17",
+        "week_label": "05/17",
+        "impressions": 3171,
+        "clicks": 148
+      },
+      {
+        "week_start": "2026-05-24",
+        "week_label": "05/24",
+        "impressions": 3633,
+        "clicks": 139
+      },
+      {
+        "week_start": "2026-05-31",
+        "week_label": "05/31",
+        "impressions": 3002,
+        "clicks": 141
+      },
+      {
+        "week_start": "2026-06-07",
+        "week_label": "06/07",
+        "impressions": 3472,
+        "clicks": 197
+      },
+      {
+        "week_start": "2026-06-14",
+        "week_label": "06/14",
+        "impressions": 2741,
+        "clicks": 136
+      },
+      {
+        "week_start": "2026-06-21",
+        "week_label": "06/21",
+        "impressions": 2811,
+        "clicks": 91
+      },
+      {
+        "week_start": "2026-06-28",
+        "week_label": "06/28",
+        "impressions": 2699,
+        "clicks": 93
+      },
+      {
+        "week_start": "2026-07-05",
+        "week_label": "07/05",
+        "impressions": 2462,
+        "clicks": 71
+      },
+      {
+        "week_start": "2026-07-12",
+        "week_label": "07/12",
+        "impressions": 2570,
+        "clicks": 101
+      },
+      {
+        "week_start": "2026-07-19",
+        "week_label": "07/19",
+        "impressions": 2720,
+        "clicks": 112
+      },
+      {
+        "week_start": "2026-07-26",
+        "week_label": "07/26",
+        "impressions": 2782,
+        "clicks": 120
+      },
+      {
+        "week_start": "2026-08-02",
+        "week_label": "08/02",
+        "impressions": 2991,
+        "clicks": 137
+      }
+    ]
+  },
   "topKeywords": [
     {
       "kw": "",
       "brand": false,
-      "impressions": 285,
+      "impressions": 280,
       "clicks": 3,
-      "ctr": 1.05,
-      "pos": 10.2,
+      "ctr": 1.07,
+      "pos": 10.3,
       "landing": "https://nc.tcu.edu.tw/p/412-1014-2990.php?Lang=zh-tw"
-    },
-    {
-      "kw": "曹英",
-      "brand": false,
-      "impressions": 59,
-      "clicks": 10,
-      "ctr": 16.95,
-      "pos": 2.5,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw"
     },
     {
       "kw": "慈濟大學護理系",
       "brand": true,
-      "impressions": 46,
+      "impressions": 50,
       "clicks": 0,
       "ctr": 0.0,
       "pos": 1.0,
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
-      "kw": "楊美玲",
-      "brand": false,
-      "impressions": 35,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 1.1,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64730,r1027.php?Lang=zh-tw"
-    },
-    {
       "kw": "周桂如",
       "brand": false,
-      "impressions": 33,
+      "impressions": 31,
       "clicks": 0,
       "ctr": 0.0,
       "pos": 6.1,
       "landing": "https://nc.tcu.edu.tw/p/16-1014-65224.php?Lang=zh-tw"
     },
     {
+      "kw": "曹英",
+      "brand": false,
+      "impressions": 29,
+      "clicks": 12,
+      "ctr": 41.38,
+      "pos": 2.1,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "楊美玲",
+      "brand": false,
+      "impressions": 26,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 0.8,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64730,r1027.php?Lang=zh-tw"
+    },
+    {
       "kw": "慈濟護理系",
       "brand": true,
       "impressions": 26,
-      "clicks": 2,
-      "ctr": 7.69,
-      "pos": 2.8,
+      "clicks": 1,
+      "ctr": 3.85,
+      "pos": 2.7,
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
@@ -631,7 +574,7 @@
       "impressions": 24,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 5.6,
+      "pos": 5.5,
       "landing": "https://nc.tcu.edu.tw/p/406-1014-64699,r1026.php?Lang=zh-tw"
     },
     {
@@ -649,35 +592,26 @@
       "impressions": 22,
       "clicks": 2,
       "ctr": 9.09,
-      "pos": 1.3,
+      "pos": 1.4,
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
-      "kw": "羅淑芬",
+      "kw": "蔡淑鳳",
       "brand": false,
-      "impressions": 20,
-      "clicks": 1,
-      "ctr": 5.0,
-      "pos": 6.3,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php?Lang=zh-tw"
-    },
-    {
-      "kw": "林玉娟",
-      "brand": false,
-      "impressions": 20,
+      "impressions": 18,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 0.4,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64705,r1026.php?Lang=zh-tw"
+      "pos": 7.7,
+      "landing": "https://nc.tcu.edu.tw/p/16-1014-65001.php?Lang=zh-tw"
     },
     {
-      "kw": "李崇仁",
-      "brand": false,
-      "impressions": 20,
-      "clicks": 1,
-      "ctr": 5.0,
-      "pos": 0.5,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64729,r1027.php?Lang=zh-tw"
+      "kw": "慈濟副院長",
+      "brand": true,
+      "impressions": 17,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 3.7,
+      "landing": "https://nc.tcu.edu.tw/p/403-1014-1034-1.php?Lang=zh-tw"
     },
     {
       "kw": "慈濟大學護理學系",
@@ -689,6 +623,42 @@
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
+      "kw": "羅淑芬",
+      "brand": false,
+      "impressions": 17,
+      "clicks": 1,
+      "ctr": 5.88,
+      "pos": 6.6,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟大學護理系老師",
+      "brand": true,
+      "impressions": 17,
+      "clicks": 2,
+      "ctr": 11.76,
+      "pos": 3.2,
+      "landing": "https://nc.tcu.edu.tw/p/403-1014-1027-1.php?Lang=zh-tw"
+    },
+    {
+      "kw": "林玉娟",
+      "brand": false,
+      "impressions": 16,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 0.3,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64705,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "李崇仁",
+      "brand": false,
+      "impressions": 15,
+      "clicks": 1,
+      "ctr": 6.67,
+      "pos": 0.5,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64729,r1027.php?Lang=zh-tw"
+    },
+    {
       "kw": "慈濟大學 護理系",
       "brand": true,
       "impressions": 15,
@@ -698,91 +668,56 @@
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
-      "kw": "慈濟大學護理系老師",
-      "brand": true,
-      "impressions": 14,
-      "clicks": 1,
-      "ctr": 7.14,
-      "pos": 4.9,
-      "landing": "https://nc.tcu.edu.tw/p/412-1014-4934.php?Lang=zh-tw"
-    },
-    {
-      "kw": "慈濟大學護理學院",
-      "brand": true,
-      "impressions": 14,
-      "clicks": 7,
-      "ctr": 50.0,
-      "pos": 0.3,
-      "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "蔡淑鳳",
-      "brand": false,
-      "impressions": 14,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 7.8,
-      "landing": "https://nc.tcu.edu.tw/p/16-1014-65001.php?Lang=zh-tw"
-    },
-    {
-      "kw": "慈濟副院長",
-      "brand": true,
-      "impressions": 13,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 3.6,
-      "landing": "https://nc.tcu.edu.tw/p/403-1014-1034-1.php?Lang=zh-tw"
-    },
-    {
-      "kw": "吳素月",
-      "brand": false,
-      "impressions": 13,
-      "clicks": 1,
-      "ctr": 7.69,
-      "pos": 0.1,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64726,r1027.php?Lang=zh-tw"
-    },
-    {
       "kw": "陳佳蓉",
       "brand": false,
-      "impressions": 12,
+      "impressions": 14,
       "clicks": 0,
       "ctr": 0.0,
       "pos": 3.9,
       "landing": "https://nc.tcu.edu.tw/p/406-1014-65180,r1020.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟大學護理學院",
+      "brand": true,
+      "impressions": 13,
+      "clicks": 6,
+      "ctr": 46.15,
+      "pos": 0.3,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟階級",
+      "brand": true,
+      "impressions": 13,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 28.3,
+      "landing": "https://nc.tcu.edu.tw/p/412-1014-2990.php?Lang=zh-tw"
     }
   ],
   "topPages": [
     {
       "url": "https://nc.tcu.edu.tw/p/412-1014-2990.php?Lang=zh-tw",
-      "impressions": 424,
+      "impressions": 426,
       "clicks": 4,
       "ctr": 0.94,
-      "pos": 9.6,
+      "pos": 9.9,
       "users": 0
     },
     {
       "url": "https://nc.tcu.edu.tw/",
-      "impressions": 353,
-      "clicks": 21,
-      "ctr": 5.95,
-      "pos": 3.2,
+      "impressions": 338,
+      "clicks": 19,
+      "ctr": 5.62,
+      "pos": 3.1,
       "users": 0
     },
     {
       "url": "https://nc.tcu.edu.tw/p/412-1014-5016.php?Lang=en",
-      "impressions": 108,
+      "impressions": 106,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 2.6,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw",
-      "impressions": 96,
-      "clicks": 20,
-      "ctr": 20.83,
-      "pos": 2.0,
+      "pos": 2.5,
       "users": 0
     },
     {
@@ -790,47 +725,55 @@
       "impressions": 90,
       "clicks": 2,
       "ctr": 2.22,
-      "pos": 6.1,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/412-1014-4932.php?Lang=zh-tw",
-      "impressions": 86,
-      "clicks": 1,
-      "ctr": 1.16,
       "pos": 6.2,
       "users": 0
     },
     {
+      "url": "https://nc.tcu.edu.tw/p/412-1014-4932.php?Lang=zh-tw",
+      "impressions": 89,
+      "clicks": 3,
+      "ctr": 3.37,
+      "pos": 6.4,
+      "users": 0
+    },
+    {
       "url": "https://nc.tcu.edu.tw/p/406-1014-65341,r1051.php?Lang=zh-tw",
-      "impressions": 79,
+      "impressions": 81,
       "clicks": 2,
-      "ctr": 2.53,
-      "pos": 4.8,
+      "ctr": 2.47,
+      "pos": 4.9,
       "users": 0
     },
     {
       "url": "https://nc.tcu.edu.tw/p/406-1014-65919,r1051.php?Lang=zh-tw",
-      "impressions": 73,
+      "impressions": 80,
+      "clicks": 2,
+      "ctr": 2.5,
+      "pos": 9.7,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw",
+      "impressions": 72,
+      "clicks": 25,
+      "ctr": 34.72,
+      "pos": 1.4,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php?Lang=zh-tw",
+      "impressions": 71,
       "clicks": 1,
-      "ctr": 1.37,
-      "pos": 9.8,
+      "ctr": 1.41,
+      "pos": 6.5,
       "users": 0
     },
     {
       "url": "https://nc.tcu.edu.tw/p/16-1014-65224.php?Lang=zh-tw",
-      "impressions": 72,
+      "impressions": 70,
       "clicks": 1,
-      "ctr": 1.39,
+      "ctr": 1.43,
       "pos": 5.9,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64730,r1027.php?Lang=zh-tw",
-      "impressions": 66,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 3.4,
       "users": 0
     }
   ],
@@ -838,15 +781,21 @@
     "country": [
       {
         "name": "臺灣",
-        "sessions": 173,
+        "sessions": 172,
         "users": 0,
-        "share": 77.9
+        "share": 77.1
       },
       {
         "name": "中國",
-        "sessions": 39,
+        "sessions": 42,
         "users": 0,
-        "share": 17.6
+        "share": 18.8
+      },
+      {
+        "name": "美國",
+        "sessions": 4,
+        "users": 0,
+        "share": 1.8
       },
       {
         "name": "越南",
@@ -855,75 +804,69 @@
         "share": 0.9
       },
       {
-        "name": "美國",
-        "sessions": 2,
-        "users": 0,
-        "share": 0.9
-      },
-      {
-        "name": "Brazil",
-        "sessions": 1,
-        "users": 0,
-        "share": 0.5
-      },
-      {
         "name": "香港",
         "sessions": 1,
         "users": 0,
-        "share": 0.5
+        "share": 0.4
+      },
+      {
+        "name": "印度",
+        "sessions": 1,
+        "users": 0,
+        "share": 0.4
       }
     ],
     "device": [
       {
         "name": "桌機",
-        "sessions": 143,
+        "sessions": 146,
         "users": 0,
-        "share": 64.4
+        "share": 65.5
       },
       {
         "name": "手機",
-        "sessions": 78,
+        "sessions": 76,
         "users": 0,
-        "share": 35.1
+        "share": 34.1
       },
       {
         "name": "平板",
         "sessions": 1,
         "users": 0,
-        "share": 0.5
+        "share": 0.4
       }
     ],
     "source": [
       {
         "name": "(direct)",
         "medium": "(none)",
-        "sessions": 120,
+        "sessions": 122,
         "users": 0,
-        "share": 54.1
+        "share": 54.7
       },
       {
         "name": "google",
         "medium": "organic",
-        "sessions": 100,
+        "sessions": 99,
         "users": 0,
-        "share": 45.0
-      },
-      {
-        "name": "tw.search.yahoo.com",
-        "medium": "referral",
-        "sessions": 1,
-        "users": 0,
-        "share": 0.5
+        "share": 44.4
       },
       {
         "name": "bing",
         "medium": "organic",
         "sessions": 1,
         "users": 0,
-        "share": 0.5
+        "share": 0.4
+      },
+      {
+        "name": "tw.search.yahoo.com",
+        "medium": "referral",
+        "sessions": 1,
+        "users": 0,
+        "share": 0.4
       }
     ],
-    "total": 222
+    "total": 223
   },
   "topIssues": [
     {

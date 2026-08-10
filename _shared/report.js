@@ -13,6 +13,105 @@
   const $ = sel => document.querySelector(sel);
 
   /* ---------- BOOTSTRAP ---------- */
+
+  // ===== Plain-language glossary for technical terms =====
+  // Hover any of these terms in the report to see explanation
+  const GLOSSARY = {
+    'GSC': 'Google Search Console — Google 提供給網站管理員的免費工具，可看到你的網站在 Google 搜尋結果中出現的次數（曝光）、被點擊的次數、平均排名位置。',
+    'GA4': 'Google Analytics 4 — Google 的網站流量分析工具。可看到有多少人造訪你的網站、他們從哪裡來、用什麼裝置、停留多久。',
+    'CTR': '點擊率（Click-Through Rate）= 點擊次數 ÷ 曝光次數。例如 Google 結果頁顯示你的網站 100 次、被點擊 5 次，CTR 就是 5%。CTR 越高代表標題與摘要越吸引人。',
+    '曝光': '你的網站出現在 Google 搜尋結果頁上的次數。即使沒人點擊也算一次曝光。',
+    '點擊': '使用者在 Google 搜尋結果中點擊你的網站連結，進入你的網站的次數。',
+    '工作階段': '一個使用者從進入網站到離開的完整過程。如果同一個人早上下午各來一次，就算 2 個工作階段。',
+    '造訪人數': '不重複的訪客數量。例如同一人來 5 次，還是只算 1 個造訪人數（又稱「不重複使用者」）。',
+    'JSON-LD': '一種結構化資料標記語法。寫在網頁 HTML 裡，告訴 Google「這個網頁是什麼類型、組織名稱、地址、電話」。讓 AI 搜尋引擎（ChatGPT、Gemini）更容易正確引用你的系所。',
+    'canonical': '告訴 Google「這個頁面的正式網址是哪一個」。當同樣內容有多個 URL 時，避免重複內容導致 SEO 分數被稀釋。',
+    'OG tags': 'Open Graph 標籤。當你把網頁分享到 Facebook、LINE、LinkedIn 時，決定顯示什麼標題、描述、圖片。缺了就不會有漂亮的預覽卡片。',
+    'hreflang': '告訴 Google「這個網頁還有英文版/日文版/其他語言版本」。對多語系網站的國際 SEO 很重要。',
+    'meta description': '出現在 Google 搜尋結果中標題下方的灰色說明文字。好的描述能提高點擊率。空白的話 Google 會自己挑段落顯示，效果通常較差。',
+    'GEO': 'Generative Engine Optimization — 讓你的網站更容易被 ChatGPT、Perplexity、Gemini 等 AI 搜尋引擎正確讀懂、引用、推薦的優化工作。',
+    'CTA': 'Call To Action（行動呼籲）— 網站上希望使用者做的具體動作，例如「點此報名」、「加入 LINE 詢問」、「下載簡章」。',
+    'AI 搜尋': 'AI 搜尋引擎（ChatGPT、Perplexity、Gemini、Claude）。使用者直接問 AI 問題，AI 從多個網站整理答案。如果你的網站 GEO 做得好，可能被 AI 引用。',
+    '首頁 H1': '網頁 HTML 中最重要的標題標籤（Heading 1）。SEO 最佳實務是每頁只有一個 H1，且內容清楚說明這個頁面是什麼。多個 H1 會讓搜尋引擎困惑。',
+    '舊網域': 'tcust.edu.tw 是慈濟科技大學時期的舊網域。現在應該統一用 tcu.edu.tw。出現舊網域連結會讓 SEO 分數分散，且使用者點進去可能看到已經下架的內容。',
+    '學年度': '台灣學校的年度編號（112 學年度 = 2023-2024 年）。如果網頁上還寫著 3-5 年前的學年度（例如招生資訊），代表內容過期、需要更新或下架。',
+    '失效連結': '點下去會看到 404 錯誤的連結。可能是頁面已被刪除但其他頁面或搜尋引擎還連著它。應該下架或設定 301 轉址。',
+    '品牌詞': '包含你的系所、校名簡稱（例如「慈濟」、「資管」、「Tzu Chi」）的搜尋字。搜品牌詞的人通常已經認識你，較容易轉換為實際行動。',
+    '非品牌詞': '不包含校名/系所名的搜尋字（例如「護理系排名」、「大學資管科系」）。搜非品牌詞的人是新訪客來源，SEO 優化的重點。',
+    'BigQuery': 'Google 的雲端資料倉儲。本報告所有數字都從這裡查詢。你可以把它想像成一個超快的 Excel，放在 Google 的雲端。',
+    '證據報表': '本報告中每一張圖表、每一個數字背後的原始查詢。點到「證據報表中心」可以看到所有查詢的 SQL、列數、來源資料表。',
+    '異常': '本週數字與前週差距超過 30% 的指標（且基期不能太小）。橘色 = 需要注意，紅色 = 嚴重異常。',
+  };
+
+  // Wrap matched terms in <span class="term" data-tip="...">term</span>
+  // Skips text already inside an HTML tag or other span.term
+  function annotateTerms(rootEl) {
+    if (!rootEl) return;
+    // Sort by length desc so longer phrases match first ("AI 搜尋" before "搜尋")
+    const keys = Object.keys(GLOSSARY).sort((a, b) => b.length - a.length);
+    // Compile regexes once
+    const reByKey = {};
+    for (const term of keys) {
+      const safe = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      reByKey[term] = new RegExp(`(${safe})`, 'g');
+    }
+    const walker = document.createTreeWalker(rootEl, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        const p = node.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        const tag = (p.tagName || '').toLowerCase();
+        if (tag === 'script' || tag === 'style') return NodeFilter.FILTER_REJECT;
+        if (p.classList && (p.classList.contains('term') || p.classList.contains('no-annotate'))) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const targets = [];
+    while (walker.nextNode()) targets.push(walker.currentNode);
+    for (const node of targets) {
+      // Skip if the text is INSIDE a data-tip attribute (avoid infinite annotation)
+      let p = node.parentNode;
+      let inTip = false;
+      while (p && p !== rootEl) {
+        if (p.classList && p.classList.contains('term')) { inTip = true; break; }
+        p = p.parentNode;
+      }
+      if (inTip) continue;
+
+      let text = node.nodeValue;
+      let html = text;
+      let changed = false;
+      // For each glossary term, wrap occurrences with span.term
+      // Use a placeholder approach so subsequent passes don't re-wrap inside spans
+      const placeholders = [];
+      for (const term of keys) {
+        if (!html.includes(term)) continue;
+        const re = reByKey[term];
+        const idx = placeholders.length;
+        re.lastIndex = 0;
+        html = html.replace(re, (m, g1) => {
+          const ph = `\x00P${idx}\x00`;
+          placeholders.push({ ph, term, val: g1 });
+          return ph;
+        });
+        changed = true;
+      }
+      if (!changed) continue;
+      // Substitute placeholders with actual <span> tags
+      for (const { ph, term, val } of placeholders) {
+        const tip = GLOSSARY[term].replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        const span = `<span class="term" data-tip="${tip}">${val}</span>`;
+        html = html.split(ph).join(span);
+      }
+      const span = document.createElement('span');
+      span.innerHTML = html;
+      const parent = node.parentNode;
+      while (span.firstChild) parent.insertBefore(span.firstChild, node);
+      parent.removeChild(node);
+    }
+  }
+
+
   // Three.js animated background — runs regardless of data load
   function initThreeBg() {
     const canvas = document.getElementById('three-bg');
@@ -137,6 +236,39 @@
     renderStalePages(data);
     renderFooter(data);
 
+    // Expert sections (10-20) — injected before collapse logic so they auto-collapse
+    renderExpertSections(data);
+
+    // Annotate glossary terms (GSC, CTR, JSON-LD, etc.) with hover tooltips
+    annotateTerms(document.querySelector('main'));
+
+    // Populate date picker with default range (last 8 weeks)
+    const ga4 = (data.trends52w && data.trends52w.ga4) || [];
+    if (ga4.length > 0) {
+      const lastWeek = ga4[ga4.length - 1].week_start;
+      const firstWeek = ga4[0].week_start;
+      const lastDate = new Date(lastWeek + 'T00:00:00');
+      const startDate = new Date(lastDate.getTime() - 7 * 7 * 86400000);
+      const fmt = d => d.toISOString().slice(0, 10);
+      const defStart = fmt(startDate < new Date(firstWeek + 'T00:00:00') ? new Date(firstWeek + 'T00:00:00') : startDate);
+      const defEnd = lastWeek;
+      $('#date-start').min = firstWeek;
+      $('#date-start').max = defEnd;
+      $('#date-start').value = defStart;
+      $('#date-end').min = firstWeek;
+      $('#date-end').max = defEnd;
+      $('#date-end').value = defEnd;
+      // Wire button handlers
+      $('#btn-apply-range').addEventListener('click', () => applyDateRange(data));
+      $('#btn-reset-range').addEventListener('click', () => {
+        $('#date-start').value = defStart;
+        $('#date-end').value = defEnd;
+        applyDateRange(data);
+      });
+    }
+    $('#btn-expand-all').addEventListener('click', () => document.querySelectorAll('section.section').forEach(s => s.classList.remove('collapsed')));
+    $('#btn-collapse-all').addEventListener('click', () => document.querySelectorAll('section.section').forEach(s => { if (s.id !== 'quick-view' && s.id !== 'top-actions') s.classList.add('collapsed'); }));
+
     // Collapse all expert sections by default except #quick-view
     document.querySelectorAll('section.section').forEach(sec => {
       if (sec.id !== 'quick-view' && sec.id !== 'top-actions') {
@@ -160,8 +292,15 @@
   }
 
   /* ---------- KPI CARDS ---------- */
-  function renderKpis(d) {
-    const k = d.kpis;
+  function renderKpis(d, opts) {
+    opts = opts || {};
+    const base = d.kpis;
+    const k = {
+      users:    { ...base.users,    ...(opts.kpisOverride && opts.kpisOverride.users    || {}) },
+      sessions: { ...base.sessions, ...(opts.kpisOverride && opts.kpisOverride.sessions || {}) },
+      gsc:      { ...base.gsc,      ...(opts.kpisOverride && opts.kpisOverride.gsc      || {}) },
+      ctr:      { ...base.ctr,      ...(opts.kpisOverride && opts.kpisOverride.ctr      || {}) },
+    };
     const html = `
       <div class="kpi-card">
         <div class="label">${esc(k.users.label)}</div>
@@ -207,28 +346,114 @@
     $('#kpi-grid').innerHTML = html;
   }
 
-  /* ---------- TRENDS (charts) ---------- */
-  let chartRefs = [];
-  function renderTrends(d) {
-    if (!window.Chart) {
-      console.warn('Chart.js not loaded; showing fallback tables');
-      renderTrendTableFallback('trend-ga4-tbl', d.trendsGA4);
-      renderTrendTableFallback('trend-gsc-tbl', d.trendsGSC);
+  /* ---------- DATE RANGE PICKER ---------- */
+  function applyDateRange(fullData) {
+    const startStr = $('#date-start').value;
+    const endStr = $('#date-end').value;
+    if (!startStr || !endStr) { alert('請選擇起訖日期'); return; }
+    const start = new Date(startStr + 'T00:00:00');
+    const end = new Date(endStr + 'T00:00:00');
+    if (start > end) { alert('起日不能晚於訖日'); return; }
+    const endInclusive = new Date(end.getTime() + 86399999);
+
+    function inRange(ws) {
+      const d = new Date(ws + 'T00:00:00');
+      return d && d >= start && d <= endInclusive;
+    }
+    const ga4 = (fullData.trends52w && fullData.trends52w.ga4 || []).filter(w => inRange(w.week_start));
+    const gsc = (fullData.trends52w && fullData.trends52w.gsc || []).filter(w => inRange(w.week_start));
+    if (ga4.length === 0 && gsc.length === 0) {
+      const available = (fullData.trends52w && fullData.trends52w.ga4 || []);
+      const a = available[0] && available[0].week_start;
+      const b = available[available.length-1] && available[available.length-1].week_start;
+      alert(`選定範圍 ${startStr} – ${endStr} 沒有資料。\n\n可用範圍：${a} – ${b}`);
       return;
     }
-    const labels = d.trendsGA4.map(r => r.week);
+
+    // Compute previous period (same length, immediately before)
+    const days = Math.round((end - start) / 86400000) + 1;
+    const prevStart = new Date(start.getTime() - days * 86400000);
+    const prevEnd = new Date(start.getTime() - 86400000);
+    const prevGa4 = (fullData.trends52w.ga4 || []).filter(w => {
+      const d = new Date(w.week_start + 'T00:00:00');
+      return d && d >= prevStart && d <= prevEnd;
+    });
+    const prevGsc = (fullData.trends52w.gsc || []).filter(w => {
+      const d = new Date(w.week_start + 'T00:00:00');
+      return d && d >= prevStart && d <= prevEnd;
+    });
+
+    const sum = (arr, key) => arr.reduce((s, w) => s + (w[key] || 0), 0);
+    const totalUsers = sum(ga4, 'users');
+    const totalSessions = sum(ga4, 'sessions');
+    const totalClicks = sum(gsc, 'clicks');
+    const totalImp = sum(gsc, 'impressions');
+    const ctr = totalImp > 0 ? (totalClicks / totalImp * 100) : 0;
+    const prevUsers = sum(prevGa4, 'users');
+    const prevSessions = sum(prevGa4, 'sessions');
+    const prevClicks = sum(prevGsc, 'clicks');
+    const prevImp = sum(prevGsc, 'impressions');
+    const prevCtr = prevImp > 0 ? (prevClicks / prevImp * 100) : 0;
+
+    function pct(now, prev) {
+      if (!prev) return 0;
+      return ((now - prev) / prev) * 100;
+    }
+    const base = fullData.kpis;
+    const kpiOverride = {
+      users: { ...base.users, value: totalUsers, trend_pct: +pct(totalUsers, prevUsers).toFixed(1), avg: `${ga4.length} 週累計` },
+      sessions: { ...base.sessions, value: totalSessions, trend_pct: +pct(totalSessions, prevSessions).toFixed(1), avg: `${ga4.length} 週累計` },
+      gsc: { ...base.gsc, value: totalClicks, trend_pct: +pct(totalClicks, prevClicks).toFixed(1), avg: `${gsc.length} 週累計` },
+      ctr: { ...base.ctr, value: `${ctr.toFixed(2)}%`, trend_pct: +(ctr - prevCtr).toFixed(2), avg: `${gsc.length} 週平均` },
+    };
+    renderKpis(fullData, { kpisOverride: kpiOverride });
+    $('#report-period').textContent = `${startStr.replace(/-/g, '/')} – ${endStr.replace(/-/g, '/')} (${ga4.length} 週)`;
+    renderTrends(fullData, { filtered: { ga4, gsc } });
+  }
+
+  /* ---------- TRENDS (charts) ---------- */
+  let chartRefs = [];
+  function getDefaultWeeks(d) {
+    // Prefer last 8 weeks from trends52w; fall back to old fields if missing
+    if (d.trends52w && d.trends52w.ga4 && d.trends52w.ga4.length) {
+      const ga4 = d.trends52w.ga4.slice(-8);
+      const gsc = (d.trends52w.gsc || []).slice(-8);
+      return { ga4, gsc };
+    }
+    return { ga4: d.trendsGA4 || [], gsc: d.trendsGSC || [] };
+  }
+  function renderTrends(d, opts) {
+    opts = opts || {};
+    const { ga4, gsc } = opts.filtered || getDefaultWeeks(d);
+    if (!window.Chart) {
+      console.warn('Chart.js not loaded; showing fallback tables');
+      renderTrendTableFallback('trend-ga4-tbl', ga4);
+      renderTrendTableFallback('trend-gsc-tbl', gsc);
+      return;
+    }
+    if (ga4.length === 0 && gsc.length === 0) {
+      const msg = '<p style="text-align:center;color:var(--muted);padding:40px 0;">選定範圍內沒有資料</p>';
+      const c1 = $('#chart-ga4'); if (c1) c1.parentElement.innerHTML = msg;
+      const c2 = $('#chart-gsc'); if (c2) c2.parentElement.innerHTML = msg;
+      return;
+    }
+    const labels = ga4.map(r => r.week_label || r.week);
     const sessColor = getCss('--blue');
     const pageColor = getCss('--teal');
     const impColor = getCss('--amber');
     const clkColor = getCss('--green');
+
+    // Destroy any old chart instances first
+    for (const c of chartRefs) { try { c.destroy(); } catch (_) {} }
+    chartRefs = [];
 
     chartRefs.push(new Chart($('#chart-ga4'), {
       type: 'line',
       data: {
         labels,
         datasets: [
-          { label: '工作階段', data: d.trendsGA4.map(r => r.sessions), borderColor: sessColor, backgroundColor: sessColor + '20', tension: 0.3 },
-          { label: '瀏覽量', data: d.trendsGA4.map(r => r.pageviews), borderColor: pageColor, backgroundColor: pageColor + '20', tension: 0.3, yAxisID: 'y1' },
+          { label: '工作階段', data: ga4.map(r => r.sessions || 0), borderColor: sessColor, backgroundColor: sessColor + '20', tension: 0.3 },
+          { label: '瀏覽量', data: ga4.map(r => r.pageviews || 0), borderColor: pageColor, backgroundColor: pageColor + '20', tension: 0.3, yAxisID: 'y1' },
         ]
       },
       options: {
@@ -247,8 +472,8 @@
       data: {
         labels,
         datasets: [
-          { label: '曝光', data: d.trendsGSC.map(r => r.impressions), borderColor: impColor, backgroundColor: impColor + '20', tension: 0.3 },
-          { label: '點擊', data: d.trendsGSC.map(r => r.clicks), borderColor: clkColor, backgroundColor: clkColor + '20', tension: 0.3, yAxisID: 'y1' },
+          { label: '曝光', data: gsc.map(r => r.impressions || 0), borderColor: impColor, backgroundColor: impColor + '20', tension: 0.3 },
+          { label: '點擊', data: gsc.map(r => r.clicks || 0), borderColor: clkColor, backgroundColor: clkColor + '20', tension: 0.3, yAxisID: 'y1' },
         ]
       },
       options: {
@@ -445,6 +670,450 @@
   /* ---------- helpers ---------- */
   function getCss(name) {
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#1d7d78';
+  }
+
+  /* ============================================================================
+     EXPERT SECTIONS (10-20) — injected by renderExpertSections()
+     Filled into <div id="expert-sections"> placed after #evidence in each dept HTML.
+     Collapsed by default via existing init() logic.
+     ============================================================================ */
+
+  // Detect dept from URL path (/itm/index.html -> 'itm')
+  const DEPT_KEY = (() => {
+    const m = location.pathname.match(/\/([^\/?#]+)\/?(?:index\.html)?$/);
+    return m ? m[1] : 'itm';
+  })();
+
+  // ----- Dept-specific static content -----
+
+  // 15. Personas (4 per dept)
+  const PERSONAS = {
+    itm: [
+      { name: '準新生（高中生/家長）', desc: '正在挑大學資管/資工科系', searches: ['資管系學什麼', '慈大資管', '資管出路', '資管證照'], questions: ['資管系到底學什麼？', '慈大資管好考嗎？', '資管 vs 資工差別？'] },
+      { name: '在校生', desc: '想了解課程、專題、實習', searches: ['資管課程', '專題製作', '資管實習'], questions: ['資管系必修有哪些？', '專題要做什麼？', '業界實習怎麼找？'] },
+      { name: '業界雇主', desc: '招募新人、產學合作', searches: ['慈大資管產學', '資管人才'], questions: ['資管系學生會什麼技術？'] },
+      { name: '國際/交換學生', desc: '海外交流、雙聯學位', searches: ['Tzu Chi ITM international', 'TCU exchange'], questions: ['TCU has ITM exchange programs?'] },
+    ],
+    nc: [
+      { name: '準新生（高中生/家長）', desc: '想當護理師、了解護理系出路', searches: ['護理系出路', '慈大護理', '護理師薪水'], questions: ['慈大護理好考嗎？', '護理系會學什麼？', '護理師證照難考嗎？'] },
+      { name: '在校生', desc: '臨床實習、升學、NCLEX', searches: ['護理實習', 'NCLEX', '護理升學'], questions: ['臨床實習會被罵嗎？', 'NCLEX 怎麼準備？'] },
+      { name: '臨床雇主', desc: '招募護理師、產學合作', searches: ['慈大護理招募', '護理產學'], questions: ['慈大護理畢業生臨床能力？'] },
+      { name: '進修者（二技/學士後）', desc: '在職進修、轉職護理', searches: ['學士後護理', '慈大二技護理'], questions: ['學士後護理好讀嗎？', '在職讀護理可行嗎？'] },
+    ],
+    www: [
+      { name: '高中生/家長', desc: '選大學、認識慈濟大學', searches: ['慈濟大學', '慈大科系', 'Tzu Chi University'], questions: ['慈大在哪裡？', '慈大有哪些科系？', '慈大好不好？'] },
+      { name: '校友/在校生', desc: '校園資訊、活動、公告', searches: ['慈大活動', '慈大公告'], questions: ['慈大圖書館開放時間？', '慈大停車？'] },
+      { name: '國際學生/學者', desc: '交流、交換、研究合作', searches: ['Tzu Chi University international'], questions: ['TCU English programs?'] },
+      { name: '新聞媒體/公關', desc: '採訪、聯繫窗口', searches: ['慈濟大學 聯繫', '慈大 公關'], questions: ['慈大新聞聯繫窗口？'] },
+    ],
+    freshman: [
+      { name: '新鮮人（剛錄取）', desc: '註冊、新生訓練、住宿', searches: ['慈大新生', '新生訓練', '慈大宿舍'], questions: ['新生訓練要帶什麼？', '宿舍怎麼抽？', '註冊流程？'] },
+      { name: '新生家長', desc: '了解校園、安全、聯繫', searches: ['慈大新生家長', '慈大住宿安全'], questions: ['慈大宿舍安全嗎？', '家長可以聯繫誰？'] },
+      { name: '轉學生/復學生', desc: '學分抵免、課程銜接', searches: ['慈大轉學', '慈大復學'], questions: ['學分怎麼抵？', '轉學考時間？'] },
+      { name: '研究生新生', desc: '指導教授、研究室、獎學金', searches: ['慈大研究所', '慈大獎學金'], questions: ['慈大有哪些研究所？'] },
+    ],
+  };
+
+  // 17. AI questions (6 per dept)
+  const AI_QUESTIONS = {
+    itm: [
+      { q: '慈大資管學什麼？', a: '資訊科技與管理 = 資訊技術 + 商業管理。慈大資管系強調「做中學」，必修含程式、資料庫、專題製作。', page: '/p/412-1022-2586.php' },
+      { q: '慈濟資工好考嗎？', a: '慈大沒有獨立的「資工系」，資管系與資工方向相近。個人申請要看學習歷程與面試表現。', page: '/p/412-1022-2570.php?Lang=zh-tw' },
+      { q: '資管系出路？', a: '軟體工程師、資料分析師、ERP 顧問、專案管理師為主。慈大近年主打 AI 與醫資整合。', page: '/' },
+      { q: '慈大資管有 AI 課程嗎？', a: '有，多門選修含 Python 機器學習、深度學習、生成式 AI 應用。', page: '/p/412-1022-2586.php' },
+      { q: '慈大資管證照輔導？', a: '輔導學生考取 AWS、Oracle、Microsoft、ERP 等證照。', page: '/p/404-1022-30082.php' },
+      { q: '慈大資管產學合作？', a: '與花蓮在地醫院、資訊業合作專題、實習、產學專班。', page: '/p/406-1022-65878,r452.php?Lang=zh-tw' },
+    ],
+    nc: [
+      { q: '慈大護理好考嗎？', a: '個人申請看在校成績、服務學習與面試。繁星與考試分發競爭激烈。', page: '/' },
+      { q: '護理系必修有哪些？', a: '基礎醫學、解剖、生理、藥理、內外產兒精神科護理、臨床實習。', page: '/p/412-1022-2586.php' },
+      { q: '慈大護理出路？', a: '臨床護理師為主，可進階專科護理師、個案管理師。慈大附醫優先錄用。', page: '/' },
+      { q: '護理師證照好考嗎？', a: '台灣護理師國考通過率約 50-60%，慈大應屆通過率高於全國平均。', page: '/' },
+      { q: '慈大護理有海外實習嗎？', a: '有，可至美、澳、日、泰等國短期臨床見習。', page: '/p/406-1022-65878,r452.php?Lang=zh-tw' },
+      { q: '學士後護理？', a: '慈大設有學士後護理學位學程，供大學畢業轉職者攻讀。', page: '/' },
+    ],
+    www: [
+      { q: '慈濟大學在哪裡？', a: '位於花蓮市中央路三段 701 號，靠近花蓮火車站。', page: '/' },
+      { q: '慈大有哪些學院？', a: '醫學院、護理學院、人文社會學院、傳播學院、國際暨跨領域學院。', page: '/' },
+      { q: '慈大好不好？', a: '以人文關懷聞名，教學評鑑與研究表現穩定。附設醫院提供完整臨床教學。', page: '/' },
+      { q: '慈大英文授課？', a: '部分通識與國際學程提供英文授課。', page: '/' },
+      { q: '慈大有附設醫院嗎？', a: '有，慈濟醫院於花蓮、台北、台中、嘉義、大林皆有院區，提供實習與就業。', page: '/' },
+      { q: '慈大獎學金？', a: '校內外獎學金豐富，含清寒獎學金、書卷獎、服務學習獎學金。', page: '/' },
+    ],
+    freshman: [
+      { q: '新生訓練要帶什麼？', a: '身分證、學測成績單、住宿通知單、健檢報告（由學校安排）。', page: '/' },
+      { q: '宿舍怎麼抽？', a: '依新生網站公告時程線上選填床位，先選先贏。', page: '/' },
+      { q: '註冊流程？', a: '線上註冊 → 繳費 → 選課 → 體檢 → 開學，依新生網站公告辦理。', page: '/' },
+      { q: '新生家長說明會？', a: '開學前一週舉辦，介紹校園、系所、導師制度。', page: '/' },
+      { q: '學分抵免？', a: '轉學生、復學生可申請學分抵免，依教務處公告辦理。', page: '/' },
+      { q: '新生可以打工嗎？', a: '可以，需依學務處生活助學金規範申請，校內工讀優先。', page: '/' },
+    ],
+  };
+
+  // 20. Query specs (BigQuery tables — single source of truth)
+  const QUERY_SPECS = [
+    { table: 'all_units_summary', contains: 'GA4 事件層級資料（page_view、click、session、user、country、device、source/medium）', used: '✓ kpis / audience / trends52w / stalePages', excluded: '✗ 不直接用 COUNT(*) 算 pageviews，用 COUNTIF(event_name=\'page_view\')' },
+    { table: 'all_gsc_summary', contains: 'Google Search Console 每日 query × page 曝光/點擊/排名', used: '✓ topKeywords / topPages / trends52w GSC', excluded: '✗ 不跨 query 加總 active_users（會重複計算）' },
+    { table: 'search_behavior_summary', contains: '進站關鍵字、登陸頁、內部搜尋、AI 搜尋引擎 referrer', used: '（預留，目前未於 v3 報表查詢）', excluded: '✗ AI 搜尋 referrer 需管理員後台確認' },
+  ];
+
+  // ----- Section template helper -----
+  function sectionEl(num, id, title, lead, bodyHtml) {
+    return `<section class="section" id="${id}">
+      <div class="section-header">
+        <div>
+          <h2><span class="num">${num}</span> ${esc(title)}</h2>
+          <div class="lead">${esc(lead)}</div>
+        </div>
+        <div class="toggle">▼</div>
+      </div>
+      <div class="section-body-wrap"><div class="section-body">
+        ${bodyHtml}
+      </div></div>
+    </section>`;
+  }
+
+  // ----- 10. Anomaly alerts -----
+  function renderAnomaly(d) {
+    const body = document.getElementById('anomaly-body');
+    if (!body) return;
+    const ga4 = (d.trends52w && d.trends52w.ga4) || [];
+    const gsc = (d.trends52w && d.trends52w.gsc) || [];
+    const rows = [];
+    for (let i = 1; i < ga4.length; i++) {
+      const prev = ga4[i - 1], cur = ga4[i];
+      const checks = [
+        { metric: '工作階段', prev: prev.sessions, cur: cur.sessions },
+        { metric: '活躍使用者', prev: prev.users, cur: cur.users },
+        { metric: '瀏覽量', prev: prev.pageviews, cur: cur.pageviews },
+      ];
+      for (const c of checks) {
+        if (!c.prev || c.prev < 20) continue;
+        const pct = ((c.cur - c.prev) / c.prev) * 100;
+        if (Math.abs(pct) >= 30) {
+          rows.push({
+            week: cur.week_label,
+            metric: c.metric,
+            prev: c.prev,
+            cur: c.cur,
+            pct,
+            severity: Math.abs(pct) >= 50 ? 'high' : 'med',
+          });
+        }
+      }
+    }
+    // Also check GSC clicks
+    for (let i = 1; i < gsc.length; i++) {
+      const prev = gsc[i - 1], cur = gsc[i];
+      if (!prev.clicks || prev.clicks < 20) continue;
+      const pct = ((cur.clicks - prev.clicks) / prev.clicks) * 100;
+      if (Math.abs(pct) >= 30) {
+        rows.push({ week: cur.week_label, metric: 'GSC 點擊', prev: prev.clicks, cur: cur.clicks, pct, severity: Math.abs(pct) >= 50 ? 'high' : 'med' });
+      }
+    }
+    if (!rows.length) {
+      body.innerHTML = '<p style="color:var(--muted);padding:8px 0;">✓ 最近 52 週沒有偵測到 ≥30% 的週對週異常。</p>';
+      return;
+    }
+    rows.sort((a, b) => Math.abs(b.pct) - Math.abs(a.pct));
+    body.innerHTML = `
+      <div class="tbl-wrap"><table class="data">
+        <thead><tr><th>週</th><th>指標</th><th class="num">前週</th><th class="num">本週</th><th class="num">變化</th><th>等級</th></tr></thead>
+        <tbody>${rows.slice(0, 20).map(r => `
+          <tr>
+            <td>${esc(r.week)}</td>
+            <td>${esc(r.metric)}</td>
+            <td class="num">${fmtNum(r.prev)}</td>
+            <td class="num">${fmtNum(r.cur)}</td>
+            <td class="num" style="color:${r.pct > 0 ? 'var(--ok-fg)' : 'var(--bad-fg)'};font-weight:700;">${r.pct > 0 ? '+' : ''}${r.pct.toFixed(1)}%</td>
+            <td><span class="issue-item sev ${r.severity === 'high' ? 'high' : 'med'}" style="padding:2px 10px;font-size:11px;">${r.severity === 'high' ? '嚴重' : '注意'}</span></td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>
+      <div class="lead" style="margin-top:10px;">顯示前 ${Math.min(20, rows.length)} 筆；嚴重紅 = 變化 ≥50%，注意橘 = 30–50%。基期 < 20 不計入以避免雜訊。</div>`;
+  }
+
+  // ----- 11. Content matrix (4 quadrants) -----
+  function renderContentMatrix(d) {
+    const body = document.getElementById('content-matrix-body');
+    if (!body) return;
+    const pages = d.topPages || [];
+    if (!pages.length) { body.innerHTML = '<p style="color:var(--muted);padding:8px 0;">無 topPages 資料。</p>'; return; }
+    // Compute median impressions for split
+    const imps = pages.map(p => p.impressions || 0).sort((a, b) => a - b);
+    const median = imps[Math.floor(imps.length / 2)] || 0;
+    const quadrants = { star: [], optimize: [], dormant: [], review: [] };
+    for (const p of pages) {
+      const imp = p.impressions || 0;
+      const pos = p.pos || 0;
+      if (imp >= median && pos <= 10) quadrants.star.push(p);
+      else if (imp >= median && pos > 10) quadrants.optimize.push(p);
+      else if (imp < median && pos <= 10) quadrants.dormant.push(p);
+      else quadrants.review.push(p);
+    }
+    const quadrant = (label, q, desc, color) => `
+      <div class="qm-card" style="border-left:4px solid ${color};">
+        <h4 style="color:${color};">${label} <span style="color:var(--muted);font-weight:500;">(${q.length})</span></h4>
+        <p style="font-size:12px;color:var(--muted);margin:4px 0 8px;">${desc}</p>
+        ${q.length ? `<ul style="font-size:12.5px;padding-left:18px;">${q.map(p => `<li><a href="${esc(p.url)}" target="_blank" rel="noopener" style="color:var(--blue);text-decoration:none;">${esc(p.url.replace(/^https?:\/\/[^/]+/, ''))}</a> <span style="color:var(--muted);">· ${fmtNum(p.impressions)} 曝光 · 排名 ${(p.pos || 0).toFixed(1)} · CTR ${fmtPct(p.ctr)}</span></li>`).join('')}</ul>` : '<p style="color:var(--muted);font-size:12.5px;">（無）</p>'}
+      </div>`;
+    body.innerHTML = `
+      <div class="qm-grid">
+        ${quadrant('★ 明星頁', quadrants.star, '高曝光 + 前 10 名 — 維持即可', 'var(--teal)')}
+        ${quadrant('⚠ 高曝光需優化', quadrants.optimize, '高曝光但排名 10 名外 — 改善標題 / 內文 / 連結', 'var(--amber)')}
+        ${quadrant('○ 沉睡明星', quadrants.dormant, '低曝光但前 10 名 — 加強內部連結 / 推廣', 'var(--blue)')}
+        ${quadrant('× 需重新檢視', quadrants.review, '低曝光 + 落後排名 — 考慮下架或大幅重寫', 'var(--red)')}
+      </div>
+      <div class="lead" style="margin-top:10px;">中位曝光 = ${fmtNum(median)}。以 topPages 的 GSC 曝光 × 排名切四象限。</div>`;
+  }
+
+  // ----- 12. AI referral (placeholder) -----
+  function renderAiReferral(d) {
+    const body = document.getElementById('ai-referral-body');
+    if (!body) return;
+    body.innerHTML = `
+      <div class="placeholder-box">
+        <p><strong>本資料需透過管理員後台查詢。</strong></p>
+        <p>在 BigQuery 對 <code>search_behavior_summary</code> 執行：</p>
+<pre style="background:#f8fafc;padding:10px;border-radius:6px;font-size:12px;overflow-x:auto;">SELECT page_referrer, COUNT(*) AS sessions
+FROM \`project.dataset.all_units_summary\`
+WHERE page_referrer LIKE '%chatgpt.com%'
+   OR page_referrer LIKE '%perplexity%'
+   OR page_referrer LIKE '%gemini%'
+   OR page_referrer LIKE '%claude%'
+   OR page_referrer LIKE '%copilot%'
+   AND date >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+GROUP BY page_referrer
+ORDER BY sessions DESC LIMIT 20</pre>
+        <p style="color:var(--muted);font-size:13px;">為什麼不在這份報表自動跑：referrer 字串沒有結構化標記，誤判率高；建議管理員每季人工 review 一次並更新此區。</p>
+      </div>`;
+  }
+
+  // ----- 13. CTA funnel (placeholder) -----
+  function renderCtaFunnel(d) {
+    const body = document.getElementById('cta-funnel-body');
+    if (!body) return;
+    body.innerHTML = `
+      <div class="placeholder-box">
+        <p><strong>本資料需透過管理員後台查詢。</strong></p>
+        <p>在 BigQuery 對 <code>all_units_summary</code> 執行（依部門調整 site_name）：</p>
+<pre style="background:#f8fafc;padding:10px;border-radius:6px;font-size:12px;overflow-x:auto;">SELECT link_url, COUNT(*) AS clicks
+FROM \`project.dataset.all_units_summary\`
+WHERE event_name = 'click'
+  AND site_name = '${esc(d.meta.siteName)}'
+  AND date >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+GROUP BY link_url
+ORDER BY clicks DESC LIMIT 50</pre>
+        <p style="margin-top:8px;">將連結依 URL pattern 自動分類：</p>
+        <ul style="font-size:13px;">
+          <li><strong>招生簡章</strong>：URL 含 <code>recruit / admission / brochure</code></li>
+          <li><strong>入學方式</strong>：<code>apply / 申請 / 入學</code></li>
+          <li><strong>報名系統</strong>：<code>signup / register</code></li>
+          <li><strong>LINE</strong>：<code>line.me</code></li>
+          <li><strong>電話</strong>：<code>tel:</code></li>
+          <li><strong>Email</strong>：<code>mailto:</code></li>
+          <li><strong>表單</strong>：<code>form / 報名表</code></li>
+          <li><strong>PDF 下載</strong>：<code>.pdf</code></li>
+          <li><strong>其他連結</strong></li>
+        </ul>
+      </div>`;
+  }
+
+  // ----- 14. User paths (placeholder) -----
+  function renderUserPaths(d) {
+    const body = document.getElementById('user-paths-body');
+    if (!body) return;
+    body.innerHTML = `
+      <div class="placeholder-box">
+        <p><strong>本資料需透過管理員後台查詢。</strong></p>
+        <p>建議用 GA4 的 <em>Path exploration</em> 匯出，或在 BigQuery 跑：</p>
+<pre style="background:#f8fafc;padding:10px;border-radius:6px;font-size:12px;overflow-x:auto;">WITH sessions AS (
+  SELECT ga_session_id,
+         MIN(IF(page_view_in_session_index = 1, page_location, NULL)) AS landing,
+         ARRAY_AGG(page_location ORDER BY page_view_in_session_index) AS path
+  FROM \`project.dataset.all_units_summary\`
+  WHERE event_name = 'page_view'
+    AND site_name = '${esc(d.meta.siteName)}'
+    AND date >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+  GROUP BY ga_session_id
+)
+SELECT landing, path[SAFE_OFFSET(1)] AS next_page, COUNT(*) AS sessions
+FROM sessions
+WHERE path[SAFE_OFFSET(1)] IS NOT NULL
+GROUP BY landing, next_page
+ORDER BY sessions DESC LIMIT 20</pre>
+        <p style="color:var(--muted);font-size:13px;">本報表先以 topPages 為主；用戶路徑需另外寫到探索型 dashboard。</p>
+      </div>`;
+  }
+
+  // ----- 15. Personas (4) -----
+  function renderPersonas(d) {
+    const body = document.getElementById('personas-body');
+    if (!body) return;
+    const list = PERSONAS[DEPT_KEY] || PERSONAS.itm;
+    body.innerHTML = `<div class="persona-grid">${list.map(p => `
+      <div class="persona-card">
+        <h4>👤 ${esc(p.name)}</h4>
+        <p style="font-size:13px;color:var(--ink);">${esc(p.desc)}</p>
+        <div style="margin-top:8px;"><strong style="font-size:12px;color:var(--navy);">常搜字：</strong><div class="tag-row">${p.searches.map(s => `<span class="tag">${esc(s)}</span>`).join('')}</div></div>
+        <div style="margin-top:8px;"><strong style="font-size:12px;color:var(--navy);">常問問題：</strong><ul style="font-size:13px;margin:4px 0 0 18px;">${p.questions.map(q => `<li>${esc(q)}</li>`).join('')}</ul></div>
+      </div>`).join('')}</div>`;
+  }
+
+  // ----- 16. Marketing funnel (5 stages) -----
+  function renderMarketingFunnel(d) {
+    const body = document.getElementById('marketing-funnel-body');
+    if (!body) return;
+    const kpis = d.kpis || {};
+    const trends = (d.trends52w && d.trends52w.ga4) || [];
+    // Awareness = impressions (GSC 8-week sum)
+    const gsc = (d.trends52w && d.trends52w.gsc) || [];
+    const recent = gsc.slice(-8);
+    const recentGa4 = trends.slice(-8);
+    const awareness = recent.reduce((s, w) => s + (w.impressions || 0), 0);
+    const interest = recent.reduce((s, w) => s + (w.clicks || 0), 0);
+    const consideration = recentGa4.reduce((s, w) => s + (w.users || 0), 0);
+    const stages = [
+      { name: 'Awareness（曝光）', value: awareness, hint: 'GSC 曝光 — 有多少人「看到」' },
+      { name: 'Interest（點擊）', value: interest, hint: 'GSC 點擊 — 多少人「點進來」' },
+      { name: 'Consideration（互動）', value: consideration, hint: 'GA4 使用者 — 多少人實際瀏覽' },
+      { name: 'Conversion（CTA 轉換）', value: '—', hint: '需管理員後台（報名 / 簡章下載 / LINE）' },
+      { name: 'Advocacy（推薦回流）', value: '—', hint: '需管理員後台（重複訪客 / 推薦連結）' },
+    ];
+    const max = Math.max(...stages.map(s => typeof s.value === 'number' ? s.value : 0), 1);
+    body.innerHTML = `
+      <div class="funnel">${stages.map(s => `
+        <div class="funnel-row">
+          <div class="funnel-name"><strong>${esc(s.name)}</strong><div style="font-size:12px;color:var(--muted);">${esc(s.hint)}</div></div>
+          <div class="funnel-bar"><span style="width:${typeof s.value === 'number' ? (s.value / max * 100).toFixed(1) : 0}%;"></span></div>
+          <div class="funnel-val">${typeof s.value === 'number' ? fmtNum(s.value) : '<span style="color:var(--muted);">—</span>'}</div>
+        </div>`).join('')}</div>
+      <div class="lead" style="margin-top:10px;">前 3 階段用近 8 週 GSC + GA4 加總；後 2 階段（CTA / 回流）需 BigQuery 額外查詢，建議管理員補上。</div>`;
+  }
+
+  // ----- 17. AI questions (6) -----
+  function renderAiQuestions(d) {
+    const body = document.getElementById('ai-questions-body');
+    if (!body) return;
+    const list = AI_QUESTIONS[DEPT_KEY] || AI_QUESTIONS.itm;
+    body.innerHTML = `
+      <div class="tbl-wrap"><table class="data">
+        <thead><tr><th>#</th><th>使用者會問</th><th>官方建議答案（要讓 AI 抓得到）</th><th>發佈頁面</th></tr></thead>
+        <tbody>${list.map((q, i) => `
+          <tr>
+            <td>${i + 1}</td>
+            <td><strong>${esc(q.q)}</strong></td>
+            <td>${esc(q.a)}</td>
+            <td class="url"><a href="${esc(q.page)}" target="_blank" rel="noopener">${esc(q.page)}</a></td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>
+      <div class="lead" style="margin-top:10px;">把官方答案逐字放進對應頁面（標題 H1 + 第一段），ChatGPT / Perplexity 才抓得到。每月複查一次。</div>`;
+  }
+
+  // ----- 18. Data quality -----
+  function renderDataQuality(d) {
+    const body = document.getElementById('data-quality-body');
+    if (!body) return;
+    const gscOk = d.meta.maxDateGsc;
+    const ga4Ok = d.meta.maxDateGa4;
+    const daysAgo = (iso) => {
+      if (!iso) return null;
+      const dt = new Date(iso.replace(/\//g, '-') + 'T00:00:00');
+      const today = new Date();
+      return Math.floor((today - dt) / 86400000);
+    };
+    const ga4Days = daysAgo(ga4Ok);
+    const gscDays = daysAgo(gscOk);
+    const freshBadge = (days) => {
+      if (days === null) return '<span class="issue-item sev high" style="padding:2px 10px;font-size:11px;">無資料</span>';
+      if (days <= 3) return `<span class="issue-item sev low" style="padding:2px 10px;font-size:11px;">${days} 天前</span>`;
+      if (days <= 7) return `<span class="issue-item sev med" style="padding:2px 10px;font-size:11px;">${days} 天前</span>`;
+      return `<span class="issue-item sev high" style="padding:2px 10px;font-size:11px;">${days} 天前</span>`;
+    };
+    body.innerHTML = `
+      <div class="tbl-wrap"><table class="data">
+        <thead><tr><th>項目</th><th>狀態</th><th>說明</th></tr></thead>
+        <tbody>
+          <tr><td>GA4 資料最新日期</td><td>${esc(ga4Ok || '-')} ${freshBadge(ga4Days)}</td><td>超過 7 天視為異常；建議確認 BQ 排程。</td></tr>
+          <tr><td>GSC 資料最新日期</td><td>${esc(gscOk || '-')} ${freshBadge(gscDays)}</td><td>GSC 通常比 GA4 慢 1–2 天。</td></tr>
+          <tr><td>trends52w 完整性</td><td>${fmtNum((d.trends52w && d.trends52w.ga4 || []).length)} 週</td><td>預期 52 週；少於 40 視為不足。</td></tr>
+          <tr><td>topPages 完整性</td><td>${fmtNum((d.topPages || []).length)} 頁</td><td>預期 10–30 頁（依部門）。</td></tr>
+          <tr><td>topKeywords 完整性</td><td>${fmtNum((d.topKeywords || []).length)} 字</td><td>預期 20 個關鍵字。</td></tr>
+          <tr><td>stalePages 清單</td><td>${fmtNum((d.stalePages || []).length)} 頁</td><td>HTTP 404 或含舊學年度的頁面，需下架或 301 轉址。</td></tr>
+          <tr><td>GEO 評分</td><td>${d.geo ? '已稽核' : '<span style="color:var(--bad-fg);">未稽核</span>'}</td><td>見第 7 與 19 節。</td></tr>
+        </tbody>
+      </table></div>
+      <div class="lead" style="margin-top:10px;">完整資料品質指標需在 <code>scripts/build_data.py</code> 加 dataQuality 區段，目前先用基本檢核。</div>`;
+  }
+
+  // ----- 19. GEO 7 question cards -----
+  function renderGeoQuestions(d) {
+    const body = document.getElementById('geo-questions-body');
+    if (!body) return;
+    const g = d.geo;
+    if (!g || !g.subscores || !g.subscores.length) {
+      body.innerHTML = `<div class="placeholder-box"><p><strong>本單元無 GEO 稽核資料。</strong></p><p>請確認 <code>data.json</code> 的 <code>geo</code> 欄位，或回到第 7 節查看評分。</p></div>`;
+      return;
+    }
+    const cards = g.subscores.map(s => `
+      <div class="geo-q-card ${s.score >= s.maximum * 0.7 ? 'pass' : s.score >= s.maximum * 0.4 ? 'warn' : 'fail'}">
+        <div class="geo-q-label">${esc(s.id || s.label)}</div>
+        <div class="geo-q-name">${esc(s.label)}</div>
+        <div class="geo-q-score">${s.score} / ${s.maximum}</div>
+        <div class="geo-q-note">${esc(s.note || '')}</div>
+      </div>`).join('');
+    body.innerHTML = `<div class="geo-q-grid">${cards}</div>
+      <div class="lead" style="margin-top:10px;">稽核日期：${esc(g.auditDate || '-')} · ${esc(g.auditedUrl || '')}</div>`;
+  }
+
+  // ----- 20. Query specs -----
+  function renderQuerySpecs(d) {
+    const body = document.getElementById('query-specs-body');
+    if (!body) return;
+    body.innerHTML = `
+      <div class="tbl-wrap"><table class="data">
+        <thead><tr><th>BigQuery 資料表</th><th>內容</th><th>本報表採用</th><th>技術排除</th></tr></thead>
+        <tbody>${QUERY_SPECS.map(s => `
+          <tr>
+            <td><code>${esc(s.table)}</code></td>
+            <td style="font-size:13px;">${esc(s.contains)}</td>
+            <td style="font-size:13px;">${esc(s.used)}</td>
+            <td style="font-size:13px;color:var(--bad-fg);">${esc(s.excluded)}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>
+      <div class="lead" style="margin-top:10px;">此清單為「單一資料來源」原則，確保各部門報表數字一致。新增資料表或新查詢請同步更新此區。</div>`;
+  }
+
+  // ----- Render all 11 sections into the placeholder -----
+  function renderExpertSections(d) {
+    const root = document.getElementById('expert-sections');
+    if (!root) return;
+    root.innerHTML = [
+      sectionEl(10, 'anomaly', '期間比較與異常提醒', '週對週差距超過 30% 且基期足夠大的指標 — 紅色 = 嚴重異常，橘色 = 需注意。', '<div id="anomaly-body"></div>'),
+      sectionEl(11, 'content-matrix', '內容效益矩陣', '以曝光 × 排名切四象限，看哪些頁面值得優先優化。', '<div id="content-matrix-body"></div>'),
+      sectionEl(12, 'ai-referral', 'AI 搜尋/生成式 AI 導流', 'ChatGPT / Perplexity / Gemini 等 AI 搜尋引擎引用本站的狀況。', '<div id="ai-referral-body"></div>'),
+      sectionEl(13, 'cta-funnel', '招生意圖與 CTA 行動', '點擊「報名」「簡章」「LINE」等 CTA 的分佈 — 用於優化招生頁。', '<div id="cta-funnel-body"></div>'),
+      sectionEl(14, 'user-paths', '使用者路徑 / 下一步', '最常見的登陸頁 → 下一頁路徑，看使用者實際動線。', '<div id="user-paths-body"></div>'),
+      sectionEl(15, 'personas', '受眾人物誌（4 種）', '針對不同族群，該提供什麼內容、常搜什麼字。', '<div id="personas-body"></div>'),
+      sectionEl(16, 'marketing-funnel', '行銷漏斗與 KPI（5 階段）', '從看到 → 點擊 → 互動 → 轉換 → 推薦的全鏈路。', '<div id="marketing-funnel-body"></div>'),
+      sectionEl(17, 'ai-questions', 'AI/搜尋問題庫（6 題）', '使用者最常問 AI 的問題，與你該發佈的官方答案。', '<div id="ai-questions-body"></div>'),
+      sectionEl(18, 'data-quality', '資料品質問題清單', '資料新鮮度、完整性、已知偏差。', '<div id="data-quality-body"></div>'),
+      sectionEl(19, 'geo-questions', 'GEO 7 問題卡', 'AI 搜尋引擎能否正確讀懂本站 — 7 個檢核項目。', '<div id="geo-questions-body"></div>'),
+      sectionEl(20, 'query-specs', '查詢規格與技術排除清單', '每張 BigQuery 表的內容與「我們不採用」的技術排除。', '<div id="query-specs-body"></div>'),
+    ].join('');
+    renderAnomaly(d);
+    renderContentMatrix(d);
+    renderAiReferral(d);
+    renderCtaFunnel(d);
+    renderUserPaths(d);
+    renderPersonas(d);
+    renderMarketingFunnel(d);
+    renderAiQuestions(d);
+    renderDataQuality(d);
+    renderGeoQuestions(d);
+    renderQuerySpecs(d);
   }
 
   if (document.readyState === 'loading') {

@@ -23,14 +23,22 @@
       </div>
       <div class="actions">
         <button onclick="window.print()">🖨 列印</button>
-        <button onclick="document.querySelectorAll('section.section').forEach(s=>s.classList.remove('collapsed'))">全部展開</button>
-        <button onclick="document.querySelectorAll('section.section').forEach(s=>{if(s.id!=='quick-view'&&s.id!=='top-actions')s.classList.add('collapsed')})">全部收合</button>
+        <button id="btn-expand-all">全部展開</button>
+        <button id="btn-collapse-all">全部收合</button>
       </div>
     </div>
     <div class="meta-bar">
       <span class="pill" id="report-period">—</span>
       <span class="pill" id="report-updated">—</span>
       <span class="pill" id="report-version">—</span>
+      <span class="pill date-picker">
+        <label for="date-start">起</label>
+        <input type="date" id="date-start" />
+        <label for="date-end">迄</label>
+        <input type="date" id="date-end" />
+        <button id="btn-apply-range" type="button">套用</button>
+        <button id="btn-reset-range" type="button" title="回到最近 8 週">↻</button>
+      </span>
     </div>
   </header>
 
@@ -254,6 +262,11 @@
         <div class="ev-grid" id="ev-quality"></div>
       </div></div>
     </section>
+
+    <!-- ============================================================ -->
+    <!-- EXPERT SECTIONS (10-20) — populated by renderExpertSections() -->
+    <!-- ============================================================ -->
+    <div id="expert-sections"></div>
 
   </main>
 

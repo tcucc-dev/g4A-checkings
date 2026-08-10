@@ -58,6 +58,10 @@ DEPTS = {
     },
 }
 
+# IMPORTANT: To add a new department, add an entry here. Copy itm/ folder
+# to <newdept>/, edit the new index.html <title>, and the script handles
+# everything else (BQ queries, issues, stale pages, 52-week trends).
+
 
 # ===== Helpers =====
 
@@ -191,6 +195,82 @@ def fetch_gsc_trends(client, cfg, trend):
     """
     return [{'week': r.week, 'impressions': int(r.impressions), 'clicks': int(r.clicks)}
             for r in client.query(q).result()]
+
+
+def fetch_52w_trends(client, cfg):
+    """Pull 52 weeks of weekly aggregates from GA4 + GSC.
+
+    Returns dict with 'ga4' and 'gsc' arrays (sorted oldest → newest).
+    Each GA4 week: {week_start: 'YYYY-MM-DD', week_label: 'MM/DD',
+                    sessions: int, users: int, pageviews: int}
+    Each GSC week: {week_start: 'YYYY-MM-DD', week_label: 'MM/DD',
+                    impressions: int, clicks: int}
+    If a week exists in GA4 but has no GSC data, the GSC row is filled with zeros.
+    """
+    ga4_q = f"""
+    SELECT DATE_TRUNC(date, WEEK(SUNDAY)) AS week_start,
+           COUNT(DISTINCT ga_session_id) AS sessions,
+           COUNT(DISTINCT user_pseudo_id) AS users,
+           COUNTIF(event_name='page_view') AS pageviews
+    FROM `{PROJECT}.{DATASET}.all_units_summary`
+    WHERE {cfg['bqFilter']} AND date >= DATE_SUB(CURRENT_DATE(), INTERVAL 53 WEEK)
+    GROUP BY week_start
+    ORDER BY week_start
+    """
+    gsc_q = f"""
+    SELECT DATE_TRUNC(data_date, WEEK(SUNDAY)) AS week_start,
+           SUM(impressions) AS impressions,
+           SUM(clicks) AS clicks
+    FROM `{PROJECT}.{DATASET}.all_gsc_summary`
+    WHERE {cfg['bqUrlFilter']} AND data_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 53 WEEK)
+    GROUP BY week_start
+    ORDER BY week_start
+    """
+
+    def _ws_label(ws):
+        """Normalize a BigQuery DATE/date-like to (YYYY-MM-DD, MM/DD)."""
+        if hasattr(ws, 'strftime'):
+            return ws.strftime('%Y-%m-%d'), ws.strftime('%m/%d')
+        s = str(ws)
+        return s[:10], s[5:10].replace('-', '/')
+
+    ga4_rows = []
+    for r in client.query(ga4_q).result():
+        ws_str, label = _ws_label(r.week_start)
+        ga4_rows.append({
+            'week_start': ws_str,
+            'week_label': label,
+            'sessions': int(r.sessions or 0),
+            'users': int(r.users or 0),
+            'pageviews': int(r.pageviews or 0),
+        })
+
+    gsc_by_week = {}
+    for r in client.query(gsc_q).result():
+        ws_str, label = _ws_label(r.week_start)
+        gsc_by_week[ws_str] = {
+            'week_start': ws_str,
+            'week_label': label,
+            'impressions': int(r.impressions or 0),
+            'clicks': int(r.clicks or 0),
+        }
+
+    # Align GSC rows to GA4 weeks; fill missing GSC weeks with zeros.
+    gsc_rows = []
+    for ga4 in ga4_rows:
+        ws = ga4['week_start']
+        match = gsc_by_week.get(ws)
+        if match is not None:
+            gsc_rows.append(match)
+        else:
+            gsc_rows.append({
+                'week_start': ws,
+                'week_label': ga4['week_label'],
+                'impressions': 0,
+                'clicks': 0,
+            })
+
+    return {'ga4': ga4_rows, 'gsc': gsc_rows}
 
 
 # ===== Issue detection (HTML crawl) =====
@@ -434,6 +514,8 @@ def build_for_dept(client, key, cfg):
     audience = fetch_audience(client, cfg, periods['current'])
     top_keywords = fetch_top_keywords(client, cfg, periods['current'], cfg['brandTerms'], limit=20)
     top_pages = fetch_top_pages(client, cfg, periods['current'], limit=10)
+    trends52w = fetch_52w_trends(client, cfg)
+    print(f'  52w trends: {len(trends52w["ga4"])} weeks')
 
     site_url = f'https://{cfg["siteDomain"]}/'
     print(f'  detecting issues from {site_url}')
@@ -464,8 +546,7 @@ def build_for_dept(client, key, cfg):
             'trend': periods['trend'],
         },
         'kpis': kpis,
-        'trendsGA4': weekly,
-        'trendsGSC': gsc_weekly,
+        'trends52w': trends52w,
         'topKeywords': top_keywords,
         'topPages': top_pages,
         'audience': audience,
