@@ -11,6 +11,24 @@
   <script src="../_shared/report.js" defer></script>
 </head>
 <body>
+  <!-- Mobile-only hamburger + slide-out side-nav (initialized in report.js) -->
+  <button id="hamburger-btn" type="button" aria-label="開啟章節選單">
+    <span class="ham-bar"></span>
+    <span class="ham-bar"></span>
+    <span class="ham-bar"></span>
+  </button>
+  <nav id="side-nav" hidden>
+    <div class="side-nav-header">
+      <div class="side-nav-title">章節導覽</div>
+      <button id="side-nav-close" type="button" aria-label="關閉">×</button>
+    </div>
+    <div id="side-nav-list"></div>
+    <div class="side-nav-footer">
+      <button type="button" data-action="expand-all">全部展開</button>
+      <button type="button" data-action="collapse-all">全部收合</button>
+    </div>
+  </nav>
+  <div id="side-nav-overlay" hidden></div>
   <canvas id="three-bg"></canvas>
   <header class="site-header">
     <div class="site-header-inner">

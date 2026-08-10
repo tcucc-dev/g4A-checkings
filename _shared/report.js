@@ -276,6 +276,82 @@
     document.querySelectorAll('.section-header').forEach(h => {
       h.addEventListener('click', () => h.parentElement.classList.toggle('collapsed'));
     });
+
+    // Mobile side-nav (hamburger) — built from current sections list
+    initSideNav();
+  }
+
+  /* ---------- SIDE NAV (mobile hamburger) ---------- */
+  function initSideNav() {
+    const nav = document.getElementById('side-nav');
+    const overlay = document.getElementById('side-nav-overlay');
+    const btn = document.getElementById('hamburger-btn');
+    const listEl = document.getElementById('side-nav-list');
+    if (!nav || !overlay || !btn || !listEl) return;
+
+    // Build side-nav list from current sections
+    const sections = Array.from(document.querySelectorAll('section.section'));
+    listEl.innerHTML = sections.map(sec => {
+      const h2 = sec.querySelector('.section-header h2');
+      if (!h2 || !sec.id) return '';
+      const text = h2.textContent.replace(/\s+/g, ' ').trim();
+      return `<a href="#${sec.id}" class="side-nav-item" data-target="${sec.id}">${esc(text)}</a>`;
+    }).join('');
+
+    // Open/close handler — single function, reused by every "close" trigger
+    const toggleMenu = () => {
+      const isOpen = !nav.hidden;
+      nav.hidden = isOpen;
+      overlay.hidden = isOpen;
+      btn.classList.toggle('open', !isOpen);
+      document.body.style.overflow = isOpen ? '' : 'hidden';
+    };
+
+    btn.addEventListener('click', toggleMenu);
+    document.getElementById('side-nav-close').addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    // Clicking a section item → smooth-scroll, then close
+    listEl.querySelectorAll('.side-nav-item').forEach(item => {
+      item.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(item.dataset.target);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        // Close after scroll starts (small delay so the user sees the close action)
+        setTimeout(toggleMenu, 100);
+      });
+    });
+
+    // ESC key closes the menu
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !nav.hidden) toggleMenu();
+    });
+
+    // Footer buttons reuse the existing header expand/collapse buttons
+    document.querySelectorAll('.side-nav-footer button').forEach(b => {
+      b.addEventListener('click', () => {
+        const targetId = b.dataset.action === 'expand-all' ? 'btn-expand-all' : 'btn-collapse-all';
+        const target = document.getElementById(targetId);
+        if (target) target.click();
+        setTimeout(toggleMenu, 100);
+      });
+    });
+
+    // Highlight the currently visible section in the side-nav via IntersectionObserver
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          const item = listEl.querySelector(`.side-nav-item[data-target="${entry.target.id}"]`);
+          if (item && entry.isIntersecting) {
+            listEl.querySelectorAll('.side-nav-item').forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+      sections.forEach(s => observer.observe(s));
+    }
   }
 
   /* ---------- HEADER ---------- */
