@@ -1,109 +1,50 @@
-# TCU Department Web Insight Reports
+# TCU Department Web Insight Reports (v3)
 
-Repository untuk laporan GEO × SEO setiap departemen TCU. Deployable ke Vercel **atau** GitHub Pages.
+Static site serving department-level analytics for `*.tcu.edu.tw` websites.
 
-| Path | Sub-path | Domain | Status |
-|---|---|---|---|
-| `itm/` | `/itm/` | itm.tcu.edu.tw | Live |
-| `nc/` | `/nc/` | nc.tcu.edu.tw | Live |
+**v3 is a complete rewrite** — replaces the old Vite + ESM build chain with plain HTML/CSS/JS. No build step, no node_modules, no minifier bugs.
 
-## Deployment Modes
+## Architecture
 
-Repository ini monorepo dengan dua mode deploy.
+```
+g4A-checkings/
+├── index.html             ← landing page (auto-loads dept stats from each data.json)
+├── _shared/
+│   ├── report.css         ← single CSS file (all depts)
+│   └── report.js          ← single JS file (fetches data.json, renders report)
+├── itm/   index.html  data.json
+├── nc/    index.html  data.json
+├── www/   index.html  data.json
+├── freshman/  index.html  data.json
+├── legacy/                  ← OLD Vite+ESM source (kept for analytics_refresh.py)
+└── vercel.json            ← static deploy, no build command
+```
 
-### MODE 1 — Recommended: Single Vercel project (repository root)
+## How to add a new dept
 
-Import repo ini ke Vercel dengan **Root Directory kosong** (atau `.`). Vercel akan membaca `vercel.json` di root dan menjalankan `scripts/build-vercel.mjs` yang menghasilkan satu `dist/` berisi:
+1. Create folder `/<dept>/` with `index.html` (copy from `itm/index.html`) and `data.json`
+2. Update `index.html` with the new dept name + domain
+3. Add a card on the landing page (`index.html`)
+4. Done — that's it.
 
-- `dist/index.html` → root landing page
-- `dist/404.html` → custom 404 page
-- `dist/itm/` → ITM Vite app (built dengan base `/itm/`)
-- `dist/nc/` → NC Vite app (built dengan base `/nc/`)
+## How to refresh data
 
-Final routes di Vercel:
+The legacy `analytics_refresh.py` script can still be used. Either:
+- Modify it to also write `data.json` for each dept
+- Or run a manual extract: each `legacy/<dept>/src/generated-report-data.js` exports `window.WEBINSIGHT.REPORT_DATA` that can be transformed to `data.json`
 
-- `/` → root landing
-- `/itm/` → ITM dashboard
-- `/nc/` → NC dashboard
+## Deployment
 
-**Required Vercel project settings**:
+Vercel auto-deploys from `main` branch. `vercel.json` has no build command — pure static.
 
-| Setting | Value |
+## Pages
+
+| URL | Status |
 |---|---|
-| Root Directory | `.` (kosong) atau biarkan default |
-| Build Command | `npm run build` (otomatis dari `vercel.json`) |
-| Output Directory | `dist` (otomatis dari `vercel.json`) |
-| Install Command | `npm ci --prefix itm && npm ci --prefix nc` (otomatis dari `vercel.json`) |
-| Framework Preset | Other |
+| `/` | Landing |
+| `/itm/` | 資訊科技與管理系 (itm.tcu.edu.tw) |
+| `/nc/` | 護理系 (nc.tcu.edu.tw) |
+| `/www/` | 慈濟大學中文版首頁 (www.tcu.edu.tw) |
+| `/freshman/` | 新生入學 (freshman.tcu.edu.tw) |
 
-### MODE 2 — Separate Vercel projects per department
-
-Buat **2 project Vercel** terpisah dari repo yang sama:
-
-**Project 1 — ITM**
-
-| Setting | Value |
-|---|---|
-| Project Name | `tcu-webinsight-itm` |
-| Root Directory | `itm` |
-| Framework Preset | Vite |
-| Build Command | `npm run build` (otomatis dari `itm/vercel.json`) |
-| Output Directory | `dist` |
-
-**Project 2 — NC**
-
-| Setting | Value |
-|---|---|
-| Project Name | `tcu-webinsight-nc` |
-| Root Directory | `nc` |
-| Framework Preset | Vite |
-| Build Command | `npm run build` (otomatis dari `nc/vercel.json`) |
-| Output Directory | `dist` |
-
-Setiap push ke `main` di GitHub → kedua project auto-deploy.
-
-## Local Development
-
-### Install dependencies per department
-
-```bash
-npm ci --prefix itm
-npm ci --prefix nc
-```
-
-### Run the combined build (root → dist/)
-
-```bash
-npm run build
-```
-
-Output di `dist/` siap di-serve oleh static host manapun.
-
-### Dev mode (HMR) per department
-
-```bash
-npm run dev:itm    # http://localhost:5173
-npm run dev:nc     # http://localhost:5173
-```
-
-### Preview built artifacts per department
-
-```bash
-npm run preview:itm   # serve itm/dist
-npm run preview:nc    # serve nc/dist
-```
-
-## Important Notes
-
-- `itm/vercel.json` and `nc/vercel.json` tetap ada untuk MODE 2 (separate projects) — JANGAN dihapus.
-- `public/CNAME` digunakan oleh MODE GitHub Pages (legacy), tidak di-bundle ke Vercel dist.
-- Vite `base` path resolution:
-  - `VITE_BASE_PATH=/itm/` (atau `/nc/`) → dipakai oleh MODE 1 (root combined deploy)
-  - `VERCEL=1` → base `/` (dipakai oleh MODE 2 per-department)
-  - Default → `/g4A-checkings/<dept>/` (GitHub Pages legacy)
-
-## Documentation
-
-- Skill `dept-report-replica-confirmation` — cara replicate department baru
-- Skill `dept-report-replica-content-policy` — policy structure vs content
-- Skill `tcu-report-execution-discipline` — operational discipline
+Source: https://github.com/tcucc-dev/g4A-checkings

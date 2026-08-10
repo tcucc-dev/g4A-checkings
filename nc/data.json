@@ -1,0 +1,631 @@
+{
+  "meta": {
+    "siteName": "護理學系",
+    "siteDomain": "nc.tcu.edu.tw",
+    "reportVersion": "3.0",
+    "updatedAt": "2026/08/02",
+    "maxDateGa4": "2026-08-02",
+    "maxDateGsc": "2026-08-02",
+    "sourceCount": 3
+  },
+  "periods": {
+    "current": {
+      "start": "2026/07/27",
+      "end": "2026/08/02"
+    },
+    "previous": {
+      "start": "2026/07/19",
+      "end": "2026/07/25"
+    },
+    "trend": {
+      "start": "2026/05/31",
+      "end": "2026/07/25"
+    }
+  },
+  "kpis": {
+    "users": {
+      "label": "本週造訪人數",
+      "value": "574",
+      "trend_pct": 13.4,
+      "avg": "前 7 天",
+      "src": "all_units_summary｜GA4-USERS-001"
+    },
+    "sessions": {
+      "label": "本週工作階段",
+      "value": "617",
+      "trend_pct": 12.4,
+      "avg": "前 7 天",
+      "src": "all_units_summary｜GA4-SESSIONS-001"
+    },
+    "gsc": {
+      "label": "Google 搜尋點擊",
+      "value": "293",
+      "trend_pct": 7.7,
+      "avg": "前 7 天",
+      "src": "all_gsc_summary｜GSC-KPI-001"
+    },
+    "ctr": {
+      "label": "Google 搜尋點擊率",
+      "value": "5.78%",
+      "trend_pct": -6.5,
+      "avg": "前 7 天平均",
+      "src": "all_gsc_summary｜GSC-CTR-001"
+    }
+  },
+  "trendsGA4": [
+    {
+      "week": "06/07",
+      "sessions": 331,
+      "pageviews": 944,
+      "users": 253
+    },
+    {
+      "week": "06/14",
+      "sessions": 75,
+      "pageviews": 165,
+      "users": 61
+    },
+    {
+      "week": "06/21",
+      "sessions": 210,
+      "pageviews": 525,
+      "users": 152
+    },
+    {
+      "week": "06/28",
+      "sessions": 194,
+      "pageviews": 312,
+      "users": 150
+    },
+    {
+      "week": "07/05",
+      "sessions": 140,
+      "pageviews": 230,
+      "users": 117
+    },
+    {
+      "week": "07/12",
+      "sessions": 211,
+      "pageviews": 463,
+      "users": 177
+    },
+    {
+      "week": "07/19",
+      "sessions": 204,
+      "pageviews": 301,
+      "users": 166
+    },
+    {
+      "week": "07/26",
+      "sessions": 20,
+      "pageviews": 24,
+      "users": 19
+    }
+  ],
+  "trendsGSC": [
+    {
+      "week": "06/07",
+      "impressions": 3472,
+      "clicks": 197
+    },
+    {
+      "week": "06/14",
+      "impressions": 2741,
+      "clicks": 136
+    },
+    {
+      "week": "06/21",
+      "impressions": 2811,
+      "clicks": 91
+    },
+    {
+      "week": "06/28",
+      "impressions": 2699,
+      "clicks": 93
+    },
+    {
+      "week": "07/05",
+      "impressions": 2462,
+      "clicks": 71
+    },
+    {
+      "week": "07/12",
+      "impressions": 2570,
+      "clicks": 101
+    },
+    {
+      "week": "07/19",
+      "impressions": 2720,
+      "clicks": 112
+    },
+    {
+      "week": "07/26",
+      "impressions": 373,
+      "clicks": 16
+    }
+  ],
+  "topKeywords": [
+    {
+      "kw": "site:nc.tcu.edu.tw",
+      "brand": true,
+      "impressions": 170,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "liyun kuo",
+      "brand": false,
+      "impressions": 80,
+      "clicks": 1,
+      "ctr": 1.25,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64703,r1026.php"
+    },
+    {
+      "kw": "慈濟護專",
+      "brand": true,
+      "impressions": 63,
+      "clicks": 3,
+      "ctr": 4.76,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學護理系",
+      "brand": true,
+      "impressions": 63,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php"
+    },
+    {
+      "kw": "慈濟大學護理學院",
+      "brand": true,
+      "impressions": 60,
+      "clicks": 9,
+      "ctr": 15,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "林玉娟",
+      "brand": false,
+      "impressions": 40,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64714,r1029.php"
+    },
+    {
+      "kw": "慈濟大學護理",
+      "brand": true,
+      "impressions": 38,
+      "clicks": 1,
+      "ctr": 2.63,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學護理科",
+      "brand": true,
+      "impressions": 30,
+      "clicks": 1,
+      "ctr": 3.33,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php"
+    },
+    {
+      "kw": "曹英",
+      "brand": false,
+      "impressions": 26,
+      "clicks": 2,
+      "ctr": 7.69,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64708,r1026.php"
+    },
+    {
+      "kw": "site:nc.tcust.edu.tw",
+      "brand": true,
+      "impressions": 24,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學護理系老師",
+      "brand": true,
+      "impressions": 22,
+      "clicks": 3,
+      "ctr": 13.64,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64715,r1027.php"
+    },
+    {
+      "kw": "賴惠玲",
+      "brand": false,
+      "impressions": 22,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64699,r1026.php"
+    },
+    {
+      "kw": "護理大學",
+      "brand": true,
+      "impressions": 22,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學護理學系",
+      "brand": true,
+      "impressions": 21,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php"
+    },
+    {
+      "kw": "慈濟大學 護理學系",
+      "brand": true,
+      "impressions": 21,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php"
+    },
+    {
+      "kw": "邱曉彥",
+      "brand": false,
+      "impressions": 20,
+      "clicks": 2,
+      "ctr": 10,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php"
+    },
+    {
+      "kw": "楊美玲",
+      "brand": false,
+      "impressions": 18,
+      "clicks": 1,
+      "ctr": 5.56,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64699,r1026.php"
+    },
+    {
+      "kw": "陸秀芳",
+      "brand": false,
+      "impressions": 18,
+      "clicks": 3,
+      "ctr": 16.67,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64707,r1026.php"
+    },
+    {
+      "kw": "羅淑芬",
+      "brand": false,
+      "impressions": 15,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php"
+    },
+    {
+      "kw": "慈濟護理科",
+      "brand": true,
+      "impressions": 14,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "李崇仁",
+      "brand": false,
+      "impressions": 13,
+      "clicks": 4,
+      "ctr": 30.77,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64729,r1027.php"
+    },
+    {
+      "kw": "慈濟大學 護理系",
+      "brand": true,
+      "impressions": 12,
+      "clicks": 1,
+      "ctr": 8.33,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php"
+    },
+    {
+      "kw": "慈濟護理",
+      "brand": true,
+      "impressions": 12,
+      "clicks": 1,
+      "ctr": 8.33,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "吳素月",
+      "brand": false,
+      "impressions": 11,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64726,r1027.php"
+    },
+    {
+      "kw": "陳佳蓉",
+      "brand": false,
+      "impressions": 11,
+      "clicks": 2,
+      "ctr": 18.18,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php"
+    },
+    {
+      "kw": "周桂如",
+      "brand": false,
+      "impressions": 11,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/16-1014-65224.php"
+    },
+    {
+      "kw": "li yun kuo 醫生娘",
+      "brand": false,
+      "impressions": 11,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64703,r1026.php"
+    },
+    {
+      "kw": "護理學院",
+      "brand": true,
+      "impressions": 10,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "馬玉琴",
+      "brand": false,
+      "impressions": 10,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "王淑芳",
+      "brand": false,
+      "impressions": 10,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64698,r1034.php"
+    }
+  ],
+  "topPages": [
+    {
+      "url": "https://nc.tcu.edu.tw/",
+      "impressions": 423,
+      "clicks": 14,
+      "ctr": 3.31,
+      "pos": 0,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php",
+      "impressions": 158,
+      "clicks": 4,
+      "ctr": 2.53,
+      "pos": 0,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64703,r1026.php",
+      "impressions": 91,
+      "clicks": 1,
+      "ctr": 1.1,
+      "pos": 0,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64714,r1029.php",
+      "impressions": 40,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64699,r1026.php",
+      "impressions": 40,
+      "clicks": 1,
+      "ctr": 2.5,
+      "pos": 0,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php",
+      "impressions": 35,
+      "clicks": 2,
+      "ctr": 5.71,
+      "pos": 0,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64708,r1026.php",
+      "impressions": 26,
+      "clicks": 2,
+      "ctr": 7.69,
+      "pos": 0,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64715,r1027.php",
+      "impressions": 22,
+      "clicks": 3,
+      "ctr": 13.64,
+      "pos": 0,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64707,r1026.php",
+      "impressions": 18,
+      "clicks": 3,
+      "ctr": 16.67,
+      "pos": 0,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64729,r1027.php",
+      "impressions": 13,
+      "clicks": 4,
+      "ctr": 30.77,
+      "pos": 0,
+      "users": 0
+    }
+  ],
+  "audience": {
+    "total": 202,
+    "country": [
+      {
+        "name": "Taiwan",
+        "sessions": 149,
+        "users": 115,
+        "share": 73.8
+      },
+      {
+        "name": "China",
+        "sessions": 35,
+        "users": 35,
+        "share": 17.3
+      },
+      {
+        "name": "United States",
+        "sessions": 5,
+        "users": 4,
+        "share": 2.5
+      },
+      {
+        "name": "Singapore",
+        "sessions": 4,
+        "users": 4,
+        "share": 2
+      }
+    ],
+    "device": [
+      {
+        "name": "desktop",
+        "sessions": 131,
+        "users": 100,
+        "share": 64.9
+      },
+      {
+        "name": "tablet",
+        "sessions": 2,
+        "users": 2,
+        "share": 1
+      },
+      {
+        "name": "mobile",
+        "sessions": 69,
+        "users": 64,
+        "share": 34.2
+      }
+    ],
+    "source": [
+      {
+        "name": "(direct)/(none)",
+        "medium": "other",
+        "sessions": 118,
+        "users": 94,
+        "share": 58.4
+      },
+      {
+        "name": "google/organic",
+        "medium": "organic",
+        "sessions": 82,
+        "users": 70,
+        "share": 40.6
+      },
+      {
+        "name": "yahoo/organic",
+        "medium": "organic",
+        "sessions": 1,
+        "users": 1,
+        "share": 0.5
+      },
+      {
+        "name": "chatgpt.com/ai-assistant",
+        "medium": "ai",
+        "sessions": 1,
+        "users": 1,
+        "share": 0.5
+      }
+    ]
+  },
+  "topIssues": [
+    {
+      "severity": "medium",
+      "title": "缺 canonical 標籤",
+      "desc": "1 個項目受影響 · 規則 首頁 HTML regex <link rel=\"canonical\">",
+      "owner": "電算中心",
+      "due": "2026-09-15"
+    },
+    {
+      "severity": "medium",
+      "title": "hreflang_missing",
+      "desc": "1 個項目受影響 · 規則 首頁 <link rel=alternate hreflang=> 檢查",
+      "owner": "電算中心",
+      "due": "2026-09-15"
+    },
+    {
+      "severity": "medium",
+      "title": "og_metadata_missing",
+      "desc": "1 個項目受影響 · 規則 首頁 <meta property=og:*> 屬性檢查",
+      "owner": "單位網站管理人",
+      "due": "2026-09-15"
+    }
+  ],
+  "geo": null,
+  "evidence": [],
+  "stalePages": [
+    {
+      "url": "https://nc.tcu.edu.tw/p/407-1014-503-1.php",
+      "year": null,
+      "impressions": 341,
+      "clicks": 0,
+      "pos": 10.1,
+      "note": "連續 8 週 0 點擊"
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/16-1014-65811.php",
+      "year": null,
+      "impressions": 295,
+      "clicks": 0,
+      "pos": 16.8,
+      "note": "連續 8 週 0 點擊"
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/404-1014-65431.php",
+      "year": null,
+      "impressions": 114,
+      "clicks": 0,
+      "pos": 32.5,
+      "note": "連續 8 週 0 點擊"
+    }
+  ]
+}

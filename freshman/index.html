@@ -1,724 +1,264 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>慈濟大學新生網站｜GEO × SEO 行銷決策與改善報告 v56 (Vercel)</title>
-<link rel="stylesheet" href="/src/style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>慈濟大學新生網站｜TCU 網站分析報告</title>
+  <meta name="description" content="慈濟大學資訊科技與管理學系網站分析報告：流量、搜尋、可回答性、過期頁面。">
+  <link rel="stylesheet" href="../_shared/report.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+  <script src="../_shared/report.js" defer></script>
 </head>
-<body class="view-manager">
-<div id="three-bg"></div>
-<div class="page">
-<header class="hero">
-  <div style="font-size:13px;letter-spacing:.14em;color:#bde8ec;font-weight:800">TCU WEBINSIGHT · MANAGER REPORT · v56</div>
-  <h1>慈濟大學新生網站｜GEO × SEO 行銷決策與改善報告</h1>
-  <p>一份完整的主管決策報告，整合 GEO 驗收、5 角色視圖、BigQuery 證據報表中心、hover 術語資料庫、與過期頁面偵測。</p>
-  <div class="meta"><span>報告期間：2026/07/27 – 2026/08/02</span><span>資料更新：2026/08/04</span><span>站台：freshman.tcu.edu.tw</span><span>資料源：3 張 BigQuery 報表</span><span>內嵌證據儀表板範本 v4.0</span></div>
-  <div class="hero-actions"><button onclick="window.print()">列印目前視圖</button><button onclick="setView('all')">完整母報告</button></div>
-</header>
-<div class="tabs">
-  <button class="active" data-view="manager" onclick="setView('manager')">主管摘要</button>
-  <button data-view="marketing" onclick="setView('marketing')">行銷與 GEO</button>
-  <button data-view="web" onclick="setView('web')">網站維護</button>
-  <button data-view="it" onclick="setView('it')">技術與數據</button>
-  <button data-view="evidence" onclick="setView('evidence')">證據報表中心</button>
-  <button data-view="all" onclick="setView('all')">完整母報告</button>
-  <div class="hint">每個結論都可直接開啟完整證據報表，不必回 BigQuery 重新查詢。</div>
-</div>
-<div class="layout">
-<nav class="side"><b>報告目錄</b>
-  <a href="#m-summary" data-nav="manager all">主管摘要</a><a href="#m-trends" data-nav="manager all">八週趨勢</a><a href="#m-audience" data-nav="manager marketing all">訪客與流量結構</a><a href="#m-reports-todo" data-nav="manager marketing all">建議報表清單</a><a href="#m-decisions" data-nav="manager all">本期待決策</a>
-  
-  <a href="#mk-summary" data-nav="marketing all">行銷與 GEO 摘要</a>
-  <a href="#mk-geo" data-nav="marketing all">GEO 可回答性檢核</a>
-  <a href="#mk-audience" data-nav="marketing all">受眾與內容策略</a>
-  <a href="#mk-campaign" data-nav="marketing all">行銷漏斗與 KPI</a>
-  <a href="#mk-questions" data-nav="marketing all">AI／搜尋問題庫</a>
-  <a href="#w-actions" data-nav="web all">網站修正清單</a><a href="#w-evidence" data-nav="web all">頁面證據表</a>
-  <a href="#i-quality" data-nav="it all">資料品質</a><a href="#i-queries" data-nav="it all">查詢與異常排除</a>
-
-  <a href="#ev-overview" data-nav="evidence all">證據報表總覽</a>
-  <a href="#ev-crosswalk" data-nav="evidence all">指標與證據對照</a>
-  <a href="#ev-reports" data-nav="evidence all">完整互動報表</a>
-  <a href="#common" data-nav="manager marketing web it all">共用問題中心</a><a href="#defs" data-nav="web it evidence all">資料定義</a>
-</nav>
-<main class="main">
-<!-- GEO TOP CARD (v54 advantage: visible in all 5 views) -->
-<section class="section geo-top-card" id="geo-top" data-role="manager marketing web it evidence">
-  <div class="geo-ring-wrap">
-    <svg viewBox="0 0 240 240" class="geo-ring-svg" role="img" aria-label="GEO 綜合評分 50/100">
-      <circle cx="120" cy="120" r="100" fill="none" stroke="#fde9d6" stroke-width="22"/>
-      <circle cx="120" cy="120" r="100" fill="none" stroke="#c2410c" stroke-width="22" stroke-dasharray="314.1593 314.1593" stroke-dashoffset="0" transform="rotate(-90 120 120)" stroke-linecap="butt"/>
-      <text x="120" y="118" text-anchor="middle" font-size="64" font-weight="900" fill="#1e293b" font-family="system-ui,sans-serif">50</text>
-      <text x="120" y="148" text-anchor="middle" font-size="14" fill="#94a3b8" font-weight="700" font-family="system-ui,sans-serif">/100</text>
-    </svg>
-  </div>
-  <div class="geo-info">
-    <div class="geo-info-head">
-      <div class="geo-info-left">
-        <div class="geo-eyebrow">freshman.tcu.edu.tw GEO 自評（v56 hybrid）</div>
-        <div class="geo-headline">50<span class="geo-headline-sub">/100</span></div>
-        <div class="geo-subscores" data-test="geo-subscores"><div><span>主題清楚度（網站主題是否明確）</span> <strong>10／20</strong></div><div><span>招生資訊完整度（能否回答學生和家長的問題）</span> <strong>16／20</strong></div><div><span>可信度（聯絡資訊和地址是否完整）</span> <strong>8／20</strong></div><div><span>內容深度（網站章節數和說明完整性）</span> <strong>8／20</strong></div><div><span>技術名片（社群分享和搜尋預覽標籤）</span> <strong>8／20</strong></div></div>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div>
+        <div class="breadcrumb">
+          <a href="../">← 回到報表中心</a> · TCU WebInsight · 部門分析報告
+        </div>
+        <h1 id="site-name">載入中…</h1>
+        <div class="breadcrumb" id="site-domain">—</div>
       </div>
-      <div class="geo-info-right">
-        <div class="geo-pills" role="tablist" aria-label="報告視角切換">
-          <button type="button" class="geo-pill boss" data-view="boss" aria-pressed="false" title="用白話文說明，給主管看" style="margin-left: -2px;">主管</button>
-          <button type="button" class="geo-pill tech active" data-view="tech" aria-pressed="true" title="完整技術證據，給電算中心 / 網站技術人員看" style="margin-left: -2px;">技術人員</button>
+      <div class="actions">
+        <button onclick="window.print()">🖨 列印</button>
+        <button onclick="document.querySelectorAll('section.section').forEach(s=>s.classList.remove('collapsed'))">全部展開</button>
+        <button onclick="document.querySelectorAll('section.section').forEach(s=>{if(s.id!=='quick-view'&&s.id!=='top-actions')s.classList.add('collapsed')})">全部收合</button>
+      </div>
+    </div>
+    <div class="meta-bar">
+      <span class="pill" id="report-period">—</span>
+      <span class="pill" id="report-updated">—</span>
+      <span class="pill" id="report-version">—</span>
+    </div>
+  </header>
+
+  <main id="report-root">
+
+    <!-- ============================================================ -->
+    <!-- QUICK VIEW — visible by default                              -->
+    <!-- ============================================================ -->
+    <section class="section" id="quick-view">
+      <div class="section-header">
+        <div>
+          <h2><span class="num">1</span> 本週成效（一眼看完）</h2>
+          <div class="lead">主管最常關心的 4 個數字：多少人來、來幾次、Google 找得到嗎、點進來嗎？</div>
+        </div>
+        <div class="toggle">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="kpi-grid" id="kpi-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- TOP ACTIONS — visible by default                             -->
+    <!-- ============================================================ -->
+    <section class="section" id="top-actions">
+      <div class="section-header">
+        <div>
+          <h2><span class="num">2</span> 本期需要處理的 3 件事</h2>
+          <div class="lead">從證據報表自動彙整出最優先的修正項目，附負責人與期限。</div>
+        </div>
+        <div class="toggle">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="issues-list" id="issues-list"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- TRENDS — visible by default                                  -->
+    <!-- ============================================================ -->
+    <section class="section" id="trends">
+      <div class="section-header">
+        <div>
+          <h2><span class="num">3</span> 八週趨勢</h2>
+          <div class="lead">看網站流量是否穩定成長、Google 搜尋表現是否進步。</div>
+        </div>
+        <div class="toggle">▼</div>
+      </div>
+      <div class="section-body">
+        <div class="charts-row">
+          <div class="chart-card">
+            <h3>網站流量（GA4）</h3>
+            <div class="sub">工作階段與瀏覽量</div>
+            <canvas id="chart-ga4"></canvas>
+            <div id="trend-ga4-tbl"></div>
+          </div>
+          <div class="chart-card">
+            <h3>Google 搜尋（GSC）</h3>
+            <div class="sub">曝光與點擊</div>
+            <canvas id="chart-gsc"></canvas>
+            <div id="trend-gsc-tbl"></div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="geo-summary boss">目前這個系所網站 GEO 基礎大約 <strong>50 分（待加強）</strong>。<br><br>簡單說三件事：<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">①</strong>內容介紹完整 — 新生網站的首頁、專科部入學、研究所入學頁面流量充足，但搜尋結果預覽（og:title 等）缺失，影響點擊率。<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">②</strong>分享預覽失效 — 當系友把網站貼到 LINE 或 Facebook 時，看不到系所名稱與簡介（缺技術名片）。<br><strong style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;background:#fff5e6;border-radius:6px;color:#9a3412">③</strong>改版有倒退 — 自上次更新，JSON-LD 結構化資料被移除、canonical 與 hreflang 標記也被移除；50 分需要重新補齊這些技術標籤。</div>
-    <div class="geo-summary tech">[GEO audit @ 2026-08-04] Crawl results: https://freshman.tcu.edu.tw/<br>
-<strong>✓ 已實作：</strong><br>
-  <strong>1.</strong> <code>&lt;h1&gt;</code> × 1（標題清晰：人文與學術專業薈萃的典範大學）<br>
-  <strong>2.</strong> <code>&lt;link rel="canonical"&gt;</code> 已設定<br>
-  <strong>3.</strong> 4 張 img 皆有 <code>alt</code> 屬性<br>
-<strong>△ 待觀察：</strong><br>
-  <strong>1.</strong> <code>&lt;h2&gt;</code> 缺少頁面區塊標題分層<br>
-  <strong>2.</strong> meta description 缺失（影響搜尋結果預覽）<br>
-  <strong>3.</strong> <code>og:image</code> 系統路徑（建議改為正式主視覺 URL）<br>
-<strong>✗ 待修補：</strong><br>
-  <strong>1.</strong> <code>application/ld+json</code> 缺失（無結構化資料標記）<br>
-  <strong>2.</strong> <code>og:title</code> 缺失（影響社群分享預覽）<br>
-  <strong>3.</strong> <code>og:description</code> 缺失（影響社群分享預覽）<br>
-  <strong>4.</strong> <code>og:url</code> 缺失<br>
-  <strong>5.</strong> <code>hreflang</code> 缺失（英文版多語系標記）</div></section>
+    </section>
 
-<section class="section" id="m-summary" data-role="manager">
-  <h2>一、主管摘要</h2><p class="lead">主管只需判斷成效是否改善、優先處理哪三件事、由誰負責、何時驗收。</p>
-  
-  <div class="grid g4" id="kpis"></div>
-</section>
-<section class="section" id="m-trends" data-role="manager">
-  <h2>二、八週趨勢與改善結果</h2><p class="lead">同時比較前週、八週平均，以及網站修改後的變化。</p>
-  <div class="grid g2">
-    <div class="chartbox"><h3>網站工作階段與瀏覽量</h3><div class="small">最近八個完整週</div><canvas id="trafficChart"></canvas><div class="legend"><span><i></i>工作階段</span><span><i class="b"></i>瀏覽量</span></div>
-      <details class="evidence"><summary>查看數據證據</summary><div class="egrid"><div><strong>資料表：</strong>all_units_summary</div><div><strong>查詢代碼：</strong>GA4-WEEKLY-TREND-001</div><div><strong>欄位：</strong>date、event_name、user_pseudo_id、ga_session_id</div><div><strong>定義：</strong>工作階段以 user_pseudo_id＋ga_session_id 去重</div><div><strong>資料整理：</strong>電算中心技術支援</div><div><strong>限制：</strong>page_view 與工作階段不可混用</div></div></details>
-    </div>
-    <div class="chartbox"><h3>Google 曝光與點擊</h3><div class="small">最近八個完整週</div><canvas id="searchChart"></canvas><div class="legend"><span><i></i>曝光</span><span><i class="b"></i>點擊</span></div>
-      <details class="evidence"><summary>查看數據證據</summary><div class="egrid"><div><strong>資料表：</strong>all_gsc_summary</div><div><strong>查詢代碼：</strong>GSC-WEEKLY-TREND-001</div><div><strong>欄位：</strong>data_date、impressions、clicks</div><div><strong>定義：</strong>依完整週彙總</div><div><strong>資料整理：</strong>電算中心技術支援</div><div><strong>限制：</strong>GSC 點擊不等於 GA4 自然搜尋工作階段</div></div></details>
-    </div>
-  </div>
-  <h3>招生內容到達率趨勢</h3><div class="chartbox"><canvas id="funnelChart"></canvas><div class="legend"><span><i></i>課程頁</span><span><i class="b"></i>師資頁</span><span><i class="c"></i>特色頁</span></div>
-    <details class="evidence"><summary>查看數據證據</summary><div class="egrid"><div><strong>資料表：</strong>all_units_summary</div><div><strong>查詢代碼：</strong>FUNNEL-WEEKLY-001</div><div><strong>欄位：</strong>event_timestamp、page_location、page_title、user_pseudo_id、ga_session_id</div><div><strong>定義：</strong>先看招生頁，後續同工作階段到達指定頁面</div><div><strong>網站修改日期：</strong>單位網站管理人提供</div><div><strong>限制：</strong>到達率不代表完成報名</div></div></details>
-  </div>
-</section>
-<section class="section" id="m-audience" data-role="manager marketing">
-  <h2>三、訪客與流量結構</h2>
-  <p class="lead">主管需要知道「誰來、從哪裡來、用什麼裝置」。資料全部可由 <code>all_units_summary</code> 現有欄位推導：country、device_category、CONCAT(source,'/',medium)。</p>
-
-  <div class="grid g2">
-    <!-- 流量來源 -->
-    <div class="chartbox">
-      <h3>流量來源</h3>
-      <div class="small">近一週工作階段來源</div>
-      <div id="audienceSource"></div>
-      <div class="insight" style="margin-top:14px"><strong>主管判讀：</strong>新生網站以「直接進站」(52%) + 「自然搜尋」(43%) 為主。「慈濟大學新生報到」、「慈濟大學新生」等品牌詞帶來最多點擊。新生已知道這是「慈大」，搜尋確認後點入。</div>
-    </div>
-
-    <!-- 使用裝置 -->
-    <div class="chartbox">
-      <h3>使用裝置</h3>
-      <div class="small">近一週工作階段分布</div>
-      <div id="audienceDevice"></div>
-      <div class="insight" style="margin-top:14px"><strong>主管判讀：</strong>手機占 56% 工作階段，新生族群手機使用率高。報到流程關鍵頁 engagement 差異大（47s 到 80s），手機新手在報到動線上可能卡關。建議抽樣檢查 iPhone SE/A14 顯示。</div>
-    </div>
-  </div>
-
-  <div class="grid g2" style="margin-top:14px">
-    <!-- 訪客國家／地區 -->
-    <div class="chartbox">
-      <h3>訪客國家／地區</h3>
-      <div class="small">近一週工作階段地理分布</div>
-      <div id="audienceCountry"></div>
-    </div>
-
-    <!-- 主管應看的國際化解讀 -->
-    <div class="chartbox">
-      <h3>主管應看的國際化解讀</h3>
-      <p style="margin:0 0 10px;font-size:14px;color:#536477">非臺灣訪客比例若 <strong>明顯上升</strong>，應進一步回答：</p>
-      <ul style="margin:0;padding-left:20px;font-size:14px">
-        <li>這些國際訪客看的是中文、英文，還是特定招生頁？</li>
-        <li>國際訪客有沒有點擊招生簡章、聯絡資訊或下載文件？</li>
-        <li>不同國家搜尋的關鍵字與到達頁是否符合預期？</li>
-      </ul>
-      <div class="insight" style="margin-top:14px"><strong>資料可直接由現有欄位產出：</strong><code>country</code>、<code>page_location</code>、<code>page_title</code>、<code>query</code>、<code>link_url</code>、<code>engagement_time_msec</code>。</div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="m-reports-todo" data-role="manager marketing">
-  <h2>四、尚未呈現，但主管應看的報表</h2>
-  <p class="lead">以下全部可由現有三張表推導（<code>all_units_summary</code>、<code>all_gsc_summary</code>、<code>search_behavior_summary</code>），不要求再補新的資料來源。每張圖都附 scorecard 與簡短判讀。</p>
-
-  <!-- 1. 期間比較與異常提醒 -->
-  <div class="report-block" id="block-period-comparison">
-    <div class="block-head">
-      <span class="block-no">1</span>
-      <h3>期間比較與異常提醒</h3>
-      <span class="block-meta">近 8 週趨勢</span>
-    </div>
-    <p class="block-subtitle">本週網站成效比前週是變好還是變差？哪個指標偏離正常？</p>
-    <div class="scorecard-row" id="scorecard-trends"></div>
-    <div class="grid g2 section4-grid">
-      <div class="chart-wrap">
-        <h4>圖 A — GA4 流量趨勢（工作階段 / 活躍使用者 / 瀏覽量）</h4>
-        <canvas id="chartTrendsGA4" height="240"></canvas>
+    <!-- ============================================================ -->
+    <!-- TOP KEYWORDS                                                  -->
+    <!-- ============================================================ -->
+    <section class="section" id="top-keywords">
+      <div class="section-header">
+        <div>
+          <h2><span class="num">4</span> Top 搜尋關鍵字（GSC）</h2>
+          <div class="lead">使用者用什麼字搜尋到本站。品牌詞 = 已經認識你的人；非品牌詞 = 新客來源。</div>
+        </div>
+        <div class="toggle">▼</div>
       </div>
-      <div class="chart-wrap">
-        <h4>圖 B — Google 搜尋趨勢（曝光 / 點擊）</h4>
-        <canvas id="chartTrendsGSC" height="240"></canvas>
+      <div class="section-body">
+        <div class="tbl-wrap">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>#</th><th>關鍵字</th><th>類型</th>
+                <th class="num">曝光</th><th class="num">點擊</th>
+                <th class="num">CTR</th><th class="num">平均排名</th>
+                <th>到達頁</th>
+              </tr>
+            </thead>
+            <tbody id="kw-tbody"></tbody>
+          </table>
+        </div>
+        <div class="lead" style="margin-top:10px;">共 <span id="kw-count">0</span>。完整資料可從「證據報表中心」匯出 CSV。</div>
       </div>
-    </div>
-    <div class="ctr-row">
-      <div class="ctr-label">本週整體 CTR</div>
-      <div class="ctr-value" id="ctr-current-value">—</div>
-      <div class="ctr-delta" id="ctr-current-delta">—</div>
-    </div>
-    <div class="table-wrap section4-table-wrap">
-      <table class="mini-table section4-table" id="tableTrendWeekly"></table>
-    </div>
-    <div class="insight" id="insight-trends"></div>
-    <details class="evidence">
-      <summary>查看數據證據 — EV-PERIOD-ANOMALY-001</summary>
-      <div class="egrid">
-        <div><strong>證據代碼：</strong>EV-PERIOD-ANOMALY-001</div>
-        <div><strong>報告期間：2026/07/27 – 2026/08/02</strong>2026-06-29 至 2026-07-26（4 個完整週）</div>
-        <div><strong>最新資料日期：</strong>2026-07-29</div>
-        <div><strong>查詢代碼：</strong>GA4-WEEKLY-TREND-001、GSC-WEEKLY-TREND-001</div>
-        <div><strong>資料來源：</strong>all_units_summary、all_gsc_summary</div>
-        <div><strong>指標定義：</strong>session = COUNT(DISTINCT ga_session_id) ；active users = COUNT(DISTINCT user_pseudo_id) ；pageviews = COUNTIF(event_name='page_view') ；CTR = SUM(clicks) / NULLIF(SUM(impressions), 0)</div>
-        <div><strong>完整週規則：</strong>比較週皆為完整週（週一至週日）；未完成週不列入比較。</div>
-        <div><strong>異常規則：</strong>變動 ≥30% 且前期基期 ≥ GA4 工作階段 20、GSC 曝光 100、點擊 10、使用者 20、瀏覽量 50；未達基期者標示「樣本較少」。</div>
-        <div><strong>限制：</strong>GSC 點擊不等於 GA4 自然搜尋工作階段；CTR 為整週彙總，不平均列級 CTR。</div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- TOP PAGES                                                     -->
+    <!-- ============================================================ -->
+    <section class="section" id="top-pages">
+      <div class="section-header">
+        <div>
+          <h2><span class="num">5</span> Top 高曝光頁面（GSC）</h2>
+          <div class="lead">哪些頁面在 Google 結果頁上出現最多次？標題與描述寫得好不好？</div>
+        </div>
+        <div class="toggle">▼</div>
       </div>
-    </details>
-  </div>
-
-  <!-- 2. 同類單位/學院基準 — SKIPPED per user request -->
-
-  <!-- 3. Brand vs Non-brand keywords -->
-  <div class="report-block" id="block-brand-split">
-    <div class="block-head">
-      <span class="block-no">2</span>
-      <h3>品牌詞 vs 非品牌詞</h3>
-      <span class="block-meta">3 個月比例 + Top 關鍵字</span>
-    </div>
-    <p class="block-subtitle">來的人是因為已知道系名，還是透過一般搜尋才發現本站？</p>
-    <div class="scorecard-row" id="scorecard-brand"></div>
-    <div class="grid g2 section4-grid">
-      <div class="chart-wrap">
-        <h4>100% Stacked — 月度品牌 vs 非品牌曝光</h4>
-        <canvas id="chartBrandSplit" height="240"></canvas>
+      <div class="section-body">
+        <div class="tbl-wrap">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>#</th><th>頁面</th>
+                <th class="num">曝光</th><th class="num">點擊</th>
+                <th class="num">CTR</th><th class="num">排名</th>
+                <th class="num">活躍使用者</th>
+              </tr>
+            </thead>
+            <tbody id="pg-tbody"></tbody>
+          </table>
+        </div>
+        <div class="lead" style="margin-top:10px;">共 <span id="pg-count">0</span>。如果有些頁面曝光高、CTR 卻很低，通常是標題或摘要沒寫好。</div>
       </div>
-      <div class="chart-wrap">
-        <h4>本月份非品牌佔比</h4>
-        <canvas id="chartBrandShare" height="240"></canvas>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- AUDIENCE                                                      -->
+    <!-- ============================================================ -->
+    <section class="section" id="audience">
+      <div class="section-header">
+        <div>
+          <h2><span class="num">6</span> 訪客輪廓</h2>
+          <div class="lead">從哪裡來、用什麼裝置、怎麼找到本站。</div>
+        </div>
+        <div class="toggle">▼</div>
       </div>
-    </div>
-    <h4 style="margin:14px 0 8px;font-size:14px;color:var(--navy)">Top 關鍵字（含分類、CTR、平均排名、到達頁）</h4>
-    <div class="table-wrap section4-table-wrap">
-      <table class="mini-table section4-table" id="tableKeywordAll"></table>
-    </div>
-    <div class="insight" id="insight-brand"></div>
-    <details class="evidence">
-      <summary>查看數據證據 — EV-BRAND-NONBRAND-001</summary>
-      <div class="egrid">
-        <div><strong>證據代碼：</strong>EV-BRAND-NONBRAND-001</div>
-        <div><strong>報告期間：2026/07/27 – 2026/08/02</strong>2026/07/20 至 2026/07/26</div>
-        <div><strong>最新資料日期：</strong>2026-07-29</div>
-        <div><strong>查詢代碼：</strong>GSC-KEYWORD-BRAND-001</div>
-        <div><strong>資料來源：</strong>all_gsc_summary</div>
-        <div><strong>指標定義：</strong>CTR = SUM(clicks) / NULLIF(SUM(impressions), 0) ；平均排名 = SUM(sum_position) / NULLIF(SUM(impressions), 0)</div>
-        <div><strong>品牌詞集合：</strong>慈濟大學、慈大、慈濟、Tzu Chi、TCU、tcu、慈大新鮮人、freshman、新生</div>
-        <div><strong>分類規則：</strong>query 若包含任一品牌詞字串（不區分大小寫、全半形）則為 brand；其餘為 nonbrand。「資訊／科技／管理／大學」單獨出現不視為 brand。</div>
-        <div><strong>限制：</strong>同 query 包含多個同義詞時合併為單一字詞；landing page 為該 query 最高曝光的代表頁，非全部到達頁。</div>
+      <div class="section-body">
+        <h3 style="font-size:14px;color:var(--navy);margin-bottom:10px;">國家／地區（依工作階段）</h3>
+        <div class="bar-list" id="bar-country"></div>
+        <h3 style="font-size:14px;color:var(--navy);margin:18px 0 10px;">裝置</h3>
+        <div class="bar-list" id="bar-device"></div>
+        <h3 style="font-size:14px;color:var(--navy);margin:18px 0 10px;">流量來源</h3>
+        <div class="bar-list" id="bar-source"></div>
       </div>
-    </details>
-  </div>
+    </section>
 
-  <!-- 4. Content matrix -->
-  <div class="report-block" id="block-content-matrix">
-    <div class="block-head">
-      <span class="block-no">3</span>
-      <h3>內容效益矩陣</h3>
-      <span class="block-meta">流量 × 互動四象限</span>
-    </div>
-    <p class="block-subtitle">哪一頁流量大又互動好？哪一頁流量大但沒留住人？哪一頁好但難找？</p>
-    <div class="scorecard-row" id="scorecard-content"></div>
-    <div class="chart-wrap section4-chart">
-      <h4>Scatter Chart — 活躍使用者數 vs 平均互動時間（秒／使用者）</h4>
-      <p class="chart-note">樣本 ≥ 5 使用者的頁面以實心圓顯示；虛線為中位數；象限分類依中位數切分。</p>
-      <canvas id="chartContentMatrix" height="320"></canvas>
-    </div>
-    <h4 style="margin:14px 0 8px;font-size:14px;color:var(--navy)">頁面優先級清單（按下表優先順序）</h4>
-    <div class="table-wrap section4-table-wrap">
-      <table class="mini-table section4-table" id="tableContentList"></table>
-    </div>
-    <div class="insight" id="insight-content"></div>
-    <details class="evidence">
-      <summary>查看數據證據 — EV-CONTENT-MATRIX-001</summary>
-      <div class="egrid">
-        <div><strong>證據代碼：</strong>EV-CONTENT-MATRIX-001</div>
-        <div><strong>報告期間：2026/07/27 – 2026/08/02</strong>2026/07/20 至 2026/07/26</div>
-        <div><strong>最新資料日期：</strong>2026-07-29</div>
-        <div><strong>查詢代碼：</strong>GA4-PAGE-MATRIX-001</div>
-        <div><strong>資料來源：</strong>all_units_summary</div>
-        <div><strong>指標定義：</strong>活躍使用者 = COUNT(DISTINCT user_pseudo_id) ；平均互動秒／使用者 = SUM(engagement_time_msec)/1000 / COUNT(DISTINCT user_pseudo_id)</div>
-        <div><strong>URL 正規化：</strong>移除 utm_*、gclid、fbclid 參數；統一尾斜線；保留 lang 變體；保留真實不同的頁面 ID。</div>
-        <div><strong>象限切分：</strong>中位數（限定 active users ≥ 5 之頁面）；低於中位數為「低」，高於或等於為「高」。</div>
-        <div><strong>限制：</strong>使用者少於 5 的頁面仍可繪製但標示「樣本不足」；不建議把最高流量頁自動當作首頁入口。</div>
+    <!-- ============================================================ -->
+    <!-- GEO SCORE                                                     -->
+    <!-- ============================================================ -->
+    <section class="section" id="geo-section">
+      <div class="section-header">
+        <div>
+          <h2><span class="num">7</span> GEO 可回答性評分</h2>
+          <div class="lead">網站能不能被 AI 搜尋引擎（ChatGPT、Perplexity、Gemini）正確讀懂並引用？</div>
+        </div>
+        <div class="toggle">▼</div>
       </div>
-    </details>
-  </div>
-
-  <!-- 5. Traffic source quality -->
-  <div class="report-block" id="block-traffic-quality">
-    <div class="block-head">
-      <span class="block-no">4</span>
-      <h3>流量來源品質</h3>
-      <span class="block-meta">來源分組 × 量 × 質</span>
-    </div>
-    <p class="block-subtitle">哪個來源帶來最多人？哪個來源帶來最有停留意願的人？</p>
-    <div class="scorecard-row" id="scorecard-source"></div>
-    <div class="grid g2 section4-grid">
-      <div class="chart-wrap">
-        <h4>來源 — 工作階段數量</h4>
-        <canvas id="chartTrafficCount" height="240"></canvas>
+      <div class="section-body">
+        <div class="geo-grid">
+          <div id="geo-ring"></div>
+          <div class="geo-info">
+            <div id="geo-status"></div>
+            <h3 style="margin-top:8px;">綜合評分說明</h3>
+            <div id="geo-summary" style="color:var(--ink);font-size:14px;line-height:1.7;"></div>
+            <div class="geo-subscores" id="geo-subscores"></div>
+            <div id="geo-findings" class="geo-findings" style="display:none;"></div>
+            <div id="geo-audit-meta" class="lead" style="margin-top:10px;"></div>
+          </div>
+        </div>
       </div>
-      <div class="chart-wrap">
-        <h4>來源 — 平均互動時間（秒／工作階段）</h4>
-        <canvas id="chartTrafficEng" height="240"></canvas>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- STALE PAGES                                                   -->
+    <!-- ============================================================ -->
+    <section class="section" id="stale-section">
+      <div class="section-header">
+        <div>
+          <h2><span class="num">8</span> 過期頁面偵測</h2>
+          <div class="lead">從 Top 高曝光頁面掃出含有舊學年度的連結，可能拖累整站 SEO 分數。</div>
+        </div>
+        <div class="toggle">▼</div>
       </div>
-    </div>
-    <h4 style="margin:14px 0 8px;font-size:14px;color:var(--navy)">來源明細（含分類、互動、樣本狀態）</h4>
-    <div class="table-wrap section4-table-wrap">
-      <table class="mini-table section4-table" id="tableTrafficQuality"></table>
-    </div>
-    <div class="insight" id="insight-traffic"></div>
-    <details class="evidence">
-      <summary>查看數據證據 — EV-SOURCE-QUALITY-001</summary>
-      <div class="egrid">
-        <div><strong>證據代碼：</strong>EV-SOURCE-QUALITY-001</div>
-        <div><strong>報告期間：2026/07/27 – 2026/08/02</strong>2026/07/20 至 2026/07/26</div>
-        <div><strong>最新資料日期：</strong>2026-07-29</div>
-        <div><strong>查詢代碼：</strong>GA4-SOURCE-QUALITY-001</div>
-        <div><strong>資料來源：</strong>all_units_summary</div>
-        <div><strong>指標定義：</strong>來源分組依 source × medium 合併；平均互動秒／工作階段 = SUM(engagement_time_msec)/1000 / COUNT(DISTINCT ga_session_id)</div>
-        <div><strong>分組對應：</strong>Direct=(direct)/(none) ；Organic Search=google/organic ；AI Referral=chatgpt|perplexity|gemini|copilot|claude ；其餘依 source/medium 文字歸入 External/Internal/Social。</div>
-        <div><strong>品質判讀門檻：</strong>sessions ≥ 5 才進行互動結論；未達者標示「樣本較少」。</div>
-        <div><strong>限制：</strong>AI Referral 僅辨識 referrer 中明確出現 AI 網域者；未標記的 AI 流量不會被計入。</div>
+      <div class="section-body">
+        <div class="tbl-wrap">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>#</th><th>頁面</th><th>學年度</th>
+                <th class="num">曝光</th><th class="num">點擊</th><th class="num">排名</th>
+                <th>備註</th>
+              </tr>
+            </thead>
+            <tbody id="stale-tbody"></tbody>
+          </table>
+        </div>
+        <div class="lead" style="margin-top:10px;">共 <span id="stale-count">0</span>。建議從單位網站後台將這些頁面下架或 301 轉址。</div>
       </div>
-    </details>
-  </div>
+    </section>
 
-  <!-- 6. AI referrals -->
-  <div class="report-block" id="block-ai">
-    <div class="block-head">
-      <span class="block-no">5</span>
-      <h3>AI 搜尋／生成式 AI 導流</h3>
-      <span class="block-meta">ChatGPT / Perplexity / Gemini / Copilot / Claude</span>
-    </div>
-    <p class="block-subtitle">AI 平台是否帶來可辨識的訪客？去了哪裡？停留多久？</p>
-    <div class="scorecard-row" id="scorecard-ai"></div>
-    <div id="ai-chart-area">
-      <div class="chart-wrap">
-        <h4>依平台 — 工作階段數量</h4>
-        <canvas id="chartAIPlatforms" height="240"></canvas>
+    <!-- ============================================================ -->
+    <!-- EVIDENCE CENTER                                              -->
+    <!-- ============================================================ -->
+    <section class="section" id="evidence">
+      <div class="section-header">
+        <div>
+          <h2><span class="num">9</span> 證據報表中心（給技術人員）</h2>
+          <div class="lead">所有資料表的原始查詢、列數、Job ID 都在這裡。<strong>共 <span id="ev-counts">0</span></strong>，依類型分組。</div>
+        </div>
+        <div class="toggle">▼</div>
       </div>
-    </div>
-    <h4 style="margin:14px 0 8px;font-size:14px;color:var(--navy)">平台明細（含到達頁、互動、樣本狀態）</h4>
-    <div class="table-wrap section4-table-wrap">
-      <table class="mini-table section4-table" id="tableAIPlatforms"></table>
-    </div>
-    <div class="insight" id="insight-ai"></div>
-    <details class="evidence">
-      <summary>查看數據證據 — EV-AI-REFERRAL-001</summary>
-      <div class="egrid">
-        <div><strong>證據代碼：</strong>EV-AI-REFERRAL-001</div>
-        <div><strong>報告期間：2026/07/27 – 2026/08/02</strong>2026/07/20 至 2026/07/26</div>
-        <div><strong>最新資料日期：</strong>2026-07-29</div>
-        <div><strong>查詢代碼：</strong>AI-REFERRAL-EVIDENCE-001</div>
-        <div><strong>資料來源：</strong>all_units_summary（page_referrer 欄位）</div>
-        <div><strong>分類規則：</strong>page_referrer 網域符合下列任一即歸類：chatgpt|openai、perplexity、gemini|copilot|bing/claude|claude；未標明來源不會誤歸為 AI。</div>
-        <div><strong>指標定義：</strong>sessions = COUNT(DISTINCT ga_session_id) ；users = COUNT(DISTINCT user_pseudo_id) ；平均互動秒 = SUM(engagement_time_msec)/1000 / COUNT(DISTINCT ga_session_id)</div>
-        <div><strong>證據僅限可辨識流量：</strong>此報表不能證明 AI 顯示了什麼答案、答案是否正確、URL 是否被 AI 複製、或是否存在未標記的 AI 流量。</div>
+      <div class="section-body">
+        <h3 style="font-size:14px;color:var(--navy);margin-bottom:8px;">網站流量（GA4）</h3>
+        <div class="ev-grid" id="ev-ga4"></div>
+        <h3 style="font-size:14px;color:var(--navy);margin:18px 0 8px;">搜尋成效（GSC）</h3>
+        <div class="ev-grid" id="ev-gsc"></div>
+        <h3 style="font-size:14px;color:var(--navy);margin:18px 0 8px;">GEO 與可回答性</h3>
+        <div class="ev-grid" id="ev-geo"></div>
+        <h3 style="font-size:14px;color:var(--navy);margin:18px 0 8px;">搜尋行為與 AI 導流</h3>
+        <div class="ev-grid" id="ev-behavior"></div>
+        <h3 style="font-size:14px;color:var(--navy);margin:18px 0 8px;">資料品質與治理</h3>
+        <div class="ev-grid" id="ev-quality"></div>
       </div>
-    </details>
-  </div>
+    </section>
 
-  <!-- 7. CTA funnel -->
-  <div class="report-block" id="block-cta">
-    <div class="block-head">
-      <span class="block-no">6</span>
-      <h3>招生意圖與 CTA 行動</h3>
-      <span class="block-meta">行動代理指標</span>
-    </div>
-    <p class="block-subtitle">訪客點了哪些入學、電話、Email、LINE、表單的按鈕？</p>
-    <p class="callout">⚠ 行動代理指標，非完整報名轉換。本期資料未含逐工作階段的時序紀錄，無法重建嚴格的循序漏斗，故以下呈現為「各類招生 CTA 的點擊次數」。</p>
-    <div class="scorecard-row" id="scorecard-cta"></div>
-    <div class="chart-wrap">
-      <h4>各類 CTA 點擊次數（橫向長條）</h4>
-      <canvas id="chartCTAFunnel" height="280"></canvas>
-    </div>
-    <h4 style="margin:14px 0 8px;font-size:14px;color:var(--navy)">Top CTA 連結明細</h4>
-    <div class="table-wrap section4-table-wrap">
-      <table class="mini-table section4-table" id="tableCTALinks"></table>
-    </div>
-    <div class="insight" id="insight-cta"></div>
-    <details class="evidence">
-      <summary>查看數據證據 — EV-ADMISSION-CTA-001</summary>
-      <div class="egrid">
-        <div><strong>證據代碼：</strong>EV-ADMISSION-CTA-001</div>
-        <div><strong>報告期間：2026/07/27 – 2026/08/02</strong>2026/07/20 至 2026/07/26</div>
-        <div><strong>最新資料日期：</strong>2026-07-29</div>
-        <div><strong>查詢代碼：</strong>CTA-CATEGORY-001</div>
-        <div><strong>資料來源：</strong>all_units_summary（click 事件中的 link_url / link_text）</div>
-        <div><strong>CTA 分類：</strong>透過 link_url 與 link_text 對應：招生簡章、入學方式、報名系統、LINE、tel:、mailto:、表單、其他連結、PDF/DOC/XLSX 下載。</div>
-        <div><strong>指標定義：</strong>sessions = COUNT(DISTINCT ga_session_id) ；users = COUNT(DISTINCT user_pseudo_id) ；valid_rate = 有成功 next event 之 sessions / 全部 sessions</div>
-        <div><strong>限制：</strong>CTA 點擊不等於完成報名；本指標為「行動代理」。</div>
-      </div>
-    </details>
-  </div>
+  </main>
 
-  <!-- 8. International quality -->
-  <div class="report-block" id="block-intl">
-    <div class="block-head">
-      <span class="block-no">7</span>
-      <h3>國際訪客品質</h3>
-      <span class="block-meta">Top 國家 × 互動</span>
-    </div>
-    <p class="block-subtitle">哪些國家在看本站？他們看了什麼？是否接觸招生或聯絡資訊？</p>
-    <div class="scorecard-row" id="scorecard-intl"></div>
-    <div class="chart-wrap">
-      <h4>國家 — 工作階段數量</h4>
-      <canvas id="chartIntlSessions" height="240"></canvas>
-    </div>
-    <div class="chart-wrap">
-      <h4>國家 — 平均互動時間（秒／工作階段）</h4>
-      <canvas id="chartIntlEng" height="240"></canvas>
-    </div>
-    <h4 style="margin:14px 0 8px;font-size:14px;color:var(--navy)">國家明細（含到達頁、樣本狀態）</h4>
-    <div class="table-wrap section4-table-wrap">
-      <table class="mini-table section4-table" id="tableInternational"></table>
-    </div>
-    <div class="insight" id="insight-intl"></div>
-    <details class="evidence">
-      <summary>查看數據證據 — EV-INTERNATIONAL-QUALITY-001</summary>
-      <div class="egrid">
-        <div><strong>證據代碼：</strong>EV-INTERNATIONAL-QUALITY-001</div>
-        <div><strong>報告期間：2026/07/27 – 2026/08/02</strong>2026/07/20 至 2026/07/26</div>
-        <div><strong>最新資料日期：</strong>2026-07-29</div>
-        <div><strong>查詢代碼：</strong>GA4-COUNTRY-001</div>
-        <div><strong>資料來源：</strong>all_units_summary（country 欄位）</div>
-        <div><strong>指標定義：</strong>country 為 GA4 的訪問位置近似值，不可推論為國籍；sessions = COUNT(DISTINCT ga_session_id) ；users = COUNT(DISTINCT user_pseudo_id) ；平均互動秒／工作階段 = SUM(engagement_time_msec)/1000 / COUNT(DISTINCT ga_session_id)</div>
-        <div><strong>分組規則：</strong>樣本過少之國家合併為「其他」；保留臺灣以便對照。</div>
-        <div><strong>限制：</strong>不顯示地圖作為唯一分析；admission_cta 與 contact_click 計數需另行導入 click 事件串接，目前為 0。</div>
-      </div>
-    </details>
-  </div>
+  <footer>
+    <div id="footer-meta">—</div>
+    <div style="margin-top:6px;">慈濟大學電算中心 · 由 BigQuery 自動產生 · <a href="../">回到報表中心</a></div>
+  </footer>
 
-  <!-- 9. User paths (table fallback) -->
-  <div class="report-block" id="block-paths">
-    <div class="block-head">
-      <span class="block-no">8</span>
-      <h3>使用者路徑／下一步</h3>
-      <span class="block-meta">Top 入口頁與下一步</span>
-    </div>
-    <p class="block-subtitle">訪客從哪個頁面進入？接著點到哪裡？最終是否離開？</p>
-    <p class="callout">⚠ 本期資料未保留工作階段內逐事件時序，無法重建嚴格三階段 Sankey。下方表格為「入口頁 → 第二頁」的次數彙總，作為路徑代理。</p>
-    <div class="scorecard-row" id="scorecard-paths"></div>
-    <h4 style="margin:14px 0 8px;font-size:14px;color:var(--navy)">Top 入口頁與下一步</h4>
-    <div class="table-wrap section4-table-wrap">
-      <table class="mini-table section4-table" id="tableUserPaths"></table>
-    </div>
-    <h4 style="margin:14px 0 8px;font-size:14px;color:var(--navy)">入口頁重點轉換</h4>
-    <div class="table-wrap section4-table-wrap">
-      <table class="mini-table section4-table" id="tableUserPathTransitions"></table>
-    </div>
-    <div class="insight" id="insight-paths"></div>
-    <details class="evidence">
-      <summary>查看數據證據 — EV-USER-PATH-001</summary>
-      <div class="egrid">
-        <div><strong>證據代碼：</strong>EV-USER-PATH-001</div>
-        <div><strong>報告期間：2026/07/27 – 2026/08/02</strong>2026/07/20 至 2026/07/26</div>
-        <div><strong>最新資料日期：</strong>2026-07-29</div>
-        <div><strong>查詢代碼：</strong>GA4-LANDING-NEXT-001</div>
-        <div><strong>資料來源：</strong>all_units_summary（page_view 事件）</div>
-        <div><strong>指標定義：</strong>以 page_view 為事件單位，採 session 內最早的兩個不同 page_location 彙總；exit_share = 該 (landing, second) 數量 / landing 總數。</div>
-        <div><strong>限制：</strong>非逐事件時序重建；無法呈現完整三階段路徑；不能判斷事件間的時間先後（僅以 page_location 順序近似）。</div>
-      </div>
-    </details>
-  </div>
-
-  <!-- 10. Data quality -->
-  <div class="report-block" id="block-data-quality">
-    <div class="block-head">
-      <span class="block-no">9</span>
-      <h3>資料品質與網站治理</h3>
-      <span class="block-meta">本期資料品質快照</span>
-    </div>
-    <p class="block-subtitle">資料問題是否影響本期報告的可信度？該先修哪一項？</p>
-    <p class="callout">⚠ 目前無逐週議題歷史資料，僅顯示「本期資料品質快照」，不繪製 8 週趨勢。</p>
-    <div class="scorecard-row" id="scorecard-dq"></div>
-    <h4 style="margin:14px 0 8px;font-size:14px;color:var(--navy)">問題總覽（依嚴重性排序）</h4>
-    <div class="table-wrap section4-table-wrap">
-      <table class="mini-table section4-table" id="tableDataQuality"></table>
-    </div>
-    <div class="insight" id="insight-dq"></div>
-    <details class="evidence">
-      <summary>查看數據證據 — EV-DATA-QUALITY-001</summary>
-      <div class="egrid">
-        <div><strong>證據代碼：</strong>EV-DATA-QUALITY-001</div>
-        <div><strong>報告期間：2026/07/27 – 2026/08/02</strong>2026/07/20 至 2026/07/26（快照）</div>
-        <div><strong>最新資料日期：</strong>2026-07-29</div>
-        <div><strong>查詢代碼：</strong>DATA-QUALITY-SCAN-001</div>
-        <div><strong>資料來源：</strong>首頁原始碼掃描 + all_units_summary unknown-source 檢查</div>
-        <div><strong>指標定義：</strong>嚴重性 高 / 中 / 低 由議題影響範圍（曝光、SEO、AI 摘要）決定；非僅由計數高低決定。</div>
-        <div><strong>限制：</strong>歷史議題趨勢需建立逐週 issue log 才能繪製；目前僅有本期快照，不做趨勢。</div>
-      </div>
-    </details>
-  </div>
-</section>
-
-</section>
-
-<section class="section" id="m-decisions" data-role="manager"><h2>五、本期需要主管決定的事項</h2><div id="decisions"></div></section>
-
-<section class="section" id="mk-summary" data-role="marketing">
-  <h2>一、行銷與 GEO 決策摘要</h2>
-  <p class="lead">把網站從「資料陳列」轉為「可被搜尋、可被 AI 理解、可建立信任並促成諮詢」的招生行銷入口。</p>
-
-  <div class="grid g3">
-    <div class="marketing-card">
-      <h3>目前最強的行銷資產</h3>
-      <p><strong>招生事實清楚：</strong>首頁已有 115 學年度入學方式與名額表。</p>
-      <p><strong>信任素材豐富：</strong>含競賽獲獎、業界合作、實習、學生與校友影片。</p>
-      <p><strong>內容範圍完整：</strong>課程、師資、實驗室、國際交流、就業與聯絡入口皆存在。</p>
-      <div class="source">證據：首頁原始碼中的招生名額表、最新消息、影片、導覽與頁尾聯絡資訊｜來源：SITE-SOURCE-001</div>
-    </div>
-    <div class="marketing-card">
-      <h3>目前最大的 GEO 風險</h3>
-      <p>核心實體與頁面主題未以一致的 H1、結構化資料與語意化圖片描述呈現。</p>
-      <p>AI 或搜尋引擎可能知道「這是一個學系網站」，但不容易快速整理出完整、可引用的招生答案。</p>
-      <div class="source">證據：JSON-LD 0 組、首頁有 2 個 H1、16/24 圖片 alt 為空白或泛稱、13 個舊網域連結｜來源：首頁原始碼檢測</div>
-    </div>
-    <div class="marketing-card">
-      <h3>本期行銷主軸</h3>
-      <p><strong>核心訊息：</strong>AI 大數據 × 數位多媒體 × 業界實習 × 多元入學。</p>
-      <p><strong>主受眾：</strong>準新生、家長、國際學生、30+／第三人生學習者。</p>
-      <p><strong>主要行動：</strong>查看入學方式、認識課程、看學生成果、加入諮詢群組、聯絡系所。</p>
-      <div class="source">內容依據：meta description、主選單、入學名額、實驗室、業界實習、國際交流、30+ 與第三人生專區</div>
-    </div>
-  </div>
-
-  <h3>行銷主管應掌握的四件事</h3>
-  <div class="stage-flow">
-    <div class="stage"><div class="n">01 DISCOVER</div><div class="t">被找到</div><div class="m">搜尋曝光、品牌詞與招生問題詞能否帶來進站。</div></div>
-    <div class="stage"><div class="n">02 UNDERSTAND</div><div class="t">被理解</div><div class="m">AI 與訪客能否快速理解「學什麼、特色是什麼」。</div></div>
-    <div class="stage"><div class="n">03 TRUST</div><div class="t">建立信任</div><div class="m">師資、成果、業界合作與學生故事是否形成證據。</div></div>
-    <div class="stage"><div class="n">04 ACTION</div><div class="t">產生行動</div><div class="m">是否點擊招生、電話、Email、表單或諮詢群組。</div></div>
-  </div>
-</section>
-
-<section class="section" id="mk-geo" data-role="marketing">
-  <h2>二、GEO 可回答性與行銷素材檢核</h2>
-  <p class="lead">GEO 不只看 AI 轉介流量，更要檢查網站是否提供「明確實體、可直接回答、可信證據、最新資訊與機器可讀格式」。</p>
-
-  <div class="geo-score">
-    <div class="geo-ring"><strong>4/10</strong></div>
-    <div>
-      <h3 style="margin-top:0">首頁 GEO 基礎檢核</h3>
-      <p>此為十項規則式檢核，不是 AI 答案正確率，也不是通用 GEO 分數。</p>
-      <div class="geo-check"><span>正式中文系名出現在 title</span><span class="pass">通過</span></div>
-      <div class="geo-check"><span>正式英文系名可見</span><span class="pass">通過</span></div>
-      <div class="geo-check"><span>招生名額與聯絡資訊為可讀 HTML 文字</span><span class="pass">通過</span></div>
-      <div class="geo-check"><span>最新招生／活動內容存在</span><span class="pass">通過</span></div>
-      <div class="geo-check"><span>首頁唯一且正確的 H1</span><span class="fail">未通過</span></div>
-      <div class="geo-check"><span>Department／Organization JSON-LD</span><span class="fail">未通過</span></div>
-      <div class="geo-check"><span>招生 FAQ／Q&A 結構</span><span class="fail">未通過</span></div>
-      <div class="geo-check"><span>圖片與影片具有語意描述</span><span class="fail">未通過</span></div>
-      <div class="geo-check"><span>正式網域連結一致</span><span class="fail">未通過</span></div>
-      <div class="geo-check"><span>社群分享圖與摘要完整</span><span class="fail">未通過</span></div>
-    </div>
-  </div>
-
-  <h3>GEO 問題、行銷影響與處理方式</h3>
-  <div class="table-wrap"><table>
-    <thead><tr><th>問題編號</th><th>原始碼證據</th><th>行銷／GEO 影響</th><th>單位網站管理人</th><th>電算中心技術支援</th></tr></thead>
-    <tbody>
-      <tr><td><span class="pid">GEO-ENTITY-001</span></td><td>title 為「慈濟大學新生網站只有一個 H1（人文與學術專業薈萃的典範大學）。</td><td>搜尋與 AI 不易判斷唯一主題；品牌標題也有重複。</td><td>定義首頁唯一主標與一句話定位。</td><td>調整模板 H1 與 title 輸出規則。</td></tr>
-      <tr><td><span class="pid">GEO-SCHEMA-001</span></td><td>首頁未偵測到 <code>application/ld+json</code>。</td><td>系所、學校從屬、課程專長與聯絡資料缺乏機器可讀關係。</td><td>提供正式系名、英文名、介紹、專長、聯絡資料。</td><td>建立 Department／EducationalOrganization 結構化資料。</td></tr>
-      <tr><td><span class="pid">GEO-MESSAGE-001</span></td><td>meta description 仍以「大人物、元宇宙」為主要敘述。</td><td>未優先回答招生受眾最關心的課程、實習、就業與特色。</td><td>重寫成招生導向品牌訊息。</td><td>確認 description 正確輸出且可被索引。</td></tr>
-      <tr><td><span class="pid">GEO-DOMAIN-001</span></td><td>首頁偵測到 0 個舊網域連結。</td><td>品牌與實體訊號分散；可能導致索引、轉址與流量歸因混亂。</td><td>確認每個舊連結對應的新頁面。</td><td>執行 301、canonical 與站內連結修正。</td></tr>
-      <tr><td><span class="pid">GEO-MEDIA-001</span></td><td>26 張圖片中 4 張 alt 為空白（從 16 改善至 4）；iframe 數量需另行統計。</td><td>成果圖片與影片無法向搜尋、AI 與輔助科技傳達內容主題。</td><td>提供人物、活動、成果與影片標題。</td><td>調整模組欄位或模板輸出 alt／title。</td></tr>
-      <tr><td><span class="pid">GEO-SOCIAL-001</span></td><td>首頁僅設定 <code>og:image=/images/favicon.ico</code>。</td><td>分享至社群或通訊軟體時缺少有吸引力的招生主視覺。</td><td>製作系所招生分享圖與摘要。</td><td>補齊 og:title、og:description、og:image、canonical。</td></tr>
-      <tr><td><span class="pid">GEO-FAQ-001</span></td><td>首頁有招生名額與家長 LINE 群組，但未形成問答式內容。</td><td>AI 難以直接回答「怎麼申請、名額多少、學什麼、如何聯絡」。</td><td>整理 8～12 題招生 FAQ。</td><td>提供可編輯 FAQ 結構並視需要輸出 FAQPage schema。</td></tr>
-    </tbody>
-  </table></div>
-
-  <details class="evidence">
-    <summary>查看本區證據與檢核方法</summary>
-    <div class="egrid">
-      <div><strong>來源：</strong>慈濟大學新生網站首頁 HTML 原始碼</div>
-      <div><strong>檢測代碼：</strong>SITE-SOURCE-001</div>
-      <div><strong>實際結果（2026-07-26 抓取）：</strong>JSON-LD 0、圖片 4、泛稱／空白 alt 0、duplicate ID 0。</div>
-      <div><strong>頁面內容：</strong>title、meta description、H1、導覽、招生名額、影片、頁尾聯絡資料</div>
-      <div><strong>內容責任：</strong>單位網站管理人（內容與行銷）</div>
-      <div><strong>技術責任：</strong>電算中心技術支援（模板、結構化資料、網域與檢測）</div>
-    </div>
-  </details>
-</section>
-
-<section class="section" id="mk-audience" data-role="marketing">
-  <h2>三、受眾、搜尋意圖與內容策略</h2>
-  <p class="lead">現有 BigQuery 資料只能推估需求意圖，不能斷言訪客的真實身分；行銷內容仍可依受眾任務設計。</p>
-  <div class="grid g4">
-    <div class="intent-card"><div class="aud">準新生</div><div class="question">我會學到什麼？</div><div class="question">有哪些入學管道與名額？</div><div class="question">有實習、專題與證照嗎？</div><p><strong>主內容：</strong>課程地圖、AI 大數據、數位多媒體、實驗室、學生專題。</p></div>
-    <div class="intent-card"><div class="aud">家長</div><div class="question">畢業出路與就業如何？</div><div class="question">學習資源與輔導是否完整？</div><div class="question">有獎助與諮詢方式嗎？</div><p><strong>主內容：</strong>就業成果、企業合作、校友故事、獎助、公費生與 LINE 諮詢。</p></div>
-    <div class="intent-card"><div class="aud">國際學生</div><div class="question">有英文資訊嗎？</div><div class="question">課程與申請方式是什麼？</div><div class="question">如何聯絡系所？</div><p><strong>主內容：</strong>英文首頁、課程、國際交流、聯絡方式與正式英文系名。</p></div>
-    <div class="intent-card"><div class="aud">30+／第三人生</div><div class="question">有哪些適合成人的課程？</div><div class="question">如何報名與了解成果？</div><div class="question">能否學 AI 與數位工具？</div><p><strong>主內容：</strong>30+ 計畫、第三人生大學、影片成果與報名入口。</p></div>
-  </div>
-
-  <h3>建議內容支柱</h3>
-  <div class="table-wrap"><table>
-    <thead><tr><th>內容支柱</th><th>主要訊息</th><th>可用證據</th><th>建議格式</th><th>衡量方式</th></tr></thead>
-    <tbody>
-      <tr><td>學習內容</td><td>AI 大數據與數位多媒體雙主軸</td><td>課程規劃、課程地圖、實驗室</td><td>「四年學什麼」懶人包、FAQ、短影片</td><td>課程頁到達率、搜尋字詞、停留與 CTA</td></tr>
-      <tr><td>職涯與實作</td><td>實習、專題、證照、企業合作與半導體就業</td><td>實習流程、競賽獲獎、新聞、校友影片</td><td>成果故事、企業案例、學生旅程</td><td>特色／就業頁瀏覽、招生 CTA 點擊</td></tr>
-      <tr><td>入學與諮詢</td><td>多元入學、名額、面試與家長諮詢</td><td>115 學年度招生表、公告 PDF、LINE 群組</td><td>招生 FAQ、年度時程、單一入口頁</td><td>招生頁瀏覽、表單／LINE／電話點擊</td></tr>
-      <tr><td>信任與品牌</td><td>慈大人文精神結合科技與管理</td><td>師資、競賽、國際交流、校友與社會連結</td><td>人物故事、專題案例、新聞摘要</td><td>品牌詞 CTR、回訪、校內外轉介</td></tr>
-    </tbody>
-  </table></div>
-</section>
-
-<section class="section" id="mk-campaign" data-role="marketing">
-  <h2>四、行銷漏斗與 KPI</h2>
-  <p class="lead">行銷報告不只看流量，應追蹤「被找到 → 理解特色 → 建立信任 → 產生諮詢」的完整路徑。</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th>漏斗階段</th><th>行銷問題</th><th>核心 KPI</th><th>資料來源</th><th>主責</th></tr></thead>
-    <tbody>
-      <tr><td>被找到</td><td>招生與品牌關鍵字是否看得到、願意點？</td><td>曝光、Google 點擊、CTR、平均排名、非品牌詞占比</td><td>all_gsc_summary</td><td>電算中心出數據；網站管理人改標題與內容</td></tr>
-      <tr><td>被理解</td><td>訪客是否繼續查看課程、師資與特色？</td><td>招生→課程／師資／特色到達率</td><td>all_units_summary</td><td>網站管理人規劃導覽；電算中心建漏斗</td></tr>
-      <tr><td>建立信任</td><td>成果、實習、就業、校友與影片是否被看到？</td><td>內容頁瀏覽、後續點擊、搜尋後行為</td><td>all_units_summary、search_behavior_summary</td><td>網站管理人策展；電算中心提供證據</td></tr>
-      <tr><td>產生行動</td><td>是否進一步招生諮詢？</td><td>招生按鈕、LINE、電話、Email、表單連結點擊</td><td>all_units_summary.link_url、link_text、click_class</td><td>網站管理人確認入口；電算中心分類量測</td></tr>
-      <tr><td>AI／GEO</td><td>網站是否容易被 AI 整理成正確答案？</td><td>GEO 規則檢核、AI 可辨識轉介、AI 主要到達頁</td><td>首頁原始碼＋all_units_summary</td><td>雙方共同</td></tr>
-    </tbody>
-  </table></div>
-  <div class="marketing-note"><strong>重要限制：</strong>現有資料可衡量 AI 平台帶來的可辨識流量與網站的 GEO 準備度，但不能證明 AI 實際回答內容正確。正式報告應將「GEO 準備度」與「AI 答案正確性」分開。</div>
-</section>
-
-<section class="section" id="mk-questions" data-role="marketing">
-  <h2>五、AI／搜尋問題庫與內容落點</h2>
-  <p class="lead">每個重要問題都應有一個明確、可引用、持續更新的官方答案頁。</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th>使用者／AI 可能詢問</th><th>官方答案應包含</th><th>主要頁面</th><th>GEO 格式</th><th>負責人</th></tr></thead>
-    <tbody>
-      <tr><td>慈濟大學慈濟大學新生網站提供哪些入學資訊？</td><td>AI 大數據、數位多媒體、App、雲端、互動內容、跨域應用</td><td>首頁＋系所介紹＋課程規劃</td><td>40～80 字摘要、條列、課程連結、Department schema</td><td>網站管理人提供內容；電算中心輸出結構</td></tr>
-      <tr><td>有哪些入學管道與招生名額？</td><td>年度、管道、類群、名額、官方招生連結</td><td>入學方式頁</td><td>HTML 表格＋FAQ＋最後更新日期</td><td>網站管理人</td></tr>
-      <tr><td>畢業後可以做什麼？</td><td>職務、產業、企業合作、實習與校友案例</td><td>畢業生就業＋業界實習</td><td>職涯分類、案例、可驗證來源</td><td>網站管理人</td></tr>
-      <tr><td>有哪些實驗室與設備？</td><td>AI 大數據、元宇宙多媒體、智慧物聯、AI 高階電腦教室</td><td>專業實驗室</td><td>每個實驗室一段明確介紹＋圖片 alt</td><td>網站管理人</td></tr>
-      <tr><td>系上有哪些成果與特色？</td><td>競賽、專題、企業合作、國際交流、學生與校友故事</td><td>本系特色＋學生專題＋新聞</td><td>日期、人物、成果、來源連結</td><td>網站管理人</td></tr>
-      <tr><td>如何聯絡或諮詢？</td><td>電話、Email、地址、LINE 群組、招生入口</td><td>聯絡我們＋招生頁</td><td>ContactPoint、可點擊 tel／mailto</td><td>雙方共同</td></tr>
-    </tbody>
-  </table></div>
-</section>
-
-<section class="section" id="w-actions" data-role="web"><h2>一、網站維護修正清單</h2><p class="lead">依問題編號查看：哪一頁、要改什麼、改完如何驗收。</p><div id="webIssues"></div></section>
-<section class="section" id="w-evidence" data-role="web"><h2>二、頁面與關鍵字證據</h2><div class="table-wrap"><table><thead><tr><th>問題</th><th>頁面／關鍵字</th><th class="num">曝光</th><th class="num">點擊</th><th class="num">平均排名</th><th>網站修正</th><th>驗收</th></tr></thead><tbody id="webTable"></tbody></table></div>
-  <details class="evidence"><summary>查看本表資料來源</summary><div class="egrid"><div><strong>資料表：</strong>all_gsc_summary、search_behavior_summary</div><div><strong>查詢代碼：</strong>SEO-PAGE-EVIDENCE-001</div><div><strong>欄位：</strong>query、url、page_title、impressions、clicks、sum_position</div><div><strong>資料整理：</strong>電算中心技術支援</div><div><strong>內容判讀：</strong>單位網站管理人</div><div><strong>限制：</strong>search_behavior_summary 不得跨 query 直接加總使用者</div></div></details>
-</section>
-<section class="section" id="i-quality" data-role="it"><h2>一、資料品質與更新狀態</h2><p class="lead">先確認資料可用、定義一致、查詢可重現。</p><div class="grid g3" id="quality"></div></section>
-<section class="section" id="i-queries" data-role="it"><h2>二、查詢規格與技術排除清單</h2><div class="table-wrap"><table><thead><tr><th>查詢代碼</th><th>資料表</th><th>用途</th><th>主要欄位</th><th>狀態</th><th>技術處理</th></tr></thead><tbody id="queryTable"></tbody></table></div></section>
-
-<section class="section" id="ev-overview" data-role="evidence">
-  <h2>一、證據報表總覽</h2>
-  <p class="lead">每個主管 KPI、行銷判讀、網站問題與技術異常，都對應一份已由 BigQuery 查詢產生的完整查證報表。報告內可篩選、排序、翻頁及下載 CSV。</p>
-  <div class="ev-note">
-    <strong>正式產製原則：</strong>Hermes 先執行固定 BigQuery SQL，將查詢結果、查詢代碼、BigQuery Job ID、資料期間、最大資料日期、列數與資料雜湊一起寫入 HTML。閱讀者不需要再進 BigQuery 查證。
-  </div>
-  <div class="ev-warning" style="margin-top:10px">
-    <strong>GEO 技術證據例外：</strong>H1、JSON-LD、舊網域、圖片 alt、iframe title 等不是 BigQuery 行為數據，必須由網站原始碼掃描產生完整技術證據報表；不得假裝是 BigQuery 資料。
-  </div>
-  <div class="ev-index" id="evidenceIndex" style="margin-top:14px"></div>
-</section>
-
-<section class="section" id="ev-crosswalk" data-role="evidence">
-  <h2>二、主管指標、問題與完整證據對照</h2>
-  <p class="lead">主管看到結論後，可直接依證據報表編號開啟資料，不必重新查詢。</p>
-  <div class="table-wrap"><table class="ev-crosswalk">
-    <thead><tr><th>主管／行銷指標</th><th>證據報表</th><th>來源表</th><th>可查證內容</th><th>資料責任</th></tr></thead>
-    <tbody>
-      <tr><td>網站工作階段、瀏覽量與八週趨勢</td><td><a class="ev-link" href="#ev-EV-GA4-TREND-001">EV-GA4-TREND-001</a></td><td>all_units_summary</td><td>每週工作階段、瀏覽量、使用者、互動與頁數</td><td>電算中心技術支援</td></tr>
-      <tr><td>國家、裝置與流量來源</td><td><a class="ev-link" href="#ev-EV-GA4-AUDIENCE-001">EV-GA4-AUDIENCE-001</a></td><td>all_units_summary</td><td>完整分類、數量、占比與來源定義</td><td>電算中心技術支援</td></tr>
-      <tr><td>Google 曝光、點擊、CTR、排名</td><td><a class="ev-link" href="#ev-EV-GSC-QUERY-001">EV-GSC-QUERY-001</a></td><td>all_gsc_summary</td><td>關鍵字、頁面、國家、裝置與搜尋成效</td><td>電算中心技術支援</td></tr>
-      <tr><td>高曝光零點擊頁面</td><td><a class="ev-link" href="#ev-EV-GSC-PAGE-001">EV-GSC-PAGE-001</a></td><td>all_gsc_summary</td><td>query × URL 的曝光、點擊、CTR 與排名</td><td>電算中心出證據；網站管理人修正</td></tr>
-      <tr><td>招生→課程／師資／特色到達率</td><td><a class="ev-link" href="#ev-EV-FUNNEL-001">EV-FUNNEL-001</a></td><td>all_units_summary</td><td>逐週母體、到達數、到達率與頁面群組</td><td>雙方共同</td></tr>
-      <tr><td>招生、電話、Email、表單、LINE 點擊</td><td><a class="ev-link" href="#ev-EV-CONTACT-001">EV-CONTACT-001</a></td><td>all_units_summary</td><td>頁面、連結類型、文字、網址與點擊數</td><td>雙方共同</td></tr>
-      <tr><td>搜尋進站後行為</td><td><a class="ev-link" href="#ev-EV-SEARCH-BEHAVIOR-001">EV-SEARCH-BEHAVIOR-001</a></td><td>search_behavior_summary</td><td>query × page × active users × 互動 × 站內點擊</td><td>電算中心技術支援</td></tr>
-      <tr><td>可辨識 AI 轉介與到達頁</td><td><a class="ev-link" href="#ev-EV-AI-REFERRAL-001">EV-AI-REFERRAL-001</a></td><td>all_units_summary</td><td>AI 平台、到達頁、工作階段、瀏覽與互動</td><td>電算中心技術支援</td></tr>
-      <tr><td>資料新鮮度與完整性</td><td><a class="ev-link" href="#ev-EV-WEBSITE-GOVERNANCE-001">EV-WEBSITE-GOVERNANCE-001</a></td><td>三張 BigQuery 報表</td><td>最大日期、列數、缺值率、狀態與 Job ID</td><td>電算中心技術支援</td></tr>
-      <tr><td>GEO 技術準備度</td><td><a class="ev-link" href="#ev-EV-GEO-SOURCE-001">EV-GEO-SOURCE-001</a></td><td>網站原始碼掃描</td><td>H1、JSON-LD、網域、alt、iframe、OG 與 FAQ</td><td>網站管理人＋電算中心</td></tr>
-      <tr><td>區段 4 — 期間比較與異常提醒</td><td><a class="ev-link" href="#ev-EV-PERIOD-ANOMALY-001">EV-PERIOD-ANOMALY-001</a></td><td>all_units_summary + all_gsc_summary</td><td>8 週完整週比較、CTR、異常規則</td><td>電算中心技術支援</td></tr>
-      <tr><td>區段 4 — 品牌詞 vs 非品牌詞</td><td><a class="ev-link" href="#ev-EV-BRAND-NONBRAND-001">EV-BRAND-NONBRAND-001</a></td><td>all_gsc_summary</td><td>query 分類、CTR、平均排名、到頁</td><td>電算中心技術支援</td></tr>
-      <tr><td>區段 4 — 內容效益矩陣</td><td><a class="ev-link" href="#ev-EV-CONTENT-MATRIX-001">EV-CONTENT-MATRIX-001</a></td><td>all_units_summary</td><td>頁面互動四象限（中位數切分）</td><td>電算中心技術支援</td></tr>
-      <tr><td>區段 4 — 流量來源品質</td><td><a class="ev-link" href="#ev-EV-SOURCE-QUALITY-001">EV-SOURCE-QUALITY-001</a></td><td>all_units_summary</td><td>source/medium 分組 × 量 × 互動</td><td>電算中心技術支援</td></tr>
-      <tr><td>區段 4 — 招生 CTA 行動</td><td><a class="ev-link" href="#ev-EV-ADMISSION-CTA-001">EV-ADMISSION-CTA-001</a></td><td>all_units_summary 點擊事件</td><td>CTA 分類、來源頁、目的地、點擊</td><td>電算中心技術支援</td></tr>
-      <tr><td>區段 4 — 國際訪客品質</td><td><a class="ev-link" href="#ev-EV-INTERNATIONAL-QUALITY-001">EV-INTERNATIONAL-QUALITY-001</a></td><td>all_units_summary</td><td>國家 × 互動 × 到頁</td><td>電算中心技術支援</td></tr>
-      <tr><td>區段 4 — 使用者路徑</td><td><a class="ev-link" href="#ev-EV-USER-PATH-001">EV-USER-PATH-001</a></td><td>all_units_summary page_view</td><td>入口頁 → 第二頁彙總</td><td>電算中心技術支援</td></tr>
-      </tbody>
-      </table></div>
-</section>
-
-<section class="section" id="ev-reports" data-role="evidence">
-  <h2>三、完整互動證據報表</h2>
-  <p class="lead">以下資料為範本示範。正式版由 Hermes 將每支 BigQuery 查詢的完整結果寫入本區，並保留查詢工作資訊與下載功能。</p>
-  <div id="evidenceReports"></div>
-</section>
-
-<section class="section" id="common" data-role="manager marketing web it"><h2>共用問題中心</h2><p class="lead">三個角色使用同一個問題編號。</p><div id="commonIssues"></div></section>
-<section class="section" id="defs" data-role="web it"><h2>資料來源與責任分工</h2><div class="grid g2"><div class="rolecard unitrole"><h3>單位網站管理人</h3><ul class="clean"><li>確認招生、課程、師資、特色與聯絡頁實際 URL。</li><li>判讀搜尋意圖與內容是否相符。</li><li>修改 title、meta、H1、首屏、CTA 與站內連結。</li><li>確認電話、Email、表單與招生資訊正確。</li><li>回報修改日期與完成狀態。</li></ul></div><div class="rolecard itrole"><h3>電算中心技術支援</h3><ul class="clean"><li>維護三張 BigQuery 報表與權限。</li><li>固定工作階段、CTR、平均排名與到達率算法。</li><li>維護來源分類、AI referrer 與頁面群組。</li><li>由 Hermes 填入資料、驗證並保留版本。</li><li>說明資料延遲、缺值與 GA4／GSC 差異。</li></ul></div></div>
-  <h3>三張資料表固定用途</h3><div class="table-wrap"><table><thead><tr><th>資料表</th><th>固定用途</th><th>不得誤用</th></tr></thead><tbody><tr><td><code>all_units_summary</code></td><td>國家、裝置、來源、頁面、工作階段、連結點擊與手機行為。</td><td>不得用 COUNT(*) 當瀏覽量；page_view 必須篩選 event_name。</td></tr><tr><td><code>all_gsc_summary</code></td><td>曝光、Google 點擊、CTR、平均排名、關鍵字與搜尋頁面。</td><td>GSC 點擊不得直接等同 GA4 自然搜尋工作階段。</td></tr><tr><td><code>search_behavior_summary</code></td><td>關鍵字、到達頁與後續行為的關聯。</td><td>不得跨 query 直接加總 active_users 或 site_link_clicks。</td></tr></tbody></table></div>
-</section>
-
-<section class="section" id="stale-pages" data-role="manager web">
-  <h2>過期頁面偵測</h2>
-  <p class="lead">自動掃描 Top 10 高曝光頁面的 HTML 內容，偵測是否含有「學年度／AD年／[舊]」等<span class="gloss anchor" data-term="過期">過期</span>標記。URL 點擊即可在新分頁開啟查看真實頁面。</p>
-  <div class="stale-warn"><strong>⚠ 過期偵測結果：</strong>Top 10 內有 <strong>3 個頁面（30%）</strong>內容 ≥4 年未更新。建議優先處理 #4、#7、#8。</div>
-  <h3>Top 10 高曝光頁面完整清單</h3>
-  <div class="table-wrap"><table><thead><tr><th>#</th><th>頁面 URL</th><th class="num">曝光</th><th class="num">點擊</th><th class="num">排名</th><th>狀態</th></tr></thead><tbody>
-    <tr><td>1</td><td><a href="https://freshman.tcu.edu.tw/" target="_blank" rel="noopener" class="url-link">freshman.tcu.edu.tw/ ↗</a></td><td class="num">48</td><td class="num">1</td><td class="num">3.4</td><td><span class="status green">最新</span></td></tr>
-    <tr><td>2</td><td><a href="https://freshman.tcu.edu.tw/p/412-1022-2586.php" target="_blank" rel="noopener" class="url-link">freshman.tcu.edu.tw/p/412-1022-2586.php ↗</a></td><td class="num">15</td><td class="num">3</td><td class="num">2.6</td><td><span class="status green">最新</span></td></tr>
-    <tr><td>3</td><td><a href="https://freshman.tcu.edu.tw/p/406-1022-65878,r452.php?Lang=zh-tw" target="_blank" rel="noopener" class="url-link">freshman.tcu.edu.tw/p/406-1022-65878,r452.php?Lang=zh-tw ↗</a></td><td class="num">10</td><td class="num">0</td><td class="num">6.2</td><td><span class="status green">最新</span></td></tr>
-    <tr class="stale-row"><td>4</td><td><a href="https://freshman.tcu.edu.tw/p/404-1022-36099.php" target="_blank" rel="noopener" class="url-link">freshman.tcu.edu.tw/p/404-1022-36099.php ↗</a></td><td class="num">8</td><td class="num">0</td><td class="num">7.5</td><td><span class="status demo" title="112 學年度">過期</span></td></tr>
-    <tr><td>5</td><td><a href="https://freshman.tcu.edu.tw/p/404-1022-52388.php?Lang=en" target="_blank" rel="noopener" class="url-link">freshman.tcu.edu.tw/p/404-1022-52388.php?Lang=en ↗</a></td><td class="num">6</td><td class="num">0</td><td class="num">1.2</td><td><span class="status green">最新</span></td></tr>
-    <tr><td>6</td><td><a href="https://freshman.tcu.edu.tw/var/file/22/1022/img/1870/424380578.pdf" target="_blank" rel="noopener" class="url-link">freshman.tcu.edu.tw/var/file/22/1022/img/1870/424380578.pdf ↗</a></td><td class="num">6</td><td class="num">0</td><td class="num">13.5</td><td><span class="status green">最新</span></td></tr>
-    <tr class="stale-row"><td>7</td><td><a href="https://freshman.tcu.edu.tw/p/404-1022-52388.php?Lang=zh-tw" target="_blank" rel="noopener" class="url-link">freshman.tcu.edu.tw/p/404-1022-52388.php?Lang=zh-tw ↗</a></td><td class="num">5</td><td class="num">0</td><td class="num">7.4</td><td><span class="status demo" title="114學年度">過期</span></td></tr>
-    <tr class="stale-row"><td>8</td><td><a href="https://freshman.tcu.edu.tw/p/404-1022-30026.php?Lang=zh-tw" target="_blank" rel="noopener" class="url-link">freshman.tcu.edu.tw/p/404-1022-30026.php?Lang=zh-tw ↗</a></td><td class="num">5</td><td class="num">0</td><td class="num">4.8</td><td><span class="status demo" title="105學年度">過期</span></td></tr>
-    <tr><td>9</td><td><a href="https://freshman.tcu.edu.tw/?Lang=en" target="_blank" rel="noopener" class="url-link">freshman.tcu.edu.tw/?Lang=en ↗</a></td><td class="num">4</td><td class="num">0</td><td class="num">2.5</td><td><span class="status green">最新</span></td></tr>
-    <tr><td>10</td><td><a href="https://freshman.tcu.edu.tw/p/16-1022-58627.php?Lang=zh-tw" target="_blank" rel="noopener" class="url-link">freshman.tcu.edu.tw/p/16-1022-58627.php?Lang=zh-tw ↗</a></td><td class="num">4</td><td class="num">0</td><td class="num">8.0</td><td><span class="status green">最新</span></td></tr>
-
-  </tbody></table></div>
-    <h3>3 個過期頁面詳情（點 URL 直接查看）</h3>
-  <div class="grid grid-2">
-    <div class="callout danger"><strong>#4 <a href="https://freshman.tcu.edu.tw/p/404-1022-36099.php" target="_blank" rel="noopener" class="stale-url">freshman.tcu.edu.tw/p/404-1022-36099.php ↗</a></strong><br><span class="small">112 學年度</span><br><span class="small mono">imp 8 / clk 0 / pos 7.5</span></div>
-    <div class="callout danger"><strong>#7 <a href="https://freshman.tcu.edu.tw/p/404-1022-52388.php?Lang=zh-tw" target="_blank" rel="noopener" class="stale-url">freshman.tcu.edu.tw/p/404-1022-52388.php?Lang=zh-tw ↗</a></strong><br><span class="small">114學年度</span><br><span class="small mono">imp 5 / clk 0 / pos 7.4</span></div>
-    <div class="callout danger"><strong>#8 <a href="https://freshman.tcu.edu.tw/p/404-1022-30026.php?Lang=zh-tw" target="_blank" rel="noopener" class="stale-url">freshman.tcu.edu.tw/p/404-1022-30026.php?Lang=zh-tw ↗</a></strong><br><span class="small">105學年度</span><br><span class="small mono">imp 5 / clk 0 / pos 4.8</span></div>
-  </div>
-  <div class="source-box"><strong>偵測規則  <div class="source-box"><strong>偵測規則：</strong>正則表達式 <code>學年度|AD年|\[舊\]|10[0-9]\s*學年度|11[0-4]\s*學年度</code><br><strong>執行方式：</strong>curl HTML → regex match → 標記 <code>stale=true</code><br><strong>v54 改進：</strong>URL 加上 <code>target="_blank" rel="noopener"</code>，點擊即開新分頁</div>
-</section>
-
-</main></div><div class="footer">GEO × SEO 行銷決策母報告｜內嵌 BigQuery 證據儀表板範本</div></div><div class="flag">範本／示範數據</div>
-
-
-
-
-
-
-
-<!-- v54: GLOSSARY DATABASE + AUTO-WRAP (advantage: hover tooltip everywhere) -->
-
-<script type="module" src="/src/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,465 @@
+{
+  "meta": {
+    "siteName": "慈濟大學新生網站",
+    "siteDomain": "freshman.tcu.edu.tw",
+    "reportVersion": "3.0",
+    "updatedAt": "2026/08/02",
+    "maxDateGa4": "2026-08-02",
+    "maxDateGsc": "2026-08-02",
+    "sourceCount": 3
+  },
+  "periods": {
+    "current": {
+      "start": "2026/07/27",
+      "end": "2026/08/02"
+    },
+    "previous": {
+      "start": "2026/07/19",
+      "end": "2026/07/25"
+    },
+    "trend": {
+      "start": "2026/05/31",
+      "end": "2026/07/25"
+    }
+  },
+  "kpis": {
+    "users": {
+      "label": "本週造訪人數",
+      "value": "2231",
+      "trend_pct": 0.4,
+      "avg": "前 7 天",
+      "src": "all_units_summary｜GA4-USERS-001"
+    },
+    "sessions": {
+      "label": "本週工作階段",
+      "value": "2894",
+      "trend_pct": -5.3,
+      "avg": "前 7 天",
+      "src": "all_units_summary｜GA4-SESSIONS-001"
+    },
+    "gsc": {
+      "label": "Google 搜尋點擊",
+      "value": "1162",
+      "trend_pct": 11.3,
+      "avg": "前 7 天",
+      "src": "all_gsc_summary｜GSC-KPI-001"
+    },
+    "ctr": {
+      "label": "Google 搜尋點擊率",
+      "value": "6.68%",
+      "trend_pct": -3.5,
+      "avg": "前 7 天平均",
+      "src": "all_gsc_summary｜GSC-CTR-001"
+    }
+  },
+  "trendsGA4": [
+    {
+      "week": "06/07",
+      "sessions": 1205,
+      "pageviews": 2289,
+      "users": 965
+    },
+    {
+      "week": "06/14",
+      "sessions": 370,
+      "pageviews": 734,
+      "users": 313
+    },
+    {
+      "week": "06/21",
+      "sessions": 888,
+      "pageviews": 1554,
+      "users": 692
+    },
+    {
+      "week": "06/28",
+      "sessions": 1080,
+      "pageviews": 2859,
+      "users": 795
+    },
+    {
+      "week": "07/05",
+      "sessions": 860,
+      "pageviews": 2180,
+      "users": 614
+    },
+    {
+      "week": "07/12",
+      "sessions": 1051,
+      "pageviews": 2641,
+      "users": 727
+    },
+    {
+      "week": "07/19",
+      "sessions": 3748,
+      "pageviews": 10431,
+      "users": 1932
+    },
+    {
+      "week": "07/26",
+      "sessions": 314,
+      "pageviews": 776,
+      "users": 259
+    }
+  ],
+  "trendsGSC": [
+    {
+      "week": "06/07",
+      "impressions": 17864,
+      "clicks": 1060
+    },
+    {
+      "week": "06/14",
+      "impressions": 16985,
+      "clicks": 987
+    },
+    {
+      "week": "06/21",
+      "impressions": 15713,
+      "clicks": 849
+    },
+    {
+      "week": "06/28",
+      "impressions": 14923,
+      "clicks": 682
+    },
+    {
+      "week": "07/05",
+      "impressions": 13947,
+      "clicks": 580
+    },
+    {
+      "week": "07/12",
+      "impressions": 12888,
+      "clicks": 646
+    },
+    {
+      "week": "07/19",
+      "impressions": 18679,
+      "clicks": 1412
+    },
+    {
+      "week": "07/26",
+      "impressions": 2395,
+      "clicks": 154
+    }
+  ],
+  "topKeywords": [
+    {
+      "kw": "居留證",
+      "brand": false,
+      "impressions": 498,
+      "clicks": 1,
+      "ctr": 0.2,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學新生",
+      "brand": true,
+      "impressions": 430,
+      "clicks": 58,
+      "ctr": 13.49,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "花蓮 英文",
+      "brand": false,
+      "impressions": 334,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "site:freshman.tcu.edu.tw",
+      "brand": true,
+      "impressions": 289,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學新生報到",
+      "brand": true,
+      "impressions": 262,
+      "clicks": 29,
+      "ctr": 11.07,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "花蓮英文",
+      "brand": false,
+      "impressions": 198,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "台灣居留證",
+      "brand": false,
+      "impressions": 198,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學 新生",
+      "brand": true,
+      "impressions": 184,
+      "clicks": 26,
+      "ctr": 14.13,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "台灣全長幾公里",
+      "brand": false,
+      "impressions": 156,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學新生報到115",
+      "brand": true,
+      "impressions": 155,
+      "clicks": 20,
+      "ctr": 12.9,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "c168",
+      "brand": false,
+      "impressions": 132,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟新生",
+      "brand": true,
+      "impressions": 124,
+      "clicks": 17,
+      "ctr": 13.71,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "arc 居留 證",
+      "brand": false,
+      "impressions": 112,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學",
+      "brand": true,
+      "impressions": 107,
+      "clicks": 7,
+      "ctr": 6.54,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "tcu",
+      "brand": true,
+      "impressions": 94,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學制服",
+      "brand": true,
+      "impressions": 88,
+      "clicks": 3,
+      "ctr": 3.41,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學宿舍",
+      "brand": true,
+      "impressions": 81,
+      "clicks": 12,
+      "ctr": 14.81,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "台灣長度",
+      "brand": false,
+      "impressions": 66,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學學費",
+      "brand": true,
+      "impressions": 65,
+      "clicks": 14,
+      "ctr": 21.54,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟制服",
+      "brand": true,
+      "impressions": 60,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "花蓮天氣穿著",
+      "brand": false,
+      "impressions": 60,
+      "clicks": 1,
+      "ctr": 1.67,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "台灣多長",
+      "brand": false,
+      "impressions": 52,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "arc居留證",
+      "brand": false,
+      "impressions": 44,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    },
+    {
+      "kw": "選課",
+      "brand": false,
+      "impressions": 42,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://freshman.tcu.edu.tw/"
+    }
+  ],
+  "topPages": [
+    {
+      "url": "https://freshman.tcu.edu.tw/",
+      "impressions": 3831,
+      "clicks": 188,
+      "ctr": 4.91,
+      "pos": 0,
+      "users": 0
+    }
+  ],
+  "audience": {
+    "total": 3921,
+    "country": [
+      {
+        "name": "Taiwan",
+        "sessions": 3669,
+        "users": 1801,
+        "share": 93.6
+      },
+      {
+        "name": "China",
+        "sessions": 95,
+        "users": 95,
+        "share": 2.4
+      },
+      {
+        "name": "United States",
+        "sessions": 19,
+        "users": 19,
+        "share": 0.5
+      },
+      {
+        "name": "Japan",
+        "sessions": 17,
+        "users": 15,
+        "share": 0.4
+      }
+    ],
+    "device": [
+      {
+        "name": "desktop",
+        "sessions": 1638,
+        "users": 805,
+        "share": 41.8
+      },
+      {
+        "name": "tablet",
+        "sessions": 84,
+        "users": 59,
+        "share": 2.1
+      },
+      {
+        "name": "mobile",
+        "sessions": 2207,
+        "users": 1138,
+        "share": 56.3
+      }
+    ],
+    "source": [
+      {
+        "name": "(direct)/(none)",
+        "medium": "other",
+        "sessions": 2047,
+        "users": 1081,
+        "share": 52.2
+      },
+      {
+        "name": "google/organic",
+        "medium": "organic",
+        "sessions": 1694,
+        "users": 818,
+        "share": 43.2
+      },
+      {
+        "name": "cse.google.com/referral",
+        "medium": "other",
+        "sessions": 42,
+        "users": 16,
+        "share": 1.1
+      },
+      {
+        "name": "bing/organic",
+        "medium": "organic",
+        "sessions": 32,
+        "users": 14,
+        "share": 0.8
+      },
+      {
+        "name": "mail.google.com/referral",
+        "medium": "other",
+        "sessions": 18,
+        "users": 5,
+        "share": 0.5
+      }
+    ]
+  },
+  "topIssues": [],
+  "geo": null,
+  "evidence": [],
+  "stalePages": []
+}

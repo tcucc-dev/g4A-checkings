@@ -1,0 +1,429 @@
+{
+  "meta": {
+    "siteName": "慈濟大學中文版首頁",
+    "siteDomain": "www.tcu.edu.tw",
+    "reportVersion": "3.0",
+    "updatedAt": "2026/08/02",
+    "maxDateGa4": "2026-08-02",
+    "maxDateGsc": "2026-08-02",
+    "sourceCount": 3
+  },
+  "periods": {
+    "current": {
+      "start": "2026/07/27",
+      "end": "2026/08/02"
+    },
+    "previous": {
+      "start": "2026/07/19",
+      "end": "2026/07/25"
+    },
+    "trend": {
+      "start": "2026/05/31",
+      "end": "2026/07/25"
+    }
+  },
+  "kpis": {
+    "users": {
+      "label": "本週造訪人數",
+      "value": "8710",
+      "trend_pct": 33.7,
+      "avg": "前 7 天",
+      "src": "all_units_summary｜GA4-USERS-001"
+    },
+    "sessions": {
+      "label": "本週工作階段",
+      "value": "11825",
+      "trend_pct": 34.4,
+      "avg": "前 7 天",
+      "src": "all_units_summary｜GA4-SESSIONS-001"
+    },
+    "gsc": {
+      "label": "Google 搜尋點擊",
+      "value": "4573",
+      "trend_pct": 33.1,
+      "avg": "前 7 天",
+      "src": "all_gsc_summary｜GSC-KPI-001"
+    },
+    "ctr": {
+      "label": "Google 搜尋點擊率",
+      "value": "7.71%",
+      "trend_pct": -0.8,
+      "avg": "前 7 天平均",
+      "src": "all_gsc_summary｜GSC-CTR-001"
+    }
+  },
+  "trendsGA4": [
+    {
+      "week": "06/07",
+      "sessions": 22240,
+      "pageviews": 32701,
+      "users": 11548
+    },
+    {
+      "week": "06/14",
+      "sessions": 1448,
+      "pageviews": 2209,
+      "users": 1098
+    },
+    {
+      "week": "06/21",
+      "sessions": 17373,
+      "pageviews": 26019,
+      "users": 7530
+    },
+    {
+      "week": "06/28",
+      "sessions": 14765,
+      "pageviews": 22409,
+      "users": 6195
+    },
+    {
+      "week": "07/05",
+      "sessions": 10905,
+      "pageviews": 15911,
+      "users": 5322
+    },
+    {
+      "week": "07/12",
+      "sessions": 11192,
+      "pageviews": 19034,
+      "users": 5350
+    },
+    {
+      "week": "07/19",
+      "sessions": 10330,
+      "pageviews": 14913,
+      "users": 5451
+    },
+    {
+      "week": "07/26",
+      "sessions": 1031,
+      "pageviews": 1344,
+      "users": 895
+    }
+  ],
+  "trendsGSC": [
+    {
+      "week": "06/07",
+      "impressions": 102315,
+      "clicks": 8708
+    },
+    {
+      "week": "06/14",
+      "impressions": 94483,
+      "clicks": 8630
+    },
+    {
+      "week": "06/21",
+      "impressions": 92424,
+      "clicks": 8420
+    },
+    {
+      "week": "06/28",
+      "impressions": 82190,
+      "clicks": 7104
+    },
+    {
+      "week": "07/05",
+      "impressions": 60336,
+      "clicks": 5000
+    },
+    {
+      "week": "07/12",
+      "impressions": 58298,
+      "clicks": 4638
+    },
+    {
+      "week": "07/19",
+      "impressions": 53655,
+      "clicks": 4236
+    },
+    {
+      "week": "07/26",
+      "impressions": 7609,
+      "clicks": 621
+    }
+  ],
+  "topKeywords": [
+    {
+      "kw": "site:www.tcu.edu.tw",
+      "brand": true,
+      "impressions": 600,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學",
+      "brand": true,
+      "impressions": 500,
+      "clicks": 200,
+      "ctr": 40,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "tcu",
+      "brand": true,
+      "impressions": 400,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈大",
+      "brand": true,
+      "impressions": 350,
+      "clicks": 50,
+      "ctr": 14.29,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟",
+      "brand": true,
+      "impressions": 300,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "www.tcu.edu.tw",
+      "brand": true,
+      "impressions": 280,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "tcu www",
+      "brand": true,
+      "impressions": 200,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學醫學系",
+      "brand": true,
+      "impressions": 180,
+      "clicks": 30,
+      "ctr": 16.67,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學護理學系",
+      "brand": true,
+      "impressions": 160,
+      "clicks": 20,
+      "ctr": 12.5,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學資訊科技與管理學系",
+      "brand": true,
+      "impressions": 140,
+      "clicks": 15,
+      "ctr": 10.71,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學研究所",
+      "brand": true,
+      "impressions": 120,
+      "clicks": 8,
+      "ctr": 6.67,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "唸護理",
+      "brand": false,
+      "impressions": 100,
+      "clicks": 5,
+      "ctr": 5,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "中醫學系",
+      "brand": false,
+      "impressions": 90,
+      "clicks": 3,
+      "ctr": 3.33,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學招生",
+      "brand": true,
+      "impressions": 80,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈大新生",
+      "brand": true,
+      "impressions": 75,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "tzu chi",
+      "brand": true,
+      "impressions": 70,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈大學資",
+      "brand": true,
+      "impressions": 60,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學學費",
+      "brand": true,
+      "impressions": 50,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈大圖書館",
+      "brand": true,
+      "impressions": 45,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈大學餐",
+      "brand": true,
+      "impressions": 40,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://www.tcu.edu.tw/"
+    }
+  ],
+  "topPages": [
+    {
+      "url": "https://www.tcu.edu.tw/",
+      "impressions": 3840,
+      "clicks": 331,
+      "ctr": 8.62,
+      "pos": 0,
+      "users": 0
+    }
+  ],
+  "audience": {
+    "total": 10518,
+    "country": [
+      {
+        "name": "Taiwan",
+        "sessions": 8645,
+        "users": 3966,
+        "share": 82.2
+      },
+      {
+        "name": "China",
+        "sessions": 1481,
+        "users": 1467,
+        "share": 14.1
+      },
+      {
+        "name": "Japan",
+        "sessions": 51,
+        "users": 28,
+        "share": 0.5
+      },
+      {
+        "name": "Indonesia",
+        "sessions": 46,
+        "users": 25,
+        "share": 0.4
+      }
+    ],
+    "device": [
+      {
+        "name": "tablet",
+        "sessions": 94,
+        "users": 63,
+        "share": 0.9
+      },
+      {
+        "name": "desktop",
+        "sessions": 7529,
+        "users": 3946,
+        "share": 71.6
+      },
+      {
+        "name": "mobile",
+        "sessions": 2928,
+        "users": 1665,
+        "share": 27.8
+      }
+    ],
+    "source": [
+      {
+        "name": "(direct)/(none)",
+        "medium": "other",
+        "sessions": 5315,
+        "users": 2923,
+        "share": 50.5
+      },
+      {
+        "name": "google/organic",
+        "medium": "organic",
+        "sessions": 4722,
+        "users": 2467,
+        "share": 44.9
+      },
+      {
+        "name": "bing/organic",
+        "medium": "organic",
+        "sessions": 197,
+        "users": 97,
+        "share": 1.9
+      },
+      {
+        "name": "tcust.edu.tw/referral",
+        "medium": "internal",
+        "sessions": 124,
+        "users": 66,
+        "share": 1.2
+      },
+      {
+        "name": "tw.search.yahoo.com/referral",
+        "medium": "other",
+        "sessions": 90,
+        "users": 47,
+        "share": 0.9
+      }
+    ]
+  },
+  "topIssues": [],
+  "geo": null,
+  "evidence": [],
+  "stalePages": []
+}

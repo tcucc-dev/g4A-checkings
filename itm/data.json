@@ -1,0 +1,854 @@
+{
+  "meta": {
+    "siteName": "資訊科技與管理系",
+    "siteDomain": "itm.tcu.edu.tw",
+    "reportVersion": "3.0",
+    "updatedAt": "2026/08/04",
+    "maxDateGa4": "2026-08-02",
+    "maxDateGsc": "2026-08-02",
+    "sourceCount": 3
+  },
+  "periods": {
+    "current": {
+      "start": "2026/07/27",
+      "end": "2026/08/02"
+    },
+    "previous": {
+      "start": "2026/07/20",
+      "end": "2026/07/26"
+    },
+    "trend": {
+      "start": "2026/06/08",
+      "end": "2026/08/02"
+    }
+  },
+  "kpis": {
+    "users": {
+      "label": "本週造訪人數",
+      "value": "226",
+      "trend_pct": 48.7,
+      "avg": "前 7 天",
+      "src": "all_units_summary｜GA4-USERS-001"
+    },
+    "sessions": {
+      "label": "本週工作階段",
+      "value": "262",
+      "trend_pct": 50.6,
+      "avg": "前 7 天",
+      "src": "all_units_summary｜GA4-SESSIONS-001"
+    },
+    "gsc": {
+      "label": "Google 搜尋點擊",
+      "value": "88",
+      "trend_pct": 39.7,
+      "avg": "前 7 天",
+      "src": "all_gsc_summary｜GSC-KPI-001"
+    },
+    "ctr": {
+      "label": "Google 搜尋點擊率",
+      "value": "3.65%",
+      "trend_pct": 30.8,
+      "avg": "前 7 天平均",
+      "src": "all_gsc_summary｜GSC-CTR-001"
+    }
+  },
+  "trendsGA4": [
+    {
+      "week": "06/07",
+      "sessions": 707,
+      "users": 438,
+      "pageviews": 3481,
+      "impressions": 4385,
+      "clicks": 342
+    },
+    {
+      "week": "06/14",
+      "sessions": 166,
+      "users": 124,
+      "pageviews": 868,
+      "impressions": 3960,
+      "clicks": 179
+    },
+    {
+      "week": "06/21",
+      "sessions": 316,
+      "users": 247,
+      "pageviews": 1275,
+      "impressions": 3159,
+      "clicks": 112
+    },
+    {
+      "week": "06/28",
+      "sessions": 214,
+      "users": 171,
+      "pageviews": 622,
+      "impressions": 2543,
+      "clicks": 70
+    },
+    {
+      "week": "07/05",
+      "sessions": 219,
+      "users": 163,
+      "pageviews": 762,
+      "impressions": 2553,
+      "clicks": 73
+    },
+    {
+      "week": "07/12",
+      "sessions": 240,
+      "users": 195,
+      "pageviews": 843,
+      "impressions": 2002,
+      "clicks": 54
+    },
+    {
+      "week": "07/19",
+      "sessions": 221,
+      "users": 180,
+      "pageviews": 857,
+      "impressions": 2436,
+      "clicks": 77
+    },
+    {
+      "week": "07/26",
+      "sessions": 18,
+      "users": 17,
+      "pageviews": 39,
+      "impressions": 387,
+      "clicks": 13
+    }
+  ],
+  "trendsGSC": [
+    {
+      "week": "06/07",
+      "sessions": 707,
+      "users": 438,
+      "pageviews": 3481,
+      "impressions": 4385,
+      "clicks": 342
+    },
+    {
+      "week": "06/14",
+      "sessions": 166,
+      "users": 124,
+      "pageviews": 868,
+      "impressions": 3960,
+      "clicks": 179
+    },
+    {
+      "week": "06/21",
+      "sessions": 316,
+      "users": 247,
+      "pageviews": 1275,
+      "impressions": 3159,
+      "clicks": 112
+    },
+    {
+      "week": "06/28",
+      "sessions": 214,
+      "users": 171,
+      "pageviews": 622,
+      "impressions": 2543,
+      "clicks": 70
+    },
+    {
+      "week": "07/05",
+      "sessions": 219,
+      "users": 163,
+      "pageviews": 762,
+      "impressions": 2553,
+      "clicks": 73
+    },
+    {
+      "week": "07/12",
+      "sessions": 240,
+      "users": 195,
+      "pageviews": 843,
+      "impressions": 2002,
+      "clicks": 54
+    },
+    {
+      "week": "07/19",
+      "sessions": 221,
+      "users": 180,
+      "pageviews": 857,
+      "impressions": 2436,
+      "clicks": 77
+    },
+    {
+      "week": "07/26",
+      "sessions": 18,
+      "users": 17,
+      "pageviews": 39,
+      "impressions": 387,
+      "clicks": 13
+    }
+  ],
+  "topKeywords": [
+    {
+      "kw": "慈大學資",
+      "brand": true,
+      "impressions": 94,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 367,
+      "landing": "https://itm.tcu.edu.tw/"
+    },
+    {
+      "kw": "site:itm.tcust.edu.tw",
+      "brand": true,
+      "impressions": 50,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 225,
+      "landing": "https://itm.tcu.edu.tw/"
+    },
+    {
+      "kw": "tcust",
+      "brand": true,
+      "impressions": 40,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 0,
+      "landing": "https://itm.tcu.edu.tw/"
+    },
+    {
+      "kw": "site:itm.tcu.edu.tw",
+      "brand": true,
+      "impressions": 40,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 180,
+      "landing": "https://itm.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學 資管系",
+      "brand": true,
+      "impressions": 37,
+      "clicks": 4,
+      "ctr": 10.81,
+      "pos": 0,
+      "landing": "https://itm.tcu.edu.tw/p/412-1022-2586.php"
+    },
+    {
+      "kw": "itm",
+      "brand": true,
+      "impressions": 27,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 184,
+      "landing": "https://itm.tcu.edu.tw/?Lang=en"
+    },
+    {
+      "kw": "慈大 學資",
+      "brand": true,
+      "impressions": 26,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 140,
+      "landing": "https://itm.tcu.edu.tw/"
+    },
+    {
+      "kw": "tcu",
+      "brand": true,
+      "impressions": 24,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 72,
+      "landing": "https://itm.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學資管系",
+      "brand": true,
+      "impressions": 20,
+      "clicks": 2,
+      "ctr": 10,
+      "pos": 0,
+      "landing": "https://itm.tcu.edu.tw/p/412-1022-2586.php"
+    },
+    {
+      "kw": "慈濟大學資訊科技與管理學系",
+      "brand": true,
+      "impressions": 17,
+      "clicks": 2,
+      "ctr": 11.76,
+      "pos": 0,
+      "landing": "https://itm.tcu.edu.tw/p/406-1022-65878,r452.php?Lang=zh-tw"
+    },
+    {
+      "kw": "大學專題競賽",
+      "brand": false,
+      "impressions": 16,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 82,
+      "landing": "https://itm.tcu.edu.tw/p/404-1022-34441.php"
+    },
+    {
+      "kw": "tcu itm",
+      "brand": true,
+      "impressions": 12,
+      "clicks": 2,
+      "ctr": 16.67,
+      "pos": 0,
+      "landing": "https://itm.tcu.edu.tw/?Lang=en"
+    },
+    {
+      "kw": "證照",
+      "brand": false,
+      "impressions": 12,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 509,
+      "landing": "https://itm.tcu.edu.tw/p/404-1022-30082.php"
+    },
+    {
+      "kw": "資訊科技系",
+      "brand": false,
+      "impressions": 10,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 91,
+      "landing": "https://itm.tcu.edu.tw/"
+    },
+    {
+      "kw": "大學專題競賽2026",
+      "brand": false,
+      "impressions": 9,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 53,
+      "landing": "https://itm.tcu.edu.tw/p/404-1022-34441.php"
+    },
+    {
+      "kw": "慈濟大學科系",
+      "brand": true,
+      "impressions": 8,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 50,
+      "landing": "https://itm.tcu.edu.tw/"
+    },
+    {
+      "kw": "蕭志清",
+      "brand": false,
+      "impressions": 8,
+      "clicks": 2,
+      "ctr": 25,
+      "pos": 33,
+      "landing": "https://itm.tcu.edu.tw/p/412-1022-2586.php"
+    },
+    {
+      "kw": "楊明軒",
+      "brand": false,
+      "impressions": 7,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 68,
+      "landing": "https://itm.tcu.edu.tw/p/412-1022-2586.php"
+    },
+    {
+      "kw": "2026專題競賽",
+      "brand": false,
+      "impressions": 7,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 44,
+      "landing": "https://itm.tcu.edu.tw/p/404-1022-34441.php"
+    },
+    {
+      "kw": "慈大資管",
+      "brand": true,
+      "impressions": 7,
+      "clicks": 1,
+      "ctr": 14.29,
+      "pos": 0,
+      "landing": "https://itm.tcu.edu.tw/p/412-1022-2586.php"
+    },
+    {
+      "kw": "謝金峰",
+      "brand": false,
+      "impressions": 7,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 38,
+      "landing": "https://itm.tcu.edu.tw/p/412-1022-2586.php"
+    }
+  ],
+  "topPages": [
+    {
+      "url": "https://itm.tcu.edu.tw/",
+      "impressions": 292,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 140.6,
+      "users": 0
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/412-1022-2586.php",
+      "impressions": 86,
+      "clicks": 9,
+      "ctr": 10.47,
+      "pos": 23.2,
+      "users": 0
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/?Lang=en",
+      "impressions": 39,
+      "clicks": 2,
+      "ctr": 5.13,
+      "pos": 92,
+      "users": 0
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-34441.php",
+      "impressions": 32,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 59.7,
+      "users": 0
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/406-1022-65878,r452.php?Lang=zh-tw",
+      "impressions": 17,
+      "clicks": 2,
+      "ctr": 11.76,
+      "pos": 0,
+      "users": 0
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-30082.php",
+      "impressions": 12,
+      "clicks": 0,
+      "ctr": 0,
+      "pos": 509,
+      "users": 0
+    }
+  ],
+  "audience": {
+    "total": 222,
+    "country": [
+      {
+        "name": "Taiwan",
+        "sessions": 149,
+        "users": 109,
+        "share": 67.1
+      },
+      {
+        "name": "China",
+        "sessions": 65,
+        "users": 65,
+        "share": 29.3
+      },
+      {
+        "name": "United States",
+        "sessions": 5,
+        "users": 4,
+        "share": 2.3
+      },
+      {
+        "name": "Indonesia",
+        "sessions": 1,
+        "users": 1,
+        "share": 0.5
+      }
+    ],
+    "device": [
+      {
+        "name": "desktop",
+        "sessions": 147,
+        "users": 129,
+        "share": 66.2
+      },
+      {
+        "name": "tablet",
+        "sessions": 2,
+        "users": 2,
+        "share": 0.9
+      },
+      {
+        "name": "mobile",
+        "sessions": 73,
+        "users": 50,
+        "share": 32.9
+      }
+    ],
+    "source": [
+      {
+        "name": "(direct)/(none)",
+        "medium": "other",
+        "sessions": 162,
+        "users": 135,
+        "share": 73
+      },
+      {
+        "name": "google/organic",
+        "medium": "organic",
+        "sessions": 53,
+        "users": 40,
+        "share": 23.9
+      },
+      {
+        "name": "lle.moe.edu.tw/referral",
+        "medium": "internal",
+        "sessions": 3,
+        "users": 3,
+        "share": 1.4
+      },
+      {
+        "name": "cse.google.com/referral",
+        "medium": "other",
+        "sessions": 2,
+        "users": 1,
+        "share": 0.9
+      },
+      {
+        "name": "chatgpt.com/ai-assistant",
+        "medium": "ai",
+        "sessions": 1,
+        "users": 1,
+        "share": 0.5
+      }
+    ]
+  },
+  "topIssues": [
+    {
+      "severity": "high",
+      "title": "首頁缺 JSON-LD 結構化資料（AI 搜尋引擎看不懂你們是誰）",
+      "desc": "1 個項目受影響 · 規則 首頁 HTML regex application/ld\\+json",
+      "owner": "電算中心",
+      "due": "2026-08-30"
+    },
+    {
+      "severity": "medium",
+      "title": "出現舊網域連結（tcust.edu.tw）",
+      "desc": "13 個項目受影響 · 規則 首頁 HTML 內 itm.tcust.edu.tw 字串計數",
+      "owner": "單位網站管理人",
+      "due": "2026-09-15"
+    },
+    {
+      "severity": "medium",
+      "title": "缺 canonical 標籤",
+      "desc": "1 個項目受影響 · 規則 首頁 HTML regex <link rel=\"canonical\">",
+      "owner": "電算中心",
+      "due": "2026-09-15"
+    }
+  ],
+  "geo": {
+    "auditDate": "2026-08-04",
+    "auditedUrl": "https://itm.tcu.edu.tw/",
+    "maximumScore": 100,
+    "auditCounts": {
+      "jsonLdCount": 0,
+      "h1Count": 2,
+      "totalImages": 26,
+      "missingAltCount": 3,
+      "oldDomainLinkCount": 13,
+      "duplicateIdCount": 41
+    },
+    "auditCrawlDate": "2026-07-31",
+    "subscores": [
+      {
+        "label": "主題清楚度（網站主題是否明確）",
+        "score": 11,
+        "maximum": 20
+      },
+      {
+        "label": "招生資訊完整度（能否回答學生和家長的問題）",
+        "score": 18,
+        "maximum": 20
+      },
+      {
+        "label": "可信度（聯絡資訊和地址是否完整）",
+        "score": 20,
+        "maximum": 20
+      },
+      {
+        "label": "內容深度（網站章節數和說明完整性）",
+        "score": 11,
+        "maximum": 20
+      },
+      {
+        "label": "技術名片（社群分享和搜尋預覽標籤）",
+        "score": 2,
+        "maximum": 20
+      }
+    ],
+    "managerSummary": {
+      "introduction": "目前這個系所網站 GEO 基礎大約 {score} 分（待加強）。",
+      "findings": [
+        "內容介紹完整 — 資訊科技與管理系的課程（大數據、雲端、互動多媒體）、師資、招生資訊都有，但缺少讓搜尋引擎讀懂的「資料名片」。",
+        "分享預覽失效 — 當系友把網站貼到 LINE 或 Facebook 時，看不到系所名稱與簡介（缺技術名片）。",
+        "改版有倒退 — 自上次更新，JSON-LD 結構化資料被移除、canonical 與 hreflang 標記也被移除；{score} 分需要重新補齊這些技術標籤。"
+      ]
+    },
+    "technicalAudit": {
+      "implemented": [
+        {
+          "n": 1,
+          "label": "正式中文系名出現在 title",
+          "value": "通過",
+          "note": ""
+        },
+        {
+          "n": 2,
+          "label": "正式英文系名可見",
+          "value": "通過",
+          "note": ""
+        },
+        {
+          "n": 3,
+          "label": "招生名額與聯絡資訊為可讀 HTML 文字",
+          "value": "通過",
+          "note": ""
+        },
+        {
+          "n": 4,
+          "label": "最新招生／活動內容存在",
+          "value": "通過",
+          "note": ""
+        }
+      ],
+      "warnings": [
+        {
+          "n": 1,
+          "label": "首頁唯一且正確的 H1",
+          "value": "未通過",
+          "note": "首頁偵測到 2 個 H1（重複 H1 違規）"
+        },
+        {
+          "n": 2,
+          "label": "og:image 為正式主視覺 URL",
+          "value": "未通過",
+          "note": "og:image 仍指向 /images/favicon.ico（非正式主視覺）"
+        }
+      ],
+      "missing": [
+        {
+          "n": 1,
+          "label": "application/ld+json 結構化資料",
+          "value": "缺失",
+          "note": "regressed from 2 個 JSON-LD 結構化資料"
+        },
+        {
+          "n": 2,
+          "label": "<link rel=\"canonical\">",
+          "value": "缺失",
+          "note": "regressed"
+        },
+        {
+          "n": 3,
+          "label": "og:title",
+          "value": "缺失",
+          "note": "regressed"
+        },
+        {
+          "n": 4,
+          "label": "og:description",
+          "value": "缺失",
+          "note": "regressed"
+        },
+        {
+          "n": 5,
+          "label": "hreflang=\"en-US\"",
+          "value": "缺失",
+          "note": "regressed"
+        },
+        {
+          "n": 6,
+          "label": "og:url",
+          "value": "缺失",
+          "note": ""
+        }
+      ]
+    }
+  },
+  "evidence": [
+    {
+      "id": "EV-GA4-TREND-001",
+      "title": "網站流量八週趨勢完整報表",
+      "rows": 7,
+      "table": "",
+      "code": "",
+      "status": "正常"
+    },
+    {
+      "id": "EV-GA4-AUDIENCE-001",
+      "title": "國家、裝置與流量來源完整報表",
+      "rows": 12,
+      "table": "",
+      "code": "",
+      "status": "正常"
+    },
+    {
+      "id": "EV-GSC-PAGE-001",
+      "title": "GSC 頁面曝光點擊完整報表",
+      "rows": 20,
+      "table": "",
+      "code": "",
+      "status": "需改善"
+    },
+    {
+      "id": "EV-SEARCH-BEHAVIOR-001",
+      "title": "搜尋字詞到達後行為完整報表",
+      "rows": 20,
+      "table": "",
+      "code": "",
+      "status": "注意"
+    },
+    {
+      "id": "EV-AI-REFERRAL-001",
+      "title": "AI 搜尋引擎 referrer 完整報表",
+      "rows": 1,
+      "table": "",
+      "code": "",
+      "status": "查詢可用"
+    },
+    {
+      "id": "EV-DATA-QUALITY-001",
+      "title": "三張資料表品質檢核完整報表",
+      "rows": 3,
+      "table": "",
+      "code": "",
+      "status": "正常"
+    },
+    {
+      "id": "EV-FUNNEL-001",
+      "title": "招生內容到達率八週完整報表",
+      "rows": 7,
+      "table": "",
+      "code": "",
+      "status": "查詢可用"
+    },
+    {
+      "id": "EV-CONTACT-001",
+      "title": "聯絡方式與招生窗口完整報表",
+      "rows": 20,
+      "table": "",
+      "code": "",
+      "status": "資料正常"
+    },
+    {
+      "id": "EV-GEO-SOURCE-001",
+      "title": "GEO 技術原始碼完整檢核報表",
+      "rows": 11,
+      "table": "",
+      "code": "",
+      "status": "需改善"
+    },
+    {
+      "id": "EV-SEO-001",
+      "title": "高曝光零點擊搜尋字詞完整報表",
+      "rows": 10,
+      "table": "",
+      "code": "",
+      "status": "需改善"
+    },
+    {
+      "id": "EV-PAGES-TABLE-001",
+      "title": "Top 10 高曝光頁面表格完整版",
+      "rows": 10,
+      "table": "",
+      "code": "",
+      "status": "資料正常"
+    },
+    {
+      "id": "EV-PERIOD-ANOMALY-001",
+      "title": "期間比較與異常提醒完整報表",
+      "rows": 8,
+      "table": "",
+      "code": "",
+      "status": "正常"
+    },
+    {
+      "id": "EV-BRAND-NONBRAND-001",
+      "title": "品牌詞 vs 非品牌詞完整報表",
+      "rows": 20,
+      "table": "",
+      "code": "",
+      "status": "正常"
+    },
+    {
+      "id": "EV-CONTENT-MATRIX-001",
+      "title": "內容效益矩陣完整報表",
+      "rows": 20,
+      "table": "",
+      "code": "",
+      "status": "正常"
+    },
+    {
+      "id": "EV-SOURCE-QUALITY-001",
+      "title": "流量來源品質完整報表",
+      "rows": 6,
+      "table": "",
+      "code": "",
+      "status": "正常"
+    },
+    {
+      "id": "EV-AI-DETECTION-RULES-001",
+      "title": "AI 平台 referrer 完整報表（已修正）",
+      "rows": 5,
+      "table": "",
+      "code": "",
+      "status": "已說明"
+    },
+    {
+      "id": "EV-ADMISSION-CTA-001",
+      "title": "招生 CTA 行動次數完整報表",
+      "rows": 15,
+      "table": "",
+      "code": "",
+      "status": "行動代理指標"
+    },
+    {
+      "id": "EV-INTERNATIONAL-QUALITY-001",
+      "title": "國際訪客品質完整報表",
+      "rows": 5,
+      "table": "",
+      "code": "",
+      "status": "正常"
+    },
+    {
+      "id": "EV-USER-PATH-001",
+      "title": "使用者路徑（入口→第二頁）完整報表",
+      "rows": 15,
+      "table": "",
+      "code": "",
+      "status": "路徑代理"
+    },
+    {
+      "id": "EV-WEBSITE-GOVERNANCE-001",
+      "title": "資料品質與網站治理完整報表",
+      "rows": 8,
+      "table": "",
+      "code": "",
+      "status": "待改善"
+    }
+  ],
+  "stalePages": [
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-36099.php",
+      "year": 112,
+      "impressions": 8,
+      "clicks": 0,
+      "pos": 11.2,
+      "note": "112 學年度舊頁"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-52388.php?Lang=zh-tw",
+      "year": 114,
+      "impressions": 5,
+      "clicks": 0,
+      "pos": 13.5,
+      "note": "114 學年度舊頁"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-30026.php?Lang=zh-tw",
+      "year": 105,
+      "impressions": 5,
+      "clicks": 0,
+      "pos": 16.8,
+      "note": "105 學年度舊頁"
+    }
+  ]
+}

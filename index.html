@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <!-- cache-buster 2026-08-04-v3 -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TCU WebInsight — 慈濟大學系所管理報表</title>
@@ -51,37 +50,15 @@
       margin-bottom: 36px;
       line-height: 1.6;
     }
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 36px;
-    }
-    .meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 12.5px;
-      color: #cbd5e1;
-    }
-    .meta span strong {
-      color: #fff;
-      font-weight: 600;
-    }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 16px;
       margin-bottom: 32px;
     }
     a.dept {
       display: block;
-      padding: 24px 22px;
+      padding: 22px 22px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
@@ -95,10 +72,7 @@
       border-color: rgba(102, 197, 255, 0.5);
       transform: translateY(-2px);
     }
-    a.dept.disabled {
-      opacity: 0.4;
-      pointer-events: none;
-    }
+    a.dept.disabled { opacity: 0.4; pointer-events: none; }
     a.dept .name {
       font-size: 18px;
       font-weight: 600;
@@ -113,12 +87,27 @@
       font-size: 13px;
       color: #94a3b8;
       font-weight: 400;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
-    a.dept .desc {
-      font-size: 12.5px;
+    a.dept .stats {
+      display: flex;
+      gap: 14px;
+      font-size: 12px;
       color: #94a3b8;
-      line-height: 1.5;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    a.dept .stats span strong {
+      color: #4ee0c1;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    a.dept .period {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 8px;
+      font-family: ui-monospace, monospace;
     }
     .pill {
       display: inline-block;
@@ -141,6 +130,15 @@
       text-decoration: none;
     }
     .footer a:hover { text-decoration: underline; }
+    .meta-bar {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 36px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .meta-bar strong { color: #fff; font-weight: 600; }
     @media (max-width: 540px) {
       h1 { font-size: 32px; }
       .grid { grid-template-columns: 1fr; }
@@ -149,100 +147,95 @@
 </head>
 <body>
   <div class="container">
-    <span class="brand">TZU CHI UNIVERSITY · WEBINSIGHT</span>
+    <span class="brand">TZU CHI UNIVERSITY · WEBINSIGHT v3</span>
     <h1>慈濟大學管理報表中心</h1>
     <p class="subtitle">各系所主管決策報表 — GEO × SEO × 流量分析 × 招生漏斗</p>
 
-    <div class="meta">
-      <span>報告期間 <strong>2026/07/20 – 2026/07/26</strong></span>
-      <span>資料更新 <strong>2026/08/03</strong></span>
-      <span>Cutoff <strong>2026-07-26</strong></span>
-    </div>
+    <div class="meta-bar" id="meta-bar">載入中…</div>
 
-    <div class="grid">
-      <a class="dept" href="./itm/">
-        <div class="name">
-          <span>資訊科技與管理學系</span>
-          <span class="pill live">LIVE</span>
-        </div>
+    <div class="grid" id="dept-grid">
+      <a class="dept" href="./itm/" id="card-itm">
+        <div class="name"><span>資訊科技與管理學系</span><span class="pill live">LIVE</span></div>
         <div class="name-zh">Information Technology &amp; Management</div>
-        <div class="desc">資訊科技與管理學系 GA4/GSC 8 週趨勢、GEO 評分 62/100、證據儀表板、5 角色視圖、BigQuery 報表中心。近 7 天 195 活躍使用者、222 工作階段、843 瀏覽量。</div>
+        <div class="period">載入中…</div>
       </a>
-
-      <a class="dept" href="./nc/">
-        <div class="name">
-          <span>護理學院</span>
-          <span class="pill live">LIVE</span>
-        </div>
+      <a class="dept" href="./nc/" id="card-nc">
+        <div class="name"><span>護理學院</span><span class="pill live">LIVE</span></div>
         <div class="name-zh">College of Nursing</div>
-        <div class="desc">護理學院 GA4/GSC 8 週趨勢、GEO 評分 69/100、證據儀表板、5 角色視圖、BigQuery 報表中心。近 7 天 177 活躍使用者、202 工作階段、298 瀏覽量。</div>
+        <div class="period">載入中…</div>
       </a>
-
-      <a class="dept" href="./www/">
-        <div class="name">
-          <span>慈濟大學中文版首頁</span>
-          <span class="pill live">LIVE</span>
-        </div>
-        <div class="name-zh">Tzu Chi University — Main Site (www.tcu.edu.tw)</div>
-        <div class="desc">校首頁 GA4/GSC 7 週趨勢、GEO 評分 58/100、證據儀表板、5 角色視圖、BigQuery 報表中心。近 7 天 7,802 活躍使用者、10,518 工作階段、15,026 瀏覽量。</div>
+      <a class="dept" href="./www/" id="card-www">
+        <div class="name"><span>慈濟大學中文版首頁</span><span class="pill live">LIVE</span></div>
+        <div class="name-zh">Tzu Chi University — Main Site</div>
+        <div class="period">載入中…</div>
       </a>
-      <a class="dept" href="./freshman/">
-        <div class="name">
-          <span>慈濟大學新生網站</span>
-          <span class="pill live">LIVE</span>
-        </div>
-        <div class="name-zh">Tzu Chi University — Freshman Site (freshman.tcu.edu.tw)</div>
-        <div class="desc">新生入學 GA4/GSC 8 週趨勢、GEO 評分 50/100、證據儀表板、5 角色視圖、BigQuery 報表中心。近 7 天 2,818 活躍使用者、3,921 工作階段、10,814 瀏覽量。</div>
-      </a>
-
-      <a class="dept disabled" href="./">
-        <div class="name">
-          <span>醫學系</span>
-          <span class="pill soon">SOON</span>
-        </div>
-        <div class="name-zh">School of Medicine</div>
-        <div class="desc">部署中 — 請聯絡電算中心</div>
-      </a>
-
-      
-
-      <a class="dept disabled" href="./">
-        <div class="name">
-          <span>物理治療學系</span>
-          <span class="pill soon">SOON</span>
-        </div>
-        <div class="name-zh">Physical Therapy</div>
-        <div class="desc">部署中</div>
-      </a>
-
-      
-
-      <a class="dept disabled" href="./">
-        <div class="name">
-          <span>醫學資訊學系</span>
-          <span class="pill soon">SOON</span>
-        </div>
-        <div class="name-zh">Medical Informatics</div>
-        <div class="desc">部署中</div>
-      </a>
-
-      
-
-      <a class="dept disabled" href="./">
-        <div class="name">
-          <span>生命科學系</span>
-          <span class="pill soon">SOON</span>
-        </div>
-        <div class="name-zh">Life Sciences</div>
-        <div class="desc">部署中</div>
+      <a class="dept" href="./freshman/" id="card-freshman">
+        <div class="name"><span>慈濟大學新生網站</span><span class="pill live">LIVE</span></div>
+        <div class="name-zh">Freshman Admissions</div>
+        <div class="period">載入中…</div>
       </a>
     </div>
 
     <div class="footer">
       慈濟大學各系所管理報表中心 — 由電算中心技術支援<br>
       Source: <a href="https://github.com/tcucc-dev/g4A-checkings">github.com/tcucc-dev/g4A-checkings</a><br>
-      Deployment targets: GitHub Pages and Vercel
+      v3 — 簡化架構 (HTML + CSS + JS + JSON，無 build step)
     </div>
   </div>
+
+  <script>
+    // Load each dept's data.json in parallel and populate the cards
+    const DEPTS = [
+      { key: 'itm', domain: 'itm.tcu.edu.tw' },
+      { key: 'nc',  domain: 'nc.tcu.edu.tw' },
+      { key: 'www', domain: 'www.tcu.edu.tw' },
+      { key: 'freshman', domain: 'freshman.tcu.edu.tw' }
+    ];
+    Promise.all(DEPTS.map(d => fetch(`./${d.key}/data.json?ts=${Date.now()}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(j => ({ key: d.key, data: j }))
+      .catch(() => ({ key: d.key, data: null }))
+    )).then(results => {
+      const allDates = [];
+      results.forEach(({ key, data }) => {
+        const card = document.getElementById('card-' + key);
+        if (!card) return;
+        if (!data) {
+          card.querySelector('.period').textContent = '資料載入失敗';
+          return;
+        }
+        const users = data.kpis?.users?.value || 0;
+        const sessions = data.kpis?.sessions?.value || 0;
+        const gsc = data.kpis?.gsc?.value || 0;
+        const ctr = data.kpis?.ctr?.value || '-';
+        const period = `${data.periods?.current?.start} – ${data.periods?.current?.end}`;
+        allDates.push(data.periods?.current?.end);
+        const geoScore = data.geo?.subscores?.reduce((a, s) => a + s.score, 0) || '-';
+        card.querySelector('.period').textContent = `${period} · 更新 ${data.meta?.updatedAt}`;
+        // Insert stats row if not present
+        let stats = card.querySelector('.stats');
+        if (!stats) {
+          stats = document.createElement('div');
+          stats.className = 'stats';
+          stats.innerHTML = `
+            <span>訪客 <strong>${Number(users).toLocaleString()}</strong></span>
+            <span>工作階段 <strong>${Number(sessions).toLocaleString()}</strong></span>
+            <span>Google <strong>${Number(gsc).toLocaleString()}</strong></span>
+            ${geoScore !== '-' ? `<span>GEO <strong>${geoScore}/100</strong></span>` : ''}
+          `;
+          card.appendChild(stats);
+        }
+      });
+      // Update meta bar
+      if (allDates.length) {
+        const latest = allDates.filter(Boolean).sort().pop();
+        document.getElementById('meta-bar').innerHTML = `
+          <span>最新資料 <strong>${latest || '-'}</strong></span>
+          <span>v3 簡化架構</span>
+          <span>${results.filter(r => r.data).length}/${results.length} 個系所上線</span>
+        `;
+      }
+    });
+  </script>
 </body>
 </html>
