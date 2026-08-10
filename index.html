@@ -186,10 +186,10 @@
   <script>
     // Load each dept's data.json in parallel and populate the cards
     const DEPTS = [
-      { key: 'itm', domain: 'itm.tcu.edu.tw' },
-      { key: 'nc',  domain: 'nc.tcu.edu.tw' },
-      { key: 'www', domain: 'www.tcu.edu.tw' },
-      { key: 'freshman', domain: 'freshman.tcu.edu.tw' }
+      { key: 'itm',      reportUrl: 'analytics.tcu.edu.tw/itm' },
+      { key: 'nc',       reportUrl: 'analytics.tcu.edu.tw/nc' },
+      { key: 'www',      reportUrl: 'analytics.tcu.edu.tw/www' },
+      { key: 'freshman', reportUrl: 'analytics.tcu.edu.tw/freshman' }
     ];
     Promise.all(DEPTS.map(d => fetch(`./${d.key}/data.json?ts=${Date.now()}`)
       .then(r => r.ok ? r.json() : null)

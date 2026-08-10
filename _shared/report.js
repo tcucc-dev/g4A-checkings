@@ -281,7 +281,11 @@
   /* ---------- HEADER ---------- */
   function renderHeader(d) {
     $('#site-name').textContent = d.meta.siteName;
-    $('#site-domain').textContent = d.meta.siteDomain;
+    // Display the analytics report URL (where this report lives), not the source domain.
+    // The dept key is the URL path (itm / nc / www / freshman).
+    const deptKey = (location.pathname.match(/\/([^\/]+)\/?$/) || [])[1] || 'itm';
+    const reportUrl = `analytics.tcu.edu.tw/${deptKey}`;
+    $('#site-domain').innerHTML = `<a href="https://${reportUrl}" target="_blank" rel="noopener" style="color:#bde8ec;text-decoration:none;">${reportUrl}</a>`;
     $('#report-period').textContent = `${d.periods.current.start} – ${d.periods.current.end}`;
     $('#report-updated').textContent = d.meta.updatedAt;
     $('#report-version').textContent = `v${d.meta.reportVersion}`;
