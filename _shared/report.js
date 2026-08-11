@@ -12,6 +12,15 @@
   const fmtPct = n => (typeof n === 'number') ? `${n.toFixed(1)}%` : (n ?? '-');
   const $ = sel => document.querySelector(sel);
 
+  /* ---------- SUPABASE CONFIG ----------
+     Populated with live project values (anon key is safe to ship in browser).
+     RLS only allows SELECT for anon. */
+  const SUPABASE_CONFIG = {
+    url: 'https://hcjhsrpitttpdudhdxnx.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhjamhzcnBpdHR0cGR1ZGhkeG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY0MTE1NDMsImV4cCI6MjEwMTk4NzU0M30.3xH9ZA5xu2FKOWfoluTIojhxNm0FVesihSJPjg7FlDY',
+  };
+  const SUPABASE_ENABLED = !SUPABASE_CONFIG.url.includes('YOUR-PROJECT');
+
   /* ---------- BOOTSTRAP ---------- */
 
   // ===== Plain-language glossary for technical terms =====
@@ -205,24 +214,77 @@
   }
 
   async function init() {
-    let data;
-    try {
-      const res = await fetch('data.json?ts=' + Date.now());
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      data = await res.json();
-    } catch (e) {
-      document.getElementById('report-root').innerHTML = `
-        <div class="section">
-          <div class="section-body" style="text-align:center;padding:60px 20px;">
-            <h2 style="color:var(--bad-fg);margin-bottom:12px;">⚠ 載入失敗</h2>
-            <p style="color:var(--muted);">無法讀取 <code>data.json</code>。<br>
-            請確認檔案存在於 ${location.pathname.replace(/index\.html$/, '')}data.json<br>
-            <small>${esc(e.message)}</small></p>
-          </div>
-        </div>`;
-      console.error('data.json fetch failed:', e);
-      return;
+    // Detect dept key from URL path: /itm/index.html → 'itm'
+    const pathParts = location.pathname.split('/').filter(Boolean);
+    const deptKey = pathParts[pathParts.length - 1] || 'itm';
+
+    let data = null;
+    let source = null;
+
+    // 1) Try Supabase first (preferred)
+    if (SUPABASE_ENABLED && window.supabase) {
+      try {
+        const client = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+        const { data: rows, error } = await client
+          .from('dept_stats')
+          .select('*')
+          .eq('dept_key', deptKey)
+          .order('period_end', { ascending: false })
+          .limit(1);
+        if (error) throw error;
+        if (rows && rows.length) {
+          const row = rows[0];
+          // Convert flat Supabase row → nested object expected by render functions
+          data = {
+            meta: row.meta,
+            periods: {
+              current: {
+                start: row.period_start.replace(/-/g, '/'),
+                end: row.period_end.replace(/-/g, '/'),
+              },
+              previous: {},
+              trend: {},
+            },
+            kpis: row.kpis,
+            trends52w: row.trends52w,
+            audience: row.audience,
+            topKeywords: row.top_keywords,
+            topPages: row.top_pages,
+            topIssues: row.top_issues,
+            stalePages: row.stale_pages,
+            geo: row.geo,
+            evidence: row.evidence || [],
+          };
+          source = 'supabase';
+        }
+      } catch (e) {
+        console.warn('Supabase fetch failed, falling back to data.json:', e);
+      }
     }
+
+    // 2) Fallback to data.json (offline / pre-Supabase / dev)
+    if (!data) {
+      try {
+        const res = await fetch('data.json?ts=' + Date.now());
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        data = await res.json();
+        source = 'data.json';
+      } catch (e) {
+        document.getElementById('report-root').innerHTML = `
+          <div class="section">
+            <div class="section-body" style="text-align:center;padding:60px 20px;">
+              <h2 style="color:var(--bad-fg);margin-bottom:12px;">⚠ 載入失敗</h2>
+              <p style="color:var(--muted);">無法從 Supabase 或 <code>data.json</code> 取得 <code>${esc(deptKey)}</code> 的資料。<br>
+              請確認檔案存在於 ${location.pathname.replace(/index\.html$/, '')}data.json<br>
+              <small>${esc(e.message)}</small></p>
+            </div>
+          </div>`;
+        console.error('data.json fetch failed:', e);
+        return;
+      }
+    }
+
+    if (source) console.info(`[report] data loaded from ${source}`);
 
     renderHeader(data);
     renderKpis(data);

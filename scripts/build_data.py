@@ -16,7 +16,7 @@ import re
 import sys
 import urllib.request
 import urllib.error
-from datetime import date
+from datetime import date, datetime
 
 sys.path.insert(0, 'C:/ai_auto/scripts')
 from fetch_dept_report import (
@@ -26,6 +26,48 @@ from fetch_dept_report import (
 )
 
 REPO_ROOT = r"C:/ai_auto/repo/g4A-checkings"
+
+# ===== Supabase =====
+# Reads env SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY. Service role key is
+# required to bypass RLS for INSERT/UPDATE. Service role key MUST stay out
+# of the browser bundle — only this script uses it.
+SUPABASE_URL = os.environ.get('SUPABASE_URL')
+SUPABASE_SERVICE_KEY = os.environ.get('SUPABASE_SERVICE_ROLE_KEY')
+
+
+def supabase_request(path, method='GET', body=None, headers=None):
+    """Generic Supabase REST call. Returns parsed JSON or raises."""
+    if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
+        raise RuntimeError('SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set')
+    url = f'{SUPABASE_URL}/rest/v1{path}'
+    h = {
+        'apikey': SUPABASE_SERVICE_KEY,
+        'Authorization': f'Bearer {SUPABASE_SERVICE_KEY}',
+        'Content-Type': 'application/json',
+    }
+    if headers:
+        h.update(headers)
+    data = json.dumps(body).encode('utf-8') if body is not None else None
+    req = urllib.request.Request(url, data=data, headers=h, method=method)
+    try:
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            text = resp.read().decode('utf-8')
+            return json.loads(text) if text else None
+    except urllib.error.HTTPError as e:
+        body_text = e.read().decode('utf-8', 'ignore')
+        raise RuntimeError(f'Supabase {method} {path} → {e.code}: {body_text[:400]}')
+
+
+def upsert_dept_stats(dept_key, row):
+    """Upsert by (dept_key, period_start). Requires the table to have a
+    UNIQUE constraint on (dept_key, period_start)."""
+    headers = {'Prefer': 'resolution=merge-duplicates,return=minimal'}
+    return supabase_request(
+        '/dept_stats?on_conflict=dept_key,period_start',
+        method='POST',
+        body=row,
+        headers=headers,
+    )
 
 # ===== Department config — single source of truth =====
 DEPTS = {
@@ -578,6 +620,32 @@ def build_for_dept(client, key, cfg):
         'evidence': evidence,
         'stalePages': stale_pages,
     }
+    # Upsert to Supabase (preferred source). Falls back gracefully if env
+    # vars are missing — data.json still gets written so the dept report
+    # keeps working offline / on dev machines.
+    try:
+        row = {
+            'dept_key': key,
+            'period_start': out['periods']['current']['start'].replace('/', '-'),
+            'period_end': out['periods']['current']['end'].replace('/', '-'),
+            'source_max_date': (out['meta'].get('maxDateGa4') or date.today().isoformat()),
+            'updated_at': datetime.now().isoformat(),
+            'meta': out['meta'],
+            'kpis': out['kpis'],
+            'trends52w': out['trends52w'],
+            'audience': out['audience'],
+            'top_keywords': out['topKeywords'],
+            'top_pages': out['topPages'],
+            'top_issues': out['topIssues'],
+            'stale_pages': out['stalePages'],
+            'geo': out.get('geo'),
+            'evidence': out.get('evidence', []),
+        }
+        upsert_dept_stats(key, row)
+        print(f'  ✓ upserted dept_stats row for {key}')
+    except Exception as e:
+        print(f'  ⚠ Supabase upsert skipped for {key}: {e}')
+
     out_path = os.path.join(REPO_ROOT, key, 'data.json')
     with open(out_path, 'w', encoding='utf-8') as f:
         json.dump(out, f, ensure_ascii=False, indent=2)

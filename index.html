@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TCU WebInsight — 慈濟大學系所管理報表</title>
   <meta name="description" content="慈濟大學各系所主管決策報表中心 — GEO × SEO × 流量分析">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -184,57 +185,105 @@
   </div>
 
   <script>
-    // Load each dept's data.json in parallel and populate the cards
-    const DEPTS = [
-      { key: 'itm',      reportUrl: 'analytics.tcu.edu.tw/itm' },
-      { key: 'nc',       reportUrl: 'analytics.tcu.edu.tw/nc' },
-      { key: 'www',      reportUrl: 'analytics.tcu.edu.tw/www' },
-      { key: 'freshman', reportUrl: 'analytics.tcu.edu.tw/freshman' }
-    ];
-    Promise.all(DEPTS.map(d => fetch(`./${d.key}/data.json?ts=${Date.now()}`)
-      .then(r => r.ok ? r.json() : null)
-      .then(j => ({ key: d.key, data: j }))
-      .catch(() => ({ key: d.key, data: null }))
-    )).then(results => {
-      const allDates = [];
-      results.forEach(({ key, data }) => {
-        const card = document.getElementById('card-' + key);
-        if (!card) return;
-        if (!data) {
-          card.querySelector('.period').textContent = '資料載入失敗';
-          return;
+    // Load each dept's snapshot in parallel and populate the cards.
+    // Tries Supabase first, falls back to per-dept data.json.
+    // Wait for `load` so the deferred Supabase script is available.
+    window.addEventListener('load', () => {
+      const SUPABASE_CONFIG = {
+        url: 'https://YOUR-PROJECT.supabase.co',  // <-- replace at deploy time
+        anonKey: 'YOUR_SUPABASE_ANON_KEY',         // <-- replace at deploy time
+      };
+      const SUPABASE_ENABLED = !SUPABASE_CONFIG.url.includes('YOUR-PROJECT');
+
+      const DEPTS = [
+        { key: 'itm',      reportUrl: 'analytics.tcu.edu.tw/itm' },
+        { key: 'nc',       reportUrl: 'analytics.tcu.edu.tw/nc' },
+        { key: 'www',      reportUrl: 'analytics.tcu.edu.tw/www' },
+        { key: 'freshman', reportUrl: 'analytics.tcu.edu.tw/freshman' }
+      ];
+
+      // Convert a flat Supabase row to the same shape data.json exposes
+      function rowToData(row) {
+        return {
+          meta: row.meta,
+          periods: {
+            current: {
+              start: row.period_start.replace(/-/g, '/'),
+              end: row.period_end.replace(/-/g, '/'),
+            },
+          },
+          kpis: row.kpis,
+          geo: row.geo,
+        };
+      }
+
+      async function loadDept(key) {
+        // 1) Supabase
+        if (SUPABASE_ENABLED && window.supabase) {
+          try {
+            const client = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+            const { data: rows, error } = await client
+              .from('dept_stats')
+              .select('meta,kpis,geo,period_start,period_end')
+              .eq('dept_key', key)
+              .order('period_end', { ascending: false })
+              .limit(1);
+            if (error) throw error;
+            if (rows && rows.length) return rowToData(rows[0]);
+          } catch (e) {
+            console.warn(`Supabase fetch for ${key} failed, falling back:`, e);
+          }
         }
-        const users = data.kpis?.users?.value || 0;
-        const sessions = data.kpis?.sessions?.value || 0;
-        const gsc = data.kpis?.gsc?.value || 0;
-        const ctr = data.kpis?.ctr?.value || '-';
-        const period = `${data.periods?.current?.start} – ${data.periods?.current?.end}`;
-        allDates.push(data.periods?.current?.end);
-        const geoScore = data.geo?.subscores?.reduce((a, s) => a + s.score, 0) || '-';
-        card.querySelector('.period').textContent = `${period} · 更新 ${data.meta?.updatedAt}`;
-        // Insert stats row if not present
-        let stats = card.querySelector('.stats');
-        if (!stats) {
-          stats = document.createElement('div');
-          stats.className = 'stats';
-          stats.innerHTML = `
-            <span>訪客 <strong>${Number(users).toLocaleString()}</strong></span>
-            <span>工作階段 <strong>${Number(sessions).toLocaleString()}</strong></span>
-            <span>Google <strong>${Number(gsc).toLocaleString()}</strong></span>
-            ${geoScore !== '-' ? `<span>GEO <strong>${geoScore}/100</strong></span>` : ''}
+        // 2) Fallback to data.json
+        const r = await fetch(`./${key}/data.json?ts=${Date.now()}`);
+        if (!r.ok) return null;
+        return await r.json();
+      }
+
+      Promise.all(DEPTS.map(d => loadDept(d.key)
+        .then(data => ({ key: d.key, data }))
+        .catch(() => ({ key: d.key, data: null }))
+      )).then(results => {
+        const allDates = [];
+        results.forEach(({ key, data }) => {
+          const card = document.getElementById('card-' + key);
+          if (!card) return;
+          if (!data) {
+            card.querySelector('.period').textContent = '資料載入失敗';
+            return;
+          }
+          const users = data.kpis?.users?.value || 0;
+          const sessions = data.kpis?.sessions?.value || 0;
+          const gsc = data.kpis?.gsc?.value || 0;
+          const ctr = data.kpis?.ctr?.value || '-';
+          const period = `${data.periods?.current?.start} – ${data.periods?.current?.end}`;
+          allDates.push(data.periods?.current?.end);
+          const geoScore = data.geo?.subscores?.reduce((a, s) => a + s.score, 0) || '-';
+          card.querySelector('.period').textContent = `${period} · 更新 ${data.meta?.updatedAt}`;
+          // Insert stats row if not present
+          let stats = card.querySelector('.stats');
+          if (!stats) {
+            stats = document.createElement('div');
+            stats.className = 'stats';
+            stats.innerHTML = `
+              <span>訪客 <strong>${Number(users).toLocaleString()}</strong></span>
+              <span>工作階段 <strong>${Number(sessions).toLocaleString()}</strong></span>
+              <span>Google <strong>${Number(gsc).toLocaleString()}</strong></span>
+              ${geoScore !== '-' ? `<span>GEO <strong>${geoScore}/100</strong></span>` : ''}
+            `;
+            card.appendChild(stats);
+          }
+        });
+        // Update meta bar
+        if (allDates.length) {
+          const latest = allDates.filter(Boolean).sort().pop();
+          document.getElementById('meta-bar').innerHTML = `
+            <span>最新資料 <strong>${latest || '-'}</strong></span>
+            <span>v3 簡化架構</span>
+            <span>${results.filter(r => r.data).length}/${results.length} 個系所上線</span>
           `;
-          card.appendChild(stats);
         }
       });
-      // Update meta bar
-      if (allDates.length) {
-        const latest = allDates.filter(Boolean).sort().pop();
-        document.getElementById('meta-bar').innerHTML = `
-          <span>最新資料 <strong>${latest || '-'}</strong></span>
-          <span>v3 簡化架構</span>
-          <span>${results.filter(r => r.data).length}/${results.length} 個系所上線</span>
-        `;
-      }
     });
   </script>
 </body>

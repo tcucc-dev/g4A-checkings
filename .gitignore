@@ -29,3 +29,4 @@ _cache/
 # Downloaded test fixtures
 *_live.html
 .claude/
+scripts/__pycache__/
