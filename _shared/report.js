@@ -213,72 +213,133 @@
     });
   }
 
+  // Window lengths the user can pick
+  const RANGE_DAYS = {
+    '1d': 1, '2d': 2, '3d': 3, '4d': 4, '5d': 5, '6d': 6,
+    '1w': 7, '2w': 14, '3w': 21,
+    '1mo': 30, '3mo': 90, '6mo': 180,
+  };
+
+  async function fetchRangeData(deptKey, daysBack) {
+    // Use Taiwan time (UTC+8) for "today" so window matches dept's date semantics
+    const tzOffsetMs = 8 * 60 * 60 * 1000;
+    const todayMs = Date.now() + tzOffsetMs;
+    const todayISO = new Date(todayMs).toISOString().slice(0, 10);
+    const startMs = todayMs - (daysBack - 1) * 86400000;
+    const startISO = new Date(startMs).toISOString().slice(0, 10);
+
+    if (window.supabase) {
+      try {
+        const client = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+        const { data: rows, error } = await client
+          .from(deptKey)
+          .select('*')
+          .gte('date', startISO)
+          .lte('date', todayISO)
+          .order('date', { ascending: false });
+        if (error) throw error;
+        if (rows && rows.length) {
+          return { rows, startStr: startISO, endStr: todayISO, source: 'supabase' };
+        }
+      } catch (e) {
+        console.warn('[report] Supabase range fetch failed:', e);
+      }
+    }
+    // Fallback: use data.json (single snapshot)
+    try {
+      const res = await fetch('data.json?ts=' + Date.now());
+      if (res.ok) {
+        const json = await res.json();
+        return { rows: null, snapshot: json, startStr: startISO, endStr: todayISO, source: 'data.json (current snapshot only)' };
+      }
+    } catch (e) { /* ignore */ }
+    return null;
+  }
+
+  function aggregateRows(rows) {
+    // Sum numeric columns when multiple rows exist. JSONB arrays take the latest.
+    if (!rows || rows.length === 0) return null;
+    if (rows.length === 1) return rows[0];
+    const sum = (key) => rows.reduce((s, r) => s + (Number(r[key]) || 0), 0);
+    const imp = sum('gsc_impressions');
+    const ctr = imp > 0 ? (sum('gsc_clicks') / imp * 100) : 0;
+    const latest = rows[0];
+    return {
+      ...latest,
+      users: sum('users'),
+      sessions: sum('sessions'),
+      pageviews: sum('pageviews'),
+      gsc_clicks: sum('gsc_clicks'),
+      gsc_impressions: imp,
+      ctr_pct: ctr,
+    };
+  }
+
+  function rowToNested(row, deptKey) {
+    return {
+      meta: {
+        siteName: window.__SITE_NAME__ || '',
+        siteDomain: deptKey + '.tcu.edu.tw',
+        reportVersion: 'v3.0',
+        updatedAt: (row.date || '').replace(/-/g, '/'),
+        maxDateGa4: row.source_max_date,
+        sourceCount: 3,
+      },
+      periods: {
+        current: { start: (row.date || '').replace(/-/g, '/'), end: (row.date || '').replace(/-/g, '/') },
+        previous: {}, trend: {},
+      },
+      kpis: {
+        users:    { label: '本週造訪人數',   value: row.users,    trend_pct: 0, avg: '-', src: 'GA4' },
+        sessions: { label: '本週工作階段',   value: row.sessions, trend_pct: 0, avg: '-', src: 'GA4' },
+        gsc:      { label: 'Google 搜尋點擊', value: row.gsc_clicks, trend_pct: 0, avg: '-', src: 'GSC' },
+        ctr:      { label: 'Google 搜尋點擊率', value: (Number(row.ctr_pct) || 0).toFixed(2) + '%', trend_pct: 0, avg: '-', src: 'GSC' },
+      },
+      trends52w: row.weekly_trends || { ga4: [], gsc: [] },
+      audience: row.audience || { country: [], device: [], source: [] },
+      topKeywords: row.keywords || [],
+      topPages: row.top_pages || [],
+      topIssues: row.issues || [],
+      stalePages: row.stale_pages || [],
+      geo: row.geo,
+      evidence: row.evidence || [],
+    };
+  }
+
   async function init() {
     // Determine dept key from URL path (e.g., /itm/ → 'itm')
     const pathParts = location.pathname.split('/').filter(Boolean);
     const deptKey = pathParts[pathParts.length - 1] || 'itm';
 
-    let data = null;
-    let source = 'data.json';
+    // Read selected time window (default 1w)
+    const rangeEl = document.getElementById('time-range');
+    const rangeKey = rangeEl?.value || '1w';
+    const daysBack = RANGE_DAYS[rangeKey] || 7;
 
-    if (SUPABASE_ENABLED && window.supabase) {
-      try {
-        const client = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-        // Query the per-dept table (e.g., 'itm', 'nc', 'www', 'freshman')
-        const { data: rows, error } = await client
-          .from(deptKey)
-          .select('*')
-          .order('date', { ascending: false })
-          .limit(1);
-        if (error) throw error;
-        if (rows && rows.length) {
-          const row = rows[0];
-          // Convert flat v5 row → nested object expected by all render functions
-          data = {
-            meta: {
-              siteName: window.__SITE_NAME__ || '',
-              siteDomain: deptKey + '.tcu.edu.tw',
-              reportVersion: 'v3.0',
-              updatedAt: row.date?.replace(/-/g, '/') || '',
-              maxDateGa4: row.source_max_date,
-              sourceCount: 3,
-            },
-            periods: {
-              current: {
-                start: row.date?.replace(/-/g, '/') || '',
-                end: row.date?.replace(/-/g, '/') || '',
-              },
-              previous: {}, trend: {},
-            },
-            kpis: {
-              users:    { label: '本週造訪人數',   value: row.users,    trend_pct: 0, avg: '-', src: 'GA4' },
-              sessions: { label: '本週工作階段',   value: row.sessions, trend_pct: 0, avg: '-', src: 'GA4' },
-              gsc:      { label: 'Google 搜尋點擊', value: row.gsc_clicks, trend_pct: 0, avg: '-', src: 'GSC' },
-              ctr:      { label: 'Google 搜尋點擊率', value: (row.ctr_pct ?? 0) + '%', trend_pct: 0, avg: '-', src: 'GSC' },
-            },
-            trends52w: row.weekly_trends || { ga4: [], gsc: [] },
-            audience: row.audience || { country: [], device: [], source: [] },
-            topKeywords: row.keywords || [],
-            topPages: row.top_pages || [],
-            topIssues: row.issues || [],
-            stalePages: row.stale_pages || [],
-            geo: row.geo,
-            evidence: row.evidence || [],
-          };
-          source = 'supabase';
-        }
-      } catch (e) {
-        console.warn('[report] Supabase fetch failed, falling back:', e);
+    let data = null;
+    let sourceRange = '';
+    let loadedFrom = '';
+
+    const fetched = await fetchRangeData(deptKey, daysBack);
+    if (fetched) {
+      if (fetched.rows && fetched.rows.length) {
+        const aggRow = aggregateRows(fetched.rows);
+        data = rowToNested(aggRow, deptKey);
+        loadedFrom = `${fetched.source} (${fetched.rows.length} 天)`;
+      } else if (fetched.snapshot) {
+        data = fetched.snapshot;
+        loadedFrom = fetched.source;
       }
+      sourceRange = `${fetched.startStr} – ${fetched.endStr}`;
     }
 
-    // Fallback to data.json
+    // Fallback: if Supabase returned nothing, try data.json anyway (last resort)
     if (!data) {
       try {
         const res = await fetch('data.json?ts=' + Date.now());
         if (res.ok) {
           data = await res.json();
-          source = 'data.json';
+          loadedFrom = 'data.json fallback';
         }
       } catch (e) {
         console.error('[report] data.json fetch failed:', e);
@@ -290,7 +351,9 @@
       return;
     }
 
-    console.log(`[report] data loaded from ${source}`);
+    data.meta.loadedFrom = loadedFrom;
+    data.meta.sourceRange = sourceRange;
+    console.log(`[report] data loaded from ${loadedFrom}, window ${sourceRange}`);
 
     renderHeader(data);
     renderHealthScore(data);
@@ -322,14 +385,15 @@
       const defStart = fmt(startDate < new Date(firstWeek + 'T00:00:00') ? new Date(firstWeek + 'T00:00:00') : startDate);
       const defEnd = lastWeek;
       initDatePicker({ min: firstWeek, max: defEnd, defStart, defEnd });
-      // Wire button handlers
+      // Wire button handlers (legacy date picker)
       $('#btn-apply-range').addEventListener('click', () => applyDateRange(data));
-      $('#btn-reset-range').addEventListener('click', () => {
-        $('#date-start').value = defStart;
-        $('#date-end').value = defEnd;
-        syncDateDisplay('date-start');
-        syncDateDisplay('date-end');
-        applyDateRange(data);
+    }
+    // Wire time-range dropdown (primary control)
+    const timeRangeEl = document.getElementById('time-range');
+    if (timeRangeEl) {
+      timeRangeEl.addEventListener('change', () => {
+        // Full reload picks up the new dropdown value (simplest path)
+        location.reload();
       });
     }
     $('#btn-expand-all').addEventListener('click', () => document.querySelectorAll('section.section').forEach(s => s.classList.remove('collapsed')));

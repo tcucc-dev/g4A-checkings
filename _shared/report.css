@@ -136,6 +136,21 @@ body {
   filter: invert(1);
   cursor: pointer;
 }
+/* Time-range selector (1d/2d/3d/…/6mo) — primary window control */
+.meta-bar .pill.date-picker select {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+.meta-bar .pill.date-picker select option {
+  background: var(--navy);
+  color: white;
+}
 .meta-bar .pill.date-picker button {
   background: rgba(255,255,255,0.2);
   border: 1px solid rgba(255,255,255,0.3);
@@ -148,6 +163,23 @@ body {
 .meta-bar .pill.date-picker button:hover {
   background: rgba(255,255,255,0.3);
 }
+.meta-bar .pill.date-picker select {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  min-width: 110px;
+}
+.meta-bar .pill.date-picker select:hover { background: rgba(255,255,255,0.22); }
+.meta-bar .pill.date-picker select option {
+  background: var(--navy);
+  color: white;
+}
+
 /* 套用 button — bright accent so users immediately see it as the action button */
 .meta-bar .pill.date-picker button#btn-apply-range {
   background: var(--teal);

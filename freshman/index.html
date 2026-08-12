@@ -52,22 +52,22 @@
       <span class="pill" id="report-updated">—</span>
       <span class="pill" id="report-version">—</span>
       <span class="pill date-picker">
-        <span class="date-trigger">
-          <label>起</label>
-          <button type="button" class="date-btn" data-target="date-start" data-role="start">
-            <span class="date-display" id="date-start-display">—</span>
-          </button>
-          <input type="hidden" id="date-start" value="" />
-        </span>
-        <span class="date-trigger">
-          <label>迄</label>
-          <button type="button" class="date-btn" data-target="date-end" data-role="end">
-            <span class="date-display" id="date-end-display">—</span>
-          </button>
-          <input type="hidden" id="date-end" value="" />
-        </span>
+        <label for="time-range">區間</label>
+        <select id="time-range">
+          <option value="1d">1 天</option>
+          <option value="2d">2 天</option>
+          <option value="3d">3 天</option>
+          <option value="4d">4 天</option>
+          <option value="5d">5 天</option>
+          <option value="6d">6 天</option>
+          <option value="1w" selected>1 週</option>
+          <option value="2w">2 週</option>
+          <option value="3w">3 週</option>
+          <option value="1mo">1 個月</option>
+          <option value="3mo">3 個月</option>
+          <option value="6mo">6 個月</option>
+        </select>
         <button id="btn-apply-range" type="button">套用</button>
-        <button id="btn-reset-range" type="button" title="回到最近 8 週">↻</button>
       </span>
     </div>
   </header>
