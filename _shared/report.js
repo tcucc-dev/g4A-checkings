@@ -371,6 +371,14 @@
     // Expert sections (10-20) — injected before collapse logic so they auto-collapse
     renderExpertSections(data);
 
+    // Fade out the skeleton loader now that real content is rendered
+    const skeleton = document.getElementById('skeleton');
+    if (skeleton) {
+      skeleton.classList.add('is-fading');
+      // Remove from DOM after the fade transition completes
+      setTimeout(() => skeleton.remove(), 400);
+    }
+
     // Annotate glossary terms (GSC, CTR, JSON-LD, etc.) with hover tooltips
     annotateTerms(document.querySelector('main'));
 

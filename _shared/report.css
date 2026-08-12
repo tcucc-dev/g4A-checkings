@@ -917,6 +917,85 @@ footer a { color: var(--teal); text-decoration: none; }
 
 
 /* ===== PRINT ===== */
+
+/* ============================================================
+   SKELETON LOADER — left-to-right shimmer animation
+   ============================================================ */
+.skeleton-wrap {
+  padding: 20px 0 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.skeleton-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.skeleton-row.sk-cols-2 { grid-template-columns: 1fr 1fr; }
+.skeleton-row.sk-cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.skeleton-row.sk-cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.skeleton-card {
+  height: 120px;
+  border-radius: 10px;
+  background: #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+.skeleton-card.sk-h-score { height: 156px; }
+.skeleton-card.sk-tall { height: 240px; }
+.skeleton-card.sk-small { height: 80px; }
+
+/* The shimmer: a diagonal gradient that travels across the card left to right */
+.skeleton-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    transparent 30%,
+    rgba(255, 255, 255, 0.85) 50%,
+    transparent 70%,
+    transparent 100%
+  );
+  animation: shimmer 1.4s infinite linear;
+  background-size: 200% 100%;
+  background-position: 100% 0;
+}
+@keyframes shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* Slight delay so multiple cards shimmer in a wave */
+.skeleton-row:nth-child(1) .skeleton-card::after { animation-delay: 0s; }
+.skeleton-row:nth-child(2) .skeleton-card::after { animation-delay: 0.1s; }
+.skeleton-row:nth-child(3) .skeleton-card::after { animation-delay: 0.2s; }
+.skeleton-row:nth-child(4) .skeleton-card::after { animation-delay: 0.3s; }
+.skeleton-row:nth-child(5) .skeleton-card::after { animation-delay: 0.4s; }
+.skeleton-row:nth-child(6) .skeleton-card::after { animation-delay: 0.5s; }
+
+/* When data is ready, fade the skeleton out gracefully */
+.skeleton-wrap.is-fading {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .skeleton-row.sk-cols-2,
+  .skeleton-row.sk-cols-3,
+  .skeleton-row.sk-cols-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .skeleton-wrap { display: none !important; }
+}
+
 @media print {
   body { background: white; font-size: 11pt; }
   .site-header { background: white !important; color: black; border-bottom: 2px solid var(--navy); }
