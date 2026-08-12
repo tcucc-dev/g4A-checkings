@@ -227,30 +227,40 @@
     const todayISO = new Date(todayMs).toISOString().slice(0, 10);
     const startMs = todayMs - (daysBack - 1) * 86400000;
     const startISO = new Date(startMs).toISOString().slice(0, 10);
+    // Previous window: same length, immediately before the current window
+    const prevEndISO = new Date(startMs - 86400000).toISOString().slice(0, 10);
+    const prevStartMs = startMs - daysBack * 86400000;
+    const prevStartISO = new Date(prevStartMs).toISOString().slice(0, 10);
 
     if (window.supabase) {
       try {
         const client = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-        const { data: rows, error } = await client
-          .from(deptKey)
-          .select('*')
-          .gte('date', startISO)
-          .lte('date', todayISO)
-          .order('date', { ascending: false });
-        if (error) throw error;
-        if (rows && rows.length) {
-          return { rows, startStr: startISO, endStr: todayISO, source: 'supabase' };
+        const [cur, prev] = await Promise.all([
+          client.from(deptKey).select('*').gte('date', startISO).lte('date', todayISO).order('date', { ascending: false }),
+          client.from(deptKey).select('*').gte('date', prevStartISO).lte('date', prevEndISO).order('date', { ascending: false }),
+        ]);
+        if (cur.error) throw cur.error;
+        if (prev.error) throw prev.error;
+        const currentRows = cur.data || [];
+        const previousRows = prev.data || [];
+        if (currentRows.length || previousRows.length) {
+          return {
+            currentRows, previousRows,
+            startStr: startISO, endStr: todayISO,
+            prevStartStr: prevStartISO, prevEndStr: prevEndISO,
+            source: 'supabase',
+          };
         }
       } catch (e) {
         console.warn('[report] Supabase range fetch failed:', e);
       }
     }
-    // Fallback: use data.json (single snapshot)
+    // Fallback: data.json doesn't have previous period → return current only
     try {
       const res = await fetch('data.json?ts=' + Date.now());
       if (res.ok) {
         const json = await res.json();
-        return { rows: null, snapshot: json, startStr: startISO, endStr: todayISO, source: 'data.json (current snapshot only)' };
+        return { currentRows: null, snapshot: json, previousRows: null, startStr: startISO, endStr: todayISO, source: 'data.json (current snapshot only)' };
       }
     } catch (e) { /* ignore */ }
     return null;
@@ -275,7 +285,17 @@
     };
   }
 
-  function rowToNested(row, deptKey) {
+  function rowToNested(row, deptKey, prevRow = null, windowDays = 7) {
+    // Compute trend_pct: ((current - previous) / previous) * 100
+    const trendPct = (curr, prev) => {
+      if (!prevRow || !prev || prev === 0) return 0;
+      return ((curr - prev) / prev) * 100;
+    };
+    const prevUsers = prevRow ? Number(prevRow.users) || 0 : null;
+    const prevSessions = prevRow ? Number(prevRow.sessions) || 0 : null;
+    const prevClicks = prevRow ? Number(prevRow.gsc_clicks) || 0 : null;
+    const prevCtr = prevRow ? Number(prevRow.ctr_pct) || 0 : null;
+    const comparisonLabel = `vs 前 ${windowDays} 天`;
     return {
       meta: {
         siteName: window.__SITE_NAME__ || '',
@@ -290,10 +310,26 @@
         previous: {}, trend: {},
       },
       kpis: {
-        users:    { label: '本週造訪人數',   value: row.users,    trend_pct: 0, avg: '-', src: 'GA4' },
-        sessions: { label: '本週工作階段',   value: row.sessions, trend_pct: 0, avg: '-', src: 'GA4' },
-        gsc:      { label: 'Google 搜尋點擊', value: row.gsc_clicks, trend_pct: 0, avg: '-', src: 'GSC' },
-        ctr:      { label: 'Google 搜尋點擊率', value: (Number(row.ctr_pct) || 0).toFixed(2) + '%', trend_pct: 0, avg: '-', src: 'GSC' },
+        users: {
+          label: '本區間造訪人數', value: row.users,
+          trend_pct: +trendPct(row.users, prevUsers).toFixed(1),
+          avg: prevRow ? `${prevUsers.toLocaleString()} (${comparisonLabel})` : '-', src: 'GA4',
+        },
+        sessions: {
+          label: '本區間工作階段', value: row.sessions,
+          trend_pct: +trendPct(row.sessions, prevSessions).toFixed(1),
+          avg: prevRow ? `${prevSessions.toLocaleString()} (${comparisonLabel})` : '-', src: 'GA4',
+        },
+        gsc: {
+          label: 'Google 搜尋點擊', value: row.gsc_clicks,
+          trend_pct: +trendPct(row.gsc_clicks, prevClicks).toFixed(1),
+          avg: prevRow ? `${prevClicks.toLocaleString()} (${comparisonLabel})` : '-', src: 'GSC',
+        },
+        ctr: {
+          label: 'Google 搜尋點擊率', value: (Number(row.ctr_pct) || 0).toFixed(2) + '%',
+          trend_pct: +(Number(row.ctr_pct) - prevCtr).toFixed(2),
+          avg: prevRow ? `${prevCtr.toFixed(2)}% (${comparisonLabel})` : '-', src: 'GSC',
+        },
       },
       trends52w: row.weekly_trends || { ga4: [], gsc: [] },
       audience: row.audience || { country: [], device: [], source: [] },
@@ -322,15 +358,23 @@
 
     const fetched = await fetchRangeData(deptKey, daysBack);
     if (fetched) {
-      if (fetched.rows && fetched.rows.length) {
-        const aggRow = aggregateRows(fetched.rows);
-        data = rowToNested(aggRow, deptKey);
-        loadedFrom = `${fetched.source} (${fetched.rows.length} 天)`;
+      if (fetched.currentRows && fetched.currentRows.length) {
+        const curAgg = aggregateRows(fetched.currentRows);
+        const prevAgg = fetched.previousRows && fetched.previousRows.length
+          ? aggregateRows(fetched.previousRows)
+          : null;
+        data = rowToNested(curAgg, deptKey, prevAgg, daysBack);
+        data.meta.windowDays = daysBack;
+        loadedFrom = `${fetched.source} (current ${fetched.currentRows.length}天, prev ${fetched.previousRows?.length || 0}天)`;
       } else if (fetched.snapshot) {
         data = fetched.snapshot;
         loadedFrom = fetched.source;
       }
       sourceRange = `${fetched.startStr} – ${fetched.endStr}`;
+      const previousRange = fetched.prevStartStr && fetched.prevEndStr
+        ? `${fetched.prevStartStr} – ${fetched.prevEndStr}`
+        : '';
+      if (data.meta && previousRange) data.meta.previousRange = previousRange;
     }
 
     // Fallback: if Supabase returned nothing, try data.json anyway (last resort)
@@ -382,20 +426,10 @@
     // Annotate glossary terms (GSC, CTR, JSON-LD, etc.) with hover tooltips
     annotateTerms(document.querySelector('main'));
 
-    // Populate date picker with default range (last 8 weeks)
-    const ga4 = (data.trends52w && data.trends52w.ga4) || [];
-    if (ga4.length > 0) {
-      const lastWeek = ga4[ga4.length - 1].week_start;
-      const firstWeek = ga4[0].week_start;
-      const lastDate = new Date(lastWeek + 'T00:00:00');
-      const startDate = new Date(lastDate.getTime() - 7 * 7 * 86400000);
-      const fmt = d => d.toISOString().slice(0, 10);
-      const defStart = fmt(startDate < new Date(firstWeek + 'T00:00:00') ? new Date(firstWeek + 'T00:00:00') : startDate);
-      const defEnd = lastWeek;
-      initDatePicker({ min: firstWeek, max: defEnd, defStart, defEnd });
-      // Wire button handlers (legacy date picker)
-      $('#btn-apply-range').addEventListener('click', () => applyDateRange(data));
-    }
+    // (Legacy date picker removed — replaced by the time-range dropdown.)
+    // Date picker init skipped: the old `起 / 迄` inputs are gone.
+    // If you ever bring them back, just call initDatePicker({...}) here.
+
     // Wire time-range dropdown (primary control)
     const timeRangeEl = document.getElementById('time-range');
     if (timeRangeEl) {
@@ -617,7 +651,7 @@
     const deptKey = (location.pathname.match(/\/([^\/]+)\/?$/) || [])[1] || 'itm';
     const reportUrl = `analytics.tcu.edu.tw/${deptKey}`;
     $('#site-domain').innerHTML = `<a href="https://${reportUrl}" target="_blank" rel="noopener" style="color:#bde8ec;text-decoration:none;">${reportUrl}</a>`;
-    $('#report-period').textContent = `${d.periods.current.start} – ${d.periods.current.end}`;
+    $('#report-period').textContent = `${d.periods.current.start} – ${d.periods.current.end}${d.meta.previousRange ? ` (vs ${d.meta.previousRange})` : ''}`;
     $('#report-updated').textContent = d.meta.updatedAt;
     $('#report-version').textContent = `v${d.meta.reportVersion}`;
     document.title = `${d.meta.siteName}｜TCU 網站分析報告 v${d.meta.reportVersion}`;
@@ -639,7 +673,7 @@
         <div class="value">${fmtNum(k.users.value)}</div>
         <div class="trend ${k.users.trend_pct > 0 ? 'up' : k.users.trend_pct < 0 ? 'down' : 'flat'}">
           <span class="arrow">${k.users.trend_pct > 0 ? '↑' : k.users.trend_pct < 0 ? '↓' : '–'}</span>
-          ${k.users.trend_pct > 0 ? '+' : ''}${k.users.trend_pct.toFixed(1)}% 較前週
+          ${k.users.trend_pct > 0 ? '+' : ''}${k.users.trend_pct.toFixed(1)}% 較前期
         </div>
         <div class="vs-avg">${esc(k.users.avg)}</div>
         <div class="source">${esc(k.users.src)}</div>
@@ -649,7 +683,7 @@
         <div class="value">${fmtNum(k.sessions.value)}</div>
         <div class="trend ${k.sessions.trend_pct > 0 ? 'up' : k.sessions.trend_pct < 0 ? 'down' : 'flat'}">
           <span class="arrow">${k.sessions.trend_pct > 0 ? '↑' : k.sessions.trend_pct < 0 ? '↓' : '–'}</span>
-          ${k.sessions.trend_pct > 0 ? '+' : ''}${k.sessions.trend_pct.toFixed(1)}% 較前週
+          ${k.sessions.trend_pct > 0 ? '+' : ''}${k.sessions.trend_pct.toFixed(1)}% 較前期
         </div>
         <div class="vs-avg">${esc(k.sessions.avg)}</div>
         <div class="source">${esc(k.sessions.src)}</div>
@@ -659,7 +693,7 @@
         <div class="value">${fmtNum(k.gsc.value)}</div>
         <div class="trend ${k.gsc.trend_pct > 0 ? 'up' : k.gsc.trend_pct < 0 ? 'down' : 'flat'}">
           <span class="arrow">${k.gsc.trend_pct > 0 ? '↑' : k.gsc.trend_pct < 0 ? '↓' : '–'}</span>
-          ${k.gsc.trend_pct > 0 ? '+' : ''}${k.gsc.trend_pct.toFixed(1)}% 較前週
+          ${k.gsc.trend_pct > 0 ? '+' : ''}${k.gsc.trend_pct.toFixed(1)}% 較前期
         </div>
         <div class="vs-avg">${esc(k.gsc.avg)}</div>
         <div class="source">${esc(k.gsc.src)}</div>
@@ -669,7 +703,7 @@
         <div class="value">${esc(k.ctr.value)}</div>
         <div class="trend ${k.ctr.trend_pct > 0 ? 'up' : k.ctr.trend_pct < 0 ? 'down' : 'flat'}">
           <span class="arrow">${k.ctr.trend_pct > 0 ? '↑' : k.ctr.trend_pct < 0 ? '↓' : '–'}</span>
-          ${k.ctr.trend_pct > 0 ? '+' : ''}${k.ctr.trend_pct.toFixed(2)}pt 較前週
+          ${k.ctr.trend_pct > 0 ? '+' : ''}${k.ctr.trend_pct.toFixed(2)}pt 較前期
         </div>
         <div class="vs-avg">${esc(k.ctr.avg)}</div>
         <div class="source">${esc(k.ctr.src)}</div>
