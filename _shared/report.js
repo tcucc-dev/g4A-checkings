@@ -293,6 +293,7 @@
     console.log(`[report] data loaded from ${source}`);
 
     renderHeader(data);
+    renderHealthScore(data);
     renderKpis(data);
     renderTrends(data);
     renderTopKeywords(data);
@@ -420,6 +421,120 @@
       }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
       sections.forEach(s => observer.observe(s));
     }
+  }
+
+  /* ---------- HEALTH SCORE ---------- */
+  function computeHealthScore(d) {
+    // Weighted score from 0-100. Higher = healthier site.
+    const scores = { freshness: 100, traffic: 100, ctr: 100, stale: 100, issues: 100, brand: 100, mobile: 100 };
+    const weights = { freshness: 15, traffic: 15, ctr: 15, stale: 20, issues: 15, brand: 10, mobile: 10 };
+
+    // 1. Freshness: how recent is the data vs today
+    const maxDateStr = d.meta?.maxDateGa4 || d.meta?.updatedAt;
+    if (maxDateStr) {
+      const ds = String(maxDateStr).replace(/\//g, '-');
+      const dt = new Date(ds + 'T00:00:00');
+      if (!isNaN(dt)) {
+        const daysOld = Math.floor((new Date() - dt) / 86400000);
+        scores.freshness = daysOld <= 1 ? 100 : Math.max(0, 100 - daysOld * 15);
+      }
+    }
+
+    // 2. Traffic: current sessions vs 8-week avg (from kpis.sessions.avg like "前 8 週平均 35")
+    const avgMatch = String(d.kpis?.sessions?.avg || '').match(/平均\s*(\d+)/);
+    const avg = avgMatch ? parseInt(avgMatch[1]) : 0;
+    const current = d.kpis?.sessions?.value || 0;
+    if (avg > 0) {
+      const ratio = current / avg;
+      scores.traffic = ratio >= 1.0 ? 100 : ratio >= 0.5 ? 70 : ratio >= 0.2 ? 40 : 10;
+    }
+
+    // 3. CTR quality
+    const ctrPct = parseFloat(String(d.kpis?.ctr?.value || '0').replace('%', ''));
+    scores.ctr = ctrPct >= 5 ? 100 : ctrPct >= 3 ? 70 : ctrPct >= 1 ? 40 : 0;
+
+    // 4. Stale pages penalty
+    const staleCount = (d.stalePages || []).length;
+    scores.stale = staleCount === 0 ? 100 : staleCount <= 5 ? 70 : staleCount <= 15 ? 40 : staleCount <= 30 ? 15 : 0;
+
+    // 5. SEO issues penalty
+    const issues = d.topIssues || [];
+    const highIssues = issues.filter(i => (i.severity === 'high' || i.severity === '高')).length;
+    scores.issues = highIssues === 0 ? 100 : highIssues === 1 ? 60 : highIssues === 2 ? 30 : 10;
+
+    // 6. Brand search ratio
+    const kws = d.topKeywords || [];
+    if (kws.length > 0) {
+      const brandCount = kws.filter(k => k.brand === true || k.brand === 'true').length;
+      const brandRatio = (brandCount / kws.length) * 100;
+      scores.brand = (brandRatio >= 40 && brandRatio <= 60) ? 100 : 70;
+    }
+
+    // 7. Mobile traffic
+    const devices = d.audience?.device || [];
+    const total = devices.reduce((s, dv) => s + (dv.sessions || 0), 0);
+    const mobile = devices.find(dv => dv.name === 'mobile' || dv.name === '手機');
+    if (total > 0 && mobile) {
+      const mobilePct = (mobile.sessions / total) * 100;
+      scores.mobile = (mobilePct >= 30 && mobilePct <= 60) ? 100 : 70;
+    }
+
+    // Weighted sum
+    let scoreTotal = 0;
+    let scoreWeight = 0;
+    for (const key in scores) {
+      scoreTotal += scores[key] * weights[key];
+      scoreWeight += weights[key];
+    }
+    const score = Math.round(scoreTotal / scoreWeight);
+
+    // Color and label
+    const color = score >= 90 ? { bg: '#047857', light: '#ecfdf5', label: 'Excellent', border: '#a7f3d0' }
+               : score >= 75 ? { bg: '#1d4ed8', light: '#eff6ff', label: 'Good', border: '#bfdbfe' }
+               : score >= 60 ? { bg: '#b45309', light: '#fffbeb', label: 'Fair', border: '#fde68a' }
+               : score >= 40 ? { bg: '#c2410c', light: '#fff7ed', label: 'Warning', border: '#fed7aa' }
+               : { bg: '#b91c1c', light: '#fef2f2', label: 'Critical', border: '#fecaca' };
+
+    return { score, color, components: scores, weights };
+  }
+
+  function renderHealthScore(d) {
+    const el = document.getElementById('health-score');
+    if (!el) return;
+    const h = computeHealthScore(d);
+    // Map component key to a friendly Chinese label
+    const labelMap = {
+      freshness: '資料新鮮度',
+      traffic: '流量',
+      ctr: '點擊率',
+      stale: '過期頁面',
+      issues: 'SEO 問題',
+      brand: '品牌搜尋',
+      mobile: '行動裝置',
+    };
+    // Build the 7 breakdown rows
+    const rows = Object.keys(h.components).map(key => {
+      const v = Math.round(h.components[key]);
+      const color = v >= 75 ? '#10b981' : v >= 50 ? '#f59e0b' : '#ef4444';
+      return `<div class="hs-row">
+        <span class="hs-label">${esc(labelMap[key] || key)}</span>
+        <div class="hs-bar"><div class="hs-fill" style="width:${v}%; background:${color};"></div></div>
+        <span class="hs-val">${v}</span>
+      </div>`;
+    }).join('');
+    el.innerHTML = `
+      <div class="hs-circle" style="background: conic-gradient(${h.color.bg} 0deg ${h.score * 3.6}deg, #e5e7eb ${h.score * 3.6}deg 360deg);">
+        <div class="hs-inner" style="color:${h.color.bg};">
+          <div class="hs-score">${h.score}</div>
+          <div class="hs-label">${esc(h.color.label)}</div>
+        </div>
+      </div>
+      <div class="hs-breakdown">
+        <h3>健康分數 (0–100)</h3>
+        <p class="hs-sub">根據資料新鮮度、流量、SEO 等 7 項指標加權計算</p>
+        ${rows}
+      </div>
+    `;
   }
 
   /* ---------- HEADER ---------- */
