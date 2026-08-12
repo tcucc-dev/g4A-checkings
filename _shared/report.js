@@ -214,77 +214,83 @@
   }
 
   async function init() {
-    // Detect dept key from URL path: /itm/index.html → 'itm'
+    // Determine dept key from URL path (e.g., /itm/ → 'itm')
     const pathParts = location.pathname.split('/').filter(Boolean);
     const deptKey = pathParts[pathParts.length - 1] || 'itm';
 
     let data = null;
-    let source = null;
+    let source = 'data.json';
 
-    // 1) Try Supabase first (preferred)
     if (SUPABASE_ENABLED && window.supabase) {
       try {
         const client = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+        // Query the per-dept table (e.g., 'itm', 'nc', 'www', 'freshman')
         const { data: rows, error } = await client
-          .from('dept_stats')
+          .from(deptKey)
           .select('*')
-          .eq('dept_key', deptKey)
-          .order('period_end', { ascending: false })
+          .order('date', { ascending: false })
           .limit(1);
         if (error) throw error;
         if (rows && rows.length) {
           const row = rows[0];
-          // Convert flat Supabase row → nested object expected by render functions
+          // Convert flat v5 row → nested object expected by all render functions
           data = {
-            meta: row.meta,
+            meta: {
+              siteName: window.__SITE_NAME__ || '',
+              siteDomain: deptKey + '.tcu.edu.tw',
+              reportVersion: 'v3.0',
+              updatedAt: row.date?.replace(/-/g, '/') || '',
+              maxDateGa4: row.source_max_date,
+              sourceCount: 3,
+            },
             periods: {
               current: {
-                start: row.period_start.replace(/-/g, '/'),
-                end: row.period_end.replace(/-/g, '/'),
+                start: row.date?.replace(/-/g, '/') || '',
+                end: row.date?.replace(/-/g, '/') || '',
               },
-              previous: {},
-              trend: {},
+              previous: {}, trend: {},
             },
-            kpis: row.kpis,
-            trends52w: row.trends52w,
-            audience: row.audience,
-            topKeywords: row.top_keywords,
-            topPages: row.top_pages,
-            topIssues: row.top_issues,
-            stalePages: row.stale_pages,
+            kpis: {
+              users:    { label: '本週造訪人數',   value: row.users,    trend_pct: 0, avg: '-', src: 'GA4' },
+              sessions: { label: '本週工作階段',   value: row.sessions, trend_pct: 0, avg: '-', src: 'GA4' },
+              gsc:      { label: 'Google 搜尋點擊', value: row.gsc_clicks, trend_pct: 0, avg: '-', src: 'GSC' },
+              ctr:      { label: 'Google 搜尋點擊率', value: (row.ctr_pct ?? 0) + '%', trend_pct: 0, avg: '-', src: 'GSC' },
+            },
+            trends52w: row.weekly_trends || { ga4: [], gsc: [] },
+            audience: row.audience || { country: [], device: [], source: [] },
+            topKeywords: row.keywords || [],
+            topPages: row.top_pages || [],
+            topIssues: row.issues || [],
+            stalePages: row.stale_pages || [],
             geo: row.geo,
             evidence: row.evidence || [],
           };
           source = 'supabase';
         }
       } catch (e) {
-        console.warn('Supabase fetch failed, falling back to data.json:', e);
+        console.warn('[report] Supabase fetch failed, falling back:', e);
       }
     }
 
-    // 2) Fallback to data.json (offline / pre-Supabase / dev)
+    // Fallback to data.json
     if (!data) {
       try {
         const res = await fetch('data.json?ts=' + Date.now());
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        data = await res.json();
-        source = 'data.json';
+        if (res.ok) {
+          data = await res.json();
+          source = 'data.json';
+        }
       } catch (e) {
-        document.getElementById('report-root').innerHTML = `
-          <div class="section">
-            <div class="section-body" style="text-align:center;padding:60px 20px;">
-              <h2 style="color:var(--bad-fg);margin-bottom:12px;">⚠ 載入失敗</h2>
-              <p style="color:var(--muted);">無法從 Supabase 或 <code>data.json</code> 取得 <code>${esc(deptKey)}</code> 的資料。<br>
-              請確認檔案存在於 ${location.pathname.replace(/index\.html$/, '')}data.json<br>
-              <small>${esc(e.message)}</small></p>
-            </div>
-          </div>`;
-        console.error('data.json fetch failed:', e);
-        return;
+        console.error('[report] data.json fetch failed:', e);
       }
     }
 
-    if (source) console.info(`[report] data loaded from ${source}`);
+    if (!data) {
+      document.getElementById('report-root').innerHTML = '<div class="section"><div class="section-body" style="text-align:center;padding:60px 20px;"><h2>尚未有資料</h2><p>請等下一次排程更新，或聯絡電算中心。</p></div></div>';
+      return;
+    }
+
+    console.log(`[report] data loaded from ${source}`);
 
     renderHeader(data);
     renderKpis(data);

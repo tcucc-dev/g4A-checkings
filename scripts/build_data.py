@@ -16,7 +16,7 @@ import re
 import sys
 import urllib.request
 import urllib.error
-from datetime import date, datetime
+from datetime import date
 
 sys.path.insert(0, 'C:/ai_auto/scripts')
 from fetch_dept_report import (
@@ -58,13 +58,27 @@ def supabase_request(path, method='GET', body=None, headers=None):
         raise RuntimeError(f'Supabase {method} {path} → {e.code}: {body_text[:400]}')
 
 
-def upsert_dept_stats(dept_key, row):
-    """Upsert by (dept_key, period_start). Requires the table to have a
-    UNIQUE constraint on (dept_key, period_start)."""
-    headers = {'Prefer': 'resolution=merge-duplicates,return=minimal'}
+def upsert_daily(dept_key, row):
+    """Upsert one row into the dept table (typed columns only).
+    Requires the dept table to have a UNIQUE constraint on `date`."""
+    headers = {'Prefer': 'resolution=merge-duplicates'}
     return supabase_request(
-        '/dept_stats?on_conflict=dept_key,period_start',
+        f'/{dept_key}?on_conflict=date',
         method='POST',
+        body=row,
+        headers=headers,
+    )
+
+
+def upsert_lists(dept_key, date_iso, row):
+    """Upsert JSONB list columns for a specific date.
+    Called after upsert_daily — PATCHes the same row by date filter."""
+    if not row:
+        return None
+    headers = {'Prefer': 'resolution=merge-duplicates'}
+    return supabase_request(
+        f'/{dept_key}?date=eq.{date_iso}',
+        method='PATCH',
         body=row,
         headers=headers,
     )
@@ -620,29 +634,45 @@ def build_for_dept(client, key, cfg):
         'evidence': evidence,
         'stalePages': stale_pages,
     }
-    # Upsert to Supabase (preferred source). Falls back gracefully if env
-    # vars are missing — data.json still gets written so the dept report
-    # keeps working offline / on dev machines.
+    # Upsert to Supabase (v5 schema — 4 per-dept tables: itm/nc/www/freshman).
+    # Falls back gracefully if env vars are missing — data.json still gets
+    # written so the dept report keeps working offline / on dev machines.
     try:
-        row = {
-            'dept_key': key,
-            'period_start': out['periods']['current']['start'].replace('/', '-'),
-            'period_end': out['periods']['current']['end'].replace('/', '-'),
+        period_start_iso = out['periods']['current']['start'].replace('/', '-')  # 'YYYY-MM-DD'
+        gsc_clicks_val = int(raw_kpis[2]['v'])
+        ctr_pct_val = float(raw_kpis[3]['v'].rstrip('%'))
+        # Derive impressions from clicks / ctr (avoids a separate BQ query)
+        gsc_impressions_val = int(round(gsc_clicks_val * 100 / ctr_pct_val)) if ctr_pct_val else 0
+        last_ga4_week = weekly[-1] if weekly else {}
+
+        # Typed columns (one row per dept per date)
+        typed_row = {
+            'date': period_start_iso,
+            'users': int(raw_kpis[0]['v']),
+            'sessions': int(raw_kpis[1]['v']),
+            'pageviews': int(last_ga4_week.get('pageviews', 0)),
+            'gsc_clicks': gsc_clicks_val,
+            'gsc_impressions': gsc_impressions_val,
+            'ctr_pct': ctr_pct_val,
+            'bounce_rate': 0.0,        # TODO: add BQ query when needed
+            'avg_session_sec': 0.0,    # TODO: add BQ query when needed
             'source_max_date': (out['meta'].get('maxDateGa4') or date.today().isoformat()),
-            'updated_at': datetime.now().isoformat(),
-            'meta': out['meta'],
-            'kpis': out['kpis'],
-            'trends52w': out['trends52w'],
-            'audience': out['audience'],
-            'top_keywords': out['topKeywords'],
-            'top_pages': out['topPages'],
-            'top_issues': out['topIssues'],
-            'stale_pages': out['stalePages'],
-            'geo': out.get('geo'),
-            'evidence': out.get('evidence', []),
         }
-        upsert_dept_stats(key, row)
-        print(f'  ✓ upserted dept_stats row for {key}')
+
+        # JSONB list columns (PATCHed onto the row created above)
+        lists_row = {
+            'keywords': out['topKeywords'],
+            'top_pages': out['topPages'],
+            'issues': out['topIssues'],
+            'stale_pages': out['stalePages'],
+            'weekly_trends': out['trends52w'],
+            'audience': out['audience'],
+            # cta_clicks, user_paths, geo: empty for now (admin query)
+        }
+
+        upsert_daily(key, typed_row)
+        upsert_lists(key, typed_row['date'], lists_row)
+        print(f'  ✓ upserted {key} row for {typed_row["date"]}')
     except Exception as e:
         print(f'  ⚠ Supabase upsert skipped for {key}: {e}')
 

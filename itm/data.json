@@ -3,8 +3,8 @@
     "siteName": "資訊科技與管理系",
     "siteDomain": "itm.tcu.edu.tw",
     "reportVersion": "v3.0",
-    "updatedAt": "2026/08/10",
-    "maxDateGa4": "2026-08-09",
+    "updatedAt": "2026/08/12",
+    "maxDateGa4": "2026-08-10",
     "maxDateGsc": "2026-08-08",
     "sourceCount": 3
   },
@@ -302,9 +302,9 @@
       {
         "week_start": "2026-08-09",
         "week_label": "08/09",
-        "sessions": 29,
-        "users": 29,
-        "pageviews": 72
+        "sessions": 57,
+        "users": 54,
+        "pageviews": 133
       }
     ],
     "gsc": [
@@ -860,14 +860,14 @@
         "share": 1.5
       },
       {
-        "name": "college.eporttw.com",
+        "name": "collego.edu.tw",
         "medium": "referral",
         "sessions": 1,
         "users": 0,
         "share": 0.4
       },
       {
-        "name": "collego.edu.tw",
+        "name": "college.eporttw.com",
         "medium": "referral",
         "sessions": 1,
         "users": 0,
@@ -921,19 +921,19 @@
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-52388.php?Lang=zh-tw",
-      "year": null,
-      "impressions": 55,
-      "clicks": 1,
-      "pos": 5.4,
-      "note": "HTTP 404 失效連結"
-    },
-    {
       "url": "https://itm.tcu.edu.tw/p/404-1022-34441.php",
       "year": null,
       "impressions": 55,
       "clicks": 3,
       "pos": 7.8,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-52388.php?Lang=zh-tw",
+      "year": null,
+      "impressions": 55,
+      "clicks": 1,
+      "pos": 5.4,
       "note": "HTTP 404 失效連結"
     },
     {
@@ -1017,11 +1017,11 @@
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/412-1022-2585.php?Lang=zh-tw",
+      "url": "https://itm.tcu.edu.tw/p/404-1022-36083.php",
       "year": null,
       "impressions": 21,
       "clicks": 0,
-      "pos": 1.6,
+      "pos": 6.4,
       "note": "HTTP 404 失效連結"
     },
     {
@@ -1033,11 +1033,11 @@
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-36083.php",
+      "url": "https://itm.tcu.edu.tw/p/412-1022-2585.php?Lang=zh-tw",
       "year": null,
       "impressions": 21,
       "clicks": 0,
-      "pos": 6.4,
+      "pos": 1.6,
       "note": "HTTP 404 失效連結"
     },
     {
@@ -1065,19 +1065,19 @@
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-45542.php?Lang=zh-tw",
-      "year": null,
-      "impressions": 16,
-      "clicks": 3,
-      "pos": 6.9,
-      "note": "HTTP 404 失效連結"
-    },
-    {
       "url": "https://itm.tcu.edu.tw/p/404-1022-36215.php",
       "year": null,
       "impressions": 16,
       "clicks": 0,
       "pos": 8.9,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-45542.php?Lang=zh-tw",
+      "year": null,
+      "impressions": 16,
+      "clicks": 3,
+      "pos": 6.9,
       "note": "HTTP 404 失效連結"
     },
     {
@@ -1089,19 +1089,19 @@
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/var/file/22/1022/img/1843/540712717.doc",
-      "year": null,
-      "impressions": 14,
-      "clicks": 0,
-      "pos": 7.1,
-      "note": "HTTP 404 失效連結"
-    },
-    {
       "url": "https://itm.tcu.edu.tw/p/406-1022-65238,r452.php?Lang=zh-tw",
       "year": null,
       "impressions": 14,
       "clicks": 0,
       "pos": 5.1,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/var/file/22/1022/img/1843/540712717.doc",
+      "year": null,
+      "impressions": 14,
+      "clicks": 0,
+      "pos": 7.1,
       "note": "HTTP 404 失效連結"
     },
     {

@@ -3,8 +3,8 @@
     "siteName": "護理學系",
     "siteDomain": "nc.tcu.edu.tw",
     "reportVersion": "v3.0",
-    "updatedAt": "2026/08/10",
-    "maxDateGa4": "2026-08-08",
+    "updatedAt": "2026/08/12",
+    "maxDateGa4": "2026-08-09",
     "maxDateGsc": "2026-08-08",
     "sourceCount": 3
   },
@@ -298,6 +298,13 @@
         "sessions": 223,
         "users": 195,
         "pageviews": 416
+      },
+      {
+        "week_start": "2026-08-09",
+        "week_label": "08/09",
+        "sessions": 35,
+        "users": 31,
+        "pageviews": 72
       }
     ],
     "gsc": [
@@ -510,6 +517,12 @@
         "week_label": "08/02",
         "impressions": 2991,
         "clicks": 137
+      },
+      {
+        "week_start": "2026-08-09",
+        "week_label": "08/09",
+        "impressions": 0,
+        "clicks": 0
       }
     ]
   },
@@ -804,13 +817,13 @@
         "share": 0.9
       },
       {
-        "name": "新加坡",
+        "name": "香港",
         "sessions": 1,
         "users": 0,
         "share": 0.4
       },
       {
-        "name": "印度",
+        "name": "新加坡",
         "sessions": 1,
         "users": 0,
         "share": 0.4
@@ -852,15 +865,15 @@
         "share": 44.4
       },
       {
-        "name": "bing",
-        "medium": "organic",
+        "name": "tw.search.yahoo.com",
+        "medium": "referral",
         "sessions": 1,
         "users": 0,
         "share": 0.4
       },
       {
-        "name": "tw.search.yahoo.com",
-        "medium": "referral",
+        "name": "bing",
+        "medium": "organic",
         "sessions": 1,
         "users": 0,
         "share": 0.4

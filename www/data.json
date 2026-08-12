@@ -3,8 +3,8 @@
     "siteName": "慈濟大學中文版首頁",
     "siteDomain": "www.tcu.edu.tw",
     "reportVersion": "v3.0",
-    "updatedAt": "2026/08/10",
-    "maxDateGa4": "2026-08-08",
+    "updatedAt": "2026/08/12",
+    "maxDateGa4": "2026-08-09",
     "maxDateGsc": "2026-08-08",
     "sourceCount": 3
   },
@@ -305,6 +305,13 @@
         "sessions": 11394,
         "users": 6191,
         "pageviews": 17101
+      },
+      {
+        "week_start": "2026-08-09",
+        "week_label": "08/09",
+        "sessions": 897,
+        "users": 775,
+        "pageviews": 1305
       }
     ],
     "gsc": [
@@ -523,6 +530,12 @@
         "week_label": "08/02",
         "impressions": 112953,
         "clicks": 5448
+      },
+      {
+        "week_start": "2026-08-09",
+        "week_label": "08/09",
+        "impressions": 0,
+        "clicks": 0
       }
     ]
   },
