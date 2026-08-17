@@ -54,6 +54,30 @@
 
   // Wrap matched terms in <span class="term" data-tip="...">term</span>
   // Skips text already inside an HTML tag or other span.term
+
+  // Inner-skeleton: shown for each section while data is loading
+  function addInnerSkeletons() {
+    document.querySelectorAll('section.section').forEach(sec => {
+      if (sec.id === 'health-score') return;
+      const body = sec.querySelector('.section-body, .section-body-wrap');
+      if (!body) return;
+      // Skip if already has rendered content (innerHTML trim non-empty)
+      if (body.innerHTML.trim().length > 10) return;
+      const skel = document.createElement('div');
+      skel.className = 'inner-skeleton';
+      skel.innerHTML = '<div class="skel-line skel-h1"></div><div class="skel-line skel-h2"></div><div class="skel-line skel-h3"></div>';
+      // Append to inner body or section if no body
+      (body.tagName === 'DIV' ? body : sec).appendChild(skel);
+    });
+  }
+
+  function fadeOutAllSkeletons() {
+    document.querySelectorAll('.inner-skeleton').forEach(sk => {
+      sk.classList.add('is-fading');
+      setTimeout(() => sk.remove(), 400);
+    });
+  }
+
   function annotateTerms(rootEl) {
     if (!rootEl) return;
     // Sort by length desc so longer phrases match first ("AI 搜尋" before "搜尋")
@@ -347,8 +371,10 @@
     const pathParts = location.pathname.split('/').filter(Boolean);
     const deptKey = pathParts[pathParts.length - 1] || 'itm';
 
-    // Read selected time window (default 1w)
+    // Read selected time window from URL, default 1w
     const rangeEl = document.getElementById('time-range');
+    const urlRange = new URLSearchParams(location.search).get('range');
+    if (urlRange && RANGE_DAYS[urlRange] && rangeEl) rangeEl.value = urlRange;
     const rangeKey = rangeEl?.value || '1w';
     const daysBack = RANGE_DAYS[rangeKey] || 7;
 
@@ -400,6 +426,8 @@
     console.log(`[report] data loaded from ${loadedFrom}, window ${sourceRange}`);
 
     renderHeader(data);
+    // Show per-section skeleton while data populates
+    addInnerSkeletons();
     renderHealthScore(data);
     renderKpis(data);
     renderTrends(data);
@@ -416,6 +444,7 @@
     renderExpertSections(data);
 
     // Fade out the skeleton loader now that real content is rendered
+    fadeOutAllSkeletons();
     const skeleton = document.getElementById('skeleton');
     if (skeleton) {
       skeleton.classList.add('is-fading');
@@ -434,8 +463,10 @@
     const timeRangeEl = document.getElementById('time-range');
     if (timeRangeEl) {
       timeRangeEl.addEventListener('change', () => {
-        // Full reload picks up the new dropdown value (simplest path)
-        location.reload();
+        // Persist dropdown choice in URL so it survives reload
+        const url = new URL(location.href);
+        url.searchParams.set('range', timeRangeEl.value);
+        location.href = url.toString();
       });
     }
     $('#btn-expand-all').addEventListener('click', () => document.querySelectorAll('section.section').forEach(s => s.classList.remove('collapsed')));

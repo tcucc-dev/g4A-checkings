@@ -992,6 +992,35 @@ footer a { color: var(--teal); text-decoration: none; }
   }
 }
 
+
+/* ============================================================
+   INNER SKELETON — applied to each section during initial load
+   ============================================================ */
+.inner-skeleton {
+  padding: 12px 0;
+}
+.inner-skeleton.is-fading {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+.skel-line {
+  height: 12px;
+  background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  animation: skelShimmer 1.4s ease-in-out infinite;
+}
+.skel-line.skel-h1 { width: 60%; height: 18px; margin-bottom: 12px; }
+.skel-line.skel-h2 { width: 80%; }
+.skel-line.skel-h3 { width: 50%; }
+@keyframes skelShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 @media print {
   .skeleton-wrap { display: none !important; }
 }
