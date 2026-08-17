@@ -597,6 +597,11 @@ main {
 .term.tip-right::before { left: auto; right: 12px; transform: translateX(0); }
 .term.tip-right:hover::after,
 .term.tip-right:hover::before { transform: translateX(0) translateY(-2px); }
+.term.tip-left::after { left: 0; right: auto; transform: translateX(0); }
+.term.tip-left::before { left: 12px; right: auto; transform: translateX(0); }
+.term.tip-left:hover::after,
+.term.tip-left:hover::before { transform: translateX(0) translateY(-2px); }
+
 
 /* ===== TABLES ===== */
 .tbl-wrap {

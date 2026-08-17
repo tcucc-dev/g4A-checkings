@@ -144,6 +144,23 @@
     }
   }
 
+  // Reposition tooltip if it would overflow the viewport
+  function positionTooltips() {
+    document.querySelectorAll('.term').forEach(t => {
+      const r = t.getBoundingClientRect();
+      t.classList.remove('tip-left', 'tip-right');
+      // If term is near right edge of viewport
+      if (r.right > window.innerWidth - 300) {
+        t.classList.add('tip-right');
+      }
+      // If term is near left edge of viewport
+      if (r.left < 300) {
+        t.classList.add('tip-left');
+      }
+    });
+  }
+
+
 
   // Three.js animated background — runs regardless of data load
   function initThreeBg() {
@@ -454,6 +471,8 @@
 
     // Annotate glossary terms (GSC, CTR, JSON-LD, etc.) with hover tooltips
     annotateTerms(document.querySelector('main'));
+    positionTooltips();
+    window.addEventListener('resize', positionTooltips);
 
     // (Legacy date picker removed — replaced by the time-range dropdown.)
     // Date picker init skipped: the old `起 / 迄` inputs are gone.
