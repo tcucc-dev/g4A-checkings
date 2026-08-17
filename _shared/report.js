@@ -59,15 +59,15 @@
   function addInnerSkeletons() {
     document.querySelectorAll('section.section').forEach(sec => {
       if (sec.id === 'health-score') return;
-      const body = sec.querySelector('.section-body, .section-body-wrap');
-      if (!body) return;
-      // Skip if already has rendered content (innerHTML trim non-empty)
-      if (body.innerHTML.trim().length > 10) return;
+      // Remove any existing skeleton from previous loads
+      const existing = sec.querySelector(':scope > .inner-skeleton');
+      if (existing) existing.remove();
+      // Append skeleton as a direct child of the section (not inside the body)
+      // so render*() functions that fill the body don't overwrite it
       const skel = document.createElement('div');
       skel.className = 'inner-skeleton';
       skel.innerHTML = '<div class="skel-line skel-h1"></div><div class="skel-line skel-h2"></div><div class="skel-line skel-h3"></div>';
-      // Append to inner body or section if no body
-      (body.tagName === 'DIV' ? body : sec).appendChild(skel);
+      sec.appendChild(skel);
     });
   }
 
@@ -384,6 +384,13 @@
   }
 
   async function init() {
+    // Track when loading started so skeletons stay visible at least 400ms
+    const loadingStartTime = Date.now();
+    function fadeOutSkeletonsWithMinDelay() {
+      const elapsed = Date.now() - loadingStartTime;
+      const wait = Math.max(0, 400 - elapsed);
+      setTimeout(fadeOutAllSkeletons, wait);
+    }
     // Determine dept key from URL path (e.g., /itm/ → 'itm')
     const pathParts = location.pathname.split('/').filter(Boolean);
     const deptKey = pathParts[pathParts.length - 1] || 'itm';
@@ -480,13 +487,7 @@
     renderExpertSections(data);
 
     // Fade out the skeleton loader now that real content is rendered
-    fadeOutAllSkeletons();
-    const skeleton = document.getElementById('skeleton');
-    if (skeleton) {
-      skeleton.classList.add('is-fading');
-      // Remove from DOM after the fade transition completes
-      setTimeout(() => skeleton.remove(), 400);
-    }
+    fadeOutSkeletonsWithMinDelay();
 
     // Annotate glossary terms (GSC, CTR, JSON-LD, etc.) with hover tooltips
     annotateTerms(document.querySelector('main'));
@@ -499,9 +500,17 @@
 
     // Wire time-range dropdown (primary control)
     const timeRangeEl = document.getElementById('time-range');
+    const applyBtn = document.getElementById('btn-apply-range');
     if (timeRangeEl) {
+      // On dropdown change: just show pending state on 套用 button. Don't reload yet.
       timeRangeEl.addEventListener('change', () => {
-        // Persist dropdown choice in URL so it survives reload
+        if (applyBtn) applyBtn.classList.add('btn-pending');
+      });
+    }
+    // On 套用 button click: navigate using currently selected dropdown value
+    if (applyBtn) {
+      applyBtn.addEventListener('click', () => {
+        if (!timeRangeEl) return;
         const url = new URL(location.href);
         url.searchParams.set('range', timeRangeEl.value);
         location.href = url.toString();

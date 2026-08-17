@@ -200,6 +200,21 @@ body {
   box-shadow: 0 1px 4px rgba(29, 125, 120, 0.35);
 }
 
+/* When the dropdown has changed but the user hasn't clicked 套用 yet, the
+   apply button pulses teal to signal "pending". */
+.meta-bar .pill.date-picker button#btn-apply-range.btn-pending {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: white;
+  font-weight: 700;
+  animation: btnPulse 1.2s ease-in-out infinite;
+}
+@keyframes btnPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(29, 125, 120, 0.5); transform: scale(1); }
+  50% { box-shadow: 0 0 0 8px rgba(29, 125, 120, 0); transform: scale(1.04); }
+}
+
+
 /* When 套用 is clicked, briefly flash to confirm the action */
 .meta-bar .pill.date-picker button#btn-apply-range.applied-flash {
   animation: appliedFlash 0.6s ease-out;
@@ -1002,7 +1017,9 @@ footer a { color: var(--teal); text-decoration: none; }
    INNER SKELETON — applied to each section during initial load
    ============================================================ */
 .inner-skeleton {
-  padding: 12px 0;
+  padding: 16px 24px;
+  border-top: 1px dashed #e5e7eb;
+  margin-top: 8px;
 }
 .inner-skeleton.is-fading {
   opacity: 0;
