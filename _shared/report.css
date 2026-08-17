@@ -557,9 +557,9 @@ main {
 /* The tooltip box — uses CSS only, no JS positioning needed */
 .term::after,
 .term::before {
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 8px);
+  position: fixed;
+  left: 0; top: 0;
+  transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) translate(-50%, -100%);
   transform: translateX(-50%);
   opacity: 0;
   pointer-events: none;

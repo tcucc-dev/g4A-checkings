@@ -420,16 +420,35 @@
       if (data.meta && previousRange) data.meta.previousRange = previousRange;
     }
 
-    // Fallback: if Supabase returned nothing, try data.json anyway (last resort)
+    // Fallback: if Supabase has no rows for the requested window, snap to latest data
     if (!data) {
       try {
-        const res = await fetch('data.json?ts=' + Date.now());
-        if (res.ok) {
-          data = await res.json();
-          loadedFrom = 'data.json fallback';
+        // First check if Supabase has ANY data for this dept (latest available date)
+        const client = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+        const { data: lastRows } = await client
+          .from(deptKey).select('*').order('date', { ascending: false }).limit(1);
+        if (lastRows && lastRows.length) {
+          // Use the latest available single day. Compute previous as the day before that.
+          const cur = lastRows[0];
+          const prevISO = new Date(Date.parse(cur.date) - 86400000).toISOString().slice(0, 10);
+          const { data: prevRows } = await client
+            .from(deptKey).select('*').eq('date', prevISO).limit(1);
+          const prev = (prevRows && prevRows.length) ? prevRows[0] : null;
+          data = rowToNested(cur, deptKey, prev, daysBack);
+          data.meta.windowDays = daysBack;
+          sourceRange = cur.date;
+          previousRange = prev ? prev.date : '';
+          loadedFrom = 'supabase (latest available: ' + cur.date + (daysBack > 1 ? '; requested ' + daysBack + ' days not all in DB' : '') + ')';
+        } else {
+          // No Supabase data at all — fall back to data.json
+          const res = await fetch('data.json?ts=' + Date.now());
+          if (res.ok) {
+            data = await res.json();
+            loadedFrom = 'data.json fallback';
+          }
         }
       } catch (e) {
-        console.error('[report] data.json fetch failed:', e);
+        console.error('[report] fallback failed:', e);
       }
     }
 
