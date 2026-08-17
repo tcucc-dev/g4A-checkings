@@ -66,7 +66,7 @@
       // so render*() functions that fill the body don't overwrite it
       const skel = document.createElement('div');
       skel.className = 'inner-skeleton';
-      skel.innerHTML = '<div class="skel-line skel-h1"></div><div class="skel-line skel-h2"></div><div class="skel-line skel-h3"></div>';
+      skel.innerHTML = '<div class="skel-line skel-h1"></div><div class="skel-line"></div><div class="skel-line"></div><div class="skel-line"></div><div class="skel-line"></div><div class="skel-kpis"><div class="skel-line"></div><div class="skel-line"></div>';
       sec.appendChild(skel);
     });
   }
