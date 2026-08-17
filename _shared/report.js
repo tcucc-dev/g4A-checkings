@@ -402,11 +402,16 @@
     const rangeKey = rangeEl?.value || '1w';
     const daysBack = RANGE_DAYS[rangeKey] || 7;
 
+    // Show per-section skeleton BEFORE the fetch so the user sees it during the wait
+    addInnerSkeletons();
+    console.log('[report] skeleton shown, fetching data for', deptKey, 'window', daysBack, 'days');
+
     let data = null;
     let sourceRange = '';
     let loadedFrom = '';
 
     const fetched = await fetchRangeData(deptKey, daysBack);
+    console.log('[report] fetch complete, processing data');
     if (fetched) {
       if (fetched.currentRows && fetched.currentRows.length) {
         const curAgg = aggregateRows(fetched.currentRows);
@@ -460,6 +465,8 @@
     }
 
     if (!data) {
+      // No data: clean up skeleton before showing the empty-state section
+      fadeOutAllSkeletons();
       document.getElementById('report-root').innerHTML = '<div class="section"><div class="section-body" style="text-align:center;padding:60px 20px;"><h2>尚未有資料</h2><p>請等下一次排程更新，或聯絡電算中心。</p></div></div>';
       return;
     }
@@ -468,26 +475,29 @@
     data.meta.sourceRange = sourceRange;
     console.log(`[report] data loaded from ${loadedFrom}, window ${sourceRange}`);
 
-    renderHeader(data);
-    // Show per-section skeleton while data populates
-    addInnerSkeletons();
-    renderHealthScore(data);
-    renderKpis(data);
-    renderTrends(data);
-    renderTopKeywords(data);
-    renderTopPages(data);
-    renderAudience(data);
-    renderIssues(data);
-    renderGeo(data);
-    renderEvidence(data);
-    renderStalePages(data);
-    renderFooter(data);
+    // Render phase — wrap in try/finally so the skeleton ALWAYS fades out,
+    // even if a render function throws.
+    try {
+      renderHeader(data);
+      renderHealthScore(data);
+      renderKpis(data);
+      renderTrends(data);
+      renderTopKeywords(data);
+      renderTopPages(data);
+      renderAudience(data);
+      renderIssues(data);
+      renderGeo(data);
+      renderEvidence(data);
+      renderStalePages(data);
+      renderFooter(data);
 
-    // Expert sections (10-20) — injected before collapse logic so they auto-collapse
-    renderExpertSections(data);
-
-    // Fade out the skeleton loader now that real content is rendered
-    fadeOutSkeletonsWithMinDelay();
+      // Expert sections (10-20) — injected before collapse logic so they auto-collapse
+      renderExpertSections(data);
+    } finally {
+      // Fade out the skeleton loader now that real content is rendered (or failed)
+      console.log('[report] render phase complete, scheduling fade-out');
+      fadeOutSkeletonsWithMinDelay();
+    }
 
     // Annotate glossary terms (GSC, CTR, JSON-LD, etc.) with hover tooltips
     annotateTerms(document.querySelector('main'));
