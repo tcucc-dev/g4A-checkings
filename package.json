@@ -1,0 +1,10 @@
+{
+  "name": "tcu-webinsight-reports",
+  "version": "3.0.0",
+  "private": true,
+  "description": "TCU department web insight reports (v3 - simplified). Static HTML/CSS/JS, no build step. Data refreshed via legacy/analytics_refresh.py → writes data.json per dept.",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "refresh": "python legacy/scripts/analytics_refresh.py"
+  }
+}

@@ -1,124 +1,50 @@
-# TCU WebInsight — Multi-Department Manager Reports
+# TCU Department Web Insight Reports (v3)
 
-A unified collection of TCU department analytics reports deployed via
-GitHub Pages. Each department lives in its own folder under `/<dept>`
-and can be reached via `https://report.tcu.edu.tw/<dept>` (custom domain)
-or `https://tcucc-dev.github.io/g4A-checkings/<dept>` (project page).
+Static site serving department-level analytics for `*.tcu.edu.tw` websites.
 
-## Structure
+**v3 is a complete rewrite** — replaces the old Vite + ESM build chain with plain HTML/CSS/JS. No build step, no node_modules, no minifier bugs.
+
+## Architecture
 
 ```
-g4A-checkings/                   ← repo root
-├── index.html                   ← landing page (select department)
-├── 404.html                     ← SPA fallback (copy of index.html)
-├── deploy.ps1                   ← Windows PowerShell deploy script
-├── public/
-│   └── CNAME                    ← custom domain: report.tcu.edu.tw
-├── itm/                         ← 資訊科技與管理學系
-│   ├── index.html               ← Vite SPA entry
-│   ├── package.json
-│   ├── vite.config.js           ← base: '/itm/' (subpath)
-│   ├── vercel.json
-│   └── src/                     ← data, evidence, app, glossary
-└── nc/                          ← 護理學院 (College of Nursing)
-    └── ... (same structure as itm/)
+g4A-checkings/
+├── index.html             ← landing page (auto-loads dept stats from each data.json)
+├── _shared/
+│   ├── report.css         ← single CSS file (all depts)
+│   └── report.js          ← single JS file (fetches data.json, renders report)
+├── itm/   index.html  data.json
+├── nc/    index.html  data.json
+├── www/   index.html  data.json
+├── freshman/  index.html  data.json
+├── legacy/                  ← OLD Vite+ESM source (kept for analytics_refresh.py)
+└── vercel.json            ← static deploy, no build command
 ```
 
-## Routing
+## How to add a new dept
 
-The collection is hosted at the **root** of a custom domain
-(`report.tcu.edu.tw`) so each department can be reached by typing the
-slug directly:
+1. Create folder `/<dept>/` with `index.html` (copy from `itm/index.html`) and `data.json`
+2. Update `index.html` with the new dept name + domain
+3. Add a card on the landing page (`index.html`)
+4. Done — that's it.
 
-- `report.tcu.edu.tw/` — landing (select department)
-- `report.tcu.edu.tw/itm` — ITM report
-- `report.tcu.edu.tw/nc` — NC report
+## How to refresh data
 
-This is implemented with a single static deployment of the **landing
-page** at root + each department's Vite build output under its own
-subfolder. The `404.html` trick (copy of `index.html`) lets Vite
-handle sub-routes like `report.tcu.edu.tw/itm/section/2`.
+The legacy `analytics_refresh.py` script can still be used. Either:
+- Modify it to also write `data.json` for each dept
+- Or run a manual extract: each `legacy/<dept>/src/generated-report-data.js` exports `window.WEBINSIGHT.REPORT_DATA` that can be transformed to `data.json`
 
-## Why GitHub Pages + `gh-pages` branch?
+## Deployment
 
-GitHub Pages is **static-only** — it cannot run `npm install && npm
-build` for you. The Vite build output (`dist/`) must be committed as
-the *artifact* in a separate branch, conventionally named
-`gh-pages`. The `main` branch stays as the source of truth (your
-`.js`, `.html`, `package.json`, configs).
+Vercel auto-deploys from `main` branch. `vercel.json` has no build command — pure static.
 
-Workflow:
+## Pages
 
-1. Edit source in `main` branch
-2. Run `.\deploy.ps1` on Windows (or `bash deploy.sh` on Linux/macOS)
-3. The script:
-   - `npm run build` in each dept folder
-   - Copies the root `index.html` → `404.html`
-   - Stages all depts' `dist/` + landing into `_staging/`
-   - `gh-pages -d _staging` force-pushes `_staging/` to `gh-pages`
-4. GitHub Pages publishes the `gh-pages` branch
+| URL | Status |
+|---|---|
+| `/` | Landing |
+| `/itm/` | 資訊科技與管理系 (itm.tcu.edu.tw) |
+| `/nc/` | 護理系 (nc.tcu.edu.tw) |
+| `/www/` | 慈濟大學中文版首頁 (www.tcu.edu.tw) |
+| `/freshman/` | 新生入學 (freshman.tcu.edu.tw) |
 
-See `AI_Agent_Report/GITHUB_PAGES_VITE_SPA_BRIEF.md` for the full
-technical background.
-
-## Sub-path routing (SPA `base` setting)
-
-Each `dept/vite.config.js` sets `base: '/<dept>/'`. This rewrites
-all asset paths so the SPA can be served from a subpath
-(e.g., `/itm/assets/index-abc.js`) instead of the root.
-
-Without this, Vite would emit `<script src="/assets/index-abc.js">`
-which would 404 when hosted at `report.tcu.edu.tw/itm/`.
-
-## Setup
-
-```bash
-# First time
-git clone https://github.com/tcucc-dev/g4A-checkings
-cd g4A-checkings
-cd itm && npm ci && cd ..
-cd nc && npm ci && cd ..
-
-# Deploy (Windows)
-.\deploy.ps1
-
-# Deploy (bash)
-bash deploy.sh
-```
-
-## Custom domain `report.tcu.edu.tw`
-
-DNS:
-- `CNAME report.tcu.edu.tw → tcucc-dev.github.io`
-
-GitHub Pages settings:
-- Settings → Pages → Custom domain: `report.tcu.edu.tw`
-- Enforce HTTPS: ON
-
-The `public/CNAME` file ensures the custom domain is set on every
-push (GitHub reads `CNAME` from the root of the `gh-pages` branch).
-
-## Adding a new department
-
-1. Copy `itm/` → `newdept/` (the Vite template scaffold)
-2. Edit `newdept/src/data.js` and `newdept/src/evidence.js` with
-   the new department's data (use the `dept-report-replica` skill)
-3. Update `newdept/vite.config.js` → `base: '/newdept/'`
-4. Add a card to root `index.html` linking to `./newdept/`
-5. Run `.\deploy.ps1`
-
-## Local development
-
-Each department runs independently:
-
-```bash
-cd itm
-npm run dev   # http://localhost:5173 (vite default)
-```
-
-For the landing:
-
-```bash
-# Just open index.html in browser, or
-python -m http.server 8080  # in repo root
-```
+Source: https://github.com/tcucc-dev/g4A-checkings
