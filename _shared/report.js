@@ -385,6 +385,7 @@
         },
       },
       trends52w: row.weekly_trends || { ga4: [], gsc: [] },
+      daily_trends: row.daily_trends || [],
       audience: row.audience || { country: [], device: [], source: [] },
       topKeywords: row.keywords || [],
       topPages: row.top_pages || [],
@@ -486,6 +487,10 @@
     data.meta.loadedFrom = loadedFrom;
     data.meta.sourceRange = sourceRange;
     console.log(`[report] data loaded from ${loadedFrom}, window ${sourceRange}`);
+    // Stash the loaded payload so the trend-tab / interval handlers can
+    // re-render the daily chart without re-fetching from Supabase.
+    currentReportData = data;
+    ensureTrendTabs();
 
     // Render phase — wrap in try/finally so the skeleton ALWAYS fades out,
     // even if a render function throws.
@@ -1109,6 +1114,11 @@
 
   /* ---------- TRENDS (charts) ---------- */
   let chartRefs = [];
+  // Current trend-tab mode: 'week' (default) or 'day'. Drives setTrendTab.
+  let currentTrendMode = 'week';
+  // Module-level reference so the interval input / tab click can re-render
+  // without having to thread `d` through every event handler.
+  let currentReportData = null;
   function getDefaultWeeks(d) {
     if (d.trends52w && d.trends52w.ga4 && d.trends52w.ga4.length) {
       // ponytail: trend chart length follows the dropdown's daysBack. windowDays
@@ -1201,6 +1211,230 @@
           <tbody>${rows.map(r => `<tr><td>${esc(r.week)}</td><td class="num">${fmtNum(r.sessions ?? '-')}</td><td class="num">${fmtNum(r.pageviews ?? '-')}</td><td class="num">${fmtNum(r.impressions ?? '-')}</td><td class="num">${fmtNum(r.clicks ?? '-')}</td></tr>`).join('')}</tbody>
         </table>
       </div>`;
+  }
+
+  /* ---------- DAILY TRENDS (週/日 toggle inside Section 3) ----------
+     The HTML for the weekly charts already exists; this layer:
+       1. Injects a `週` / `日` tab toggle + interval numeric input into the
+          Section 3 header (no HTML changes — pure DOM injection).
+       2. Injects the daily chart panel below the weekly charts-row.
+       3. Renders 3 charts when 日 is active: daily GA4, daily GSC,
+          per-day source breakdown.
+     The interval input accepts any N ≥ 1 and re-renders only the daily
+     charts by sampling every Nth day. ponytail: stale-closure-prone `d` is
+     held in currentReportData module var rather than threaded through every
+     handler. Ceiling: stale data if user opens dropdown after interval
+     change re-fetches. Acceptable since dropdown refetches the whole row
+     and re-calls renderTrends/renderDailyTrends together. */
+  function ensureTrendTabs() {
+    const trends = document.getElementById('trends');
+    if (!trends) return;
+    const header = trends.querySelector('.section-header');
+    if (!header || header.querySelector('.trend-tabs')) return;
+
+    const tabs = document.createElement('span');
+    tabs.className = 'trend-tabs';
+    tabs.innerHTML = `
+      <button type="button" data-trend-tab="week" class="active">週</button>
+      <button type="button" data-trend-tab="day">日</button>
+    `;
+
+    const controls = document.createElement('span');
+    controls.className = 'trend-controls';
+    controls.id = 'day-controls';
+    controls.hidden = true;
+    controls.innerHTML = `每 <input type="number" id="day-interval" min="1" max="30" value="1" step="1"> 天 <span class="trend-range" id="day-range"></span>`;
+
+    const toggle = header.querySelector('.toggle');
+    header.insertBefore(tabs, toggle);
+    header.insertBefore(controls, toggle);
+
+    tabs.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-trend-tab]');
+      if (!btn) return;
+      e.stopPropagation();  // don't bubble to section-header collapse
+      setTrendTab(btn.dataset.trendTab);
+    });
+
+    const intervalInput = document.getElementById('day-interval');
+    intervalInput.addEventListener('click', (e) => e.stopPropagation());
+    intervalInput.addEventListener('input', () => {
+      if (currentReportData) renderDailyTrends(currentReportData);
+    });
+
+    // Mark the existing weekly charts-row so setTrendTab can find it
+    const weeklyRow = trends.querySelector('.section-body > .charts-row');
+    if (weeklyRow && !weeklyRow.hasAttribute('data-trend-panel')) {
+      weeklyRow.setAttribute('data-trend-panel', 'week');
+    }
+  }
+
+  function ensureDailyPanel() {
+    const trends = document.getElementById('trends');
+    if (!trends) return;
+    const body = trends.querySelector('.section-body');
+    if (!body || document.getElementById('chart-ga4-daily')) return;
+
+    const panel = document.createElement('div');
+    panel.className = 'trend-panel';
+    panel.setAttribute('data-trend-panel', 'day');
+    panel.hidden = true;
+    panel.innerHTML = `
+      <div class="charts-row">
+        <div class="chart-card">
+          <h3>每日 GA4</h3>
+          <div class="sub">使用者、工作階段</div>
+          <canvas id="chart-ga4-daily"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>每日 GSC</h3>
+          <div class="sub">點擊、曝光</div>
+          <canvas id="chart-gsc-daily"></canvas>
+        </div>
+      </div>
+      <div class="chart-card" style="margin-top:16px;">
+        <h3>每日來源分佈</h3>
+        <div class="sub">依 source/medium 分類的不重複使用者</div>
+        <canvas id="chart-sources-daily"></canvas>
+      </div>
+    `;
+    body.appendChild(panel);
+  }
+
+  function setTrendTab(mode) {
+    if (mode !== 'week' && mode !== 'day') return;
+    currentTrendMode = mode;
+    document.querySelectorAll('[data-trend-tab]').forEach(b => {
+      b.classList.toggle('active', b.dataset.trendTab === mode);
+    });
+    const weekPanel = document.querySelector('[data-trend-panel="week"]');
+    const dayPanel = document.querySelector('[data-trend-panel="day"]');
+    if (weekPanel) weekPanel.hidden = (mode !== 'week');
+    if (dayPanel) dayPanel.hidden = (mode !== 'day');
+    const controls = document.getElementById('day-controls');
+    if (controls) controls.hidden = (mode !== 'day');
+    if (mode === 'day' && currentReportData) renderDailyTrends(currentReportData);
+  }
+
+  function renderDailyTrends(d) {
+    if (!d) return;
+    ensureDailyPanel();
+    const daily = Array.isArray(d.daily_trends) ? d.daily_trends : [];
+    const rangeEl = document.getElementById('day-range');
+    if (!daily.length) {
+      if (rangeEl) rangeEl.textContent = '尚無每日資料';
+      const msg = '<p style="text-align:center;color:var(--muted);padding:40px 0;">尚無每日資料，請執行 <code>python scripts/build_data.py --dept ' + esc(DEPT_KEY) + '</code> 重整。</p>';
+      const c1 = document.getElementById('chart-ga4-daily');
+      if (c1) c1.parentElement.innerHTML = msg;
+      const c2 = document.getElementById('chart-gsc-daily');
+      if (c2) c2.parentElement.innerHTML = msg;
+      const c3 = document.getElementById('chart-sources-daily');
+      if (c3) c3.parentElement.innerHTML = msg;
+      return;
+    }
+
+    const rawInterval = parseInt(document.getElementById('day-interval')?.value, 10);
+    const interval = (Number.isFinite(rawInterval) && rawInterval >= 1) ? rawInterval : 1;
+    const sampled = daily.filter((_, i) => i % interval === 0);
+
+    if (rangeEl) {
+      const first = sampled[0]?.date || '';
+      const last = sampled[sampled.length - 1]?.date || '';
+      rangeEl.textContent = `(${first} – ${last} · 每 ${interval} 天 · ${sampled.length} 點)`;
+    }
+
+    if (!window.Chart) return;
+
+    // Destroy only the daily charts so the weekly ones stay mounted
+    chartRefs = chartRefs.filter(c => {
+      if (c && c.canvas && c.canvas.id && c.canvas.id.endsWith('-daily')) {
+        try { c.destroy(); } catch (_) {}
+        return false;
+      }
+      return true;
+    });
+
+    const labels = sampled.map(r => String(r.date || '').slice(5).replace('-', '/'));
+    const userColor = getCss('--blue');
+    const sessColor = getCss('--teal');
+    const impColor = getCss('--amber');
+    const clkColor = getCss('--green');
+    const greenColor = getCss('--green');
+    const blueColor = getCss('--blue');
+    const tealColor = getCss('--teal');
+    const amberColor = getCss('--amber');
+    const mutedColor = getCss('--muted');
+
+    const ga4El = document.getElementById('chart-ga4-daily');
+    if (ga4El) {
+      chartRefs.push(new Chart(ga4El, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            { label: '使用者', data: sampled.map(r => r.users || 0), borderColor: userColor, backgroundColor: userColor + '20', tension: 0.3 },
+            { label: '工作階段', data: sampled.map(r => r.sessions || 0), borderColor: sessColor, backgroundColor: sessColor + '20', tension: 0.3, yAxisID: 'y1' },
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: { legend: { position: 'top', labels: { font: { size: 11 } } } },
+          scales: {
+            y: { beginAtZero: true, title: { display: true, text: '使用者', font: { size: 10 } } },
+            y1: { beginAtZero: true, position: 'right', title: { display: true, text: '工作階段', font: { size: 10 } }, grid: { drawOnChartArea: false } }
+          }
+        }
+      }));
+    }
+
+    const gscEl = document.getElementById('chart-gsc-daily');
+    if (gscEl) {
+      chartRefs.push(new Chart(gscEl, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            { label: '點擊', data: sampled.map(r => r.gsc_clicks || 0), borderColor: clkColor, backgroundColor: clkColor + '20', tension: 0.3 },
+            { label: '曝光', data: sampled.map(r => r.gsc_impressions || 0), borderColor: impColor, backgroundColor: impColor + '20', tension: 0.3, yAxisID: 'y1' },
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: { legend: { position: 'top', labels: { font: { size: 11 } } } },
+          scales: {
+            y: { beginAtZero: true, title: { display: true, text: '點擊', font: { size: 10 } } },
+            y1: { beginAtZero: true, position: 'right', title: { display: true, text: '曝光', font: { size: 10 } }, grid: { drawOnChartArea: false } }
+          }
+        }
+      }));
+    }
+
+    const srcEl = document.getElementById('chart-sources-daily');
+    if (srcEl) {
+      chartRefs.push(new Chart(srcEl, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [
+            { label: 'organic',  data: sampled.map(r => r.sources?.organic || 0),  backgroundColor: greenColor + 'B0' },
+            { label: 'direct',   data: sampled.map(r => r.sources?.direct || 0),   backgroundColor: blueColor + 'B0' },
+            { label: 'social',   data: sampled.map(r => r.sources?.social || 0),   backgroundColor: tealColor + 'B0' },
+            { label: 'referral', data: sampled.map(r => r.sources?.referral || 0), backgroundColor: amberColor + 'B0' },
+            { label: 'other',    data: sampled.map(r => r.sources?.other || 0),    backgroundColor: mutedColor + 'B0' },
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: 'top', labels: { font: { size: 11 } } } },
+          scales: {
+            x: { stacked: true, ticks: { font: { size: 10 } } },
+            y: { stacked: true, beginAtZero: true, title: { display: true, text: '不重複使用者', font: { size: 10 } } }
+          }
+        }
+      }));
+    }
   }
 
   /* ---------- TOP KEYWORDS ---------- */

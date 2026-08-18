@@ -21,6 +21,7 @@ from datetime import date
 sys.path.insert(0, 'C:/ai_auto/scripts')
 from fetch_dept_report import (
     get_bq_client, resolve_periods, fetch_kpis, fetch_weekly_trends,
+    fetch_daily_trends,
     taiwan_date_sql_ga4,
     PROJECT, DATASET,
 )
@@ -595,6 +596,8 @@ def build_for_dept(client, key, cfg):
     top_pages = fetch_top_pages(client, cfg, periods['current'], limit=10)
     trends52w = fetch_52w_trends(client, cfg)
     print(f'  52w trends: {len(trends52w["ga4"])} weeks')
+    daily_trends = fetch_daily_trends(client, cfg, days=90)
+    print(f'  daily_trends: {len(daily_trends)} days (first={daily_trends[0]["date"] if daily_trends else "n/a"}, last={daily_trends[-1]["date"] if daily_trends else "n/a"})')
 
     site_url = f'https://{cfg["siteDomain"]}/'
     print(f'  detecting issues from {site_url}')
@@ -626,6 +629,7 @@ def build_for_dept(client, key, cfg):
         },
         'kpis': kpis,
         'trends52w': trends52w,
+        'daily_trends': daily_trends,
         'topKeywords': top_keywords,
         'topPages': top_pages,
         'audience': audience,
@@ -674,6 +678,7 @@ def build_for_dept(client, key, cfg):
             'issues': out['topIssues'],
             'stale_pages': out['stalePages'],
             'weekly_trends': out['trends52w'],
+            'daily_trends': out['daily_trends'],
             'audience': out['audience'],
             # cta_clicks, user_paths, geo: empty for now (admin query)
         }

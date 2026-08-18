@@ -433,6 +433,63 @@ main {
 }
 .section.collapsed .toggle { transform: rotate(-90deg); }
 
+/* ===== TREND TABS (週 / 日) — injected into Section 3 header ===== */
+.trend-tabs {
+  display: inline-flex;
+  gap: 4px;
+  margin-right: 12px;
+}
+.trend-tabs button {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  padding: 4px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.trend-tabs button:hover {
+  background: var(--soft);
+  color: var(--navy);
+}
+.trend-tabs button.active {
+  background: var(--teal);
+  color: white;
+  border-color: var(--teal);
+}
+.trend-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-right: 12px;
+}
+.trend-controls input[type="number"] {
+  width: 56px;
+  padding: 3px 6px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--ink);
+  background: white;
+}
+.trend-controls input[type="number"]:focus {
+  outline: none;
+  border-color: var(--teal);
+  box-shadow: 0 0 0 2px rgba(29, 125, 120, 0.15);
+}
+.trend-range {
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.trend-panel[hidden] { display: none; }
+
 /* Smooth expand/collapse using grid-template-rows trick */
 .section-body-wrap {
   display: grid;
