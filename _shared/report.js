@@ -1110,10 +1110,17 @@
   /* ---------- TRENDS (charts) ---------- */
   let chartRefs = [];
   function getDefaultWeeks(d) {
-    // Prefer last 8 weeks from trends52w; fall back to old fields if missing
     if (d.trends52w && d.trends52w.ga4 && d.trends52w.ga4.length) {
-      const ga4 = d.trends52w.ga4.slice(-8);
-      const gsc = (d.trends52w.gsc || []).slice(-8);
+      // ponytail: trend chart length follows the dropdown's daysBack. windowDays
+      // is set on d.meta by both Supabase fetch paths in init(). When the page
+      // loads without a selected range (windowDays undefined), fall back to 8.
+      // Ceiling: weeks are computed from daysBack/7 which rounds up for
+      // sub-week windows (1d→1w, 3d→1w, etc.). Acceptable until per-day
+      // Supabase rows exist (separate ticket).
+      const windowDays = Number(d.meta && d.meta.windowDays) || 7;
+      const weeks = Math.max(1, Math.ceil(windowDays / 7));
+      const ga4 = d.trends52w.ga4.slice(-weeks);
+      const gsc = (d.trends52w.gsc || []).slice(-weeks);
       return { ga4, gsc };
     }
     return { ga4: d.trendsGA4 || [], gsc: d.trendsGSC || [] };
