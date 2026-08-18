@@ -3809,10 +3809,24 @@
   "topIssues": [
     {
       "severity": "high",
-      "title": "無法連線首頁（TimeoutError）",
-      "desc": "crawl failed: The read operation timed out",
+      "title": "首頁缺 JSON-LD 結構化資料（AI 搜尋引擎看不懂你們是誰）",
+      "desc": "規則 jsonld_missing 觸發於 https://freshman.tcu.edu.tw/",
       "owner": "電算中心",
       "due": "2026-08-30"
+    },
+    {
+      "severity": "low",
+      "title": "缺 OG 社群分享標籤（Facebook/Line 分享不會有預覽）",
+      "desc": "規則 og_missing 觸發於 https://freshman.tcu.edu.tw/",
+      "owner": "單位網站管理人",
+      "due": "2026-09-30"
+    },
+    {
+      "severity": "low",
+      "title": "缺英文版 hreflang 標籤",
+      "desc": "規則 hreflang_missing 觸發於 https://freshman.tcu.edu.tw/",
+      "owner": "電算中心",
+      "due": "2026-09-30"
     }
   ],
   "geo": null,
