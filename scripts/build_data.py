@@ -639,39 +639,29 @@ def build_for_dept(client, key, cfg):
         'stalePages': stale_pages,
     }
     # Upsert to Supabase (v5 schema — 4 per-dept tables: itm/nc/www/freshman).
+    # One row per date in periods.current so the dropdown's 1d/2d/3d/1w
+    # windows sum to different totals. Per-day KPIs are reused from
+    # `daily_trends` (already fetched above) — no extra BQ queries needed.
     # Falls back gracefully if env vars are missing — data.json still gets
     # written so the dept report keeps working offline / on dev machines.
     try:
-        # ponytail: key daily row under TODAY, not period_start. period_start is
-        # week-window start (e.g. 2026-08-09) which makes "1 天" / "1 週" all
-        # return the same row. Keying under today makes the dropdown's date
-        # range query (gte.startISO AND lte.today) hit the right row directly.
-        # Ceiling: the stored row still holds the 7-day-week sum of KPIs (not
-        # a true single-day), so 1d/2d/3d windows will all show the same
-        # week totals until we store one row per day. Upgrade: rewrite
-        # build_data to write one row per date in the period.
-        upsert_date_iso = date.today().isoformat()
-        gsc_clicks_val = int(raw_kpis[2]['v'])
-        ctr_pct_val = float(raw_kpis[3]['v'].rstrip('%'))
-        # Derive impressions from clicks / ctr (avoids a separate BQ query)
-        gsc_impressions_val = int(round(gsc_clicks_val * 100 / ctr_pct_val)) if ctr_pct_val else 0
-        last_ga4_week = weekly[-1] if weekly else {}
+        from datetime import timedelta
+        cur = periods['current']
+        cur_start = date.fromisoformat(cur['start'].replace('/', '-'))
+        cur_end = date.fromisoformat(cur['end'].replace('/', '-'))
+        cur_iso_dates = [
+            (cur_start + timedelta(days=i)).isoformat()
+            for i in range((cur_end - cur_start).days + 1)
+        ]
+        # ponytail: filter in Python instead of re-querying BQ — daily_trends
+        # already covers the last 90 days with the exact per-day KPI shape we
+        # need. Ceiling: if daily_trends window ever shrinks below periods.current,
+        # fall back to a per-day BQ query here.
+        daily_by_date = {d['date']: d for d in out['daily_trends']}
+        source_max_date = out['meta'].get('maxDateGa4') or date.today().isoformat()
 
-        # Typed columns (one row per dept per date)
-        typed_row = {
-            'date': upsert_date_iso,
-            'users': int(raw_kpis[0]['v']),
-            'sessions': int(raw_kpis[1]['v']),
-            'pageviews': int(last_ga4_week.get('pageviews', 0)),
-            'gsc_clicks': gsc_clicks_val,
-            'gsc_impressions': gsc_impressions_val,
-            'ctr_pct': ctr_pct_val,
-            'bounce_rate': 0.0,        # TODO: add BQ query when needed
-            'avg_session_sec': 0.0,    # TODO: add BQ query when needed
-            'source_max_date': (out['meta'].get('maxDateGa4') or date.today().isoformat()),
-        }
-
-        # JSONB list columns (PATCHed onto the row created above)
+        # JSONB list columns are the same for every row in the period
+        # (period-level snapshot of top_keywords/top_pages/etc.).
         lists_row = {
             'keywords': out['topKeywords'],
             'top_pages': out['topPages'],
@@ -683,9 +673,28 @@ def build_for_dept(client, key, cfg):
             # cta_clicks, user_paths, geo: empty for now (admin query)
         }
 
-        upsert_daily(key, typed_row)
-        upsert_lists(key, typed_row['date'], lists_row)
-        print(f'  ✓ upserted {key} row for {typed_row["date"]}')
+        n = 0
+        for date_iso in cur_iso_dates:
+            d = daily_by_date.get(date_iso) or {}
+            gsc_clicks = int(d.get('gsc_clicks') or 0)
+            gsc_imps = int(d.get('gsc_impressions') or 0)
+            ctr_pct = round((gsc_clicks / gsc_imps * 100) if gsc_imps else 0, 2)
+            typed_row = {
+                'date': date_iso,
+                'users': int(d.get('users') or 0),
+                'sessions': int(d.get('sessions') or 0),
+                'pageviews': int(d.get('pageviews') or 0),
+                'gsc_clicks': gsc_clicks,
+                'gsc_impressions': gsc_imps,
+                'ctr_pct': ctr_pct,
+                'bounce_rate': 0.0,        # TODO: add BQ query when needed
+                'avg_session_sec': 0.0,    # TODO: add BQ query when needed
+                'source_max_date': source_max_date,
+            }
+            upsert_daily(key, typed_row)
+            upsert_lists(key, date_iso, lists_row)
+            n += 1
+        print(f'  ✓ upserted {n} per-day rows for {key} ({cur["start"]} – {cur["end"]})')
     except Exception as e:
         print(f'  ⚠ Supabase upsert skipped for {key}: {e}')
 
