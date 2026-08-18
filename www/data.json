@@ -4,7 +4,7 @@
     "siteDomain": "www.tcu.edu.tw",
     "reportVersion": "v3.0",
     "updatedAt": "2026/08/18",
-    "maxDateGa4": "2026-08-15",
+    "maxDateGa4": "2026-08-16",
     "maxDateGsc": "2026-08-15",
     "sourceCount": 3
   },
@@ -312,6 +312,13 @@
         "sessions": 10962,
         "users": 5892,
         "pageviews": 16194
+      },
+      {
+        "week_start": "2026-08-16",
+        "week_label": "08/16",
+        "sessions": 886,
+        "users": 722,
+        "pageviews": 1300
       }
     ],
     "gsc": [
@@ -536,6 +543,12 @@
         "week_label": "08/09",
         "impressions": 84645,
         "clicks": 4436
+      },
+      {
+        "week_start": "2026-08-16",
+        "week_label": "08/16",
+        "impressions": 0,
+        "clicks": 0
       }
     ]
   },
@@ -3401,6 +3414,22 @@
         "direct": 385,
         "social": 1,
         "referral": 23,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-16",
+      "users": 722,
+      "sessions": 886,
+      "pageviews": 1300,
+      "gsc_clicks": 0,
+      "gsc_impressions": 0,
+      "ctr_pct": 0,
+      "sources": {
+        "organic": 387,
+        "direct": 323,
+        "social": 0,
+        "referral": 12,
         "other": 0
       }
     }

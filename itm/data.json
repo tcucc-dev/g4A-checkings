@@ -4,7 +4,7 @@
     "siteDomain": "itm.tcu.edu.tw",
     "reportVersion": "v3.0",
     "updatedAt": "2026/08/18",
-    "maxDateGa4": "2026-08-16",
+    "maxDateGa4": "2026-08-17",
     "maxDateGsc": "2026-08-15",
     "sourceCount": 3
   },
@@ -309,9 +309,9 @@
       {
         "week_start": "2026-08-16",
         "week_label": "08/16",
-        "sessions": 28,
-        "users": 26,
-        "pageviews": 61
+        "sessions": 83,
+        "users": 70,
+        "pageviews": 385
       }
     ],
     "gsc": [
@@ -3419,6 +3419,22 @@
         "referral": 0,
         "other": 0
       }
+    },
+    {
+      "date": "2026-08-17",
+      "users": 45,
+      "sessions": 55,
+      "pageviews": 324,
+      "gsc_clicks": 0,
+      "gsc_impressions": 0,
+      "ctr_pct": 0,
+      "sources": {
+        "organic": 14,
+        "direct": 30,
+        "social": 1,
+        "referral": 1,
+        "other": 0
+      }
     }
   ],
   "topKeywords": [
@@ -3653,19 +3669,19 @@
       "users": 0
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-34441.php",
-      "impressions": 46,
-      "clicks": 1,
-      "ctr": 2.17,
-      "pos": 6.0,
-      "users": 0
-    },
-    {
       "url": "https://itm.tcu.edu.tw/p/406-1022-65878,r452.php?Lang=zh-tw",
       "impressions": 46,
       "clicks": 3,
       "ctr": 6.52,
       "pos": 6.3,
+      "users": 0
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-34441.php",
+      "impressions": 46,
+      "clicks": 1,
+      "ctr": 2.17,
+      "pos": 6.0,
       "users": 0
     },
     {
@@ -3677,11 +3693,11 @@
       "users": 0
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/16-1022-34006.php?Lang=zh-tw",
+      "url": "https://itm.tcu.edu.tw/p/403-1022-452-1.php?Lang=zh-tw",
       "impressions": 35,
-      "clicks": 1,
-      "ctr": 2.86,
-      "pos": 5.6,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 2.3,
       "users": 0
     }
   ],
@@ -3712,13 +3728,13 @@
         "share": 1.4
       },
       {
-        "name": "新加坡",
+        "name": "馬來西亞",
         "sessions": 1,
         "users": 0,
         "share": 0.5
       },
       {
-        "name": "(not set)",
+        "name": "新加坡",
         "sessions": 1,
         "users": 0,
         "share": 0.5
@@ -3876,11 +3892,11 @@
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-30107.php",
+      "url": "https://itm.tcu.edu.tw/p/404-1022-30082.php",
       "year": null,
       "impressions": 28,
-      "clicks": 1,
-      "pos": 6.4,
+      "clicks": 0,
+      "pos": 31.5,
       "note": "HTTP 404 失效連結"
     },
     {
@@ -3892,11 +3908,11 @@
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-30082.php",
+      "url": "https://itm.tcu.edu.tw/p/404-1022-30107.php",
       "year": null,
       "impressions": 28,
-      "clicks": 0,
-      "pos": 31.5,
+      "clicks": 1,
+      "pos": 6.4,
       "note": "HTTP 404 失效連結"
     },
     {
@@ -3932,19 +3948,19 @@
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/var/file/22/1022/img/1199/458067580.pdf",
-      "year": null,
-      "impressions": 19,
-      "clicks": 0,
-      "pos": 21.1,
-      "note": "HTTP 404 失效連結"
-    },
-    {
       "url": "https://itm.tcu.edu.tw/p/406-1022-65683,r452.php?Lang=zh-tw",
       "year": null,
       "impressions": 19,
       "clicks": 0,
       "pos": 7.6,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/var/file/22/1022/img/1199/458067580.pdf",
+      "year": null,
+      "impressions": 19,
+      "clicks": 0,
+      "pos": 21.1,
       "note": "HTTP 404 失效連結"
     },
     {
@@ -3972,6 +3988,14 @@
       "note": "HTTP 404 失效連結"
     },
     {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-36083.php",
+      "year": null,
+      "impressions": 14,
+      "clicks": 0,
+      "pos": 5.6,
+      "note": "HTTP 404 失效連結"
+    },
+    {
       "url": "https://itm.tcu.edu.tw/p/404-1022-58627.php?Lang=zh-tw",
       "year": null,
       "impressions": 14,
@@ -3980,7 +4004,7 @@
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-36083.php",
+      "url": "https://itm.tcu.edu.tw/var/file/22/1022/img/1843/540712717.doc",
       "year": null,
       "impressions": 14,
       "clicks": 0,
@@ -3996,11 +4020,11 @@
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/var/file/22/1022/img/1843/540712717.doc",
+      "url": "https://itm.tcu.edu.tw/var/file/22/1022/img/1214/812817256.pdf",
       "year": null,
-      "impressions": 14,
-      "clicks": 0,
-      "pos": 5.6,
+      "impressions": 12,
+      "clicks": 1,
+      "pos": 8.9,
       "note": "HTTP 404 失效連結"
     },
     {
@@ -4009,14 +4033,6 @@
       "impressions": 12,
       "clicks": 0,
       "pos": 0.5,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/var/file/22/1022/img/1214/812817256.pdf",
-      "year": null,
-      "impressions": 12,
-      "clicks": 1,
-      "pos": 8.9,
       "note": "HTTP 404 失效連結"
     }
   ]

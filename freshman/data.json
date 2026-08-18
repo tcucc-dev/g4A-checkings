@@ -4,7 +4,7 @@
     "siteDomain": "freshman.tcu.edu.tw",
     "reportVersion": "v3.0",
     "updatedAt": "2026/08/18",
-    "maxDateGa4": "2026-08-16",
+    "maxDateGa4": "2026-08-17",
     "maxDateGsc": "2026-08-15",
     "sourceCount": 3
   },
@@ -309,9 +309,9 @@
       {
         "week_start": "2026-08-16",
         "week_label": "08/16",
-        "sessions": 356,
-        "users": 285,
-        "pageviews": 883
+        "sessions": 1285,
+        "users": 853,
+        "pageviews": 3850
       }
     ],
     "gsc": [
@@ -3419,6 +3419,22 @@
         "referral": 8,
         "other": 0
       }
+    },
+    {
+      "date": "2026-08-17",
+      "users": 636,
+      "sessions": 931,
+      "pageviews": 2967,
+      "gsc_clicks": 0,
+      "gsc_impressions": 0,
+      "ctr_pct": 0,
+      "sources": {
+        "organic": 311,
+        "direct": 300,
+        "social": 6,
+        "referral": 21,
+        "other": 0
+      }
     }
   ],
   "topKeywords": [
@@ -3462,10 +3478,10 @@
       "kw": "慈濟大學新生",
       "brand": true,
       "impressions": 109,
-      "clicks": 4,
-      "ctr": 3.67,
-      "pos": 0.1,
-      "landing": "https://freshman.tcu.edu.tw/?page_id=4096"
+      "clicks": 77,
+      "ctr": 70.64,
+      "pos": 0.0,
+      "landing": "https://freshman.tcu.edu.tw/"
     },
     {
       "kw": "台灣全長多少公里",
@@ -3793,24 +3809,10 @@
   "topIssues": [
     {
       "severity": "high",
-      "title": "首頁缺 JSON-LD 結構化資料（AI 搜尋引擎看不懂你們是誰）",
-      "desc": "規則 jsonld_missing 觸發於 https://freshman.tcu.edu.tw/",
+      "title": "無法連線首頁（TimeoutError）",
+      "desc": "crawl failed: The read operation timed out",
       "owner": "電算中心",
       "due": "2026-08-30"
-    },
-    {
-      "severity": "low",
-      "title": "缺 OG 社群分享標籤（Facebook/Line 分享不會有預覽）",
-      "desc": "規則 og_missing 觸發於 https://freshman.tcu.edu.tw/",
-      "owner": "單位網站管理人",
-      "due": "2026-09-30"
-    },
-    {
-      "severity": "low",
-      "title": "缺英文版 hreflang 標籤",
-      "desc": "規則 hreflang_missing 觸發於 https://freshman.tcu.edu.tw/",
-      "owner": "電算中心",
-      "due": "2026-09-30"
     }
   ],
   "geo": null,
