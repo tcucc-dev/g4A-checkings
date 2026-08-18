@@ -510,6 +510,13 @@
 
       // Expert sections (10-20) — injected before collapse logic so they auto-collapse
       renderExpertSections(data);
+
+      // Wire the 週/日 tab toggle inside Section 3 and create the daily chart
+      // panel + canvases. Must run AFTER renderTrends() so .section-body exists
+      // for ensureDailyPanel() to append into. Rendered data is stashed in
+      // currentReportData by init() earlier (see line 492) so the interval input
+      // can re-render the daily chart on change without a full re-fetch.
+      setupTrendTabs();
     } finally {
       // Fade out the skeleton loader now that real content is rendered (or failed)
       console.log('[report] render phase complete, scheduling fade-out');
