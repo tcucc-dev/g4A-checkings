@@ -760,7 +760,12 @@
     const deptKey = (location.pathname.match(/\/([^\/]+)\/?$/) || [])[1] || 'itm';
     const reportUrl = `analytics.tcu.edu.tw/${deptKey}`;
     $('#site-domain').innerHTML = `<a href="https://${reportUrl}" target="_blank" rel="noopener" style="color:#bde8ec;text-decoration:none;">${reportUrl}</a>`;
-    $('#report-period').textContent = `${d.periods.current.start} – ${d.periods.current.end}${d.meta.previousRange ? ` (vs ${d.meta.previousRange})` : ''}`;
+    // ponytail: read the window label from data.meta.sourceRange (computed in
+// init() from the dropdown's actual selection) instead of d.periods.current
+// (which is the stale data.json field that doesn't reflect the user's
+// current dropdown choice). previousRange already comes from
+// data.meta.previousRange and is correct.
+$('#report-period').textContent = `${(d.meta.sourceRange || '').replace(/-/g, '/')}${d.meta.previousRange ? ` (vs ${d.meta.previousRange})` : ''}`;
     $('#report-updated').textContent = d.meta.updatedAt;
     $('#report-version').textContent = `v${d.meta.reportVersion}`;
     document.title = `${d.meta.siteName}｜TCU 網站分析報告 v${d.meta.reportVersion}`;
