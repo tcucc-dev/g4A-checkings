@@ -308,6 +308,11 @@
       const res = await fetch('data.json?ts=' + Date.now());
       if (res.ok) {
         const json = await res.json();
+        // ponytail: data.json is a 7-day-week snapshot; it has no per-day rows
+        // so any non-1w window will be approximate. The window labels still
+        // show, the numbers don't scale. Upgrade: write one row per day in
+        // build_data so every range hits a real Supabase sum.
+        console.warn(`[report] no Supabase rows for ${deptKey} ${startISO}..${todayISO} (${daysBack}d); showing 7-day data.json snapshot as fallback`);
         return { currentRows: null, snapshot: json, previousRows: null, startStr: startISO, endStr: todayISO, source: 'data.json (current snapshot only)' };
       }
     } catch (e) { /* ignore */ }

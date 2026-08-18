@@ -29,4 +29,5 @@ _cache/
 # Downloaded test fixtures
 *_live.html
 .claude/
+.hermes-task-*.md
 scripts/__pycache__/

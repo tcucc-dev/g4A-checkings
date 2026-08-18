@@ -638,7 +638,15 @@ def build_for_dept(client, key, cfg):
     # Falls back gracefully if env vars are missing — data.json still gets
     # written so the dept report keeps working offline / on dev machines.
     try:
-        period_start_iso = out['periods']['current']['start'].replace('/', '-')  # 'YYYY-MM-DD'
+        # ponytail: key daily row under TODAY, not period_start. period_start is
+        # week-window start (e.g. 2026-08-09) which makes "1 天" / "1 週" all
+        # return the same row. Keying under today makes the dropdown's date
+        # range query (gte.startISO AND lte.today) hit the right row directly.
+        # Ceiling: the stored row still holds the 7-day-week sum of KPIs (not
+        # a true single-day), so 1d/2d/3d windows will all show the same
+        # week totals until we store one row per day. Upgrade: rewrite
+        # build_data to write one row per date in the period.
+        upsert_date_iso = date.today().isoformat()
         gsc_clicks_val = int(raw_kpis[2]['v'])
         ctr_pct_val = float(raw_kpis[3]['v'].rstrip('%'))
         # Derive impressions from clicks / ctr (avoids a separate BQ query)
@@ -647,7 +655,7 @@ def build_for_dept(client, key, cfg):
 
         # Typed columns (one row per dept per date)
         typed_row = {
-            'date': period_start_iso,
+            'date': upsert_date_iso,
             'users': int(raw_kpis[0]['v']),
             'sessions': int(raw_kpis[1]['v']),
             'pageviews': int(last_ga4_week.get('pageviews', 0)),
