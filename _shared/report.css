@@ -433,62 +433,56 @@ main {
 }
 .section.collapsed .toggle { transform: rotate(-90deg); }
 
-/* ===== TREND TABS (週 / 日) — injected into Section 3 header ===== */
-.trend-tabs {
-  display: inline-flex;
-  gap: 4px;
-  margin-right: 12px;
-}
-.trend-tabs button {
-  background: transparent;
-  border: 1px solid var(--line);
-  color: var(--muted);
-  padding: 4px 14px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: inherit;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
-}
-.trend-tabs button:hover {
-  background: var(--soft);
-  color: var(--navy);
-}
-.trend-tabs button.active {
-  background: var(--teal);
-  color: white;
-  border-color: var(--teal);
-}
+/* ===== TREND CONTROLS (from / to / interval / 套用) — injected into Section 3 header ===== */
 .trend-controls {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 13px;
+  gap: 8px;
+  font-size: 12.5px;
   color: var(--muted);
   margin-right: 12px;
+  flex-wrap: wrap;
 }
-.trend-controls input[type="number"] {
-  width: 56px;
+.trend-controls .trend-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.trend-controls input[type="date"],
+.trend-controls input[type="number"],
+.trend-controls select {
   padding: 3px 6px;
   border: 1px solid var(--line);
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 12.5px;
   font-family: inherit;
   color: var(--ink);
   background: white;
+  cursor: pointer;
 }
-.trend-controls input[type="number"]:focus {
+.trend-controls input[type="number"] { width: 52px; }
+.trend-controls input:focus,
+.trend-controls select:focus {
   outline: none;
   border-color: var(--teal);
   box-shadow: 0 0 0 2px rgba(29, 125, 120, 0.15);
 }
-.trend-range {
-  color: var(--muted);
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
+.trend-controls button#trend-apply {
+  background: var(--teal);
+  border: 1px solid var(--teal);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, box-shadow 0.15s;
 }
-.trend-panel[hidden] { display: none; }
+.trend-controls button#trend-apply:hover {
+  background: #155f5b;
+  box-shadow: 0 2px 8px rgba(29, 125, 120, 0.35);
+}
 
 /* Smooth expand/collapse using grid-template-rows trick */
 .section-body-wrap {
