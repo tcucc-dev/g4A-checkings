@@ -596,7 +596,7 @@ def build_for_dept(client, key, cfg):
     top_pages = fetch_top_pages(client, cfg, periods['current'], limit=10)
     trends52w = fetch_52w_trends(client, cfg)
     print(f'  52w trends: {len(trends52w["ga4"])} weeks')
-    daily_trends = fetch_daily_trends(client, cfg, days=90)
+    daily_trends = fetch_daily_trends(client, cfg, days=180)
     print(f'  daily_trends: {len(daily_trends)} days (first={daily_trends[0]["date"] if daily_trends else "n/a"}, last={daily_trends[-1]["date"] if daily_trends else "n/a"})')
 
     site_url = f'https://{cfg["siteDomain"]}/'
@@ -639,29 +639,32 @@ def build_for_dept(client, key, cfg):
         'stalePages': stale_pages,
     }
     # Upsert to Supabase (v5 schema — 4 per-dept tables: itm/nc/www/freshman).
-    # One row per date in periods.current so the dropdown's 1d/2d/3d/1w
-    # windows sum to different totals. Per-day KPIs are reused from
-    # `daily_trends` (already fetched above) — no extra BQ queries needed.
-    # Falls back gracefully if env vars are missing — data.json still gets
-    # written so the dept report keeps working offline / on dev machines.
+    # One row per date in the last 180 days so the dropdown's 1d/.../6mo
+    # windows sum to correct totals via `aggregateRows()` in report.js.
+    # Per-day KPIs are reused from `daily_trends` (already fetched above) — no
+    # extra BQ queries needed. JSONB list columns are stored ONLY on the today
+    # row to keep the 180-row table size bounded (otherwise 180×list bytes ≈
+    # tens of MB of duplicated JSONB). Falls back gracefully if env vars are
+    # missing — data.json still gets written so the dept report keeps working
+    # offline / on dev machines.
     try:
         from datetime import timedelta
-        cur = periods['current']
-        cur_start = date.fromisoformat(cur['start'].replace('/', '-'))
-        cur_end = date.fromisoformat(cur['end'].replace('/', '-'))
-        cur_iso_dates = [
-            (cur_start + timedelta(days=i)).isoformat()
-            for i in range((cur_end - cur_start).days + 1)
+        today_d = date.today()
+        days_back = 180
+        start_180d = today_d - timedelta(days=days_back - 1)
+        today_iso = today_d.isoformat()
+        window_dates = [
+            (start_180d + timedelta(days=i)).isoformat()
+            for i in range(days_back)
         ]
         # ponytail: filter in Python instead of re-querying BQ — daily_trends
-        # already covers the last 90 days with the exact per-day KPI shape we
-        # need. Ceiling: if daily_trends window ever shrinks below periods.current,
-        # fall back to a per-day BQ query here.
+        # already covers the last 180 days with the exact per-day KPI shape we
+        # need. Ceiling: if daily_trends window ever shrinks below 180d, fall
+        # back to a per-day BQ query here.
         daily_by_date = {d['date']: d for d in out['daily_trends']}
-        source_max_date = out['meta'].get('maxDateGa4') or date.today().isoformat()
+        source_max_date = out['meta'].get('maxDateGa4') or today_iso
 
-        # JSONB list columns are the same for every row in the period
-        # (period-level snapshot of top_keywords/top_pages/etc.).
+        # Period-level snapshot — only attached to the today row.
         lists_row = {
             'keywords': out['topKeywords'],
             'top_pages': out['topPages'],
@@ -674,7 +677,7 @@ def build_for_dept(client, key, cfg):
         }
 
         n = 0
-        for date_iso in cur_iso_dates:
+        for date_iso in window_dates:
             d = daily_by_date.get(date_iso) or {}
             gsc_clicks = int(d.get('gsc_clicks') or 0)
             gsc_imps = int(d.get('gsc_impressions') or 0)
@@ -692,9 +695,14 @@ def build_for_dept(client, key, cfg):
                 'source_max_date': source_max_date,
             }
             upsert_daily(key, typed_row)
-            upsert_lists(key, date_iso, lists_row)
+            if date_iso == today_iso:
+                upsert_lists(key, date_iso, lists_row)
             n += 1
-        print(f'  ✓ upserted {n} per-day rows for {key} ({cur["start"]} – {cur["end"]})')
+
+        # Cleanup: drop legacy rows outside the 180-day window (mixed-strategy
+        # week-sums from before this change). Cheap — one DELETE round-trip.
+        supabase_request(f'/{key}?date=lt.{start_180d.isoformat()}', method='DELETE')
+        print(f'  ✓ upserted {n} per-day rows for {key} ({start_180d.isoformat()} – {today_iso})')
     except Exception as e:
         print(f'  ⚠ Supabase upsert skipped for {key}: {e}')
 

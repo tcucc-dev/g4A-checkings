@@ -541,6 +541,1446 @@
   },
   "daily_trends": [
     {
+      "date": "2026-02-18",
+      "users": 57,
+      "sessions": 56,
+      "pageviews": 73,
+      "gsc_clicks": 30,
+      "gsc_impressions": 1340,
+      "ctr_pct": 2.24,
+      "sources": {
+        "organic": 15,
+        "direct": 41,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-02-19",
+      "users": 76,
+      "sessions": 79,
+      "pageviews": 99,
+      "gsc_clicks": 40,
+      "gsc_impressions": 1729,
+      "ctr_pct": 2.31,
+      "sources": {
+        "organic": 24,
+        "direct": 52,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-02-20",
+      "users": 60,
+      "sessions": 66,
+      "pageviews": 113,
+      "gsc_clicks": 60,
+      "gsc_impressions": 1896,
+      "ctr_pct": 3.16,
+      "sources": {
+        "organic": 44,
+        "direct": 16,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-02-21",
+      "users": 65,
+      "sessions": 67,
+      "pageviews": 91,
+      "gsc_clicks": 104,
+      "gsc_impressions": 2385,
+      "ctr_pct": 4.36,
+      "sources": {
+        "organic": 53,
+        "direct": 11,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-02-22",
+      "users": 148,
+      "sessions": 178,
+      "pageviews": 304,
+      "gsc_clicks": 433,
+      "gsc_impressions": 5401,
+      "ctr_pct": 8.02,
+      "sources": {
+        "organic": 121,
+        "direct": 23,
+        "social": 0,
+        "referral": 4,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-02-23",
+      "users": 378,
+      "sessions": 493,
+      "pageviews": 659,
+      "gsc_clicks": 295,
+      "gsc_impressions": 4539,
+      "ctr_pct": 6.5,
+      "sources": {
+        "organic": 327,
+        "direct": 39,
+        "social": 1,
+        "referral": 11,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-02-24",
+      "users": 270,
+      "sessions": 314,
+      "pageviews": 417,
+      "gsc_clicks": 294,
+      "gsc_impressions": 4347,
+      "ctr_pct": 6.76,
+      "sources": {
+        "organic": 238,
+        "direct": 26,
+        "social": 0,
+        "referral": 6,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-02-25",
+      "users": 260,
+      "sessions": 316,
+      "pageviews": 464,
+      "gsc_clicks": 252,
+      "gsc_impressions": 4814,
+      "ctr_pct": 5.23,
+      "sources": {
+        "organic": 223,
+        "direct": 29,
+        "social": 0,
+        "referral": 8,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-02-26",
+      "users": 233,
+      "sessions": 271,
+      "pageviews": 341,
+      "gsc_clicks": 130,
+      "gsc_impressions": 3503,
+      "ctr_pct": 3.71,
+      "sources": {
+        "organic": 205,
+        "direct": 24,
+        "social": 0,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-02-27",
+      "users": 105,
+      "sessions": 119,
+      "pageviews": 174,
+      "gsc_clicks": 102,
+      "gsc_impressions": 2570,
+      "ctr_pct": 3.97,
+      "sources": {
+        "organic": 86,
+        "direct": 17,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-02-28",
+      "users": 91,
+      "sessions": 109,
+      "pageviews": 159,
+      "gsc_clicks": 75,
+      "gsc_impressions": 2392,
+      "ctr_pct": 3.14,
+      "sources": {
+        "organic": 83,
+        "direct": 8,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-01",
+      "users": 123,
+      "sessions": 136,
+      "pageviews": 198,
+      "gsc_clicks": 227,
+      "gsc_impressions": 4550,
+      "ctr_pct": 4.99,
+      "sources": {
+        "organic": 106,
+        "direct": 15,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-02",
+      "users": 227,
+      "sessions": 272,
+      "pageviews": 372,
+      "gsc_clicks": 219,
+      "gsc_impressions": 4483,
+      "ctr_pct": 4.89,
+      "sources": {
+        "organic": 200,
+        "direct": 23,
+        "social": 0,
+        "referral": 4,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-03",
+      "users": 200,
+      "sessions": 230,
+      "pageviews": 298,
+      "gsc_clicks": 224,
+      "gsc_impressions": 4423,
+      "ctr_pct": 5.06,
+      "sources": {
+        "organic": 172,
+        "direct": 22,
+        "social": 1,
+        "referral": 6,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-04",
+      "users": 217,
+      "sessions": 248,
+      "pageviews": 338,
+      "gsc_clicks": 245,
+      "gsc_impressions": 4608,
+      "ctr_pct": 5.32,
+      "sources": {
+        "organic": 194,
+        "direct": 17,
+        "social": 0,
+        "referral": 6,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-05",
+      "users": 254,
+      "sessions": 283,
+      "pageviews": 352,
+      "gsc_clicks": 236,
+      "gsc_impressions": 3879,
+      "ctr_pct": 6.08,
+      "sources": {
+        "organic": 216,
+        "direct": 36,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-06",
+      "users": 249,
+      "sessions": 286,
+      "pageviews": 336,
+      "gsc_clicks": 122,
+      "gsc_impressions": 2597,
+      "ctr_pct": 4.7,
+      "sources": {
+        "organic": 184,
+        "direct": 63,
+        "social": 1,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-07",
+      "users": 124,
+      "sessions": 132,
+      "pageviews": 170,
+      "gsc_clicks": 82,
+      "gsc_impressions": 2075,
+      "ctr_pct": 3.95,
+      "sources": {
+        "organic": 84,
+        "direct": 37,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-08",
+      "users": 95,
+      "sessions": 100,
+      "pageviews": 138,
+      "gsc_clicks": 127,
+      "gsc_impressions": 3056,
+      "ctr_pct": 4.16,
+      "sources": {
+        "organic": 80,
+        "direct": 15,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-09",
+      "users": 128,
+      "sessions": 142,
+      "pageviews": 186,
+      "gsc_clicks": 134,
+      "gsc_impressions": 3162,
+      "ctr_pct": 4.24,
+      "sources": {
+        "organic": 111,
+        "direct": 16,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-10",
+      "users": 124,
+      "sessions": 145,
+      "pageviews": 188,
+      "gsc_clicks": 123,
+      "gsc_impressions": 3054,
+      "ctr_pct": 4.03,
+      "sources": {
+        "organic": 108,
+        "direct": 11,
+        "social": 1,
+        "referral": 5,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-11",
+      "users": 126,
+      "sessions": 146,
+      "pageviews": 186,
+      "gsc_clicks": 134,
+      "gsc_impressions": 2952,
+      "ctr_pct": 4.54,
+      "sources": {
+        "organic": 108,
+        "direct": 12,
+        "social": 0,
+        "referral": 6,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-12",
+      "users": 122,
+      "sessions": 143,
+      "pageviews": 180,
+      "gsc_clicks": 140,
+      "gsc_impressions": 2896,
+      "ctr_pct": 4.83,
+      "sources": {
+        "organic": 99,
+        "direct": 17,
+        "social": 3,
+        "referral": 6,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-13",
+      "users": 144,
+      "sessions": 165,
+      "pageviews": 201,
+      "gsc_clicks": 80,
+      "gsc_impressions": 2130,
+      "ctr_pct": 3.76,
+      "sources": {
+        "organic": 113,
+        "direct": 21,
+        "social": 3,
+        "referral": 10,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-14",
+      "users": 67,
+      "sessions": 73,
+      "pageviews": 88,
+      "gsc_clicks": 59,
+      "gsc_impressions": 2020,
+      "ctr_pct": 2.92,
+      "sources": {
+        "organic": 55,
+        "direct": 8,
+        "social": 0,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-15",
+      "users": 78,
+      "sessions": 83,
+      "pageviews": 108,
+      "gsc_clicks": 116,
+      "gsc_impressions": 2904,
+      "ctr_pct": 3.99,
+      "sources": {
+        "organic": 63,
+        "direct": 13,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-16",
+      "users": 113,
+      "sessions": 126,
+      "pageviews": 155,
+      "gsc_clicks": 120,
+      "gsc_impressions": 3359,
+      "ctr_pct": 3.57,
+      "sources": {
+        "organic": 104,
+        "direct": 6,
+        "social": 0,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-17",
+      "users": 122,
+      "sessions": 139,
+      "pageviews": 163,
+      "gsc_clicks": 120,
+      "gsc_impressions": 3182,
+      "ctr_pct": 3.77,
+      "sources": {
+        "organic": 108,
+        "direct": 12,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-18",
+      "users": 136,
+      "sessions": 161,
+      "pageviews": 254,
+      "gsc_clicks": 144,
+      "gsc_impressions": 3271,
+      "ctr_pct": 4.4,
+      "sources": {
+        "organic": 108,
+        "direct": 23,
+        "social": 0,
+        "referral": 5,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-19",
+      "users": 128,
+      "sessions": 153,
+      "pageviews": 229,
+      "gsc_clicks": 137,
+      "gsc_impressions": 2964,
+      "ctr_pct": 4.62,
+      "sources": {
+        "organic": 103,
+        "direct": 22,
+        "social": 0,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-20",
+      "users": 145,
+      "sessions": 167,
+      "pageviews": 260,
+      "gsc_clicks": 105,
+      "gsc_impressions": 2280,
+      "ctr_pct": 4.61,
+      "sources": {
+        "organic": 120,
+        "direct": 22,
+        "social": 1,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-21",
+      "users": 98,
+      "sessions": 110,
+      "pageviews": 152,
+      "gsc_clicks": 47,
+      "gsc_impressions": 1845,
+      "ctr_pct": 2.55,
+      "sources": {
+        "organic": 52,
+        "direct": 45,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-22",
+      "users": 107,
+      "sessions": 112,
+      "pageviews": 134,
+      "gsc_clicks": 119,
+      "gsc_impressions": 2501,
+      "ctr_pct": 4.76,
+      "sources": {
+        "organic": 56,
+        "direct": 49,
+        "social": 1,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-23",
+      "users": 151,
+      "sessions": 167,
+      "pageviews": 248,
+      "gsc_clicks": 93,
+      "gsc_impressions": 2813,
+      "ctr_pct": 3.31,
+      "sources": {
+        "organic": 103,
+        "direct": 46,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-24",
+      "users": 110,
+      "sessions": 123,
+      "pageviews": 163,
+      "gsc_clicks": 123,
+      "gsc_impressions": 2636,
+      "ctr_pct": 4.67,
+      "sources": {
+        "organic": 88,
+        "direct": 20,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-25",
+      "users": 113,
+      "sessions": 133,
+      "pageviews": 177,
+      "gsc_clicks": 104,
+      "gsc_impressions": 2606,
+      "ctr_pct": 3.99,
+      "sources": {
+        "organic": 92,
+        "direct": 20,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-26",
+      "users": 112,
+      "sessions": 118,
+      "pageviews": 154,
+      "gsc_clicks": 107,
+      "gsc_impressions": 2776,
+      "ctr_pct": 3.85,
+      "sources": {
+        "organic": 92,
+        "direct": 16,
+        "social": 1,
+        "referral": 4,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-27",
+      "users": 112,
+      "sessions": 129,
+      "pageviews": 161,
+      "gsc_clicks": 78,
+      "gsc_impressions": 2055,
+      "ctr_pct": 3.8,
+      "sources": {
+        "organic": 94,
+        "direct": 16,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-28",
+      "users": 64,
+      "sessions": 71,
+      "pageviews": 88,
+      "gsc_clicks": 61,
+      "gsc_impressions": 1541,
+      "ctr_pct": 3.96,
+      "sources": {
+        "organic": 50,
+        "direct": 14,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-29",
+      "users": 61,
+      "sessions": 66,
+      "pageviews": 89,
+      "gsc_clicks": 103,
+      "gsc_impressions": 2180,
+      "ctr_pct": 4.72,
+      "sources": {
+        "organic": 53,
+        "direct": 8,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-30",
+      "users": 105,
+      "sessions": 117,
+      "pageviews": 131,
+      "gsc_clicks": 122,
+      "gsc_impressions": 2898,
+      "ctr_pct": 4.21,
+      "sources": {
+        "organic": 90,
+        "direct": 12,
+        "social": 0,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-03-31",
+      "users": 146,
+      "sessions": 160,
+      "pageviews": 213,
+      "gsc_clicks": 118,
+      "gsc_impressions": 2710,
+      "ctr_pct": 4.35,
+      "sources": {
+        "organic": 120,
+        "direct": 22,
+        "social": 0,
+        "referral": 4,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-01",
+      "users": 123,
+      "sessions": 138,
+      "pageviews": 205,
+      "gsc_clicks": 82,
+      "gsc_impressions": 2100,
+      "ctr_pct": 3.9,
+      "sources": {
+        "organic": 91,
+        "direct": 26,
+        "social": 0,
+        "referral": 6,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-02",
+      "users": 92,
+      "sessions": 104,
+      "pageviews": 150,
+      "gsc_clicks": 61,
+      "gsc_impressions": 1747,
+      "ctr_pct": 3.49,
+      "sources": {
+        "organic": 64,
+        "direct": 24,
+        "social": 1,
+        "referral": 4,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-03",
+      "users": 62,
+      "sessions": 67,
+      "pageviews": 102,
+      "gsc_clicks": 49,
+      "gsc_impressions": 1507,
+      "ctr_pct": 3.25,
+      "sources": {
+        "organic": 47,
+        "direct": 14,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-04",
+      "users": 46,
+      "sessions": 50,
+      "pageviews": 99,
+      "gsc_clicks": 49,
+      "gsc_impressions": 1555,
+      "ctr_pct": 3.15,
+      "sources": {
+        "organic": 35,
+        "direct": 8,
+        "social": 1,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-05",
+      "users": 62,
+      "sessions": 70,
+      "pageviews": 118,
+      "gsc_clicks": 52,
+      "gsc_impressions": 1748,
+      "ctr_pct": 2.97,
+      "sources": {
+        "organic": 45,
+        "direct": 17,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-06",
+      "users": 65,
+      "sessions": 69,
+      "pageviews": 87,
+      "gsc_clicks": 79,
+      "gsc_impressions": 2339,
+      "ctr_pct": 3.38,
+      "sources": {
+        "organic": 52,
+        "direct": 13,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-07",
+      "users": 126,
+      "sessions": 141,
+      "pageviews": 197,
+      "gsc_clicks": 114,
+      "gsc_impressions": 2710,
+      "ctr_pct": 4.21,
+      "sources": {
+        "organic": 88,
+        "direct": 34,
+        "social": 2,
+        "referral": 4,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-08",
+      "users": 129,
+      "sessions": 139,
+      "pageviews": 170,
+      "gsc_clicks": 154,
+      "gsc_impressions": 3076,
+      "ctr_pct": 5.01,
+      "sources": {
+        "organic": 101,
+        "direct": 26,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-09",
+      "users": 157,
+      "sessions": 180,
+      "pageviews": 236,
+      "gsc_clicks": 111,
+      "gsc_impressions": 3108,
+      "ctr_pct": 3.57,
+      "sources": {
+        "organic": 127,
+        "direct": 24,
+        "social": 0,
+        "referral": 5,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-10",
+      "users": 128,
+      "sessions": 145,
+      "pageviews": 169,
+      "gsc_clicks": 98,
+      "gsc_impressions": 2829,
+      "ctr_pct": 3.46,
+      "sources": {
+        "organic": 98,
+        "direct": 26,
+        "social": 0,
+        "referral": 4,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-11",
+      "users": 95,
+      "sessions": 105,
+      "pageviews": 134,
+      "gsc_clicks": 88,
+      "gsc_impressions": 1936,
+      "ctr_pct": 4.55,
+      "sources": {
+        "organic": 73,
+        "direct": 20,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-12",
+      "users": 91,
+      "sessions": 95,
+      "pageviews": 134,
+      "gsc_clicks": 78,
+      "gsc_impressions": 2165,
+      "ctr_pct": 3.6,
+      "sources": {
+        "organic": 60,
+        "direct": 31,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-13",
+      "users": 126,
+      "sessions": 144,
+      "pageviews": 190,
+      "gsc_clicks": 118,
+      "gsc_impressions": 2862,
+      "ctr_pct": 4.12,
+      "sources": {
+        "organic": 98,
+        "direct": 24,
+        "social": 1,
+        "referral": 4,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-14",
+      "users": 100,
+      "sessions": 111,
+      "pageviews": 150,
+      "gsc_clicks": 98,
+      "gsc_impressions": 2457,
+      "ctr_pct": 3.99,
+      "sources": {
+        "organic": 83,
+        "direct": 17,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-15",
+      "users": 104,
+      "sessions": 117,
+      "pageviews": 160,
+      "gsc_clicks": 104,
+      "gsc_impressions": 2578,
+      "ctr_pct": 4.03,
+      "sources": {
+        "organic": 81,
+        "direct": 18,
+        "social": 2,
+        "referral": 5,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-16",
+      "users": 108,
+      "sessions": 129,
+      "pageviews": 163,
+      "gsc_clicks": 103,
+      "gsc_impressions": 2391,
+      "ctr_pct": 4.31,
+      "sources": {
+        "organic": 78,
+        "direct": 28,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-17",
+      "users": 108,
+      "sessions": 120,
+      "pageviews": 142,
+      "gsc_clicks": 77,
+      "gsc_impressions": 1874,
+      "ctr_pct": 4.11,
+      "sources": {
+        "organic": 80,
+        "direct": 22,
+        "social": 0,
+        "referral": 6,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-18",
+      "users": 68,
+      "sessions": 76,
+      "pageviews": 90,
+      "gsc_clicks": 52,
+      "gsc_impressions": 1672,
+      "ctr_pct": 3.11,
+      "sources": {
+        "organic": 50,
+        "direct": 16,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-19",
+      "users": 74,
+      "sessions": 82,
+      "pageviews": 128,
+      "gsc_clicks": 77,
+      "gsc_impressions": 2059,
+      "ctr_pct": 3.74,
+      "sources": {
+        "organic": 50,
+        "direct": 21,
+        "social": 0,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-20",
+      "users": 97,
+      "sessions": 110,
+      "pageviews": 121,
+      "gsc_clicks": 85,
+      "gsc_impressions": 2233,
+      "ctr_pct": 3.81,
+      "sources": {
+        "organic": 74,
+        "direct": 22,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-21",
+      "users": 103,
+      "sessions": 118,
+      "pageviews": 191,
+      "gsc_clicks": 69,
+      "gsc_impressions": 2229,
+      "ctr_pct": 3.1,
+      "sources": {
+        "organic": 79,
+        "direct": 19,
+        "social": 0,
+        "referral": 5,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-22",
+      "users": 92,
+      "sessions": 104,
+      "pageviews": 140,
+      "gsc_clicks": 72,
+      "gsc_impressions": 2326,
+      "ctr_pct": 3.1,
+      "sources": {
+        "organic": 61,
+        "direct": 29,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-23",
+      "users": 81,
+      "sessions": 88,
+      "pageviews": 132,
+      "gsc_clicks": 96,
+      "gsc_impressions": 2173,
+      "ctr_pct": 4.42,
+      "sources": {
+        "organic": 59,
+        "direct": 21,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-24",
+      "users": 106,
+      "sessions": 116,
+      "pageviews": 159,
+      "gsc_clicks": 77,
+      "gsc_impressions": 1845,
+      "ctr_pct": 4.17,
+      "sources": {
+        "organic": 82,
+        "direct": 21,
+        "social": 0,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-25",
+      "users": 81,
+      "sessions": 93,
+      "pageviews": 113,
+      "gsc_clicks": 53,
+      "gsc_impressions": 1487,
+      "ctr_pct": 3.56,
+      "sources": {
+        "organic": 52,
+        "direct": 28,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-26",
+      "users": 70,
+      "sessions": 78,
+      "pageviews": 106,
+      "gsc_clicks": 80,
+      "gsc_impressions": 2149,
+      "ctr_pct": 3.72,
+      "sources": {
+        "organic": 47,
+        "direct": 20,
+        "social": 0,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-27",
+      "users": 92,
+      "sessions": 115,
+      "pageviews": 177,
+      "gsc_clicks": 106,
+      "gsc_impressions": 2232,
+      "ctr_pct": 4.75,
+      "sources": {
+        "organic": 70,
+        "direct": 20,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-28",
+      "users": 92,
+      "sessions": 101,
+      "pageviews": 135,
+      "gsc_clicks": 68,
+      "gsc_impressions": 2112,
+      "ctr_pct": 3.22,
+      "sources": {
+        "organic": 66,
+        "direct": 24,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-29",
+      "users": 95,
+      "sessions": 105,
+      "pageviews": 159,
+      "gsc_clicks": 79,
+      "gsc_impressions": 1935,
+      "ctr_pct": 4.08,
+      "sources": {
+        "organic": 66,
+        "direct": 23,
+        "social": 1,
+        "referral": 6,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-04-30",
+      "users": 95,
+      "sessions": 112,
+      "pageviews": 130,
+      "gsc_clicks": 63,
+      "gsc_impressions": 1835,
+      "ctr_pct": 3.43,
+      "sources": {
+        "organic": 70,
+        "direct": 23,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-01",
+      "users": 62,
+      "sessions": 70,
+      "pageviews": 104,
+      "gsc_clicks": 28,
+      "gsc_impressions": 1313,
+      "ctr_pct": 2.13,
+      "sources": {
+        "organic": 40,
+        "direct": 19,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-02",
+      "users": 48,
+      "sessions": 53,
+      "pageviews": 73,
+      "gsc_clicks": 41,
+      "gsc_impressions": 1265,
+      "ctr_pct": 3.24,
+      "sources": {
+        "organic": 30,
+        "direct": 16,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-03",
+      "users": 38,
+      "sessions": 39,
+      "pageviews": 47,
+      "gsc_clicks": 70,
+      "gsc_impressions": 2131,
+      "ctr_pct": 3.28,
+      "sources": {
+        "organic": 27,
+        "direct": 9,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-04",
+      "users": 118,
+      "sessions": 127,
+      "pageviews": 175,
+      "gsc_clicks": 106,
+      "gsc_impressions": 2280,
+      "ctr_pct": 4.65,
+      "sources": {
+        "organic": 83,
+        "direct": 31,
+        "social": 0,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-05",
+      "users": 110,
+      "sessions": 120,
+      "pageviews": 164,
+      "gsc_clicks": 85,
+      "gsc_impressions": 2123,
+      "ctr_pct": 4.0,
+      "sources": {
+        "organic": 77,
+        "direct": 31,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-06",
+      "users": 93,
+      "sessions": 106,
+      "pageviews": 129,
+      "gsc_clicks": 96,
+      "gsc_impressions": 2165,
+      "ctr_pct": 4.43,
+      "sources": {
+        "organic": 68,
+        "direct": 22,
+        "social": 1,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-07",
+      "users": 114,
+      "sessions": 131,
+      "pageviews": 188,
+      "gsc_clicks": 97,
+      "gsc_impressions": 2284,
+      "ctr_pct": 4.25,
+      "sources": {
+        "organic": 81,
+        "direct": 30,
+        "social": 0,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-08",
+      "users": 103,
+      "sessions": 115,
+      "pageviews": 146,
+      "gsc_clicks": 57,
+      "gsc_impressions": 1836,
+      "ctr_pct": 3.1,
+      "sources": {
+        "organic": 70,
+        "direct": 31,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-09",
+      "users": 49,
+      "sessions": 52,
+      "pageviews": 64,
+      "gsc_clicks": 42,
+      "gsc_impressions": 1304,
+      "ctr_pct": 3.22,
+      "sources": {
+        "organic": 32,
+        "direct": 15,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-10",
+      "users": 67,
+      "sessions": 73,
+      "pageviews": 89,
+      "gsc_clicks": 84,
+      "gsc_impressions": 2004,
+      "ctr_pct": 4.19,
+      "sources": {
+        "organic": 48,
+        "direct": 18,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-11",
+      "users": 110,
+      "sessions": 121,
+      "pageviews": 175,
+      "gsc_clicks": 92,
+      "gsc_impressions": 2432,
+      "ctr_pct": 3.78,
+      "sources": {
+        "organic": 74,
+        "direct": 31,
+        "social": 0,
+        "referral": 5,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-12",
+      "users": 94,
+      "sessions": 110,
+      "pageviews": 152,
+      "gsc_clicks": 91,
+      "gsc_impressions": 2118,
+      "ctr_pct": 4.3,
+      "sources": {
+        "organic": 78,
+        "direct": 12,
+        "social": 0,
+        "referral": 4,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-13",
+      "users": 118,
+      "sessions": 130,
+      "pageviews": 169,
+      "gsc_clicks": 103,
+      "gsc_impressions": 2317,
+      "ctr_pct": 4.45,
+      "sources": {
+        "organic": 70,
+        "direct": 41,
+        "social": 0,
+        "referral": 7,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-14",
+      "users": 158,
+      "sessions": 170,
+      "pageviews": 225,
+      "gsc_clicks": 183,
+      "gsc_impressions": 2721,
+      "ctr_pct": 6.73,
+      "sources": {
+        "organic": 109,
+        "direct": 46,
+        "social": 0,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-15",
+      "users": 213,
+      "sessions": 243,
+      "pageviews": 335,
+      "gsc_clicks": 165,
+      "gsc_impressions": 2412,
+      "ctr_pct": 6.84,
+      "sources": {
+        "organic": 156,
+        "direct": 51,
+        "social": 0,
+        "referral": 6,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-16",
+      "users": 158,
+      "sessions": 184,
+      "pageviews": 215,
+      "gsc_clicks": 74,
+      "gsc_impressions": 1807,
+      "ctr_pct": 4.1,
+      "sources": {
+        "organic": 116,
+        "direct": 37,
+        "social": 0,
+        "referral": 5,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-17",
+      "users": 82,
+      "sessions": 88,
+      "pageviews": 149,
+      "gsc_clicks": 88,
+      "gsc_impressions": 2499,
+      "ctr_pct": 3.52,
+      "sources": {
+        "organic": 52,
+        "direct": 27,
+        "social": 0,
+        "referral": 3,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-05-18",
+      "users": 105,
+      "sessions": 115,
+      "pageviews": 169,
+      "gsc_clicks": 90,
+      "gsc_impressions": 2357,
+      "ctr_pct": 3.82,
+      "sources": {
+        "organic": 65,
+        "direct": 38,
+        "social": 1,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
       "date": "2026-05-19",
       "users": 139,
       "sessions": 156,
