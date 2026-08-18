@@ -1629,3 +1629,25 @@ footer a { color: var(--teal); text-decoration: none; }
 @media print {
   #hamburger-btn, #side-nav, #side-nav-overlay { display: none !important; }
 }
+
+/* Mobile (≤720px): stack header + meta-bar so pills stop colliding and the
+   hamburger menu doesn't overlap the title. Keeps the desktop layout intact. */
+@media (max-width: 720px) {
+  .site-header { padding: 20px 16px 14px; }
+  .site-header-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .site-header h1 { font-size: 20px; margin-bottom: 4px; }
+  .site-header .actions { flex-wrap: wrap; }
+  .site-header button { padding: 6px 10px; font-size: 12px; }
+  .meta-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .meta-bar .pill,
+  .meta-bar .pill.date-picker { width: 100%; box-sizing: border-box; }
+  .meta-bar .pill.date-picker select { flex: 1; min-width: 0; }
+}
