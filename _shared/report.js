@@ -72,10 +72,17 @@
   }
 
   function fadeOutAllSkeletons() {
+    // Per-section skeletons (added dynamically by addInnerSkeletons)
     document.querySelectorAll('.inner-skeleton').forEach(sk => {
       sk.classList.add('is-fading');
       setTimeout(() => sk.remove(), 400);
     });
+    // Top-of-page skeleton block (hardcoded in <dept>/index.html as #skeleton)
+    const wrap = document.getElementById('skeleton');
+    if (wrap) {
+      wrap.classList.add('is-fading');
+      setTimeout(() => wrap.remove(), 400);
+    }
   }
 
   function annotateTerms(rootEl) {
