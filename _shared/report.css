@@ -630,20 +630,23 @@ main {
 .term::after,
 .term::before {
   position: fixed;
-  left: 0; top: 0;
-  transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) translate(-50%, -100%);
-  transform: translateX(-50%);
+  /* Position is set inline by positionTooltip() via --tx/--ty on each hover */
+  left: 0;
+  top: 0;
+  transform: translate(var(--tx, 0px), var(--ty, 0px));
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.18s ease, transform 0.18s ease;
+  transition: opacity 0.18s ease;
   z-index: 9999;
   white-space: normal;
 }
 .term::before {
   content: '';
+  width: 0;
+  height: 0;
   border: 6px solid transparent;
   border-top-color: var(--navy);
-  bottom: calc(100% + 2px);
+  margin-left: -6px; /* center the arrow on the term */
 }
 .term::after {
   content: attr(data-tip);
@@ -658,21 +661,12 @@ main {
   max-width: 280px;
   text-align: left;
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.18);
+  margin-bottom: 8px; /* gap between tooltip and term */
 }
 .term:hover::after,
 .term:hover::before {
   opacity: 1;
-  transform: translateX(-50%) translateY(-2px);
 }
-/* Hide tooltip when term is near right edge */
-.term.tip-right::after { left: auto; right: 0; transform: translateX(0); }
-.term.tip-right::before { left: auto; right: 12px; transform: translateX(0); }
-.term.tip-right:hover::after,
-.term.tip-right:hover::before { transform: translateX(0) translateY(-2px); }
-.term.tip-left::after { left: 0; right: auto; transform: translateX(0); }
-.term.tip-left::before { left: 12px; right: auto; transform: translateX(0); }
-.term.tip-left:hover::after,
-.term.tip-left:hover::before { transform: translateX(0) translateY(-2px); }
 
 
 /* ===== TABLES ===== */

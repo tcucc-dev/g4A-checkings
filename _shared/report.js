@@ -151,20 +151,46 @@
     }
   }
 
-  // Reposition tooltip if it would overflow the viewport
-  function positionTooltips() {
+  // Position each term's tooltip on hover/mouseenter so the pseudo-element
+  // appears above the term and stays inside the viewport. Uses inline CSS
+  // custom properties --tx/--ty on the span itself; the CSS in report.css
+  // applies them via transform: translate(var(--tx), var(--ty)) on ::after/::before.
+  // This approach is required because the existing .section-body uses
+  // overflow: hidden for the collapse animation — position: absolute on the
+  // tooltip would clip inside sections. position: fixed escapes any overflow.
+  function positionTooltip(termEl) {
+    const r = termEl.getBoundingClientRect();
+    // Center horizontally on the term
+    const termCenterX = r.left + r.width / 2;
+    const tipWidth = Math.min(280, termEl.offsetWidth + 240); // estimate
+    let tx = termCenterX - tipWidth / 2;
+    // Clamp to viewport (avoid going off-screen)
+    const minX = 8;
+    const maxX = window.innerWidth - tipWidth - 8;
+    if (tx < minX) tx = minX;
+    if (tx > maxX) tx = maxX;
+    // Vertical: place above the term (tooltip bottom = term top - 8px gap)
+    const ty = r.top - 8; // --ty is the y of the tooltip's top edge
+    termEl.style.setProperty('--tx', tx + 'px');
+    termEl.style.setProperty('--ty', ty + 'px');
+  }
+
+  function attachTooltipHover() {
     document.querySelectorAll('.term').forEach(t => {
-      const r = t.getBoundingClientRect();
-      t.classList.remove('tip-left', 'tip-right');
-      // If term is near right edge of viewport
-      if (r.right > window.innerWidth - 300) {
-        t.classList.add('tip-right');
-      }
-      // If term is near left edge of viewport
-      if (r.left < 300) {
-        t.classList.add('tip-left');
-      }
+      if (t._tipBound) return;
+      t._tipBound = true;
+      t.addEventListener('mouseenter', () => positionTooltip(t));
+      // Also reposition on scroll/resize so tooltip follows if user scrolls
+      // while hovering (rare but happens on touchpads).
+      const reposition = () => { if (t.matches(':hover')) positionTooltip(t); };
+      window.addEventListener('scroll', reposition, { passive: true });
+      window.addEventListener('resize', reposition);
     });
+  }
+
+  // Reposition tooltip if it would overflow the viewport (kept for compat)
+  function positionTooltips() {
+    // No-op: per-element positioning happens in attachTooltipHover on hover.
   }
 
 
@@ -487,10 +513,10 @@
     data.meta.loadedFrom = loadedFrom;
     data.meta.sourceRange = sourceRange;
     console.log(`[report] data loaded from ${loadedFrom}, window ${sourceRange}`);
-    // Stash the loaded payload so the trend-tab / interval handlers can
-    // re-render the daily chart without re-fetching from Supabase.
+    // Stash the loaded payload so the trend-control handlers can
+    // re-render the chart without re-fetching from Supabase.
     currentReportData = data;
-    ensureTrendTabs();
+    ensureTrendControls();
 
     // Render phase — wrap in try/finally so the skeleton ALWAYS fades out,
     // even if a render function throws.
@@ -498,7 +524,7 @@
       renderHeader(data);
       renderHealthScore(data);
       renderKpis(data);
-      renderTrends(data);
+      renderTrendChart(data);
       renderTopKeywords(data);
       renderTopPages(data);
       renderAudience(data);
@@ -511,9 +537,8 @@
       // Expert sections (10-20) — injected before collapse logic so they auto-collapse
       renderExpertSections(data);
 
-      // Note: 週/日 tab toggle is already wired by ensureTrendTabs() at line 493
-      // (outside the try block). The daily panel is created reactively inside
-      // renderDailyTrends() on first 日 click.
+      // Note: unified trend controls are already wired by ensureTrendControls()
+      // (called outside the try block at line 493).
     } finally {
       // Fade out the skeleton loader now that real content is rendered (or failed)
       console.log('[report] render phase complete, scheduling fade-out');
@@ -523,6 +548,7 @@
     // Annotate glossary terms (GSC, CTR, JSON-LD, etc.) with hover tooltips
     annotateTerms(document.querySelector('main'));
     positionTooltips();
+    attachTooltipHover();
     window.addEventListener('resize', positionTooltips);
 
     // (Legacy date picker removed — replaced by the time-range dropdown.)
@@ -1096,7 +1122,9 @@ $('#report-period').textContent = `${(d.meta.sourceRange || '').replace(/-/g, '/
     };
     renderKpis(fullData, { kpisOverride: kpiOverride });
     $('#report-period').textContent = `${startStr.replace(/-/g, '/')} – ${endStr.replace(/-/g, '/')} (${ga4.length} 週)`;
-    renderTrends(fullData, { filtered: { ga4, gsc } });
+    // ponytail: the old weekly trend chart from trends52w is replaced by the
+    // unified daily chart in #trends, which the user controls via the new
+    // from/to + interval inputs. No weekly re-render is needed here.
 
     // Visual feedback: flash the 套用 button so the user knows the click registered
     const btn = $('#btn-apply-range');
