@@ -294,6 +294,20 @@
     '1mo': 30, '3mo': 90, '6mo': 180,
   };
 
+  // Compute display window labels from the freshest DATA date (not "today" —
+  // the DB may not be up to date, so the window must end on the freshest row
+  // actually returned, otherwise 1d/5d/1w all collapse to a single-day banner).
+  // Returns { source, previous } as 'YYYY-MM-DD – YYYY-MM-DD' strings.
+  function windowLabelsFromFreshest(freshISO, daysBack) {
+    const fms = Date.parse(freshISO);
+    if (isNaN(fms)) return null;
+    const winMs = (daysBack - 1) * 86400000;
+    const userStartISO = new Date(fms - winMs).toISOString().slice(0, 10);
+    const prevEndISO = new Date(fms - winMs - 86400000).toISOString().slice(0, 10);
+    const prevStartISO = new Date(fms - winMs - daysBack * 86400000).toISOString().slice(0, 10);
+    return { source: `${userStartISO} – ${freshISO}`, previous: `${prevStartISO} – ${prevEndISO}` };
+  }
+
   async function fetchRangeData(deptKey, daysBack) {
     // Use Taiwan time (UTC+8) for "today" so window matches dept's date semantics
     const tzOffsetMs = 8 * 60 * 60 * 1000;
@@ -465,10 +479,20 @@
         data = fetched.snapshot;
         loadedFrom = fetched.source;
       }
-      sourceRange = `${fetched.startStr} – ${fetched.endStr}`;
-      prevRangeStr = fetched.prevStartStr && fetched.prevEndStr
-        ? `${fetched.prevStartStr} – ${fetched.prevEndStr}`
-        : '';
+      // ponytail: derive both labels from the freshest DATA row's date so
+      // the banner matches the actual rows shown (not "today" — the DB may
+      // be stale by several days). Same helper is reused in the fallback path
+      // below for consistency.
+      const freshDate = fetched.currentRows && fetched.currentRows.length
+        ? fetched.currentRows[0].date
+        : (data && data.meta && String(data.meta.maxDateGa4 || '').replace(/\//g, '-')) || fetched.endStr;
+      const lbls = windowLabelsFromFreshest(freshDate, daysBack);
+      if (lbls) {
+        sourceRange = lbls.source;
+        prevRangeStr = lbls.previous;
+      } else {
+        sourceRange = `${fetched.startStr} – ${fetched.endStr}`;
+      }
       // ponytail: guard with `data &&` — when fetched has only previousRows
       // (current window empty, like ?range=1w/6d/5d with a partial Supabase
       // window), data stays null here and `data.meta` throws, aborting init()
@@ -500,8 +524,13 @@
           const prev = (prevRows && prevRows.length) ? prevRows[0] : null;
           data = rowToNested(cur, deptKey, prev, daysBack);
           data.meta.windowDays = daysBack;
-          sourceRange = cur.date;
-          if (prev) data.meta.previousRange = prev.date;
+          // Use the freshest-data-date labels so the banner spans the user's
+          // selected window length, not just one day (cur.date alone → "2026/08/17").
+          const fbLbls = windowLabelsFromFreshest(cur.date, daysBack);
+          if (fbLbls) sourceRange = fbLbls.source;
+          else sourceRange = cur.date;
+          if (fbLbls) data.meta.previousRange = fbLbls.previous;
+          else if (prev) data.meta.previousRange = prev.date;
           loadedFrom = 'supabase (latest available: ' + cur.date + (daysBack > 1 ? '; requested ' + daysBack + ' days not all in DB' : '') + ')';
         } else {
           // No Supabase data at all — fall back to data.json
