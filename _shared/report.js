@@ -468,7 +468,11 @@
       const previousRange = fetched.prevStartStr && fetched.prevEndStr
         ? `${fetched.prevStartStr} – ${fetched.prevEndStr}`
         : '';
-      if (data.meta && previousRange) data.meta.previousRange = previousRange;
+      // ponytail: guard with `data &&` — when fetched has only previousRows
+      // (current window empty, like ?range=1w/6d/5d with a partial Supabase
+      // window), data stays null here and `data.meta` throws, aborting init()
+      // before the skeleton ever fades.
+      if (data && data.meta && previousRange) data.meta.previousRange = previousRange;
     }
 
     // Fallback: if Supabase has no rows for the requested window, snap to latest data
@@ -1186,6 +1190,16 @@ $('#report-period').textContent = `${(d.meta.sourceRange || '').replace(/-/g, '/
     for (const e of dt) {
       if (dataMin === null || e.date < dataMin) dataMin = e.date;
       if (dataMax === null || e.date > dataMax) dataMax = e.date;
+    }
+    // ponytail: fallback to meta.maxDateGa4 (or updatedAt) when daily_trends
+    // is empty. Covers ?range=1w/6d/5d where the fallback path uses the latest
+    // Supabase row (which has no daily_trends — only today's row carries the
+    // 180-day JSONB to bound table size). Single-point range still creates the
+    // controls; chart shows "選定範圍內沒有資料" until the user widens the window.
+    if (!dataMin || !dataMax) {
+      const fb = String((data && data.meta && (data.meta.maxDateGa4 || data.meta.updatedAt)) || '')
+        .replace(/\//g, '-');
+      if (/^\d{4}-\d{2}-\d{2}$/.test(fb)) { dataMin = fb; dataMax = fb; }
     }
     if (!dataMin || !dataMax) return;
     const fromISO = dataMax; // start at the freshest data
