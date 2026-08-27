@@ -834,7 +834,17 @@
 // (which is the stale data.json field that doesn't reflect the user's
 // current dropdown choice). previousRange already comes from
 // data.meta.previousRange and is correct.
-$('#report-period').textContent = `${(d.meta.sourceRange || '').replace(/-/g, '/')}${d.meta.previousRange ? ` (vs ${d.meta.previousRange})` : ''}`;
+    // ponytail: format the period pill as a clear left-vs-right comparison;
+    // show "(無前期資料)" when the previous window has no data so users know
+    // it's not a bug. Both ranges get the same "/" normalization for symmetry.
+    $('#report-period').textContent = (() => {
+      const norm = s => (s || '').replace(/-/g, '/');
+      const cur = norm(d.meta.sourceRange);
+      const prev = d.meta.previousRange ? norm(d.meta.previousRange) : null;
+      if (!cur) return '—';
+      if (prev) return `${cur} ← vs → ${prev}`;
+      return `${cur} (無前期資料)`;
+    })();
     $('#report-updated').textContent = d.meta.updatedAt;
     $('#report-version').textContent = `v${d.meta.reportVersion}`;
     document.title = `${d.meta.siteName}｜TCU 網站分析報告 v${d.meta.reportVersion}`;
