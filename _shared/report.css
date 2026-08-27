@@ -1613,30 +1613,47 @@ footer a { color: var(--teal); text-decoration: none; }
   #side-nav, #side-nav-overlay { display: none !important; }
 }
 
-/* Desktop: floating right-side taskbar (overrides defensive desktop-hide above).
-   JS toggles .is-hidden to slide out on scroll-down / slide back on scroll-up. */
+/* Desktop: top taskbar (replaces right-side version). Sticks to viewport top,
+   scrolls with the page. Site-header sits below in DOM order so no header offset
+   needed — auto-hide slides the bar up on scroll-down past y=200. */
 @media (min-width: 721px) {
   #side-nav {
-    position: fixed;
-    top: 100px;
-    right: 16px;
-    left: auto;
-    width: 200px;
+    position: sticky;
+    top: 0;
+    right: auto;
+    left: 0;
+    width: 100%;
     max-width: none;
-    height: auto;
-    max-height: calc(100vh - 120px);
+    height: 44px;
+    max-height: 44px;
     background: var(--navy);
     color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
-    transform: translateX(0);
+    border-radius: 0;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.2);
+    transform: translateY(0);
     transition: transform 0.25s ease;
     display: flex !important; /* beats the [hidden] UA rule + defensive desktop-hide above */
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    z-index: 100;
   }
-  #side-nav.is-hidden { transform: translateX(calc(100% + 24px)); }
-  .side-nav-header, #side-nav-overlay { display: none !important; }
-  #side-nav-list { padding: 12px 8px; }
+  #side-nav.is-hidden { transform: translateY(-100%); }
+  .side-nav-header, .side-nav-footer, #side-nav-overlay { display: none !important; }
+  #side-nav-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0 16px;
+    gap: 4px;
+    flex: 1;
+  }
+  #side-nav-list .side-nav-item {
+    display: inline-block;
+    padding: 6px 12px;
+    white-space: nowrap;
+    border-left: none;
+    line-height: 1.6;
+  }
 }
 
 /* Print: never show the hamburger */
