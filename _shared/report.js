@@ -671,12 +671,16 @@
     document.getElementById('side-nav-close').addEventListener('click', toggleMenu);
     overlay.addEventListener('click', toggleMenu);
 
-    // Clicking a section item → smooth-scroll, then close
+    // Clicking a section item → expand target, collapse the rest, scroll, then close
     listEl.querySelectorAll('.side-nav-item').forEach(item => {
       item.addEventListener('click', e => {
         e.preventDefault();
         const target = document.getElementById(item.dataset.target);
         if (target) {
+          // Collapse every section except the target, then expand the target
+          document.querySelectorAll('section.section').forEach(sec => {
+            sec.classList.toggle('collapsed', sec.id !== target.id);
+          });
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         // Close after scroll starts (small delay so the user sees the close action)
