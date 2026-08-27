@@ -448,6 +448,7 @@
     let data = null;
     let sourceRange = '';
     let loadedFrom = '';
+    let prevRangeStr = '';
 
     const fetched = await fetchRangeData(deptKey, daysBack);
     console.log('[report] fetch complete, processing data');
@@ -465,14 +466,14 @@
         loadedFrom = fetched.source;
       }
       sourceRange = `${fetched.startStr} – ${fetched.endStr}`;
-      const previousRange = fetched.prevStartStr && fetched.prevEndStr
+      prevRangeStr = fetched.prevStartStr && fetched.prevEndStr
         ? `${fetched.prevStartStr} – ${fetched.prevEndStr}`
         : '';
       // ponytail: guard with `data &&` — when fetched has only previousRows
       // (current window empty, like ?range=1w/6d/5d with a partial Supabase
       // window), data stays null here and `data.meta` throws, aborting init()
       // before the skeleton ever fades.
-      if (data && data.meta && previousRange) data.meta.previousRange = previousRange;
+      if (data && data.meta && prevRangeStr) data.meta.previousRange = prevRangeStr;
     }
 
     // Fallback: if Supabase has no rows for the requested window, snap to latest data
@@ -480,8 +481,16 @@
       try {
         // First check if Supabase has ANY data for this dept (latest available date)
         const client = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+        // ponytail: filter for any non-zero KPI — the build script inserts a
+        // row for every day in the 180-day window, but rows after the latest
+        // BQ date are all zeros. Using `lastRows[0]` (latest by date) would
+        // yield 0s on every KPI card. Pick the latest row with REAL data
+        // instead. Ceiling: if every column is typed as text (currently all
+        // numeric), add another .or clause.
         const { data: lastRows } = await client
-          .from(deptKey).select('*').order('date', { ascending: false }).limit(1);
+          .from(deptKey).select('*')
+          .or('users.gt.0,sessions.gt.0,gsc_clicks.gt.0,gsc_impressions.gt.0')
+          .order('date', { ascending: false }).limit(1);
         if (lastRows && lastRows.length) {
           // Use the latest available single day. Compute previous as the day before that.
           const cur = lastRows[0];
@@ -492,7 +501,7 @@
           data = rowToNested(cur, deptKey, prev, daysBack);
           data.meta.windowDays = daysBack;
           sourceRange = cur.date;
-          previousRange = prev ? prev.date : '';
+          if (prev) data.meta.previousRange = prev.date;
           loadedFrom = 'supabase (latest available: ' + cur.date + (daysBack > 1 ? '; requested ' + daysBack + ' days not all in DB' : '') + ')';
         } else {
           // No Supabase data at all — fall back to data.json
@@ -1483,7 +1492,11 @@ $('#report-period').textContent = `${(d.meta.sourceRange || '').replace(/-/g, '/
   function renderGeo(d) {
     const g = d.geo;
     if (!g) {
-      $('#geo-section').style.display = 'none';
+      // ponytail: keep section visible (with empty state) so #7 stays in the
+      // section list. Previously hid the whole <section> which dropped 7
+      // from the side-nav and made the numbering skip to 8.
+      $('#geo-section').style.display = '';
+      $('#geo-ring').innerHTML = '<p style="color:var(--muted);padding:24px 0;text-align:center;">尚未執行 GEO 稽核</p>';
       return;
     }
     const score = g.subscores.reduce((a, s) => a + s.score, 0);
