@@ -516,6 +516,13 @@
     // Stash the loaded payload so the trend-control handlers can
     // re-render the chart without re-fetching from Supabase.
     currentReportData = data;
+    // ponytail: fade the skeleton FIRST (before ensureTrendControls) so the
+    // user sees content immediately even if ensureTrendControls early-returns
+    // (empty daily_trends) or throws. Without this, the fallback path (5d
+    // query against Supabase that has 0 rows in window) keeps the skeleton
+    // stuck while the render phase runs. The render try/finally still fades
+    // it again as a safety net.
+    fadeOutSkeletonsWithMinDelay();
     ensureTrendControls(data);
 
     // Render phase — wrap in try/finally so the skeleton ALWAYS fades out,
