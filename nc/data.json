@@ -3,52 +3,52 @@
     "siteName": "護理學系",
     "siteDomain": "nc.tcu.edu.tw",
     "reportVersion": "v3.0",
-    "updatedAt": "2026/08/18",
-    "maxDateGa4": "2026-08-16",
-    "maxDateGsc": "2026-08-15",
+    "updatedAt": "2026/08/27",
+    "maxDateGa4": "2026-08-26",
+    "maxDateGsc": "2026-08-23",
     "sourceCount": 3
   },
   "periods": {
     "current": {
-      "start": "2026/08/09",
-      "end": "2026/08/15"
+      "start": "2026/08/17",
+      "end": "2026/08/23"
     },
     "previous": {
-      "start": "2026/08/02",
-      "end": "2026/08/08"
+      "start": "2026/08/10",
+      "end": "2026/08/16"
     },
     "trend": {
-      "start": "2026/06/20",
-      "end": "2026/08/08"
+      "start": "2026/06/28",
+      "end": "2026/08/16"
     }
   },
   "kpis": {
     "users": {
       "label": "本週造訪人數",
-      "value": 206,
-      "trend_pct": 5.6,
+      "value": 201,
+      "trend_pct": 3.1,
       "avg": "前 8 週平均 26",
       "src": "all_units_summary｜GA4-USERS-001"
     },
     "sessions": {
       "label": "本週工作階段",
       "value": 247,
-      "trend_pct": 10.8,
+      "trend_pct": 5.6,
       "avg": "前 8 週平均 30",
       "src": "all_units_summary｜GA4-SESSIONS-001"
     },
     "gsc": {
       "label": "Google 搜尋點擊",
-      "value": 132,
-      "trend_pct": -3.6,
-      "avg": "前 8 週平均 14",
+      "value": 124,
+      "trend_pct": -9.5,
+      "avg": "前 8 週平均 15",
       "src": "all_gsc_summary｜GSC-KPI-001"
     },
     "ctr": {
       "label": "Google 搜尋點擊率",
-      "value": "5.35%",
-      "trend_pct": 0.77,
-      "avg": "前 8 週平均 3.80%",
+      "value": "4.81%",
+      "trend_pct": -0.56,
+      "avg": "前 8 週平均 4.10%",
       "src": "all_gsc_summary｜GSC-CTR-001"
     }
   },
@@ -309,9 +309,16 @@
       {
         "week_start": "2026-08-16",
         "week_label": "08/16",
-        "sessions": 22,
-        "users": 22,
-        "pageviews": 40
+        "sessions": 252,
+        "users": 204,
+        "pageviews": 458
+      },
+      {
+        "week_start": "2026-08-23",
+        "week_label": "08/23",
+        "sessions": 121,
+        "users": 107,
+        "pageviews": 174
       }
     ],
     "gsc": [
@@ -528,162 +535,24 @@
       {
         "week_start": "2026-08-09",
         "week_label": "08/09",
-        "impressions": 2467,
-        "clicks": 132
+        "impressions": 2479,
+        "clicks": 133
       },
       {
         "week_start": "2026-08-16",
         "week_label": "08/16",
-        "impressions": 0,
-        "clicks": 0
+        "impressions": 2741,
+        "clicks": 139
+      },
+      {
+        "week_start": "2026-08-23",
+        "week_label": "08/23",
+        "impressions": 251,
+        "clicks": 5
       }
     ]
   },
   "daily_trends": [
-    {
-      "date": "2026-02-18",
-      "users": 11,
-      "sessions": 11,
-      "pageviews": 14,
-      "gsc_clicks": 4,
-      "gsc_impressions": 224,
-      "ctr_pct": 1.79,
-      "sources": {
-        "organic": 3,
-        "direct": 8,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-19",
-      "users": 17,
-      "sessions": 18,
-      "pageviews": 31,
-      "gsc_clicks": 3,
-      "gsc_impressions": 317,
-      "ctr_pct": 0.95,
-      "sources": {
-        "organic": 4,
-        "direct": 13,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-20",
-      "users": 13,
-      "sessions": 11,
-      "pageviews": 18,
-      "gsc_clicks": 8,
-      "gsc_impressions": 342,
-      "ctr_pct": 2.34,
-      "sources": {
-        "organic": 2,
-        "direct": 11,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-21",
-      "users": 13,
-      "sessions": 13,
-      "pageviews": 42,
-      "gsc_clicks": 18,
-      "gsc_impressions": 270,
-      "ctr_pct": 6.67,
-      "sources": {
-        "organic": 8,
-        "direct": 5,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-22",
-      "users": 13,
-      "sessions": 15,
-      "pageviews": 22,
-      "gsc_clicks": 25,
-      "gsc_impressions": 450,
-      "ctr_pct": 5.56,
-      "sources": {
-        "organic": 6,
-        "direct": 7,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-23",
-      "users": 34,
-      "sessions": 45,
-      "pageviews": 84,
-      "gsc_clicks": 33,
-      "gsc_impressions": 611,
-      "ctr_pct": 5.4,
-      "sources": {
-        "organic": 17,
-        "direct": 17,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-24",
-      "users": 43,
-      "sessions": 47,
-      "pageviews": 76,
-      "gsc_clicks": 29,
-      "gsc_impressions": 555,
-      "ctr_pct": 5.23,
-      "sources": {
-        "organic": 20,
-        "direct": 20,
-        "social": 0,
-        "referral": 3,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-25",
-      "users": 35,
-      "sessions": 43,
-      "pageviews": 95,
-      "gsc_clicks": 32,
-      "gsc_impressions": 633,
-      "ctr_pct": 5.06,
-      "sources": {
-        "organic": 19,
-        "direct": 15,
-        "social": 0,
-        "referral": 1,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-26",
-      "users": 40,
-      "sessions": 52,
-      "pageviews": 108,
-      "gsc_clicks": 16,
-      "gsc_impressions": 579,
-      "ctr_pct": 2.76,
-      "sources": {
-        "organic": 23,
-        "direct": 17,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
     {
       "date": "2026-02-27",
       "users": 17,
@@ -3362,8 +3231,8 @@
       "sessions": 39,
       "pageviews": 61,
       "gsc_clicks": 14,
-      "gsc_impressions": 312,
-      "ctr_pct": 4.49,
+      "gsc_impressions": 315,
+      "ctr_pct": 4.44,
       "sources": {
         "organic": 20,
         "direct": 17,
@@ -3378,8 +3247,8 @@
       "sessions": 31,
       "pageviews": 71,
       "gsc_clicks": 6,
-      "gsc_impressions": 237,
-      "ctr_pct": 2.53,
+      "gsc_impressions": 241,
+      "ctr_pct": 2.49,
       "sources": {
         "organic": 11,
         "direct": 15,
@@ -3393,9 +3262,9 @@
       "users": 19,
       "sessions": 20,
       "pageviews": 36,
-      "gsc_clicks": 15,
-      "gsc_impressions": 229,
-      "ctr_pct": 6.55,
+      "gsc_clicks": 16,
+      "gsc_impressions": 234,
+      "ctr_pct": 6.84,
       "sources": {
         "organic": 6,
         "direct": 13,
@@ -3409,12 +3278,172 @@
       "users": 22,
       "sessions": 22,
       "pageviews": 40,
+      "gsc_clicks": 20,
+      "gsc_impressions": 412,
+      "ctr_pct": 4.85,
+      "sources": {
+        "organic": 11,
+        "direct": 11,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-17",
+      "users": 30,
+      "sessions": 36,
+      "pageviews": 59,
+      "gsc_clicks": 33,
+      "gsc_impressions": 585,
+      "ctr_pct": 5.64,
+      "sources": {
+        "organic": 12,
+        "direct": 18,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-18",
+      "users": 44,
+      "sessions": 54,
+      "pageviews": 103,
+      "gsc_clicks": 32,
+      "gsc_impressions": 450,
+      "ctr_pct": 7.11,
+      "sources": {
+        "organic": 21,
+        "direct": 23,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-19",
+      "users": 43,
+      "sessions": 50,
+      "pageviews": 104,
+      "gsc_clicks": 14,
+      "gsc_impressions": 387,
+      "ctr_pct": 3.62,
+      "sources": {
+        "organic": 16,
+        "direct": 26,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-20",
+      "users": 22,
+      "sessions": 27,
+      "pageviews": 53,
+      "gsc_clicks": 16,
+      "gsc_impressions": 375,
+      "ctr_pct": 4.27,
+      "sources": {
+        "organic": 6,
+        "direct": 16,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-21",
+      "users": 32,
+      "sessions": 34,
+      "pageviews": 61,
+      "gsc_clicks": 15,
+      "gsc_impressions": 297,
+      "ctr_pct": 5.05,
+      "sources": {
+        "organic": 15,
+        "direct": 16,
+        "social": 1,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-22",
+      "users": 26,
+      "sessions": 29,
+      "pageviews": 38,
+      "gsc_clicks": 9,
+      "gsc_impressions": 235,
+      "ctr_pct": 3.83,
+      "sources": {
+        "organic": 7,
+        "direct": 18,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-23",
+      "users": 17,
+      "sessions": 17,
+      "pageviews": 23,
+      "gsc_clicks": 5,
+      "gsc_impressions": 251,
+      "ctr_pct": 1.99,
+      "sources": {
+        "organic": 3,
+        "direct": 13,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-24",
+      "users": 16,
+      "sessions": 17,
+      "pageviews": 16,
       "gsc_clicks": 0,
       "gsc_impressions": 0,
       "ctr_pct": 0,
       "sources": {
-        "organic": 11,
-        "direct": 11,
+        "organic": 6,
+        "direct": 10,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-25",
+      "users": 38,
+      "sessions": 40,
+      "pageviews": 65,
+      "gsc_clicks": 0,
+      "gsc_impressions": 0,
+      "ctr_pct": 0,
+      "sources": {
+        "organic": 12,
+        "direct": 25,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-26",
+      "users": 40,
+      "sessions": 47,
+      "pageviews": 70,
+      "gsc_clicks": 0,
+      "gsc_impressions": 0,
+      "ctr_pct": 0,
+      "sources": {
+        "organic": 17,
+        "direct": 23,
         "social": 0,
         "referral": 0,
         "other": 0
@@ -3425,263 +3454,263 @@
     {
       "kw": "",
       "brand": false,
-      "impressions": 139,
-      "clicks": 6,
-      "ctr": 4.32,
-      "pos": 5.8,
-      "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "楊美玲",
-      "brand": false,
-      "impressions": 45,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 2.8,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64730,r1027.php?Lang=zh-tw"
-    },
-    {
-      "kw": "印尼八华",
-      "brand": false,
-      "impressions": 45,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 83.8,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-65659,r1051.php?Lang=zh-tw"
-    },
-    {
-      "kw": "慈濟大學護理",
-      "brand": true,
-      "impressions": 39,
-      "clicks": 5,
-      "ctr": 12.82,
-      "pos": 1.0,
+      "impressions": 182,
+      "clicks": 9,
+      "ctr": 4.95,
+      "pos": 5.4,
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
       "kw": "慈濟大學護理系",
       "brand": true,
-      "impressions": 32,
-      "clicks": 5,
-      "ctr": 15.62,
-      "pos": 1.1,
+      "impressions": 50,
+      "clicks": 3,
+      "ctr": 6.0,
+      "pos": 1.2,
       "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "曹英",
-      "brand": false,
-      "impressions": 28,
-      "clicks": 6,
-      "ctr": 21.43,
-      "pos": 1.8,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw"
-    },
-    {
-      "kw": "吳素月",
-      "brand": false,
-      "impressions": 26,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 0.1,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64726,r1027.php?Lang=zh-tw"
-    },
-    {
-      "kw": "羅淑芬",
-      "brand": false,
-      "impressions": 24,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 6.3,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php?Lang=zh-tw"
-    },
-    {
-      "kw": "賴惠玲",
-      "brand": false,
-      "impressions": 24,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 6.9,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64699,r1026.php?Lang=zh-tw"
-    },
-    {
-      "kw": "周桂如",
-      "brand": false,
-      "impressions": 23,
-      "clicks": 1,
-      "ctr": 4.35,
-      "pos": 6.2,
-      "landing": "https://nc.tcu.edu.tw/p/16-1014-65224.php?Lang=zh-tw"
-    },
-    {
-      "kw": "林玉娟",
-      "brand": false,
-      "impressions": 21,
-      "clicks": 1,
-      "ctr": 4.76,
-      "pos": 2.3,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64705,r1026.php?Lang=zh-tw"
     },
     {
       "kw": "王淑芳",
       "brand": false,
-      "impressions": 20,
-      "clicks": 1,
-      "ctr": 5.0,
-      "pos": 3.5,
+      "impressions": 32,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 4.0,
       "landing": "https://nc.tcu.edu.tw/p/406-1014-64698,r1034.php?Lang=zh-tw"
+    },
+    {
+      "kw": "曹英",
+      "brand": false,
+      "impressions": 26,
+      "clicks": 5,
+      "ctr": 19.23,
+      "pos": 1.3,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "楊美玲",
+      "brand": false,
+      "impressions": 25,
+      "clicks": 1,
+      "ctr": 4.0,
+      "pos": 1.3,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64730,r1027.php?Lang=zh-tw"
+    },
+    {
+      "kw": "林玉娟",
+      "brand": false,
+      "impressions": 24,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 1.2,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64705,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟護理系",
+      "brand": true,
+      "impressions": 20,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 1.9,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "賴惠玲",
+      "brand": false,
+      "impressions": 20,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 6.0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64699,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟大學護理",
+      "brand": true,
+      "impressions": 18,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 1.0,
+      "landing": "https://nc.tcu.edu.tw/"
     },
     {
       "kw": "慈濟護理",
       "brand": true,
-      "impressions": 16,
-      "clicks": 1,
-      "ctr": 6.25,
-      "pos": 1.4,
+      "impressions": 17,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 1.5,
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
       "kw": "慈濟大學護理學系",
       "brand": true,
       "impressions": 16,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 1.4,
-      "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "蔡淑鳳",
-      "brand": false,
-      "impressions": 16,
       "clicks": 1,
       "ctr": 6.25,
-      "pos": 8.1,
-      "landing": "https://nc.tcu.edu.tw/p/16-1014-65001.php?Lang=zh-tw"
-    },
-    {
-      "kw": "慈濟護理系",
-      "brand": true,
-      "impressions": 15,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 2.1,
+      "pos": 1.6,
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
-      "kw": "邱曉彥",
+      "kw": "羅淑芬",
       "brand": false,
-      "impressions": 13,
+      "impressions": 14,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 8.2,
-      "landing": "https://nc.tcu.edu.tw/p/16-1014-65223.php?Lang=zh-tw"
+      "pos": 4.8,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php?Lang=zh-tw"
     },
     {
-      "kw": "慈濟副院長",
-      "brand": true,
-      "impressions": 13,
+      "kw": "陳佳蓉",
+      "brand": false,
+      "impressions": 14,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 4.5,
-      "landing": "https://nc.tcu.edu.tw/p/403-1014-1034-1.php?Lang=zh-tw"
+      "pos": 3.6,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-65180,r1020.php?Lang=zh-tw"
+    },
+    {
+      "kw": "周桂如",
+      "brand": false,
+      "impressions": 12,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 5.5,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-65224,r1051.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟大學校歌",
+      "brand": true,
+      "impressions": 12,
+      "clicks": 1,
+      "ctr": 8.33,
+      "pos": 7.9,
+      "landing": "https://nc.tcu.edu.tw/p/412-1014-4958.php?Lang=zh-tw"
     },
     {
       "kw": "慈濟大學 護理學系",
       "brand": true,
       "impressions": 12,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 1.8,
+      "clicks": 2,
+      "ctr": 16.67,
+      "pos": 1.1,
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
-      "kw": "章淑娟",
+      "kw": "周桂如教授",
       "brand": false,
-      "impressions": 12,
-      "clicks": 4,
-      "ctr": 33.33,
-      "pos": 0.2,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64701,r1026.php?Lang=zh-tw"
+      "impressions": 11,
+      "clicks": 1,
+      "ctr": 9.09,
+      "pos": 2.2,
+      "landing": "https://nc.tcu.edu.tw/p/16-1014-65224.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟副院長",
+      "brand": true,
+      "impressions": 11,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 2.4,
+      "landing": "https://nc.tcu.edu.tw/p/403-1014-1034-1.php?Lang=zh-tw"
+    },
+    {
+      "kw": "彭台珠",
+      "brand": false,
+      "impressions": 10,
+      "clicks": 6,
+      "ctr": 60.0,
+      "pos": 0.0,
+      "landing": "https://nc.tcu.edu.tw/p/412-1014-4969.php?Lang=zh-tw"
+    },
+    {
+      "kw": "陸秀芳",
+      "brand": false,
+      "impressions": 10,
+      "clicks": 1,
+      "ctr": 10.0,
+      "pos": 0.0,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64707,r1026.php?Lang=zh-tw"
     }
   ],
   "topPages": [
     {
       "url": "https://nc.tcu.edu.tw/",
-      "impressions": 328,
-      "clicks": 26,
-      "ctr": 7.93,
-      "pos": 4.0,
+      "impressions": 379,
+      "clicks": 23,
+      "ctr": 6.07,
+      "pos": 3.8,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/412-1014-5016.php?Lang=en",
+      "impressions": 126,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 2.4,
       "users": 0
     },
     {
       "url": "https://nc.tcu.edu.tw/p/412-1014-2992.php",
-      "impressions": 118,
-      "clicks": 1,
-      "ctr": 0.85,
-      "pos": 6.1,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-65919,r1051.php?Lang=zh-tw",
-      "impressions": 75,
-      "clicks": 1,
-      "ctr": 1.33,
-      "pos": 8.3,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64730,r1027.php?Lang=zh-tw",
-      "impressions": 75,
-      "clicks": 1,
-      "ctr": 1.33,
-      "pos": 5.7,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/412-1014-2990.php?Lang=zh-tw",
-      "impressions": 73,
-      "clicks": 1,
-      "ctr": 1.37,
-      "pos": 9.4,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/412-1014-4932.php?Lang=zh-tw",
-      "impressions": 69,
-      "clicks": 1,
-      "ctr": 1.45,
-      "pos": 4.9,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-65341,r1051.php?Lang=zh-tw",
-      "impressions": 66,
-      "clicks": 1,
-      "ctr": 1.52,
-      "pos": 8.6,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/412-1014-4969.php?Lang=zh-tw",
-      "impressions": 63,
-      "clicks": 7,
-      "ctr": 11.11,
-      "pos": 4.8,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw",
-      "impressions": 60,
-      "clicks": 18,
-      "ctr": 30.0,
+      "impressions": 116,
+      "clicks": 3,
+      "ctr": 2.59,
       "pos": 5.5,
       "users": 0
     },
     {
       "url": "https://nc.tcu.edu.tw/app/index.php?Plugin=mobile&Action=mobileads&ad=1288",
-      "impressions": 58,
-      "clicks": 8,
-      "ctr": 13.79,
-      "pos": 5.5,
+      "impressions": 103,
+      "clicks": 1,
+      "ctr": 0.97,
+      "pos": 6.1,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-65919,r1051.php?Lang=zh-tw",
+      "impressions": 98,
+      "clicks": 1,
+      "ctr": 1.02,
+      "pos": 6.9,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/412-1014-2990.php?Lang=zh-tw",
+      "impressions": 90,
+      "clicks": 1,
+      "ctr": 1.11,
+      "pos": 7.3,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/412-1014-4932.php?Lang=zh-tw",
+      "impressions": 66,
+      "clicks": 2,
+      "ctr": 3.03,
+      "pos": 5.7,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php?Lang=zh-tw",
+      "impressions": 62,
+      "clicks": 4,
+      "ctr": 6.45,
+      "pos": 10.5,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/412-1014-4969.php?Lang=zh-tw",
+      "impressions": 59,
+      "clicks": 9,
+      "ctr": 15.25,
+      "pos": 4.9,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw",
+      "impressions": 56,
+      "clicks": 12,
+      "ctr": 21.43,
+      "pos": 1.3,
       "users": 0
     }
   ],
@@ -3689,36 +3718,36 @@
     "country": [
       {
         "name": "臺灣",
-        "sessions": 192,
+        "sessions": 187,
         "users": 0,
-        "share": 77.7
+        "share": 74.8
       },
       {
         "name": "中國",
-        "sessions": 40,
+        "sessions": 43,
         "users": 0,
-        "share": 16.2
+        "share": 17.2
       },
       {
         "name": "新加坡",
-        "sessions": 6,
+        "sessions": 11,
         "users": 0,
-        "share": 2.4
-      },
-      {
-        "name": "美國",
-        "sessions": 4,
-        "users": 0,
-        "share": 1.6
+        "share": 4.4
       },
       {
         "name": "(not set)",
-        "sessions": 3,
+        "sessions": 2,
         "users": 0,
-        "share": 1.2
+        "share": 0.8
       },
       {
-        "name": "韓國",
+        "name": "Colombia",
+        "sessions": 1,
+        "users": 0,
+        "share": 0.4
+      },
+      {
+        "name": "柬埔寨",
         "sessions": 1,
         "users": 0,
         "share": 0.4
@@ -3727,61 +3756,68 @@
     "device": [
       {
         "name": "桌機",
-        "sessions": 174,
+        "sessions": 178,
         "users": 0,
-        "share": 70.4
+        "share": 71.2
       },
       {
         "name": "手機",
         "sessions": 71,
         "users": 0,
-        "share": 28.7
+        "share": 28.4
       },
       {
         "name": "平板",
-        "sessions": 2,
+        "sessions": 1,
         "users": 0,
-        "share": 0.8
+        "share": 0.4
       }
     ],
     "source": [
       {
         "name": "(direct)",
         "medium": "(none)",
-        "sessions": 145,
+        "sessions": 157,
         "users": 0,
-        "share": 58.7
+        "share": 62.8
       },
       {
         "name": "google",
         "medium": "organic",
-        "sessions": 97,
+        "sessions": 86,
         "users": 0,
-        "share": 39.3
+        "share": 34.4
       },
       {
-        "name": "bing",
+        "name": "yahoo",
         "medium": "organic",
-        "sessions": 3,
+        "sessions": 2,
         "users": 0,
-        "share": 1.2
+        "share": 0.8
       },
       {
-        "name": "tw.search.yahoo.com",
+        "name": "cse.google.com",
         "medium": "referral",
+        "sessions": 2,
+        "users": 0,
+        "share": 0.8
+      },
+      {
+        "name": "chatgpt.com",
+        "medium": "ai-assistant",
         "sessions": 1,
         "users": 0,
         "share": 0.4
       },
       {
-        "name": "gemini.google.com",
-        "medium": "ai-assistant",
+        "name": "bing",
+        "medium": "organic",
         "sessions": 1,
         "users": 0,
         "share": 0.4
       }
     ],
-    "total": 247
+    "total": 250
   },
   "topIssues": [
     {

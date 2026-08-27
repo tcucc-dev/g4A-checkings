@@ -3,52 +3,52 @@
     "siteName": "慈濟大學中文版首頁",
     "siteDomain": "www.tcu.edu.tw",
     "reportVersion": "v3.0",
-    "updatedAt": "2026/08/18",
-    "maxDateGa4": "2026-08-16",
-    "maxDateGsc": "2026-08-15",
+    "updatedAt": "2026/08/27",
+    "maxDateGa4": "2026-08-25",
+    "maxDateGsc": "2026-08-23",
     "sourceCount": 3
   },
   "periods": {
     "current": {
-      "start": "2026/08/09",
-      "end": "2026/08/15"
+      "start": "2026/08/17",
+      "end": "2026/08/23"
     },
     "previous": {
-      "start": "2026/08/02",
-      "end": "2026/08/08"
+      "start": "2026/08/10",
+      "end": "2026/08/16"
     },
     "trend": {
-      "start": "2026/06/20",
-      "end": "2026/08/08"
+      "start": "2026/06/28",
+      "end": "2026/08/16"
     }
   },
   "kpis": {
     "users": {
       "label": "本週造訪人數",
-      "value": 5892,
-      "trend_pct": -4.8,
-      "avg": "前 8 週平均 1301",
+      "value": 6418,
+      "trend_pct": 10.0,
+      "avg": "前 8 週平均 1197",
       "src": "all_units_summary｜GA4-USERS-001"
     },
     "sessions": {
       "label": "本週工作階段",
-      "value": 10962,
-      "trend_pct": -3.8,
-      "avg": "前 8 週平均 1848",
+      "value": 12347,
+      "trend_pct": 12.7,
+      "avg": "前 8 週平均 1660",
       "src": "all_units_summary｜GA4-SESSIONS-001"
     },
     "gsc": {
       "label": "Google 搜尋點擊",
-      "value": 4436,
-      "trend_pct": -18.6,
-      "avg": "前 8 週平均 810",
+      "value": 5677,
+      "trend_pct": 17.5,
+      "avg": "前 8 週平均 725",
       "src": "all_gsc_summary｜GSC-KPI-001"
     },
     "ctr": {
       "label": "Google 搜尋點擊率",
-      "value": "5.24%",
-      "trend_pct": 0.42,
-      "avg": "前 8 週平均 6.84%",
+      "value": "6.77%",
+      "trend_pct": 1.04,
+      "avg": "前 8 週平均 6.32%",
       "src": "all_gsc_summary｜GSC-CTR-001"
     }
   },
@@ -316,9 +316,16 @@
       {
         "week_start": "2026-08-16",
         "week_label": "08/16",
-        "sessions": 886,
-        "users": 722,
-        "pageviews": 1300
+        "sessions": 12159,
+        "users": 6331,
+        "pageviews": 18828
+      },
+      {
+        "week_start": "2026-08-23",
+        "week_label": "08/23",
+        "sessions": 4821,
+        "users": 3116,
+        "pageviews": 7411
       }
     ],
     "gsc": [
@@ -541,162 +548,24 @@
       {
         "week_start": "2026-08-09",
         "week_label": "08/09",
-        "impressions": 84645,
-        "clicks": 4436
+        "impressions": 84903,
+        "clicks": 4457
       },
       {
         "week_start": "2026-08-16",
         "week_label": "08/16",
-        "impressions": 0,
-        "clicks": 0
+        "impressions": 88047,
+        "clicks": 6098
+      },
+      {
+        "week_start": "2026-08-23",
+        "week_label": "08/23",
+        "impressions": 10474,
+        "clicks": 691
       }
     ]
   },
   "daily_trends": [
-    {
-      "date": "2026-02-18",
-      "users": 345,
-      "sessions": 402,
-      "pageviews": 579,
-      "gsc_clicks": 258,
-      "gsc_impressions": 6008,
-      "ctr_pct": 4.29,
-      "sources": {
-        "organic": 195,
-        "direct": 135,
-        "social": 0,
-        "referral": 15,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-19",
-      "users": 442,
-      "sessions": 522,
-      "pageviews": 763,
-      "gsc_clicks": 351,
-      "gsc_impressions": 8356,
-      "ctr_pct": 4.2,
-      "sources": {
-        "organic": 262,
-        "direct": 159,
-        "social": 2,
-        "referral": 21,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-20",
-      "users": 530,
-      "sessions": 640,
-      "pageviews": 979,
-      "gsc_clicks": 521,
-      "gsc_impressions": 8925,
-      "ctr_pct": 5.84,
-      "sources": {
-        "organic": 343,
-        "direct": 164,
-        "social": 0,
-        "referral": 23,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-21",
-      "users": 760,
-      "sessions": 933,
-      "pageviews": 1385,
-      "gsc_clicks": 767,
-      "gsc_impressions": 11034,
-      "ctr_pct": 6.95,
-      "sources": {
-        "organic": 508,
-        "direct": 221,
-        "social": 0,
-        "referral": 31,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-22",
-      "users": 1287,
-      "sessions": 1707,
-      "pageviews": 2790,
-      "gsc_clicks": 2997,
-      "gsc_impressions": 34147,
-      "ctr_pct": 8.78,
-      "sources": {
-        "organic": 881,
-        "direct": 349,
-        "social": 0,
-        "referral": 57,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-23",
-      "users": 3030,
-      "sessions": 5309,
-      "pageviews": 9432,
-      "gsc_clicks": 2366,
-      "gsc_impressions": 28164,
-      "ctr_pct": 8.4,
-      "sources": {
-        "organic": 1919,
-        "direct": 919,
-        "social": 4,
-        "referral": 192,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-24",
-      "users": 2574,
-      "sessions": 4451,
-      "pageviews": 7140,
-      "gsc_clicks": 2355,
-      "gsc_impressions": 30539,
-      "ctr_pct": 7.71,
-      "sources": {
-        "organic": 1565,
-        "direct": 883,
-        "social": 2,
-        "referral": 121,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-25",
-      "users": 2673,
-      "sessions": 4363,
-      "pageviews": 7148,
-      "gsc_clicks": 2001,
-      "gsc_impressions": 29387,
-      "ctr_pct": 6.81,
-      "sources": {
-        "organic": 1623,
-        "direct": 897,
-        "social": 1,
-        "referral": 151,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-26",
-      "users": 2289,
-      "sessions": 3627,
-      "pageviews": 5829,
-      "gsc_clicks": 940,
-      "gsc_impressions": 17048,
-      "ctr_pct": 5.51,
-      "sources": {
-        "organic": 1425,
-        "direct": 730,
-        "social": 0,
-        "referral": 134,
-        "other": 0
-      }
-    },
     {
       "date": "2026-02-27",
       "users": 951,
@@ -3374,9 +3243,9 @@
       "users": 1248,
       "sessions": 1750,
       "pageviews": 2591,
-      "gsc_clicks": 693,
-      "gsc_impressions": 12347,
-      "ctr_pct": 5.61,
+      "gsc_clicks": 699,
+      "gsc_impressions": 12400,
+      "ctr_pct": 5.64,
       "sources": {
         "organic": 641,
         "direct": 572,
@@ -3390,9 +3259,9 @@
       "users": 1136,
       "sessions": 1563,
       "pageviews": 2271,
-      "gsc_clicks": 433,
-      "gsc_impressions": 7942,
-      "ctr_pct": 5.45,
+      "gsc_clicks": 440,
+      "gsc_impressions": 8049,
+      "ctr_pct": 5.47,
       "sources": {
         "organic": 566,
         "direct": 537,
@@ -3406,9 +3275,9 @@
       "users": 767,
       "sessions": 922,
       "pageviews": 1335,
-      "gsc_clicks": 398,
-      "gsc_impressions": 6547,
-      "ctr_pct": 6.08,
+      "gsc_clicks": 406,
+      "gsc_impressions": 6645,
+      "ctr_pct": 6.11,
       "sources": {
         "organic": 359,
         "direct": 385,
@@ -3422,9 +3291,9 @@
       "users": 722,
       "sessions": 886,
       "pageviews": 1300,
-      "gsc_clicks": 0,
-      "gsc_impressions": 0,
-      "ctr_pct": 0,
+      "gsc_clicks": 1112,
+      "gsc_impressions": 14644,
+      "ctr_pct": 7.59,
       "sources": {
         "organic": 387,
         "direct": 323,
@@ -3432,269 +3301,413 @@
         "referral": 12,
         "other": 0
       }
+    },
+    {
+      "date": "2026-08-17",
+      "users": 1735,
+      "sessions": 2400,
+      "pageviews": 4107,
+      "gsc_clicks": 1207,
+      "gsc_impressions": 16868,
+      "ctr_pct": 7.16,
+      "sources": {
+        "organic": 1000,
+        "direct": 682,
+        "social": 2,
+        "referral": 52,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-18",
+      "users": 1537,
+      "sessions": 2171,
+      "pageviews": 3334,
+      "gsc_clicks": 952,
+      "gsc_impressions": 13739,
+      "ctr_pct": 6.93,
+      "sources": {
+        "organic": 845,
+        "direct": 638,
+        "social": 3,
+        "referral": 53,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-19",
+      "users": 1402,
+      "sessions": 1984,
+      "pageviews": 2987,
+      "gsc_clicks": 834,
+      "gsc_impressions": 12469,
+      "ctr_pct": 6.69,
+      "sources": {
+        "organic": 756,
+        "direct": 602,
+        "social": 2,
+        "referral": 42,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-20",
+      "users": 1372,
+      "sessions": 1960,
+      "pageviews": 3048,
+      "gsc_clicks": 839,
+      "gsc_impressions": 12218,
+      "ctr_pct": 6.87,
+      "sources": {
+        "organic": 715,
+        "direct": 604,
+        "social": 1,
+        "referral": 52,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-21",
+      "users": 1280,
+      "sessions": 1777,
+      "pageviews": 2595,
+      "gsc_clicks": 669,
+      "gsc_impressions": 9899,
+      "ctr_pct": 6.76,
+      "sources": {
+        "organic": 683,
+        "direct": 559,
+        "social": 0,
+        "referral": 38,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-22",
+      "users": 850,
+      "sessions": 1003,
+      "pageviews": 1457,
+      "gsc_clicks": 485,
+      "gsc_impressions": 8210,
+      "ctr_pct": 5.91,
+      "sources": {
+        "organic": 451,
+        "direct": 367,
+        "social": 1,
+        "referral": 32,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-23",
+      "users": 881,
+      "sessions": 1074,
+      "pageviews": 1623,
+      "gsc_clicks": 691,
+      "gsc_impressions": 10474,
+      "ctr_pct": 6.6,
+      "sources": {
+        "organic": 490,
+        "direct": 367,
+        "social": 0,
+        "referral": 24,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-24",
+      "users": 1154,
+      "sessions": 1458,
+      "pageviews": 2183,
+      "gsc_clicks": 0,
+      "gsc_impressions": 0,
+      "ctr_pct": 0,
+      "sources": {
+        "organic": 664,
+        "direct": 456,
+        "social": 4,
+        "referral": 34,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-25",
+      "users": 1602,
+      "sessions": 2297,
+      "pageviews": 3605,
+      "gsc_clicks": 0,
+      "gsc_impressions": 0,
+      "ctr_pct": 0,
+      "sources": {
+        "organic": 928,
+        "direct": 634,
+        "social": 4,
+        "referral": 40,
+        "other": 0
+      }
     }
   ],
   "topKeywords": [
     {
-      "kw": "慈濟",
+      "kw": "慈濟大學",
       "brand": true,
-      "impressions": 17182,
-      "clicks": 15,
-      "ctr": 0.09,
-      "pos": 9.7,
+      "impressions": 6031,
+      "clicks": 2589,
+      "ctr": 42.93,
+      "pos": 0.3,
       "landing": "https://www.tcu.edu.tw/"
     },
     {
-      "kw": "慈濟大學",
+      "kw": "慈濟",
       "brand": true,
-      "impressions": 4514,
-      "clicks": 2008,
-      "ctr": 44.48,
-      "pos": 0.3,
+      "impressions": 5429,
+      "clicks": 12,
+      "ctr": 0.22,
+      "pos": 8.2,
       "landing": "https://www.tcu.edu.tw/"
     },
     {
       "kw": "",
       "brand": false,
-      "impressions": 4412,
-      "clicks": 76,
-      "ctr": 1.72,
-      "pos": 6.4,
+      "impressions": 4027,
+      "clicks": 107,
+      "ctr": 2.66,
+      "pos": 6.2,
       "landing": "https://www.tcu.edu.tw/"
     },
     {
       "kw": "tcu",
       "brand": true,
-      "impressions": 726,
+      "impressions": 747,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 5.4,
+      "pos": 5.7,
       "landing": "http://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學學生資訊系統",
+      "brand": true,
+      "impressions": 384,
+      "clicks": 2,
+      "ctr": 0.52,
+      "pos": 4.2,
+      "landing": "https://www.tcu.edu.tw/p/412-1033-4834.php"
     },
     {
       "kw": "tzu chi university",
       "brand": true,
-      "impressions": 495,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 2.1,
+      "impressions": 379,
+      "clicks": 2,
+      "ctr": 0.53,
+      "pos": 2.3,
       "landing": "http://www.tcu.edu.tw/"
     },
     {
-      "kw": "慈济",
+      "kw": "花蓮大學",
       "brand": false,
-      "impressions": 458,
+      "impressions": 371,
       "clicks": 1,
-      "ctr": 0.22,
-      "pos": 7.8,
-      "landing": "https://www.tcu.edu.tw/"
-    },
-    {
-      "kw": "慈 濟",
-      "brand": false,
-      "impressions": 350,
-      "clicks": 1,
-      "ctr": 0.29,
-      "pos": 9.7,
+      "ctr": 0.27,
+      "pos": 1.3,
       "landing": "https://www.tcu.edu.tw/"
     },
     {
       "kw": "慈大",
       "brand": true,
-      "impressions": 339,
+      "impressions": 351,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 2.7,
+      "pos": 2.4,
       "landing": "http://www.tcu.edu.tw/"
-    },
-    {
-      "kw": "慈濟創辦人",
-      "brand": true,
-      "impressions": 285,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 7.5,
-      "landing": "https://www.tcu.edu.tw/p/412-1033-4783.php"
-    },
-    {
-      "kw": "花蓮大學",
-      "brand": false,
-      "impressions": 265,
-      "clicks": 3,
-      "ctr": 1.13,
-      "pos": 1.1,
-      "landing": "https://www.tcu.edu.tw/"
-    },
-    {
-      "kw": "慈濟大學圖書館",
-      "brand": true,
-      "impressions": 240,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 2.2,
-      "landing": "https://www.tcu.edu.tw/p/412-1033-4828.php"
     },
     {
       "kw": "慈濟大學行事曆",
       "brand": true,
-      "impressions": 220,
-      "clicks": 147,
-      "ctr": 66.82,
-      "pos": 0.1,
+      "impressions": 304,
+      "clicks": 226,
+      "ctr": 74.34,
+      "pos": 0.0,
       "landing": "https://www.tcu.edu.tw/p/412-1033-4858.php"
     },
     {
-      "kw": "慈濟大學校務系統",
+      "kw": "慈濟大學宿舍",
       "brand": true,
-      "impressions": 208,
-      "clicks": 1,
-      "ctr": 0.48,
-      "pos": 3.5,
-      "landing": "https://www.tcu.edu.tw/"
+      "impressions": 277,
+      "clicks": 14,
+      "ctr": 5.05,
+      "pos": 5.4,
+      "landing": "https://www.tcu.edu.tw/p/412-1033-4789.php"
     },
     {
-      "kw": "慈濟大學學生資訊系統",
+      "kw": "慈濟大學圖書館",
       "brand": true,
-      "impressions": 208,
-      "clicks": 1,
-      "ctr": 0.48,
-      "pos": 5.1,
-      "landing": "https://www.tcu.edu.tw/p/412-1033-4834.php"
-    },
-    {
-      "kw": "交通安全",
-      "brand": false,
-      "impressions": 207,
+      "impressions": 219,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 7.6,
-      "landing": "https://www.tcu.edu.tw/hcsc/index.html"
-    },
-    {
-      "kw": "花蓮校務系統",
-      "brand": false,
-      "impressions": 173,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 3.6,
-      "landing": "https://www.tcu.edu.tw/"
-    },
-    {
-      "kw": "慈濟是什麼",
-      "brand": true,
-      "impressions": 170,
-      "clicks": 1,
-      "ctr": 0.59,
-      "pos": 5.2,
-      "landing": "https://www.tcu.edu.tw/p/412-1033-4783.php"
+      "pos": 2.3,
+      "landing": "https://www.tcu.edu.tw/p/412-1033-4828.php"
     },
     {
       "kw": "魔豆",
       "brand": false,
-      "impressions": 162,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 5.1,
+      "impressions": 201,
+      "clicks": 3,
+      "ctr": 1.49,
+      "pos": 5.4,
       "landing": "https://www.tcu.edu.tw/p/412-1033-4836.php"
     },
     {
-      "kw": "校務系統 花蓮",
-      "brand": false,
-      "impressions": 157,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 4.3,
+      "kw": "慈濟大學新生",
+      "brand": true,
+      "impressions": 193,
+      "clicks": 6,
+      "ctr": 3.11,
+      "pos": 1.1,
       "landing": "https://www.tcu.edu.tw/"
     },
     {
-      "kw": "社团学姐",
+      "kw": "慈濟大學校務系統",
+      "brand": true,
+      "impressions": 172,
+      "clicks": 8,
+      "ctr": 4.65,
+      "pos": 3.1,
+      "landing": "https://www.tcu.edu.tw/p/412-1033-4906.php"
+    },
+    {
+      "kw": "花蓮校務系統",
       "brand": false,
-      "impressions": 110,
+      "impressions": 156,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 25.1,
+      "pos": 4.6,
       "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "花蓮慈濟大學",
+      "brand": true,
+      "impressions": 150,
+      "clicks": 3,
+      "ctr": 2.0,
+      "pos": 0.6,
+      "landing": "https://www.tcu.edu.tw/p/412-1033-4801.php"
+    },
+    {
+      "kw": "醫學系",
+      "brand": false,
+      "impressions": 145,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 7.3,
+      "landing": "https://www.tcu.edu.tw/p/404-1033-64305.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈大學資",
+      "brand": true,
+      "impressions": 143,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 5.5,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈济",
+      "brand": false,
+      "impressions": 143,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 7.3,
+      "landing": "https://www.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟大學新生報到115",
+      "brand": true,
+      "impressions": 133,
+      "clicks": 1,
+      "ctr": 0.75,
+      "pos": 3.6,
+      "landing": "https://www.tcu.edu.tw/p/404-1033-65268.php"
     }
   ],
   "topPages": [
     {
       "url": "https://www.tcu.edu.tw/",
-      "impressions": 34230,
-      "clicks": 2705,
-      "ctr": 7.9,
-      "pos": 7.1,
+      "impressions": 23367,
+      "clicks": 3364,
+      "ctr": 14.4,
+      "pos": 4.7,
       "users": 0
     },
     {
       "url": "http://www.tcu.edu.tw/",
-      "impressions": 10169,
-      "clicks": 26,
-      "ctr": 0.26,
-      "pos": 2.7,
+      "impressions": 12201,
+      "clicks": 36,
+      "ctr": 0.3,
+      "pos": 2.6,
       "users": 0
     },
     {
       "url": "https://www.tcu.edu.tw/p/412-1033-4845.php",
-      "impressions": 6689,
-      "clicks": 568,
-      "ctr": 8.49,
-      "pos": 0.9,
+      "impressions": 8339,
+      "clicks": 682,
+      "ctr": 8.18,
+      "pos": 0.8,
       "users": 0
     },
     {
       "url": "https://www.tcu.edu.tw/p/412-1033-4801.php",
-      "impressions": 5783,
-      "clicks": 133,
-      "ctr": 2.3,
+      "impressions": 7931,
+      "clicks": 218,
+      "ctr": 2.75,
       "pos": 0.9,
       "users": 0
     },
     {
       "url": "https://www.tcu.edu.tw/p/412-1033-4832.php",
-      "impressions": 5467,
-      "clicks": 84,
-      "ctr": 1.54,
-      "pos": 0.7,
-      "users": 0
-    },
-    {
-      "url": "https://www.tcu.edu.tw/p/412-1033-4783.php",
-      "impressions": 2425,
-      "clicks": 7,
-      "ctr": 0.29,
-      "pos": 5.9,
+      "impressions": 7375,
+      "clicks": 123,
+      "ctr": 1.67,
+      "pos": 0.6,
       "users": 0
     },
     {
       "url": "https://www.tcu.edu.tw/p/412-1033-4788.php",
-      "impressions": 2292,
-      "clicks": 19,
-      "ctr": 0.83,
-      "pos": 4.1,
+      "impressions": 2881,
+      "clicks": 51,
+      "ctr": 1.77,
+      "pos": 4.0,
       "users": 0
     },
     {
       "url": "https://www.tcu.edu.tw/p/412-1033-4858.php",
-      "impressions": 1223,
-      "clicks": 478,
-      "ctr": 39.08,
-      "pos": 2.1,
-      "users": 0
-    },
-    {
-      "url": "https://www.tcu.edu.tw/p/426-1033-2.php?Lang=zh-tw",
-      "impressions": 846,
-      "clicks": 39,
-      "ctr": 4.61,
-      "pos": 5.2,
+      "impressions": 1672,
+      "clicks": 633,
+      "ctr": 37.86,
+      "pos": 1.9,
       "users": 0
     },
     {
       "url": "https://www.tcu.edu.tw/p/412-1033-4789.php",
-      "impressions": 788,
-      "clicks": 35,
-      "ctr": 4.44,
-      "pos": 6.9,
+      "impressions": 1594,
+      "clicks": 51,
+      "ctr": 3.2,
+      "pos": 6.1,
+      "users": 0
+    },
+    {
+      "url": "https://www.tcu.edu.tw/p/412-1033-4834.php",
+      "impressions": 1032,
+      "clicks": 2,
+      "ctr": 0.19,
+      "pos": 3.8,
+      "users": 0
+    },
+    {
+      "url": "https://www.tcu.edu.tw/p/426-1033-2.php?Lang=zh-tw",
+      "impressions": 956,
+      "clicks": 19,
+      "ctr": 1.99,
+      "pos": 4.9,
       "users": 0
     }
   ],
@@ -3702,106 +3715,106 @@
     "country": [
       {
         "name": "臺灣",
-        "sessions": 9649,
+        "sessions": 11225,
         "users": 0,
-        "share": 87.0
+        "share": 89.8
       },
       {
         "name": "中國",
-        "sessions": 1118,
+        "sessions": 948,
         "users": 0,
-        "share": 10.1
+        "share": 7.6
       },
       {
-        "name": "美國",
-        "sessions": 60,
+        "name": "馬來西亞",
+        "sessions": 66,
         "users": 0,
         "share": 0.5
       },
       {
-        "name": "日本",
-        "sessions": 40,
-        "users": 0,
-        "share": 0.4
-      },
-      {
-        "name": "馬來西亞",
-        "sessions": 38,
+        "name": "越南",
+        "sessions": 39,
         "users": 0,
         "share": 0.3
       },
       {
-        "name": "菲律賓",
-        "sessions": 21,
+        "name": "日本",
+        "sessions": 39,
         "users": 0,
-        "share": 0.2
+        "share": 0.3
+      },
+      {
+        "name": "泰國",
+        "sessions": 37,
+        "users": 0,
+        "share": 0.3
       }
     ],
     "device": [
       {
         "name": "桌機",
-        "sessions": 7853,
+        "sessions": 8343,
         "users": 0,
-        "share": 70.8
+        "share": 66.7
       },
       {
         "name": "手機",
-        "sessions": 3116,
+        "sessions": 3992,
         "users": 0,
-        "share": 28.1
+        "share": 31.9
       },
       {
         "name": "平板",
-        "sessions": 116,
+        "sessions": 169,
         "users": 0,
-        "share": 1.0
+        "share": 1.4
       }
     ],
     "source": [
       {
         "name": "google",
         "medium": "organic",
-        "sessions": 5346,
+        "sessions": 6433,
         "users": 0,
-        "share": 48.2
+        "share": 51.4
       },
       {
         "name": "(direct)",
         "medium": "(none)",
-        "sessions": 5263,
+        "sessions": 5461,
         "users": 0,
-        "share": 47.5
+        "share": 43.7
       },
       {
         "name": "bing",
         "medium": "organic",
-        "sessions": 159,
+        "sessions": 223,
         "users": 0,
-        "share": 1.4
+        "share": 1.8
       },
       {
         "name": "tw.search.yahoo.com",
         "medium": "referral",
-        "sessions": 117,
+        "sessions": 163,
         "users": 0,
-        "share": 1.1
+        "share": 1.3
       },
       {
         "name": "tcust.edu.tw",
         "medium": "referral",
-        "sessions": 91,
+        "sessions": 126,
         "users": 0,
-        "share": 0.8
+        "share": 1.0
       },
       {
-        "name": "zh.wikipedia.org",
+        "name": "tzuchi.org.tw",
         "medium": "referral",
-        "sessions": 11,
+        "sessions": 14,
         "users": 0,
         "share": 0.1
       }
     ],
-    "total": 11085
+    "total": 12504
   },
   "topIssues": [
     {
