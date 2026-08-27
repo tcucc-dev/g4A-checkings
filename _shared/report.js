@@ -1169,21 +1169,28 @@ $('#report-period').textContent = `${(d.meta.sourceRange || '').replace(/-/g, '/
     const h2 = header.querySelector('h2');
     if (h2) h2.innerHTML = '<span class="num">3</span> 趨勢';
 
-    // Default range: last 30 days ending today (Taiwan time, matches the
-    // rest of the report which already uses +08:00 for "today")
-    const tz = 8 * 60 * 60 * 1000;
-    const today = new Date(Date.now() + tz);
-    const fmtIso = d => `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
-    const toISO = fmtIso(today);
-    const fromISO = fmtIso(new Date(today.getTime() - 29 * 86400000));
+    // Compute min/max dates from actual data in daily_trends (not hardcoded).
+    // GA4 refreshes daily; GSC refreshes every few days (typically 3-4 days of
+    // latency per Google), so the last few dates in daily_trends may have
+    // users/sessions but zero gsc_clicks. Use the latest date with ANY data
+    // as the picker ceiling so users can't pick a date that's all zeros.
+    let dataMin = null, dataMax = null;
+    const dt = (data && data.daily_trends) || [];
+    for (const e of dt) {
+      if (dataMin === null || e.date < dataMin) dataMin = e.date;
+      if (dataMax === null || e.date > dataMax) dataMax = e.date;
+    }
+    if (!dataMin || !dataMax) return;
+    const fromISO = dataMax; // start at the freshest data
+    const toISO = dataMax;
 
     const controls = document.createElement('span');
     controls.className = 'trend-controls';
     controls.innerHTML = `
-      <label class="trend-field">從 <input type="date" id="trend-from" value="${fromISO}"></label>
-      <label class="trend-field">到 <input type="date" id="trend-to" value="${toISO}"></label>
+      <label class="trend-field">從 <input type="date" id="trend-from" min="${dataMin}" max="${dataMax}" value="${fromISO}"></label>
+      <label class="trend-field">到 <input type="date" id="trend-to" min="${dataMin}" max="${dataMax}" value="${toISO}"></label>
       <span class="trend-field trend-interval">
-        每 <input type="number" id="trend-interval-n" min="1" max="90" value="1">
+        每 <input type="number" id="trend-interval-n" min="1" value="1">
         <select id="trend-interval-unit">
           <option value="d">天</option>
           <option value="w">週</option>
