@@ -1615,7 +1615,12 @@ footer a { color: var(--teal); text-decoration: none; }
 
 /* Desktop: top taskbar (replaces right-side version). Sticks to viewport top,
    scrolls with the page. Site-header sits below in DOM order so no header offset
-   needed — auto-hide slides the bar up on scroll-down past y=200. */
+   needed — auto-hide slides the bar up on scroll-down past y=200.
+
+   ponytail: pill ("squircle") buttons in a responsive grid. The list is
+   laid out in columns (auto-fit 140px) so it doesn't horizontally scroll —
+   instead it wraps to multiple rows when the viewport is narrow. Each item
+   is a rounded pill. Active section gets a teal background. */
 @media (min-width: 721px) {
   #side-nav {
     position: sticky;
@@ -1624,35 +1629,44 @@ footer a { color: var(--teal); text-decoration: none; }
     left: 0;
     width: 100%;
     max-width: none;
-    height: 44px;
-    max-height: 44px;
+    /* Auto height — grid wraps, not a fixed 44px bar */
+    height: auto;
+    max-height: none;
+    padding: 10px 16px;
     background: var(--navy);
     color: white;
     border-radius: 0;
     box-shadow: 0 2px 8px rgba(15, 23, 42, 0.2);
     transform: translateY(0);
     transition: transform 0.25s ease;
-    display: flex !important; /* beats the [hidden] UA rule + defensive desktop-hide above */
-    flex-direction: row;
-    align-items: center;
+    display: block !important; /* beats the [hidden] UA rule + defensive desktop-hide above */
     z-index: 100;
   }
   #side-nav.is-hidden { transform: translateY(-100%); }
   .side-nav-header, .side-nav-footer, #side-nav-overlay { display: none !important; }
   #side-nav-list {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    padding: 0 16px;
-    gap: 4px;
-    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 6px;
+    padding: 0;
   }
-  #side-nav-list .side-nav-item {
-    display: inline-block;
+  .side-nav-item {
     padding: 6px 12px;
+    border-radius: 999px; /* squircle */
+    background: rgba(255, 255, 255, 0.08);
+    text-align: center;
     white-space: nowrap;
-    border-left: none;
-    line-height: 1.6;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+  }
+  .side-nav-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .side-nav-item.active {
+    background: var(--teal);
+    color: var(--navy);
+    font-weight: 600;
   }
 }
 
