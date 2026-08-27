@@ -523,6 +523,22 @@
             .from(deptKey).select('*').eq('date', prevISO).limit(1);
           const prev = (prevRows && prevRows.length) ? prevRows[0] : null;
           data = rowToNested(cur, deptKey, prev, daysBack);
+          // ponytail: daily_trends JSONB lives only on the build script's
+          // today-row (which has users=0 in this window). The non-zero KPI
+          // row above likely has daily_trends=null → chart shows the empty
+          // message. Fetch the freshest row's daily_trends and graft it in
+          // so the picker/chart have something to render. One extra SELECT,
+          // only on this fallback path. Upgrade: also push daily_trends onto
+          // every typed row at write time and drop this fallback.
+          if (!data.daily_trends || !data.daily_trends.length) {
+            const { data: trendRows } = await client
+              .from(deptKey).select('daily_trends')
+              .not('daily_trends', 'is', null)
+              .order('date', { ascending: false }).limit(1);
+            if (trendRows && trendRows[0] && trendRows[0].daily_trends) {
+              data.daily_trends = trendRows[0].daily_trends;
+            }
+          }
           data.meta.windowDays = daysBack;
           // Use the freshest-data-date labels so the banner spans the user's
           // selected window length, not just one day (cur.date alone → "2026/08/17").
