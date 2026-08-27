@@ -1267,17 +1267,28 @@
       if (dataMax === null || e.date > dataMax) dataMax = e.date;
     }
     // ponytail: fallback to meta.maxDateGa4 (or updatedAt) when daily_trends
-    // is empty. Covers ?range=1w/6d/5d where the fallback path uses the latest
-    // Supabase row (which has no daily_trends — only today's row carries the
-    // 180-day JSONB to bound table size). Single-point range still creates the
-    // controls; chart shows "選定範圍內沒有資料" until the user widens the window.
+    // is empty (e.g. ?range=1w/6d/5d against Supabase where only the latest
+    // row carries the 180-day JSONB). Use a 30-day window ending at that date
+    // so the picker min/max stay navigable instead of collapsing to one day.
     if (!dataMin || !dataMax) {
       const fb = String((data && data.meta && (data.meta.maxDateGa4 || data.meta.updatedAt)) || '')
         .replace(/\//g, '-');
-      if (/^\d{4}-\d{2}-\d{2}$/.test(fb)) { dataMin = fb; dataMax = fb; }
+      if (/^\d{4}-\d{2}-\d{2}$/.test(fb)) {
+        dataMax = fb;
+        const d = new Date(dataMax + 'T00:00:00');
+        d.setDate(d.getDate() - 29);
+        dataMin = d.toISOString().slice(0, 10);
+      }
     }
     if (!dataMin || !dataMax) return;
-    const fromISO = dataMax; // start at the freshest data
+    // Default window: last 30 days ending at the freshest data date (clamped
+    // to dataMin), so the chart renders a useful range on first load instead
+    // of a single-day "選定範圍內沒有資料".
+    const dataMaxDate = new Date(dataMax + 'T00:00:00');
+    const dataMinDate = new Date(dataMin + 'T00:00:00');
+    const defFrom = new Date(dataMaxDate);
+    defFrom.setDate(defFrom.getDate() - 29);
+    const fromISO = (defFrom < dataMinDate ? dataMinDate : defFrom).toISOString().slice(0, 10);
     const toISO = dataMax;
 
     const controls = document.createElement('span');
