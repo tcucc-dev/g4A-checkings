@@ -1613,6 +1613,32 @@ footer a { color: var(--teal); text-decoration: none; }
   #side-nav, #side-nav-overlay { display: none !important; }
 }
 
+/* Desktop: floating right-side taskbar (overrides defensive desktop-hide above).
+   JS toggles .is-hidden to slide out on scroll-down / slide back on scroll-up. */
+@media (min-width: 721px) {
+  #side-nav {
+    position: fixed;
+    top: 100px;
+    right: 16px;
+    left: auto;
+    width: 200px;
+    max-width: none;
+    height: auto;
+    max-height: calc(100vh - 120px);
+    background: var(--navy);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
+    transform: translateX(0);
+    transition: transform 0.25s ease;
+    display: flex !important; /* beats the [hidden] UA rule + defensive desktop-hide above */
+    flex-direction: column;
+  }
+  #side-nav.is-hidden { transform: translateX(calc(100% + 24px)); }
+  .side-nav-header, #side-nav-overlay { display: none !important; }
+  #side-nav-list { padding: 12px 8px; }
+}
+
 /* Print: never show the hamburger */
 @media print {
   #hamburger-btn, #side-nav, #side-nav-overlay { display: none !important; }

@@ -609,6 +609,7 @@
 
     // Mobile side-nav (hamburger) — built from current sections list
     initSideNav();
+    setupScrollAutoHide();
   }
 
   /* ---------- SIDE NAV (mobile hamburger) ---------- */
@@ -682,6 +683,28 @@
       }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
       sections.forEach(s => observer.observe(s));
     }
+  }
+
+  /* ---------- DESKTOP TASKBAR AUTO-HIDE ---------- */
+  function setupScrollAutoHide() {
+    const nav = document.getElementById('side-nav');
+    if (!nav) return;
+    let lastY = window.scrollY;
+    let hideTimer = null;
+    function onScroll() {
+      if (window.innerWidth < 721) return; // mobile: leave hamburger behavior alone
+      const y = window.scrollY;
+      if (y > lastY && y > 200) {
+        nav.classList.add('is-hidden'); // scrolling down → hide
+      } else if (y < lastY) {
+        nav.classList.remove('is-hidden'); // scrolling up → show
+      }
+      lastY = y;
+      // After 200ms of no scroll, show again
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => nav.classList.remove('is-hidden'), 200);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
   /* ---------- HEALTH SCORE ---------- */
