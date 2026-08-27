@@ -681,7 +681,7 @@
           document.querySelectorAll('section.section').forEach(sec => {
             sec.classList.toggle('collapsed', sec.id !== target.id);
           });
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          target.scrollIntoView({ block: 'start' }); // ponytail: instant — smooth-scroll locks wheel for ~500ms during animation
         }
         // Close after scroll starts (small delay so the user sees the close action)
         setTimeout(toggleMenu, 100);
