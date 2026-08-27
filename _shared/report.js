@@ -568,6 +568,26 @@
       return;
     }
 
+    // ponytail: per-day Supabase rows can carry a stale source_max_date (zero
+    // rows after the latest BQ refresh, or any row written before the data.json
+    // build pulled a newer GA4 snapshot). data.json is the rebuild artifact and
+    // holds the freshest known maxDateGa4 — prefer it so computeHealthScore
+    // (and the trend-controls date fallback) read the right value regardless
+    // of which fetch path above produced `data`. One extra fetch here, cached
+    // by the browser for every downstream consumer.
+    try {
+      const djRes = await fetch('data.json?ts=' + Date.now());
+      if (djRes.ok) {
+        const dj = await djRes.json();
+        const djMax = dj && dj.meta && dj.meta.maxDateGa4;
+        const curMax = data.meta.maxDateGa4;
+        const norm = s => String(s || '').replace(/\//g, '-');
+        if (djMax && (!curMax || norm(djMax) > norm(curMax))) {
+          data.meta.maxDateGa4 = djMax;
+        }
+      }
+    } catch (_) { /* ignore — fall back to whatever maxDateGa4 is on data */ }
+
     data.meta.loadedFrom = loadedFrom;
     data.meta.sourceRange = sourceRange;
     console.log(`[report] data loaded from ${loadedFrom}, window ${sourceRange}`);
