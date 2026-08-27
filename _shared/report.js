@@ -516,7 +516,7 @@
     // Stash the loaded payload so the trend-control handlers can
     // re-render the chart without re-fetching from Supabase.
     currentReportData = data;
-    ensureTrendControls();
+    ensureTrendControls(data);
 
     // Render phase — wrap in try/finally so the skeleton ALWAYS fades out,
     // even if a render function throws.
@@ -1159,7 +1159,7 @@ $('#report-period').textContent = `${(d.meta.sourceRange || '').replace(/-/g, '/
   // threading `d` through every event handler.
   let currentReportData = null;
 
-  function ensureTrendControls() {
+  function ensureTrendControls(data) {
     const trends = document.getElementById('trends');
     if (!trends) return;
     const header = trends.querySelector('.section-header');
