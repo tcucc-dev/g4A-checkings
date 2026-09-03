@@ -1729,4 +1729,30 @@ footer a { color: var(--teal); text-decoration: none; }
   .kpi-card .value { font-size: 23px; }
   .kpi-card .trend { flex-wrap: wrap; gap: 4px; }
   .kpi-card .source { margin-top: 8px; padding-top: 8px; font-size: 10px; }
+
+  /* Banner pills: the date-range/vs/updatedAt/version pills hug their
+     content (not full-width), the period string shrinks so a 50-char
+     "2026/08/27 – 2026/08/27 ← vs → 2026/08/26 – 2026/08/26" fits on
+     one line at 360px, and the date-picker stays full-width as a card
+     with Apply as a compact inline pill (not a full-width strip). */
+  .meta-bar .pill {
+    align-self: flex-start;
+    width: auto;
+    max-width: 100%;
+    text-align: left;
+    white-space: nowrap;
+  }
+  #report-period { font-size: 12px; letter-spacing: -0.2px; }
+  .meta-bar .pill.date-picker {
+    align-self: stretch;
+    width: 100%;
+    white-space: normal;
+  }
+  .meta-bar .pill.date-picker button#btn-apply-range {
+    width: auto;
+    min-height: 36px;
+    font-size: 14px;
+    padding: 8px 16px;
+    align-self: center;
+  }
 }

@@ -923,8 +923,8 @@
       return `${cur} (無前期資料)`;
     })();
     $('#report-updated').textContent = d.meta.updatedAt;
-    $('#report-version').textContent = `v${d.meta.reportVersion}`;
-    document.title = `${d.meta.siteName}｜TCU 網站分析報告 v${d.meta.reportVersion}`;
+    $('#report-version').textContent = d.meta.reportVersion;
+    document.title = `${d.meta.siteName}｜TCU 網站分析報告 ${d.meta.reportVersion}`;
   }
 
   /* ---------- KPI CARDS ---------- */
@@ -1708,7 +1708,7 @@
   /* ---------- FOOTER ---------- */
   function renderFooter(d) {
     const cutoff = [d.meta.maxDateGa4, d.meta.maxDateGsc].filter(Boolean).join(' / ');
-    $('#footer-meta').textContent = `報告版本 v${d.meta.reportVersion} · 更新時間 ${d.meta.updatedAt} · 資料截止 ${cutoff || '-'} · 來源：Google BigQuery 3 張資料表`;
+    $('#footer-meta').textContent = `報告版本 ${d.meta.reportVersion} · 更新時間 ${d.meta.updatedAt} · 資料截止 ${cutoff || '-'} · 來源：Google BigQuery 3 張資料表`;
   }
 
   /* ---------- helpers ---------- */
