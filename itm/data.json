@@ -3,52 +3,52 @@
     "siteName": "資訊科技與管理系",
     "siteDomain": "itm.tcu.edu.tw",
     "reportVersion": "v3.0",
-    "updatedAt": "2026/08/27",
-    "maxDateGa4": "2026-08-25",
-    "maxDateGsc": "2026-08-23",
+    "updatedAt": "2026/08/28",
+    "maxDateGa4": "2026-08-27",
+    "maxDateGsc": "2026-08-25",
     "sourceCount": 3
   },
   "periods": {
     "current": {
-      "start": "2026/08/17",
-      "end": "2026/08/23"
+      "start": "2026/08/19",
+      "end": "2026/08/25"
     },
     "previous": {
-      "start": "2026/08/10",
-      "end": "2026/08/16"
+      "start": "2026/08/12",
+      "end": "2026/08/18"
     },
     "trend": {
-      "start": "2026/06/28",
-      "end": "2026/08/16"
+      "start": "2026/06/30",
+      "end": "2026/08/18"
     }
   },
   "kpis": {
     "users": {
       "label": "本週造訪人數",
-      "value": 208,
-      "trend_pct": 17.5,
+      "value": 215,
+      "trend_pct": 18.1,
       "avg": "前 8 週平均 29",
       "src": "all_units_summary｜GA4-USERS-001"
     },
     "sessions": {
       "label": "本週工作階段",
-      "value": 248,
-      "trend_pct": 17.0,
+      "value": 252,
+      "trend_pct": 10.5,
       "avg": "前 8 週平均 33",
       "src": "all_units_summary｜GA4-SESSIONS-001"
     },
     "gsc": {
       "label": "Google 搜尋點擊",
       "value": 81,
-      "trend_pct": 17.4,
+      "trend_pct": -9.0,
       "avg": "前 8 週平均 10",
       "src": "all_gsc_summary｜GSC-KPI-001"
     },
     "ctr": {
       "label": "Google 搜尋點擊率",
-      "value": "2.57%",
-      "trend_pct": 0.01,
-      "avg": "前 8 週平均 2.91%",
+      "value": "2.65%",
+      "trend_pct": -0.32,
+      "avg": "前 8 週平均 2.97%",
       "src": "all_gsc_summary｜GSC-CTR-001"
     }
   },
@@ -316,9 +316,9 @@
       {
         "week_start": "2026-08-23",
         "week_label": "08/23",
-        "sessions": 123,
-        "users": 108,
-        "pageviews": 307
+        "sessions": 209,
+        "users": 185,
+        "pageviews": 587
       }
     ],
     "gsc": [
@@ -547,28 +547,12 @@
       {
         "week_start": "2026-08-23",
         "week_label": "08/23",
-        "impressions": 380,
-        "clicks": 6
+        "impressions": 1375,
+        "clicks": 43
       }
     ]
   },
   "daily_trends": [
-    {
-      "date": "2026-02-27",
-      "users": 21,
-      "sessions": 23,
-      "pageviews": 97,
-      "gsc_clicks": 8,
-      "gsc_impressions": 268,
-      "ctr_pct": 2.99,
-      "sources": {
-        "organic": 10,
-        "direct": 11,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
     {
       "date": "2026-02-28",
       "users": 11,
@@ -3406,9 +3390,9 @@
       "users": 29,
       "sessions": 30,
       "pageviews": 59,
-      "gsc_clicks": 0,
-      "gsc_impressions": 0,
-      "ctr_pct": 0,
+      "gsc_clicks": 19,
+      "gsc_impressions": 509,
+      "ctr_pct": 3.73,
       "sources": {
         "organic": 8,
         "direct": 21,
@@ -3422,14 +3406,46 @@
       "users": 47,
       "sessions": 60,
       "pageviews": 195,
-      "gsc_clicks": 0,
-      "gsc_impressions": 0,
-      "ctr_pct": 0,
+      "gsc_clicks": 18,
+      "gsc_impressions": 486,
+      "ctr_pct": 3.7,
       "sources": {
         "organic": 13,
         "direct": 34,
         "social": 0,
         "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-26",
+      "users": 43,
+      "sessions": 47,
+      "pageviews": 145,
+      "gsc_clicks": 0,
+      "gsc_impressions": 0,
+      "ctr_pct": 0,
+      "sources": {
+        "organic": 16,
+        "direct": 26,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-27",
+      "users": 38,
+      "sessions": 40,
+      "pageviews": 135,
+      "gsc_clicks": 0,
+      "gsc_impressions": 0,
+      "ctr_pct": 0,
+      "sources": {
+        "organic": 12,
+        "direct": 24,
+        "social": 0,
+        "referral": 2,
         "other": 0
       }
     }
@@ -3438,28 +3454,28 @@
     {
       "kw": "",
       "brand": false,
-      "impressions": 361,
-      "clicks": 25,
-      "ctr": 6.93,
-      "pos": 6.3,
+      "impressions": 346,
+      "clicks": 27,
+      "ctr": 7.8,
+      "pos": 7.3,
       "landing": "https://itm.tcu.edu.tw/"
     },
     {
       "kw": "慈大學資",
       "brand": true,
-      "impressions": 176,
-      "clicks": 1,
-      "ctr": 0.57,
-      "pos": 2.7,
+      "impressions": 227,
+      "clicks": 6,
+      "ctr": 2.64,
+      "pos": 2.3,
       "landing": "https://itm.tcu.edu.tw/"
     },
     {
       "kw": "慈濟大學科系",
       "brand": true,
-      "impressions": 82,
+      "impressions": 81,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 6.5,
+      "pos": 7.2,
       "landing": "https://itm.tcu.edu.tw/"
     },
     {
@@ -3468,233 +3484,233 @@
       "impressions": 72,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 5.5,
+      "pos": 5.3,
       "landing": "https://itm.tcu.edu.tw/"
     },
     {
       "kw": "資管",
       "brand": true,
-      "impressions": 66,
+      "impressions": 45,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 9.9,
+      "pos": 10.0,
       "landing": "https://itm.tcu.edu.tw/"
     },
     {
       "kw": "慈濟大學",
       "brand": true,
-      "impressions": 48,
+      "impressions": 32,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 22.7,
+      "pos": 18.6,
       "landing": "https://itm.tcu.edu.tw/"
     },
     {
       "kw": "慈濟it",
       "brand": true,
-      "impressions": 28,
+      "impressions": 31,
       "clicks": 0,
       "ctr": 0.0,
       "pos": 2.7,
       "landing": "https://itm.tcu.edu.tw/"
     },
     {
-      "kw": "慈濟大學課表",
-      "brand": true,
-      "impressions": 24,
-      "clicks": 1,
-      "ctr": 4.17,
-      "pos": 8.3,
-      "landing": "https://itm.tcu.edu.tw/p/404-1022-36099.php"
-    },
-    {
-      "kw": "慈濟資工",
-      "brand": true,
-      "impressions": 22,
-      "clicks": 1,
-      "ctr": 4.55,
-      "pos": 5.6,
-      "landing": "https://itm.tcu.edu.tw/p/404-1022-30026.php?Lang=zh-tw"
+      "kw": "碩士",
+      "brand": false,
+      "impressions": 25,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 8.0,
+      "landing": "https://itm.tcu.edu.tw/p/404-1022-52388.php?Lang=zh-tw"
     },
     {
       "kw": "tcu",
       "brand": true,
-      "impressions": 22,
+      "impressions": 21,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 0.5,
+      "pos": 0.9,
       "landing": "https://itm.tcu.edu.tw/"
     },
     {
       "kw": "慈大 學資",
       "brand": true,
-      "impressions": 19,
+      "impressions": 21,
       "clicks": 0,
       "ctr": 0.0,
       "pos": 1.3,
       "landing": "https://itm.tcu.edu.tw/"
-    },
-    {
-      "kw": "慈濟大學 科系",
-      "brand": true,
-      "impressions": 17,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 6.4,
-      "landing": "https://itm.tcu.edu.tw/"
-    },
-    {
-      "kw": "慈濟",
-      "brand": true,
-      "impressions": 16,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 66.4,
-      "landing": "https://itm.tcu.edu.tw/"
-    },
-    {
-      "kw": "蔡宗宏",
-      "brand": false,
-      "impressions": 15,
-      "clicks": 2,
-      "ctr": 13.33,
-      "pos": 1.3,
-      "landing": "https://itm.tcu.edu.tw/p/412-1022-2586.php"
     },
     {
       "kw": "tcust",
       "brand": true,
-      "impressions": 15,
+      "impressions": 20,
       "clicks": 0,
       "ctr": 0.0,
       "pos": 0.0,
       "landing": "https://itm.tcu.edu.tw/p/404-1022-36089.php?Lang=zh-tw"
     },
     {
-      "kw": "大學專題競賽",
-      "brand": false,
-      "impressions": 13,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 6.4,
-      "landing": "https://itm.tcu.edu.tw/p/406-1022-65878,r452.php?Lang=zh-tw"
+      "kw": "慈濟大學課表",
+      "brand": true,
+      "impressions": 19,
+      "clicks": 1,
+      "ctr": 5.26,
+      "pos": 7.7,
+      "landing": "https://itm.tcu.edu.tw/p/404-1022-36099.php"
     },
     {
-      "kw": "慈濟大學 資訊工程學系",
+      "kw": "慈濟大學 科系",
+      "brand": true,
+      "impressions": 18,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 6.3,
+      "landing": "https://itm.tcu.edu.tw/"
+    },
+    {
+      "kw": "信息技术管理",
+      "brand": false,
+      "impressions": 18,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 20.3,
+      "landing": "https://itm.tcu.edu.tw/?Lang=en"
+    },
+    {
+      "kw": "蔡宗宏",
+      "brand": false,
+      "impressions": 17,
+      "clicks": 1,
+      "ctr": 5.88,
+      "pos": 1.6,
+      "landing": "https://itm.tcu.edu.tw/p/412-1022-2586.php"
+    },
+    {
+      "kw": "慈濟資工",
       "brand": true,
       "impressions": 13,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 2.9,
+      "pos": 5.7,
       "landing": "https://itm.tcu.edu.tw/p/404-1022-30026.php?Lang=zh-tw"
     },
     {
       "kw": "資訊科技系",
       "brand": false,
-      "impressions": 13,
+      "impressions": 12,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 5.5,
+      "pos": 4.4,
       "landing": "https://itm.tcu.edu.tw/"
     },
     {
-      "kw": "專題海報",
+      "kw": "張詠欣",
       "brand": false,
-      "impressions": 13,
+      "impressions": 10,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 43.5,
-      "landing": "https://itm.tcu.edu.tw/p/16-1022-45541.php?Lang=zh-tw"
+      "pos": 6.8,
+      "landing": "https://itm.tcu.edu.tw/p/406-1022-29876,r451-1.php"
     },
     {
-      "kw": "ic3",
-      "brand": false,
-      "impressions": 11,
+      "kw": "慈大課表",
+      "brand": true,
+      "impressions": 10,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 5.9,
-      "landing": "https://itm.tcu.edu.tw/p/16-1022-34006.php?Lang=zh-tw"
+      "pos": 7.8,
+      "landing": "https://itm.tcu.edu.tw/p/404-1022-36099.php"
+    },
+    {
+      "kw": "慈濟大學 資訊工程學系",
+      "brand": true,
+      "impressions": 10,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 3.3,
+      "landing": "https://itm.tcu.edu.tw/p/404-1022-30026.php?Lang=zh-tw"
     }
   ],
   "topPages": [
     {
       "url": "https://itm.tcu.edu.tw/",
-      "impressions": 1030,
-      "clicks": 28,
-      "ctr": 2.72,
-      "pos": 7.4,
+      "impressions": 1026,
+      "clicks": 33,
+      "ctr": 3.22,
+      "pos": 6.7,
       "users": 0
     },
     {
       "url": "https://itm.tcu.edu.tw/p/412-1022-2586.php",
       "impressions": 187,
-      "clicks": 15,
-      "ctr": 8.02,
-      "pos": 3.2,
-      "users": 0
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-30026.php?Lang=zh-tw",
-      "impressions": 167,
-      "clicks": 4,
-      "ctr": 2.4,
-      "pos": 4.3,
+      "clicks": 16,
+      "ctr": 8.56,
+      "pos": 3.7,
       "users": 0
     },
     {
       "url": "https://itm.tcu.edu.tw/p/404-1022-36099.php",
-      "impressions": 159,
-      "clicks": 6,
-      "ctr": 3.77,
-      "pos": 6.5,
+      "impressions": 169,
+      "clicks": 7,
+      "ctr": 4.14,
+      "pos": 6.0,
       "users": 0
     },
     {
       "url": "https://itm.tcu.edu.tw/p/404-1022-52388.php?Lang=zh-tw",
-      "impressions": 114,
-      "clicks": 2,
-      "ctr": 1.75,
-      "pos": 4.4,
+      "impressions": 124,
+      "clicks": 3,
+      "ctr": 2.42,
+      "pos": 4.9,
+      "users": 0
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-30026.php?Lang=zh-tw",
+      "impressions": 119,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 4.9,
       "users": 0
     },
     {
       "url": "https://itm.tcu.edu.tw/p/404-1022-34441.php",
-      "impressions": 69,
+      "impressions": 57,
       "clicks": 4,
-      "ctr": 5.8,
-      "pos": 4.8,
+      "ctr": 7.02,
+      "pos": 5.0,
       "users": 0
     },
     {
       "url": "https://itm.tcu.edu.tw/p/16-1022-45542.php?Lang=zh-tw",
-      "impressions": 51,
+      "impressions": 53,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 11.7,
+      "pos": 10.8,
       "users": 0
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/403-1022-452-1.php?Lang=zh-tw",
-      "impressions": 50,
+      "url": "https://itm.tcu.edu.tw/p/16-1022-36083.php?Lang=zh-tw",
+      "impressions": 44,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 6.6,
+      "users": 0
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-36215.php",
+      "impressions": 42,
       "clicks": 2,
-      "ctr": 4.0,
-      "pos": 0.4,
+      "ctr": 4.76,
+      "pos": 12.6,
       "users": 0
     },
     {
       "url": "https://itm.tcu.edu.tw/p/406-1022-65878,r452.php?Lang=zh-tw",
-      "impressions": 45,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 7.1,
-      "users": 0
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-36083.php",
-      "impressions": 36,
-      "clicks": 2,
-      "ctr": 5.56,
-      "pos": 6.4,
+      "impressions": 39,
+      "clicks": 1,
+      "ctr": 2.56,
+      "pos": 7.3,
       "users": 0
     }
   ],
@@ -3702,27 +3718,21 @@
     "country": [
       {
         "name": "臺灣",
-        "sessions": 135,
+        "sessions": 130,
         "users": 0,
-        "share": 54.2
+        "share": 51.4
       },
       {
         "name": "中國",
-        "sessions": 100,
+        "sessions": 113,
         "users": 0,
-        "share": 40.2
+        "share": 44.7
       },
       {
         "name": "泰國",
-        "sessions": 6,
+        "sessions": 3,
         "users": 0,
-        "share": 2.4
-      },
-      {
-        "name": "新加坡",
-        "sessions": 2,
-        "users": 0,
-        "share": 0.8
+        "share": 1.2
       },
       {
         "name": "美國",
@@ -3731,7 +3741,13 @@
         "share": 0.8
       },
       {
-        "name": "加拿大",
+        "name": "新加坡",
+        "sessions": 2,
+        "users": 0,
+        "share": 0.8
+      },
+      {
+        "name": "香港",
         "sessions": 1,
         "users": 0,
         "share": 0.4
@@ -3740,48 +3756,41 @@
     "device": [
       {
         "name": "桌機",
-        "sessions": 189,
+        "sessions": 198,
         "users": 0,
-        "share": 75.9
+        "share": 78.3
       },
       {
         "name": "手機",
-        "sessions": 59,
+        "sessions": 53,
         "users": 0,
-        "share": 23.7
+        "share": 20.9
       },
       {
         "name": "平板",
-        "sessions": 1,
+        "sessions": 2,
         "users": 0,
-        "share": 0.4
+        "share": 0.8
       }
     ],
     "source": [
       {
         "name": "(direct)",
         "medium": "(none)",
-        "sessions": 171,
+        "sessions": 188,
         "users": 0,
-        "share": 68.7
+        "share": 74.3
       },
       {
         "name": "google",
         "medium": "organic",
-        "sessions": 67,
+        "sessions": 61,
         "users": 0,
-        "share": 26.9
+        "share": 24.1
       },
       {
         "name": "bing",
         "medium": "organic",
-        "sessions": 6,
-        "users": 0,
-        "share": 2.4
-      },
-      {
-        "name": "lle.moe.edu.tw",
-        "medium": "referral",
         "sessions": 2,
         "users": 0,
         "share": 0.8
@@ -3789,19 +3798,19 @@
       {
         "name": "tw.search.yahoo.com",
         "medium": "referral",
-        "sessions": 2,
+        "sessions": 1,
         "users": 0,
-        "share": 0.8
+        "share": 0.4
       },
       {
-        "name": "m.facebook.com",
+        "name": "lle.moe.edu.tw",
         "medium": "referral",
         "sessions": 1,
         "users": 0,
         "share": 0.4
       }
     ],
-    "total": 249
+    "total": 253
   },
   "topIssues": [
     {
@@ -3812,232 +3821,652 @@
       "due": "2026-09-15"
     }
   ],
-  "geo": null,
+  "geo": {
+    "auditDate": "2026-08-04",
+    "auditedUrl": "https://itm.tcu.edu.tw/",
+    "maximumScore": 100,
+    "auditCounts": {
+      "jsonLdCount": 0,
+      "h1Count": 2,
+      "totalImages": 26,
+      "missingAltCount": 3,
+      "oldDomainLinkCount": 13,
+      "duplicateIdCount": 41
+    },
+    "auditCrawlDate": "2026-07-31",
+    "subscores": [
+      {
+        "label": "主題清楚度（網站主題是否明確）",
+        "score": 11,
+        "maximum": 20
+      },
+      {
+        "label": "招生資訊完整度（能否回答學生和家長的問題）",
+        "score": 18,
+        "maximum": 20
+      },
+      {
+        "label": "可信度（聯絡資訊和地址是否完整）",
+        "score": 20,
+        "maximum": 20
+      },
+      {
+        "label": "內容深度（網站章節數和說明完整性）",
+        "score": 11,
+        "maximum": 20
+      },
+      {
+        "label": "技術名片（社群分享和搜尋預覽標籤）",
+        "score": 2,
+        "maximum": 20
+      }
+    ],
+    "managerSummary": {
+      "introduction": "目前這個系所網站 GEO 基礎大約 {score} 分（待加強）。",
+      "findings": [
+        "內容介紹完整 — 資訊科技與管理系的課程（大數據、雲端、互動多媒體）、師資、招生資訊都有，但缺少讓搜尋引擎讀懂的「資料名片」。",
+        "分享預覽失效 — 當系友把網站貼到 LINE 或 Facebook 時，看不到系所名稱與簡介（缺技術名片）。",
+        "改版有倒退 — 自上次更新，JSON-LD 結構化資料被移除、canonical 與 hreflang 標記也被移除；{score} 分需要重新補齊這些技術標籤。"
+      ]
+    },
+    "technicalAudit": {
+      "implemented": [
+        {
+          "n": 1,
+          "label": "正式中文系名出現在 title",
+          "value": "通過",
+          "note": ""
+        },
+        {
+          "n": 2,
+          "label": "正式英文系名可見",
+          "value": "通過",
+          "note": ""
+        },
+        {
+          "n": 3,
+          "label": "招生名額與聯絡資訊為可讀 HTML 文字",
+          "value": "通過",
+          "note": ""
+        },
+        {
+          "n": 4,
+          "label": "最新招生／活動內容存在",
+          "value": "通過",
+          "note": ""
+        }
+      ],
+      "warnings": [
+        {
+          "n": 1,
+          "label": "首頁唯一且正確的 H1",
+          "value": "未通過",
+          "note": "首頁偵測到 2 個 H1（重複 H1 違規）"
+        },
+        {
+          "n": 2,
+          "label": "og:image 為正式主視覺 URL",
+          "value": "未通過",
+          "note": "og:image 仍指向 /images/favicon.ico（非正式主視覺）"
+        }
+      ],
+      "missing": [
+        {
+          "n": 1,
+          "label": "application/ld+json 結構化資料",
+          "value": "缺失",
+          "note": "regressed from 2 個 JSON-LD 結構化資料"
+        },
+        {
+          "n": 2,
+          "label": "<link rel=\"canonical\">",
+          "value": "缺失",
+          "note": "regressed"
+        },
+        {
+          "n": 3,
+          "label": "og:title",
+          "value": "缺失",
+          "note": "regressed"
+        },
+        {
+          "n": 4,
+          "label": "og:description",
+          "value": "缺失",
+          "note": "regressed"
+        },
+        {
+          "n": 5,
+          "label": "hreflang=\"en-US\"",
+          "value": "缺失",
+          "note": "regressed"
+        },
+        {
+          "n": 6,
+          "label": "og:url",
+          "value": "缺失",
+          "note": ""
+        }
+      ]
+    },
+    "schema_validation": {
+      "type": "Organization",
+      "status": "PASS",
+      "rich_results_test_id": "N7SE8y6GmjtH0dcdqUzYFA",
+      "checked_date": "2026-08-27"
+    },
+    "audit_scores": {
+      "knowledge_graph_readiness": 100,
+      "brand_identity": 100
+    }
+  },
   "evidence": [],
   "stalePages": [
     {
       "url": "https://itm.tcu.edu.tw/p/412-1022-2586.php",
       "year": null,
       "impressions": 187,
-      "clicks": 15,
-      "pos": 3.2,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-30026.php?Lang=zh-tw",
-      "year": null,
-      "impressions": 167,
-      "clicks": 4,
-      "pos": 4.3,
+      "clicks": 16,
+      "pos": 3.7,
       "note": "HTTP 404 失效連結"
     },
     {
       "url": "https://itm.tcu.edu.tw/p/404-1022-36099.php",
       "year": null,
-      "impressions": 159,
-      "clicks": 6,
-      "pos": 6.5,
+      "impressions": 169,
+      "clicks": 7,
+      "pos": 6.0,
       "note": "HTTP 404 失效連結"
     },
     {
       "url": "https://itm.tcu.edu.tw/p/404-1022-52388.php?Lang=zh-tw",
       "year": null,
-      "impressions": 114,
-      "clicks": 2,
-      "pos": 4.4,
+      "impressions": 124,
+      "clicks": 3,
+      "pos": 4.9,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-30026.php?Lang=zh-tw",
+      "year": null,
+      "impressions": 119,
+      "clicks": 0,
+      "pos": 4.9,
       "note": "HTTP 404 失效連結"
     },
     {
       "url": "https://itm.tcu.edu.tw/p/404-1022-34441.php",
       "year": null,
-      "impressions": 69,
+      "impressions": 57,
       "clicks": 4,
-      "pos": 4.8,
+      "pos": 5.0,
       "note": "HTTP 404 失效連結"
     },
     {
       "url": "https://itm.tcu.edu.tw/p/16-1022-45542.php?Lang=zh-tw",
       "year": null,
-      "impressions": 51,
+      "impressions": 53,
       "clicks": 0,
-      "pos": 11.7,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/403-1022-452-1.php?Lang=zh-tw",
-      "year": null,
-      "impressions": 50,
-      "clicks": 2,
-      "pos": 0.4,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/406-1022-65878,r452.php?Lang=zh-tw",
-      "year": null,
-      "impressions": 45,
-      "clicks": 0,
-      "pos": 7.1,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-36083.php",
-      "year": null,
-      "impressions": 36,
-      "clicks": 2,
-      "pos": 6.4,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-36215.php",
-      "year": null,
-      "impressions": 34,
-      "clicks": 1,
-      "pos": 14.1,
+      "pos": 10.8,
       "note": "HTTP 404 失效連結"
     },
     {
       "url": "https://itm.tcu.edu.tw/p/16-1022-36083.php?Lang=zh-tw",
       "year": null,
-      "impressions": 33,
+      "impressions": 44,
       "clicks": 0,
-      "pos": 8.0,
+      "pos": 6.6,
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/16-1022-34006.php?Lang=zh-tw",
+      "url": "https://itm.tcu.edu.tw/p/404-1022-36215.php",
       "year": null,
-      "impressions": 33,
-      "clicks": 0,
-      "pos": 6.0,
+      "impressions": 42,
+      "clicks": 2,
+      "pos": 12.6,
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-30107.php",
+      "url": "https://itm.tcu.edu.tw/p/406-1022-65878,r452.php?Lang=zh-tw",
       "year": null,
-      "impressions": 30,
-      "clicks": 3,
-      "pos": 5.3,
+      "impressions": 39,
+      "clicks": 1,
+      "pos": 7.3,
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/403-1022-453.php",
+      "url": "https://itm.tcu.edu.tw/p/403-1022-452-1.php?Lang=zh-tw",
       "year": null,
-      "impressions": 30,
+      "impressions": 39,
       "clicks": 0,
-      "pos": 1.1,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-45541.php?Lang=zh-tw",
-      "year": null,
-      "impressions": 29,
-      "clicks": 0,
-      "pos": 9.3,
+      "pos": 0.8,
       "note": "HTTP 404 失效連結"
     },
     {
       "url": "https://itm.tcu.edu.tw/var/file/22/1022/img/1199/118691833.pdf",
       "year": null,
-      "impressions": 28,
+      "impressions": 36,
       "clicks": 1,
-      "pos": 5.5,
+      "pos": 6.0,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-36083.php",
+      "year": null,
+      "impressions": 35,
+      "clicks": 2,
+      "pos": 6.1,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-30107.php",
+      "year": null,
+      "impressions": 33,
+      "clicks": 2,
+      "pos": 5.7,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-45541.php?Lang=zh-tw",
+      "year": null,
+      "impressions": 28,
+      "clicks": 0,
+      "pos": 10.2,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/403-1022-453.php",
+      "year": null,
+      "impressions": 27,
+      "clicks": 0,
+      "pos": 0.7,
       "note": "HTTP 404 失效連結"
     },
     {
       "url": "https://itm.tcu.edu.tw/p/16-1022-45541.php?Lang=zh-tw",
       "year": null,
-      "impressions": 27,
+      "impressions": 24,
       "clicks": 0,
-      "pos": 39.2,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/412-1022-2585.php?Lang=zh-tw",
-      "year": null,
-      "impressions": 20,
-      "clicks": 0,
-      "pos": 3.8,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-30082.php",
-      "year": null,
-      "impressions": 20,
-      "clicks": 0,
-      "pos": 27.6,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/16-1022-58627.php?Lang=zh-tw",
-      "year": null,
-      "impressions": 20,
-      "clicks": 0,
-      "pos": 8.4,
+      "pos": 37.3,
       "note": "HTTP 404 失效連結"
     },
     {
       "url": "https://itm.tcu.edu.tw/p/404-1022-36089.php?Lang=zh-tw",
       "year": null,
-      "impressions": 19,
+      "impressions": 23,
       "clicks": 0,
-      "pos": 9.5,
+      "pos": 7.6,
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/16-1022-54791.php?Lang=zh-tw",
+      "url": "https://itm.tcu.edu.tw/p/426-1022-2.php?Lang=zh-tw",
+      "year": null,
+      "impressions": 20,
+      "clicks": 0,
+      "pos": 9.4,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/426-1022-5.php?Lang=zh-tw",
       "year": null,
       "impressions": 19,
-      "clicks": 1,
-      "pos": 26.9,
+      "clicks": 0,
+      "pos": 7.9,
       "note": "HTTP 404 失效連結"
     },
     {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-33964.php",
+      "url": "https://itm.tcu.edu.tw/p/16-1022-58627.php?Lang=zh-tw",
+      "year": null,
+      "impressions": 19,
+      "clicks": 0,
+      "pos": 8.8,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/412-1022-2585.php?Lang=zh-tw",
       "year": null,
       "impressions": 17,
       "clicks": 0,
-      "pos": 14.1,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/406-1022-65683,r452.php?Lang=zh-tw",
-      "year": null,
-      "impressions": 17,
-      "clicks": 1,
-      "pos": 5.6,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/406-1022-65625,r452.php?Lang=zh-tw",
-      "year": null,
-      "impressions": 16,
-      "clicks": 0,
-      "pos": 5.1,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/var/file/22/1022/attach/15/pta_90538_1108797_18692.pdf",
-      "year": null,
-      "impressions": 15,
-      "clicks": 0,
-      "pos": 5.9,
-      "note": "HTTP 404 失效連結"
-    },
-    {
-      "url": "https://itm.tcu.edu.tw/p/404-1022-52388.php?Lang=en",
-      "year": null,
-      "impressions": 15,
-      "clicks": 0,
-      "pos": 19.3,
+      "pos": 4.3,
       "note": "HTTP 404 失效連結"
     },
     {
       "url": "https://itm.tcu.edu.tw/p/404-1022-45542.php?Lang=zh-tw",
       "year": null,
+      "impressions": 17,
+      "clicks": 0,
+      "pos": 9.8,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/16-1022-54791.php?Lang=zh-tw",
+      "year": null,
+      "impressions": 17,
+      "clicks": 1,
+      "pos": 7.9,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-52388.php?Lang=en",
+      "year": null,
+      "impressions": 16,
+      "clicks": 0,
+      "pos": 17.9,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/406-1022-65683,r452.php?Lang=zh-tw",
+      "year": null,
       "impressions": 14,
       "clicks": 0,
-      "pos": 12.3,
+      "pos": 6.7,
       "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/404-1022-30082.php",
+      "year": null,
+      "impressions": 13,
+      "clicks": 0,
+      "pos": 23.5,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/412-1022-2586.php?Lang=en",
+      "year": null,
+      "impressions": 12,
+      "clicks": 0,
+      "pos": 13.2,
+      "note": "HTTP 404 失效連結"
+    },
+    {
+      "url": "https://itm.tcu.edu.tw/p/406-1022-29876,r451-1.php",
+      "year": null,
+      "impressions": 12,
+      "clicks": 0,
+      "pos": 9.5,
+      "note": "HTTP 404 失效連結"
+    }
+  ],
+  "ai_referrers": [
+    {
+      "referrer": "https://chatgpt.com/",
+      "sessions": 1562,
+      "internal": false
+    },
+    {
+      "referrer": "https://gemini.google.com/",
+      "sessions": 348,
+      "internal": false
+    },
+    {
+      "referrer": "https://oga.tcu.edu.tw/international-student/?utm_source=chatgpt.com",
+      "sessions": 49,
+      "internal": true
+    },
+    {
+      "referrer": "https://www.perplexity.ai/",
+      "sessions": 44,
+      "internal": false
+    },
+    {
+      "referrer": "https://oga.tcu.edu.tw/news/?utm_source=chatgpt.com",
+      "sessions": 36,
+      "internal": true
+    },
+    {
+      "referrer": "https://oga.tcu.edu.tw/international-students/?utm_source=chatgpt.com",
+      "sessions": 29,
+      "internal": true
+    },
+    {
+      "referrer": "https://admissions.tcu.edu.tw/?p=27362&utm_source=chatgpt.com",
+      "sessions": 20,
+      "internal": true
+    },
+    {
+      "referrer": "https://academic.tcu.edu.tw/?page_id=2978&utm_source=chatgpt.com",
+      "sessions": 16,
+      "internal": true
+    },
+    {
+      "referrer": "https://mpec.tcu.edu.tw/?cat=55&utm_source=chatgpt.com",
+      "sessions": 15,
+      "internal": true
+    },
+    {
+      "referrer": "https://ell.tcu.edu.tw/?page_id=1943&utm_source=chatgpt.com",
+      "sessions": 14,
+      "internal": true
+    },
+    {
+      "referrer": "https://claude.ai/",
+      "sessions": 14,
+      "internal": false
+    },
+    {
+      "referrer": "https://oga.tcu.edu.tw/admissions-page/?utm_source=chatgpt.com",
+      "sessions": 13,
+      "internal": true
+    },
+    {
+      "referrer": "https://freshman.tcu.edu.tw/?page_id=1498&utm_source=chatgpt.com",
+      "sessions": 12,
+      "internal": true
+    },
+    {
+      "referrer": "https://sky.tcu.edu.tw/p/sign_language?utm_source=chatgpt.com",
+      "sessions": 12,
+      "internal": true
+    },
+    {
+      "referrer": "https://cmed.tcu.edu.tw/?utm_source=chatgpt.com",
+      "sessions": 11,
+      "internal": true
+    },
+    {
+      "referrer": "https://bmse.tcu.edu.tw/?page_id=2017&utm_source=chatgpt.com",
+      "sessions": 10,
+      "internal": true
+    },
+    {
+      "referrer": "https://academic.tcu.edu.tw/?page_id=7130&utm_source=chatgpt.com",
+      "sessions": 10,
+      "internal": true
+    },
+    {
+      "referrer": "https://admissions.tcu.edu.tw/?page_id=5125&utm_source=chatgpt.com",
+      "sessions": 10,
+      "internal": true
+    },
+    {
+      "referrer": "https://freshman.tcu.edu.tw/?page_id=647&utm_source=chatgpt.com",
+      "sessions": 10,
+      "internal": true
+    },
+    {
+      "referrer": "https://oga.tcu.edu.tw/news/?utm_source=chatgpt.com&e-filter-ddfe0b1-post_tag=student-scholarship-award",
+      "sessions": 9,
+      "internal": true
+    }
+  ],
+  "cta_clicks": [
+    {
+      "category": "其他連結",
+      "clicks": 403,
+      "top_links": [
+        {
+          "url": "https://cec.tcu.edu.tw/?p=5033",
+          "clicks": 56
+        },
+        {
+          "url": "https://itm.tcust.edu.tw/p/412-1022-2570.php?Lang=zh-tw",
+          "clicks": 46
+        },
+        {
+          "url": "https://tcublog.tcu.edu.tw/index.php?op=school&q=%E8%B3%87%E8%A8%8A%E7%A7%91%E6%8A%80%E8%88%87%E7%AE",
+          "clicks": 44
+        },
+        {
+          "url": "https://itm.tcu.edu.tw/",
+          "clicks": 37
+        },
+        {
+          "url": "https://itm.tcust.edu.tw/p/404-1022-30062.php",
+          "clicks": 34
+        }
+      ]
+    },
+    {
+      "category": "PDF 下載",
+      "clicks": 131,
+      "top_links": [
+        {
+          "url": "https://itm.tcu.edu.tw/var/file/22/1022/attach/15/pta_91908_879668_85587.pdf",
+          "clicks": 22
+        },
+        {
+          "url": "https://itm.tcu.edu.tw/var/file/22/1022/attach/15/pta_91907_138302_85587.pdf",
+          "clicks": 21
+        },
+        {
+          "url": "https://itm.tcu.edu.tw/var/file/22/1022/attach/15/pta_92055_2180580_35655.pdf",
+          "clicks": 16
+        },
+        {
+          "url": "https://itm.tcu.edu.tw/var/file/22/1022/img/1843/654648614.pdf",
+          "clicks": 11
+        },
+        {
+          "url": "https://itm.tcu.edu.tw/var/file/22/1022/attach/15/pta_90538_1108797_18692.pdf",
+          "clicks": 10
+        }
+      ]
+    },
+    {
+      "category": "招生簡章",
+      "clicks": 21,
+      "top_links": [
+        {
+          "url": "https://admissions.tcu.edu.tw/?page_id=4996",
+          "clicks": 19
+        },
+        {
+          "url": "https://admissions.tcu.edu.tw/?page_id=5305",
+          "clicks": 2
+        }
+      ]
+    },
+    {
+      "category": "LINE",
+      "clicks": 6,
+      "top_links": [
+        {
+          "url": "https://line.me/ti/g/arUGYZWRtW",
+          "clicks": 6
+        }
+      ]
+    }
+  ],
+  "user_routes": [
+    {
+      "landing": "https://itm.tcu.edu.tw/index.php",
+      "next": "https://itm.tcu.edu.tw/p/412-1022-2586.php",
+      "sessions": 46
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/",
+      "next": "https://itm.tcu.edu.tw/p/412-1022-2586.php",
+      "sessions": 15
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/",
+      "next": "https://itm.tcu.edu.tw/p/404-1022-36099.php",
+      "sessions": 8
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/",
+      "next": "https://itm.tcu.edu.tw/p/404-1022-34441.php",
+      "sessions": 7
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/index.php",
+      "next": "https://itm.tcu.edu.tw/p/404-1022-36099.php",
+      "sessions": 7
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/p/426-1022-2.php",
+      "next": "https://itm.tcu.edu.tw/p/426-1022-5.php",
+      "sessions": 7
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/index.php",
+      "next": "https://itm.tcu.edu.tw/p/404-1022-34441.php",
+      "sessions": 7
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/p/404-1022-52388.php",
+      "next": "https://itm.tcu.edu.tw/p/404-1022-30062.php",
+      "sessions": 6
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/",
+      "next": "https://itm.tcu.edu.tw/p/404-1022-30020.php",
+      "sessions": 6
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/index.php",
+      "next": "https://itm.tcu.edu.tw/p/404-1022-30026.php",
+      "sessions": 5
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/",
+      "next": "https://itm.tcu.edu.tw/p/404-1022-30026.php",
+      "sessions": 4
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/",
+      "next": "https://itm.tcu.edu.tw/index.php",
+      "sessions": 4
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/index.php",
+      "next": "https://itm.tcu.edu.tw/p/405-1022-36086,c2590.php",
+      "sessions": 3
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/index.php",
+      "next": "https://itm.tcu.edu.tw/p/406-1022-66113,r452.php",
+      "sessions": 3
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/p/412-1022-2569.php",
+      "next": "https://itm.tcu.edu.tw/p/412-1022-2570.php",
+      "sessions": 3
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/index.php",
+      "next": "https://itm.tcu.edu.tw/p/426-1022-5.php",
+      "sessions": 3
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/",
+      "next": "https://itm.tcu.edu.tw/p/404-1022-39061.php",
+      "sessions": 3
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/index.php",
+      "next": "https://itm.tcu.edu.tw/p/404-1022-36160.php",
+      "sessions": 3
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/p/412-1022-2586.php",
+      "next": "https://itm.tcu.edu.tw/index.php",
+      "sessions": 3
+    },
+    {
+      "landing": "https://itm.tcu.edu.tw/p/404-1022-34441.php",
+      "next": "https://itm.tcu.edu.tw/p/404-1022-36099.php",
+      "sessions": 3
     }
   ]
 }

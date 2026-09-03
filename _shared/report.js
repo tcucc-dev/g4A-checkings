@@ -585,6 +585,14 @@
         if (djMax && (!curMax || norm(djMax) > norm(curMax))) {
           data.meta.maxDateGa4 = djMax;
         }
+        // ponytail: sections 12/13/14/19 are period-level, not per-day — the
+        // Supabase per-day rows don't carry them (rowToNested has no mapping
+        // for ai_referrers/cta_clicks/user_routes, and geo is only on the
+        // today-row). Graft them from the rebuild artifact here, after every
+        // load path has converged, so all three paths render the same content.
+        for (const k of ['ai_referrers', 'cta_clicks', 'user_routes', 'geo']) {
+          if (dj && dj[k] && (data[k] == null || data[k].length === 0)) data[k] = dj[k];
+        }
       }
     } catch (_) { /* ignore — fall back to whatever maxDateGa4 is on data */ }
 
@@ -1788,9 +1796,9 @@
 
   // 20. Query specs (BigQuery tables — single source of truth)
   const QUERY_SPECS = [
-    { table: 'all_units_summary', contains: 'GA4 事件層級資料（page_view、click、session、user、country、device、source/medium）', used: '✓ kpis / audience / trends52w / stalePages', excluded: '✗ 不直接用 COUNT(*) 算 pageviews，用 COUNTIF(event_name=\'page_view\')' },
-    { table: 'all_gsc_summary', contains: 'Google Search Console 每日 query × page 曝光/點擊/排名', used: '✓ topKeywords / topPages / trends52w GSC', excluded: '✗ 不跨 query 加總 active_users（會重複計算）' },
-    { table: 'search_behavior_summary', contains: '進站關鍵字、登陸頁、內部搜尋、AI 搜尋引擎 referrer', used: '（預留，目前未於 v3 報表查詢）', excluded: '✗ AI 搜尋 referrer 需管理員後台確認' },
+    { table: 'all_units_summary', contains: 'GA4 事件層級資料（page_view、click、session、user、country、device、source/medium、page_referrer、link_url）', used: '✓ kpis / audience / trends52w / stalePages / 第 12、13、14 節', excluded: '✗ 不直接用 COUNT(*) 算 pageviews，用 COUNTIF(event_name=\'page_view\')' },
+    { table: 'all_gsc_summary', contains: 'Google Search Console 每日 query × page 曝光/點擊/排名', used: '✓ topKeywords / topPages / trends52w GSC', excluded: '✗ 不跨 query 加總 active_users（會重複計算）；每日活躍使用者一律重新 COUNT(DISTINCT user_pseudo_id)' },
+    { table: 'search_behavior_summary', contains: '進站關鍵字、登陸頁、內部搜尋、AI 搜尋引擎 referrer', used: '（未查詢 — 第 12 節改用 all_units_summary.page_referrer）', excluded: '✗ 排除未經驗證的校內 referrer：referrer 為 tcu.edu.tw 者標記 internal 並排除於總數之外' },
   ];
 
   // ----- Section template helper -----
@@ -1903,83 +1911,88 @@
       <div class="lead" style="margin-top:10px;">中位曝光 = ${fmtNum(median)}。以 topPages 的 GSC 曝光 × 排名切四象限。</div>`;
   }
 
-  // ----- 12. AI referral (placeholder) -----
+  // ----- 12. AI referral -----
   function renderAiReferral(d) {
     const body = document.getElementById('ai-referral-body');
     if (!body) return;
+    const rows = d.ai_referrers || [];
+    if (!rows.length) { body.innerHTML = adminQueryBox('all_units_summary 的 page_referrer 尚無 AI 導流資料，或本次建置未包含此查詢。'); return; }
+    const external = rows.filter(r => !r.internal);
+    const internal = rows.filter(r => r.internal);
+    const total = external.reduce((s, r) => s + (r.sessions || 0), 0);
+    const tbl = (list, note) => `
+      <div class="tbl-wrap"><table class="data">
+        <thead><tr><th>Referrer</th><th class="num">工作階段</th><th class="num">佔比</th></tr></thead>
+        <tbody>${list.map(r => `
+          <tr>
+            <td class="url">${esc(r.referrer)}</td>
+            <td class="num">${fmtNum(r.sessions)}</td>
+            <td class="num">${total ? ((r.sessions / total) * 100).toFixed(1) + '%' : '—'}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>
+      <div class="lead" style="margin-top:6px;">${note}</div>`;
     body.innerHTML = `
-      <div class="placeholder-box">
-        <p><strong>本資料需透過管理員後台查詢。</strong></p>
-        <p>在 BigQuery 對 <code>search_behavior_summary</code> 執行：</p>
-<pre style="background:#f8fafc;padding:10px;border-radius:6px;font-size:12px;overflow-x:auto;">SELECT page_referrer, COUNT(*) AS sessions
-FROM \`project.dataset.all_units_summary\`
-WHERE page_referrer LIKE '%chatgpt.com%'
-   OR page_referrer LIKE '%perplexity%'
-   OR page_referrer LIKE '%gemini%'
-   OR page_referrer LIKE '%claude%'
-   OR page_referrer LIKE '%copilot%'
-   AND date >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
-GROUP BY page_referrer
-ORDER BY sessions DESC LIMIT 20</pre>
-        <p style="color:var(--muted);font-size:13px;">為什麼不在這份報表自動跑：referrer 字串沒有結構化標記，誤判率高；建議管理員每季人工 review 一次並更新此區。</p>
-      </div>`;
+      <div class="lead" style="margin-bottom:8px;"><strong>近 30 天</strong>共 <strong>${fmtNum(total)}</strong> 個工作階段來自生成式 AI（ChatGPT / Gemini / Perplexity / Claude / Copilot）。此查詢涵蓋全校各單位，因為 <code>page_referrer</code> 不帶 site_name。</div>
+      ${tbl(external, '外部 AI 引擎直接導流。')}
+      ${internal.length ? `<details style="margin-top:12px;"><summary style="cursor:pointer;color:var(--muted);font-size:13px;">已排除的校內 referrer（${internal.length} 筆）— 這些是站內跳轉帶著殘留的 <code>?utm_source=chatgpt.com</code>，不是真正的 AI 導流</summary>${tbl(internal, '僅供對帳，未計入上方總數。')}</details>` : ''}`;
   }
 
-  // ----- 13. CTA funnel (placeholder) -----
+  function adminQueryBox(msg) {
+    return `<div class="placeholder-box"><p><strong>${esc(msg)}</strong></p>
+      <p style="color:var(--muted);font-size:13px;">資料由 <code>scripts/build_data.py</code> 於每次建置時從 BigQuery 產生，寫入 <code>data.json</code>。</p></div>`;
+  }
+
+  // ----- 13. CTA funnel -----
   function renderCtaFunnel(d) {
     const body = document.getElementById('cta-funnel-body');
     if (!body) return;
+    const cats = d.cta_clicks || [];
+    if (!cats.length) { body.innerHTML = adminQueryBox('近 30 天沒有 click 事件，或本次建置未包含此查詢。'); return; }
+    const total = cats.reduce((s, c) => s + (c.clicks || 0), 0);
+    const max = Math.max(...cats.map(c => c.clicks || 0), 1);
     body.innerHTML = `
-      <div class="placeholder-box">
-        <p><strong>本資料需透過管理員後台查詢。</strong></p>
-        <p>在 BigQuery 對 <code>all_units_summary</code> 執行（依部門調整 site_name）：</p>
-<pre style="background:#f8fafc;padding:10px;border-radius:6px;font-size:12px;overflow-x:auto;">SELECT link_url, COUNT(*) AS clicks
-FROM \`project.dataset.all_units_summary\`
-WHERE event_name = 'click'
-  AND site_name = '${esc(d.meta.siteName)}'
-  AND date >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
-GROUP BY link_url
-ORDER BY clicks DESC LIMIT 50</pre>
-        <p style="margin-top:8px;">將連結依 URL pattern 自動分類：</p>
-        <ul style="font-size:13px;">
-          <li><strong>招生簡章</strong>：URL 含 <code>recruit / admission / brochure</code></li>
-          <li><strong>入學方式</strong>：<code>apply / 申請 / 入學</code></li>
-          <li><strong>報名系統</strong>：<code>signup / register</code></li>
-          <li><strong>LINE</strong>：<code>line.me</code></li>
-          <li><strong>電話</strong>：<code>tel:</code></li>
-          <li><strong>Email</strong>：<code>mailto:</code></li>
-          <li><strong>表單</strong>：<code>form / 報名表</code></li>
-          <li><strong>PDF 下載</strong>：<code>.pdf</code></li>
-          <li><strong>其他連結</strong></li>
-        </ul>
-      </div>`;
+      <div class="lead" style="margin-bottom:8px;">近 30 天共 <strong>${fmtNum(total)}</strong> 次 CTA 點擊，依連結網址自動分類（前 50 個連結）。</div>
+      <div class="funnel">${cats.map(c => `
+        <div class="funnel-row">
+          <div class="funnel-name"><strong>${esc(c.category)}</strong><div style="font-size:12px;color:var(--muted);">${total ? ((c.clicks / total) * 100).toFixed(1) + '%' : ''}</div></div>
+          <div class="funnel-bar"><span style="width:${((c.clicks / max) * 100).toFixed(1)}%;"></span></div>
+          <div class="funnel-val">${fmtNum(c.clicks)}</div>
+        </div>`).join('')}</div>
+      <div class="tbl-wrap" style="margin-top:14px;"><table class="data">
+        <thead><tr><th>分類</th><th>熱門連結</th><th class="num">點擊</th></tr></thead>
+        <tbody>${cats.flatMap(c => (c.top_links || []).map((l, i) => `
+          <tr>
+            <td>${i === 0 ? esc(c.category) : ''}</td>
+            <td class="url"><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.url)}</a></td>
+            <td class="num">${fmtNum(l.clicks)}</td>
+          </tr>`)).join('')}
+        </tbody>
+      </table></div>`;
   }
 
-  // ----- 14. User paths (placeholder) -----
+  // ----- 14. User paths -----
   function renderUserPaths(d) {
     const body = document.getElementById('user-paths-body');
     if (!body) return;
+    const routes = d.user_routes || [];
+    if (!routes.length) { body.innerHTML = adminQueryBox('近 30 天沒有兩頁以上的工作階段，或本次建置未包含此查詢。'); return; }
+    const strip = u => String(u || '').replace(/^https?:\/\/[^/]+/, '') || '/';
+    const max = Math.max(...routes.map(r => r.sessions || 0), 1);
     body.innerHTML = `
-      <div class="placeholder-box">
-        <p><strong>本資料需透過管理員後台查詢。</strong></p>
-        <p>建議用 GA4 的 <em>Path exploration</em> 匯出，或在 BigQuery 跑：</p>
-<pre style="background:#f8fafc;padding:10px;border-radius:6px;font-size:12px;overflow-x:auto;">WITH sessions AS (
-  SELECT ga_session_id,
-         MIN(IF(page_view_in_session_index = 1, page_location, NULL)) AS landing,
-         ARRAY_AGG(page_location ORDER BY page_view_in_session_index) AS path
-  FROM \`project.dataset.all_units_summary\`
-  WHERE event_name = 'page_view'
-    AND site_name = '${esc(d.meta.siteName)}'
-    AND date >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
-  GROUP BY ga_session_id
-)
-SELECT landing, path[SAFE_OFFSET(1)] AS next_page, COUNT(*) AS sessions
-FROM sessions
-WHERE path[SAFE_OFFSET(1)] IS NOT NULL
-GROUP BY landing, next_page
-ORDER BY sessions DESC LIMIT 20</pre>
-        <p style="color:var(--muted);font-size:13px;">本報表先以 topPages 為主；用戶路徑需另外寫到探索型 dashboard。</p>
-      </div>`;
+      <div class="lead" style="margin-bottom:8px;">近 30 天最常見的「登陸頁 → 下一頁」動線（已去除網址參數與重新整理造成的重複）。</div>
+      <div class="tbl-wrap"><table class="data">
+        <thead><tr><th>#</th><th>登陸頁</th><th>下一頁</th><th class="num">工作階段</th><th></th></tr></thead>
+        <tbody>${routes.map((r, i) => `
+          <tr>
+            <td>${i + 1}</td>
+            <td class="url"><a href="${esc(r.landing)}" target="_blank" rel="noopener">${esc(strip(r.landing))}</a></td>
+            <td class="url"><a href="${esc(r.next)}" target="_blank" rel="noopener">${esc(strip(r.next))}</a></td>
+            <td class="num">${fmtNum(r.sessions)}</td>
+            <td style="width:120px;"><div class="funnel-bar"><span style="width:${((r.sessions / max) * 100).toFixed(1)}%;"></span></div></td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>`;
   }
 
   // ----- 15. Personas (4) -----
@@ -2092,6 +2105,21 @@ ORDER BY sessions DESC LIMIT 20</pre>
       body.innerHTML = `<div class="placeholder-box"><p><strong>本單元無 GEO 稽核資料。</strong></p><p>請確認 <code>data.json</code> 的 <code>geo</code> 欄位，或回到第 7 節查看評分。</p></div>`;
       return;
     }
+    const sv = g.schema_validation;
+    const scores = g.audit_scores || {};
+    const svBlock = sv ? `
+      <div class="tbl-wrap" style="margin-bottom:14px;"><table class="data">
+        <thead><tr><th>結構化資料檢核</th><th>結果</th><th>說明</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>${esc(sv.type)}</code> Schema</td>
+            <td><span class="issue-item sev ${sv.status === 'PASS' ? 'low' : 'high'}" style="padding:2px 10px;font-size:11px;">${esc(sv.status)}</span></td>
+            <td>Google 複合式搜尋結果測試 · ${esc(sv.checked_date || '-')} · <a href="https://search.google.com/test/rich-results/result?id=${encodeURIComponent(sv.rich_results_test_id || '')}" target="_blank" rel="noopener">檢視測試報告</a></td>
+          </tr>
+          ${scores.knowledge_graph_readiness != null ? `<tr><td>知識圖譜就緒度</td><td class="num"><strong>${scores.knowledge_graph_readiness} / 100</strong></td><td>AI 搜尋引擎能否把本站對應到正確的組織實體。</td></tr>` : ''}
+          ${scores.brand_identity != null ? `<tr><td>品牌識別完整度</td><td class="num"><strong>${scores.brand_identity} / 100</strong></td><td>名稱、logo、聯絡方式等組織欄位是否齊備。</td></tr>` : ''}
+        </tbody>
+      </table></div>` : '';
     const cards = g.subscores.map(s => `
       <div class="geo-q-card ${s.score >= s.maximum * 0.7 ? 'pass' : s.score >= s.maximum * 0.4 ? 'warn' : 'fail'}">
         <div class="geo-q-label">${esc(s.id || s.label)}</div>
@@ -2099,7 +2127,7 @@ ORDER BY sessions DESC LIMIT 20</pre>
         <div class="geo-q-score">${s.score} / ${s.maximum}</div>
         <div class="geo-q-note">${esc(s.note || '')}</div>
       </div>`).join('');
-    body.innerHTML = `<div class="geo-q-grid">${cards}</div>
+    body.innerHTML = `${svBlock}<div class="geo-q-grid">${cards}</div>
       <div class="lead" style="margin-top:10px;">稽核日期：${esc(g.auditDate || '-')} · ${esc(g.auditedUrl || '')}</div>`;
   }
 

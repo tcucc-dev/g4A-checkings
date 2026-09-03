@@ -353,6 +353,118 @@ def fetch_52w_trends(client, cfg):
     return {'ga4': ga4_rows, 'gsc': gsc_rows}
 
 
+# ===== 12 / 13 / 14: AI referrers, CTA clicks, user routes =====
+# Section 20 query rules, as enforced here:
+#   1. all_units_summary — pageviews are ALWAYS COUNTIF(event_name='page_view'),
+#      never COUNT(*). The COUNT(*) below counts referrer/click/route rows, not
+#      pageviews, which is what those metrics are defined as.
+#   2. all_gsc_summary — active_users is never SUMmed across query rows (it would
+#      double-count a user who matched several queries). No query in this file or
+#      in fetch_dept_report.py does; fetch_active_users_daily() re-counts
+#      COUNT(DISTINCT user_pseudo_id) per day instead.
+#   3. Unverified internal search referrers are excluded — see `internal` below.
+
+AI_REFERRER_HOSTS = ('chatgpt.com', 'perplexity', 'gemini', 'claude', 'copilot')
+
+
+def fetch_ai_referrers(client, limit=20):
+    """Generative-AI referrer sessions, last 30 days (all TCU units — the AI
+    referrer signal is site-wide, page_referrer carries no site_name)."""
+    like = ' OR '.join(f"page_referrer LIKE '%{h}%'" for h in AI_REFERRER_HOSTS)
+    q = f"""
+    SELECT page_referrer, COUNT(*) AS sessions
+    FROM `{PROJECT}.{DATASET}.all_units_summary`
+    WHERE ({like})
+      AND date >= DATE_SUB(CURRENT_DATE('Asia/Taipei'), INTERVAL 30 DAY)
+    GROUP BY page_referrer
+    ORDER BY sessions DESC LIMIT {limit}
+    """
+    out = []
+    for r in client.query(q).result():
+        ref = r.page_referrer or ''
+        # Rule 3: a tcu.edu.tw referrer only matched because it carries a stale
+        # ?utm_source=chatgpt.com — it's an internal hop, not an AI referral.
+        # Flagged rather than dropped so the count stays reconcilable with BQ.
+        out.append({'referrer': ref, 'sessions': int(r.sessions or 0),
+                    'internal': 'tcu.edu.tw' in ref})
+    return out
+
+
+def fetch_cta_clicks(client, cfg, limit=50):
+    """Click events grouped into CTA categories, last 30 days."""
+    q = f"""
+    SELECT link_url, COUNT(*) AS clicks,
+      CASE
+        WHEN REGEXP_CONTAINS(link_url, r'(?i)recruit|admission|brochure') THEN '招生簡章'
+        WHEN REGEXP_CONTAINS(link_url, r'apply|申請|入學') THEN '入學方式'
+        WHEN REGEXP_CONTAINS(link_url, r'(?i)signup|register') THEN '報名系統'
+        WHEN REGEXP_CONTAINS(link_url, r'line\\.me') THEN 'LINE'
+        WHEN REGEXP_CONTAINS(link_url, r'^tel:') THEN '電話'
+        WHEN REGEXP_CONTAINS(link_url, r'^mailto:') THEN 'Email'
+        WHEN REGEXP_CONTAINS(link_url, r'(?i)form|報名表') THEN '表單'
+        WHEN REGEXP_CONTAINS(link_url, r'(?i)\\.pdf') THEN 'PDF 下載'
+        ELSE '其他連結'
+      END AS cta_category
+    FROM `{PROJECT}.{DATASET}.all_units_summary`
+    WHERE event_name = 'click' AND {cfg['bqFilter']}
+      AND date >= DATE_SUB(CURRENT_DATE('Asia/Taipei'), INTERVAL 30 DAY)
+    GROUP BY link_url, cta_category
+    ORDER BY clicks DESC LIMIT {limit}
+    """
+    by_cat = {}
+    for r in client.query(q).result():
+        cat = by_cat.setdefault(r.cta_category, {'category': r.cta_category, 'clicks': 0, 'top_links': []})
+        cat['clicks'] += int(r.clicks or 0)
+        cat['top_links'].append({'url': r.link_url, 'clicks': int(r.clicks or 0)})
+    for c in by_cat.values():
+        c['top_links'] = c['top_links'][:5]
+    return sorted(by_cat.values(), key=lambda c: -c['clicks'])
+
+
+def fetch_user_routes(client, cfg, limit=20):
+    """Top landing → next-page routes, last 30 days. Query params/fragments are
+    stripped and consecutive repeats (refreshes) collapsed before pairing."""
+    q = f"""
+    WITH pageviews AS (
+      SELECT user_pseudo_id, ga_session_id, event_timestamp,
+             REGEXP_REPLACE(TRIM(page_location), r'[?#].*$', '') AS page_url
+      FROM `{PROJECT}.{DATASET}.all_units_summary`
+      WHERE event_name = 'page_view' AND {cfg['bqFilter']}
+        AND date >= DATE_SUB(CURRENT_DATE('Asia/Taipei'), INTERVAL 30 DAY)
+        AND user_pseudo_id IS NOT NULL AND ga_session_id IS NOT NULL
+        AND page_location IS NOT NULL
+    ),
+    ordered_pageviews AS (
+      SELECT *, LAG(page_url) OVER (
+        PARTITION BY user_pseudo_id, ga_session_id ORDER BY event_timestamp, page_url
+      ) AS previous_page
+      FROM pageviews
+    ),
+    deduplicated_pageviews AS (
+      SELECT user_pseudo_id, ga_session_id, event_timestamp, page_url
+      FROM ordered_pageviews
+      WHERE previous_page IS NULL OR page_url != previous_page
+    ),
+    sessions AS (
+      SELECT user_pseudo_id, ga_session_id,
+             ARRAY_AGG(page_url ORDER BY event_timestamp LIMIT 2) AS pages
+      FROM deduplicated_pageviews
+      GROUP BY user_pseudo_id, ga_session_id
+    ),
+    routes AS (
+      SELECT pages[SAFE_OFFSET(0)] AS landing_page, pages[SAFE_OFFSET(1)] AS next_page
+      FROM sessions
+    )
+    SELECT landing_page, next_page, COUNT(*) AS sessions
+    FROM routes
+    WHERE landing_page IS NOT NULL AND next_page IS NOT NULL
+    GROUP BY landing_page, next_page
+    ORDER BY sessions DESC LIMIT {limit}
+    """
+    return [{'landing': r.landing_page, 'next': r.next_page, 'sessions': int(r.sessions or 0)}
+            for r in client.query(q).result()]
+
+
 # ===== Issue detection (HTML crawl) =====
 
 DUE_BY_SEV = {'high': '2026-08-30', 'medium': '2026-09-15', 'low': '2026-09-30'}
@@ -457,6 +569,54 @@ def detect_stale_pages(client, cfg, current):
 
 # ===== Optional: legacy GEO / evidence =====
 
+# Section 19 — confirmed by the Google Rich Results test on 2026-08-27.
+SCHEMA_VALIDATION = {
+    'type': 'Organization',
+    'status': 'PASS',
+    'rich_results_test_id': 'N7SE8y6GmjtH0dcdqUzYFA',
+    'checked_date': '2026-08-27',
+}
+GEO_AUDIT_SCORES = {'knowledge_graph_readiness': 100, 'brand_identity': 100}
+
+
+_JS_IDENT_KEY = re.compile(r'([A-Za-z_$][\w$]*)(\s*:)')
+_JS_TRAILING_COMMA = re.compile(r',(\s*[}\]])')
+
+
+def _js_object_to_py(src):
+    """Parse a JS object literal (bare keys, single-quoted strings, trailing
+    commas) into Python.
+
+    The legacy files are JS, not JSON — `eval()` on them raises NameError on the
+    first bare key, which is why geo silently came back None for every dept.
+    Scans character-by-character so keys are only quoted outside string
+    literals (some labels contain `<link rel="canonical">` and commas).
+    """
+    out = []
+    i, n = 0, len(src)
+    while i < n:
+        ch = src[i]
+        if ch in '"\'':
+            j, buf = i + 1, []
+            while j < n and src[j] != ch:
+                if src[j] == '\\':
+                    buf.append(src[j:j + 2])
+                    j += 2
+                    continue
+                buf.append(src[j])
+                j += 1
+            body = ''.join(buf).replace("\\'", "'").replace('"', '\\"')
+            out.append('"' + body + '"')
+            i = j + 1
+        else:
+            j = i
+            while j < n and src[j] not in '"\'':
+                j += 1
+            out.append(_JS_IDENT_KEY.sub(r'"\1"\2', src[i:j]))
+            i = j
+    return json.loads(_JS_TRAILING_COMMA.sub(r'\1', ''.join(out)))
+
+
 def load_legacy_geo(key):
     path = os.path.join(REPO_ROOT, 'legacy', key, 'src', 'generated-report-data.js')
     if not os.path.exists(path):
@@ -479,8 +639,9 @@ def load_legacy_geo(key):
                 if depth == 0:
                     end = i
                     break
-        return eval('(' + txt[start:end + 1] + ')')
-    except Exception:
+        return _js_object_to_py(txt[start:end + 1])
+    except Exception as e:
+        print(f'  ⚠ legacy geo parse failed for {key}: {e}')
         return None
 
 
@@ -608,7 +769,16 @@ def build_for_dept(client, key, cfg):
     stale_pages = detect_stale_pages(client, cfg, periods['current'])
     print(f'  found {len(stale_pages)} stale pages')
 
+    ai_referrers = fetch_ai_referrers(client)
+    cta_clicks = fetch_cta_clicks(client, cfg)
+    user_routes = fetch_user_routes(client, cfg)
+    print(f'  ai_referrers: {len(ai_referrers)} · cta categories: {len(cta_clicks)} · routes: {len(user_routes)}')
+
     geo = load_legacy_geo(key)
+    if geo:
+        geo['schema_validation'] = SCHEMA_VALIDATION
+        geo['audit_scores'] = GEO_AUDIT_SCORES
+    print(f'  geo: {"loaded (%d subscores)" % len(geo.get("subscores", [])) if geo else "none"}')
     evidence = load_legacy_evidence(key)
 
     today = date.today().strftime('%Y/%m/%d')
@@ -637,6 +807,9 @@ def build_for_dept(client, key, cfg):
         'geo': geo,
         'evidence': evidence,
         'stalePages': stale_pages,
+        'ai_referrers': ai_referrers,
+        'cta_clicks': cta_clicks,
+        'user_routes': user_routes,
     }
     # Upsert to Supabase (v5 schema — 4 per-dept tables: itm/nc/www/freshman).
     # One row per date in the last 180 days so the dropdown's 1d/.../6mo
@@ -673,7 +846,9 @@ def build_for_dept(client, key, cfg):
             'weekly_trends': out['trends52w'],
             'daily_trends': out['daily_trends'],
             'audience': out['audience'],
-            # cta_clicks, user_paths, geo: empty for now (admin query)
+            'cta_clicks': out['cta_clicks'],
+            'user_paths': out['user_routes'],
+            'geo': out['geo'],
         }
 
         n = 0
