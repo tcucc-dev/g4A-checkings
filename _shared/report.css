@@ -1643,9 +1643,12 @@ footer a { color: var(--teal); text-decoration: none; }
   }
   #side-nav.is-hidden { transform: translateY(-100%); }
   .side-nav-header, .side-nav-footer, #side-nav-overlay { display: none !important; }
+  /* Items size to content (flex-wrap) instead of a 140px-min grid that
+     stretched pills wider than the labels needed and clipped longer
+     Chinese titles with "...". flex: 0 0 auto keeps items from shrinking. */
   #side-nav-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 6px;
     padding: 0;
   }
@@ -1655,8 +1658,7 @@ footer a { color: var(--teal); text-decoration: none; }
     background: rgba(255, 255, 255, 0.08);
     text-align: center;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    flex: 0 0 auto;
     font-size: 13px;
   }
   .side-nav-item:hover {
@@ -1744,15 +1746,28 @@ footer a { color: var(--teal); text-decoration: none; }
   }
   #report-period { font-size: 12px; letter-spacing: -0.2px; }
   .meta-bar .pill.date-picker {
+    flex-direction: row;          /* was: column — label/select/apply now sit side-by-side */
+    align-items: center;
     align-self: stretch;
     width: 100%;
+    padding: 4px 6px;             /* was: 12px — slimmer capsule pill */
+    gap: 6px;
     white-space: normal;
+    border-radius: 10px;          /* was: 999px — capsule radius looks wrong on a tall card */
+  }
+  .meta-bar .pill.date-picker > label {
+    display: none;                /* "區間" was eating vertical space; rely on aria-label on select */
+  }
+  .meta-bar .pill.date-picker select {
+    flex: 1;
+    font-size: 13px;
+    padding: 4px 6px;
   }
   .meta-bar .pill.date-picker button#btn-apply-range {
     width: auto;
-    min-height: 36px;
-    font-size: 14px;
-    padding: 8px 16px;
+    min-height: 32px;
+    font-size: 13px;
+    padding: 6px 14px;
     align-self: center;
   }
 }
