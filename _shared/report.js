@@ -378,6 +378,40 @@
     };
   }
 
+  // ponytail: data.json's kpis/periods are pre-aggregated for the weekly
+  // window ending 8/31. When the user picks any window that doesn't fully
+  // overlap that week (1d/2d/.../30d), the KPI cards would show weekly
+  // numbers on top of a 1d/7d/... banner — a UI lie. Recompute from
+  // daily_trends filtered to [maxDateGa4 - daysBack + 1 .. maxDateGa4]
+  // (current) and the prior same-length window (previous). 1d → 37 users /
+  // 50 sessions matching BQ ground truth for ITM 2026-09-02; 7d → 258 /
+  // 304; 30d → 987 / 1116. Ceiling: trend_pct and avg now mean "vs prior
+  // same-length window", not the snapshot's "前 8 週平均" string.
+  function aggregateDailyWindow(daily, freshISO, daysBack) {
+    const freshMs = Date.parse(freshISO);
+    if (!Number.isFinite(freshMs)) return null;
+    const winMs = (daysBack - 1) * 86400000;
+    const startISO = new Date(freshMs - winMs).toISOString().slice(0, 10);
+    const prevEndISO = new Date(freshMs - winMs - 86400000).toISOString().slice(0, 10);
+    const prevStartISO = new Date(freshMs - winMs - daysBack * 86400000).toISOString().slice(0, 10);
+    const sumRows = (rows) => {
+      const out = { users: 0, sessions: 0, pageviews: 0, gsc_clicks: 0, gsc_impressions: 0 };
+      for (const r of rows) {
+        out.users += Number(r.users) || 0;
+        out.sessions += Number(r.sessions) || 0;
+        out.pageviews += Number(r.pageviews) || 0;
+        out.gsc_clicks += Number(r.gsc_clicks) || 0;
+        out.gsc_impressions += Number(r.gsc_impressions) || 0;
+      }
+      out.ctr_pct = out.gsc_impressions > 0 ? (out.gsc_clicks / out.gsc_impressions * 100) : 0;
+      return out;
+    };
+    const curRows = daily.filter(r => r.date >= startISO && r.date <= freshISO);
+    const prevRows = daily.filter(r => r.date >= prevStartISO && r.date <= prevEndISO);
+    if (!curRows.length) return null;
+    return { startISO, prevStartISO, prevEndISO, cur: sumRows(curRows), prev: sumRows(prevRows) };
+  }
+
   function rowToNested(row, deptKey, prevRow = null, windowDays = 7) {
     // Compute trend_pct: ((current - previous) / previous) * 100
     const trendPct = (curr, prev) => {
@@ -478,6 +512,33 @@
       } else if (fetched.snapshot) {
         data = fetched.snapshot;
         loadedFrom = fetched.source;
+        // ponytail: data.json's kpis are pre-baked for the weekly window
+        // (ending 8/31). When Supabase has no rows for the dropdown's
+        // window, mutate kpis/periods to match the actual selected range so
+        // the cards don't show weekly totals on a 1d/7d/30d banner.
+        if (Array.isArray(data.daily_trends) && data.daily_trends.length) {
+          const freshISO = String(data.meta.maxDateGa4 || '').replace(/\//g, '-');
+          const w = aggregateDailyWindow(data.daily_trends, freshISO, daysBack);
+          if (w) {
+            const cmp = `vs 前 ${daysBack} 天`;
+            const fmtN = n => (n || 0).toLocaleString('zh-TW');
+            const tpct = (c, p) => (p > 0 ? +((c - p) / p * 100).toFixed(1) : 0);
+            data.kpis.users.value = w.cur.users;
+            data.kpis.users.trend_pct = tpct(w.cur.users, w.prev.users);
+            data.kpis.users.avg = `${fmtN(w.prev.users)} (${cmp})`;
+            data.kpis.sessions.value = w.cur.sessions;
+            data.kpis.sessions.trend_pct = tpct(w.cur.sessions, w.prev.sessions);
+            data.kpis.sessions.avg = `${fmtN(w.prev.sessions)} (${cmp})`;
+            data.kpis.gsc.value = w.cur.gsc_clicks;
+            data.kpis.gsc.trend_pct = tpct(w.cur.gsc_clicks, w.prev.gsc_clicks);
+            data.kpis.gsc.avg = `${fmtN(w.prev.gsc_clicks)} (${cmp})`;
+            data.kpis.ctr.value = (w.cur.ctr_pct || 0).toFixed(2) + '%';
+            data.kpis.ctr.trend_pct = +(w.cur.ctr_pct - w.prev.ctr_pct).toFixed(2);
+            data.kpis.ctr.avg = `${(w.prev.ctr_pct || 0).toFixed(2)}% (${cmp})`;
+            data.periods.current = { start: w.startISO.replace(/-/g, '/'), end: freshISO.replace(/-/g, '/') };
+            data.periods.previous = { start: w.prevStartISO.replace(/-/g, '/'), end: w.prevEndISO.replace(/-/g, '/') };
+          }
+        }
       }
       // ponytail: derive both labels from the freshest DATA row's date so
       // the banner matches the actual rows shown (not "today" — the DB may
