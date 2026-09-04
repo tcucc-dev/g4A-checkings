@@ -3,52 +3,52 @@
     "siteName": "護理學系",
     "siteDomain": "nc.tcu.edu.tw",
     "reportVersion": "v3.0",
-    "updatedAt": "2026/08/27",
-    "maxDateGa4": "2026-08-26",
-    "maxDateGsc": "2026-08-23",
+    "updatedAt": "2026/09/04",
+    "maxDateGa4": "2026-09-02",
+    "maxDateGsc": "2026-09-01",
     "sourceCount": 3
   },
   "periods": {
     "current": {
-      "start": "2026/08/17",
-      "end": "2026/08/23"
+      "start": "2026/08/26",
+      "end": "2026/09/01"
     },
     "previous": {
-      "start": "2026/08/10",
-      "end": "2026/08/16"
+      "start": "2026/08/19",
+      "end": "2026/08/25"
     },
     "trend": {
-      "start": "2026/06/28",
-      "end": "2026/08/16"
+      "start": "2026/07/07",
+      "end": "2026/08/25"
     }
   },
   "kpis": {
     "users": {
       "label": "本週造訪人數",
-      "value": 201,
-      "trend_pct": 3.1,
-      "avg": "前 8 週平均 26",
+      "value": 243,
+      "trend_pct": 30.6,
+      "avg": "前 8 週平均 27",
       "src": "all_units_summary｜GA4-USERS-001"
     },
     "sessions": {
       "label": "本週工作階段",
-      "value": 247,
-      "trend_pct": 5.6,
-      "avg": "前 8 週平均 30",
+      "value": 272,
+      "trend_pct": 27.1,
+      "avg": "前 8 週平均 31",
       "src": "all_units_summary｜GA4-SESSIONS-001"
     },
     "gsc": {
       "label": "Google 搜尋點擊",
-      "value": 124,
-      "trend_pct": -9.5,
-      "avg": "前 8 週平均 15",
+      "value": 134,
+      "trend_pct": 31.4,
+      "avg": "前 8 週平均 16",
       "src": "all_gsc_summary｜GSC-KPI-001"
     },
     "ctr": {
       "label": "Google 搜尋點擊率",
-      "value": "4.81%",
-      "trend_pct": -0.56,
-      "avg": "前 8 週平均 4.10%",
+      "value": "4.53%",
+      "trend_pct": -0.03,
+      "avg": "前 8 週平均 4.37%",
       "src": "all_gsc_summary｜GSC-CTR-001"
     }
   },
@@ -316,9 +316,16 @@
       {
         "week_start": "2026-08-23",
         "week_label": "08/23",
-        "sessions": 121,
-        "users": 107,
-        "pageviews": 174
+        "sessions": 251,
+        "users": 224,
+        "pageviews": 406
+      },
+      {
+        "week_start": "2026-08-30",
+        "week_label": "08/30",
+        "sessions": 142,
+        "users": 124,
+        "pageviews": 269
       }
     ],
     "gsc": [
@@ -547,140 +554,18 @@
       {
         "week_start": "2026-08-23",
         "week_label": "08/23",
-        "impressions": 251,
-        "clicks": 5
+        "impressions": 2582,
+        "clicks": 137
+      },
+      {
+        "week_start": "2026-08-30",
+        "week_label": "08/30",
+        "impressions": 1318,
+        "clicks": 45
       }
     ]
   },
   "daily_trends": [
-    {
-      "date": "2026-02-27",
-      "users": 17,
-      "sessions": 17,
-      "pageviews": 34,
-      "gsc_clicks": 12,
-      "gsc_impressions": 389,
-      "ctr_pct": 3.08,
-      "sources": {
-        "organic": 5,
-        "direct": 11,
-        "social": 0,
-        "referral": 1,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-02-28",
-      "users": 34,
-      "sessions": 35,
-      "pageviews": 59,
-      "gsc_clicks": 19,
-      "gsc_impressions": 409,
-      "ctr_pct": 4.65,
-      "sources": {
-        "organic": 9,
-        "direct": 25,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-03-01",
-      "users": 19,
-      "sessions": 24,
-      "pageviews": 35,
-      "gsc_clicks": 20,
-      "gsc_impressions": 621,
-      "ctr_pct": 3.22,
-      "sources": {
-        "organic": 11,
-        "direct": 8,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-03-02",
-      "users": 39,
-      "sessions": 47,
-      "pageviews": 59,
-      "gsc_clicks": 31,
-      "gsc_impressions": 766,
-      "ctr_pct": 4.05,
-      "sources": {
-        "organic": 17,
-        "direct": 22,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-03-03",
-      "users": 39,
-      "sessions": 47,
-      "pageviews": 91,
-      "gsc_clicks": 31,
-      "gsc_impressions": 614,
-      "ctr_pct": 5.05,
-      "sources": {
-        "organic": 16,
-        "direct": 22,
-        "social": 0,
-        "referral": 1,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-03-04",
-      "users": 36,
-      "sessions": 44,
-      "pageviews": 72,
-      "gsc_clicks": 26,
-      "gsc_impressions": 662,
-      "ctr_pct": 3.93,
-      "sources": {
-        "organic": 21,
-        "direct": 14,
-        "social": 0,
-        "referral": 1,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-03-05",
-      "users": 36,
-      "sessions": 42,
-      "pageviews": 103,
-      "gsc_clicks": 52,
-      "gsc_impressions": 658,
-      "ctr_pct": 7.9,
-      "sources": {
-        "organic": 14,
-        "direct": 22,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
-    {
-      "date": "2026-03-06",
-      "users": 47,
-      "sessions": 49,
-      "pageviews": 82,
-      "gsc_clicks": 33,
-      "gsc_impressions": 566,
-      "ctr_pct": 5.83,
-      "sources": {
-        "organic": 24,
-        "direct": 23,
-        "social": 0,
-        "referral": 0,
-        "other": 0
-      }
-    },
     {
       "date": "2026-03-07",
       "users": 34,
@@ -3406,9 +3291,9 @@
       "users": 16,
       "sessions": 17,
       "pageviews": 16,
-      "gsc_clicks": 0,
-      "gsc_impressions": 0,
-      "ctr_pct": 0,
+      "gsc_clicks": 17,
+      "gsc_impressions": 361,
+      "ctr_pct": 4.71,
       "sources": {
         "organic": 6,
         "direct": 10,
@@ -3422,9 +3307,9 @@
       "users": 38,
       "sessions": 40,
       "pageviews": 65,
-      "gsc_clicks": 0,
-      "gsc_impressions": 0,
-      "ctr_pct": 0,
+      "gsc_clicks": 26,
+      "gsc_impressions": 329,
+      "ctr_pct": 7.9,
       "sources": {
         "organic": 12,
         "direct": 25,
@@ -3438,14 +3323,126 @@
       "users": 40,
       "sessions": 47,
       "pageviews": 70,
-      "gsc_clicks": 0,
-      "gsc_impressions": 0,
-      "ctr_pct": 0,
+      "gsc_clicks": 16,
+      "gsc_impressions": 437,
+      "ctr_pct": 3.66,
       "sources": {
         "organic": 17,
         "direct": 23,
         "social": 0,
         "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-27",
+      "users": 34,
+      "sessions": 38,
+      "pageviews": 72,
+      "gsc_clicks": 27,
+      "gsc_impressions": 416,
+      "ctr_pct": 6.49,
+      "sources": {
+        "organic": 15,
+        "direct": 18,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-28",
+      "users": 50,
+      "sessions": 54,
+      "pageviews": 98,
+      "gsc_clicks": 34,
+      "gsc_impressions": 486,
+      "ctr_pct": 7.0,
+      "sources": {
+        "organic": 30,
+        "direct": 20,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-29",
+      "users": 37,
+      "sessions": 39,
+      "pageviews": 62,
+      "gsc_clicks": 12,
+      "gsc_impressions": 302,
+      "ctr_pct": 3.97,
+      "sources": {
+        "organic": 13,
+        "direct": 22,
+        "social": 0,
+        "referral": 2,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-30",
+      "users": 23,
+      "sessions": 23,
+      "pageviews": 30,
+      "gsc_clicks": 10,
+      "gsc_impressions": 420,
+      "ctr_pct": 2.38,
+      "sources": {
+        "organic": 3,
+        "direct": 20,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-08-31",
+      "users": 26,
+      "sessions": 26,
+      "pageviews": 44,
+      "gsc_clicks": 17,
+      "gsc_impressions": 433,
+      "ctr_pct": 3.93,
+      "sources": {
+        "organic": 9,
+        "direct": 16,
+        "social": 0,
+        "referral": 1,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-09-01",
+      "users": 40,
+      "sessions": 46,
+      "pageviews": 64,
+      "gsc_clicks": 18,
+      "gsc_impressions": 465,
+      "ctr_pct": 3.87,
+      "sources": {
+        "organic": 12,
+        "direct": 28,
+        "social": 0,
+        "referral": 0,
+        "other": 0
+      }
+    },
+    {
+      "date": "2026-09-02",
+      "users": 37,
+      "sessions": 47,
+      "pageviews": 131,
+      "gsc_clicks": 0,
+      "gsc_impressions": 0,
+      "ctr_pct": 0,
+      "sources": {
+        "organic": 13,
+        "direct": 23,
+        "social": 0,
+        "referral": 1,
         "other": 0
       }
     }
@@ -3454,91 +3451,127 @@
     {
       "kw": "",
       "brand": false,
-      "impressions": 182,
-      "clicks": 9,
-      "ctr": 4.95,
-      "pos": 5.4,
+      "impressions": 215,
+      "clicks": 16,
+      "ctr": 7.44,
+      "pos": 8.1,
       "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "夏春洁 医院护理管理与创新工作",
+      "brand": false,
+      "impressions": 93,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 7.7,
+      "landing": "https://nc.tcu.edu.tw/p/16-1014-65343.php?Lang=zh-tw"
     },
     {
       "kw": "慈濟大學護理系",
       "brand": true,
-      "impressions": 50,
-      "clicks": 3,
-      "ctr": 6.0,
-      "pos": 1.2,
-      "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "王淑芳",
-      "brand": false,
-      "impressions": 32,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 4.0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64698,r1034.php?Lang=zh-tw"
-    },
-    {
-      "kw": "曹英",
-      "brand": false,
-      "impressions": 26,
-      "clicks": 5,
-      "ctr": 19.23,
-      "pos": 1.3,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw"
-    },
-    {
-      "kw": "楊美玲",
-      "brand": false,
-      "impressions": 25,
-      "clicks": 1,
-      "ctr": 4.0,
-      "pos": 1.3,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64730,r1027.php?Lang=zh-tw"
-    },
-    {
-      "kw": "林玉娟",
-      "brand": false,
-      "impressions": 24,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 1.2,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64705,r1026.php?Lang=zh-tw"
-    },
-    {
-      "kw": "慈濟護理系",
-      "brand": true,
-      "impressions": 20,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 1.9,
+      "impressions": 51,
+      "clicks": 2,
+      "ctr": 3.92,
+      "pos": 1.1,
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
       "kw": "賴惠玲",
       "brand": false,
-      "impressions": 20,
+      "impressions": 48,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 6.0,
+      "pos": 10.2,
       "landing": "https://nc.tcu.edu.tw/p/406-1014-64699,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "王淑芳",
+      "brand": false,
+      "impressions": 37,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 4.1,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64698,r1034.php?Lang=zh-tw"
+    },
+    {
+      "kw": "曹英",
+      "brand": false,
+      "impressions": 36,
+      "clicks": 2,
+      "ctr": 5.56,
+      "pos": 1.4,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "楊美玲",
+      "brand": false,
+      "impressions": 33,
+      "clicks": 1,
+      "ctr": 3.03,
+      "pos": 1.8,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64730,r1027.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟護理系",
+      "brand": true,
+      "impressions": 21,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 2.0,
+      "landing": "https://nc.tcu.edu.tw/"
     },
     {
       "kw": "慈濟大學護理",
       "brand": true,
-      "impressions": 18,
-      "clicks": 0,
-      "ctr": 0.0,
+      "impressions": 20,
+      "clicks": 3,
+      "ctr": 15.0,
       "pos": 1.0,
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
-      "kw": "慈濟護理",
+      "kw": "林玉娟",
+      "brand": false,
+      "impressions": 20,
+      "clicks": 1,
+      "ctr": 5.0,
+      "pos": 0.8,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64705,r1026.php?Lang=zh-tw"
+    },
+    {
+      "kw": "臨床護理師",
+      "brand": true,
+      "impressions": 18,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 4.7,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-65341,r1051.php?Lang=zh-tw"
+    },
+    {
+      "kw": "慈濟大學科系",
       "brand": true,
       "impressions": 17,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 1.5,
+      "pos": 9.4,
+      "landing": "https://nc.tcu.edu.tw/p/412-1014-2990.php?Lang=zh-tw"
+    },
+    {
+      "kw": "護理學院",
+      "brand": true,
+      "impressions": 17,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 8.2,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟護專",
+      "brand": true,
+      "impressions": 16,
+      "clicks": 2,
+      "ctr": 12.5,
+      "pos": 6.0,
       "landing": "https://nc.tcu.edu.tw/"
     },
     {
@@ -3547,8 +3580,26 @@
       "impressions": 16,
       "clicks": 1,
       "ctr": 6.25,
-      "pos": 1.6,
+      "pos": 1.4,
       "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "慈濟護理",
+      "brand": true,
+      "impressions": 16,
+      "clicks": 2,
+      "ctr": 12.5,
+      "pos": 1.3,
+      "landing": "https://nc.tcu.edu.tw/"
+    },
+    {
+      "kw": "周桂如",
+      "brand": false,
+      "impressions": 15,
+      "clicks": 1,
+      "ctr": 6.67,
+      "pos": 5.6,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-65224,r1051.php?Lang=zh-tw"
     },
     {
       "kw": "羅淑芬",
@@ -3556,7 +3607,7 @@
       "impressions": 14,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 4.8,
+      "pos": 0.2,
       "landing": "https://nc.tcu.edu.tw/p/406-1014-64702,r1026.php?Lang=zh-tw"
     },
     {
@@ -3565,152 +3616,98 @@
       "impressions": 14,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 3.6,
+      "pos": 5.2,
       "landing": "https://nc.tcu.edu.tw/p/406-1014-65180,r1020.php?Lang=zh-tw"
     },
     {
-      "kw": "周桂如",
+      "kw": "黃君后",
       "brand": false,
-      "impressions": 12,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 5.5,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-65224,r1051.php?Lang=zh-tw"
-    },
-    {
-      "kw": "慈濟大學校歌",
-      "brand": true,
-      "impressions": 12,
-      "clicks": 1,
-      "ctr": 8.33,
-      "pos": 7.9,
-      "landing": "https://nc.tcu.edu.tw/p/412-1014-4958.php?Lang=zh-tw"
-    },
-    {
-      "kw": "慈濟大學 護理學系",
-      "brand": true,
-      "impressions": 12,
-      "clicks": 2,
-      "ctr": 16.67,
-      "pos": 1.1,
-      "landing": "https://nc.tcu.edu.tw/"
-    },
-    {
-      "kw": "周桂如教授",
-      "brand": false,
-      "impressions": 11,
-      "clicks": 1,
-      "ctr": 9.09,
-      "pos": 2.2,
-      "landing": "https://nc.tcu.edu.tw/p/16-1014-65224.php?Lang=zh-tw"
-    },
-    {
-      "kw": "慈濟副院長",
-      "brand": true,
-      "impressions": 11,
-      "clicks": 0,
-      "ctr": 0.0,
-      "pos": 2.4,
-      "landing": "https://nc.tcu.edu.tw/p/403-1014-1034-1.php?Lang=zh-tw"
-    },
-    {
-      "kw": "彭台珠",
-      "brand": false,
-      "impressions": 10,
-      "clicks": 6,
-      "ctr": 60.0,
-      "pos": 0.0,
-      "landing": "https://nc.tcu.edu.tw/p/412-1014-4969.php?Lang=zh-tw"
-    },
-    {
-      "kw": "陸秀芳",
-      "brand": false,
-      "impressions": 10,
-      "clicks": 1,
-      "ctr": 10.0,
-      "pos": 0.0,
-      "landing": "https://nc.tcu.edu.tw/p/406-1014-64707,r1026.php?Lang=zh-tw"
+      "impressions": 14,
+      "clicks": 5,
+      "ctr": 35.71,
+      "pos": 0.1,
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64704,r1026.php?Lang=zh-tw"
     }
   ],
   "topPages": [
     {
       "url": "https://nc.tcu.edu.tw/",
-      "impressions": 379,
-      "clicks": 23,
-      "ctr": 6.07,
-      "pos": 3.8,
+      "impressions": 451,
+      "clicks": 42,
+      "ctr": 9.31,
+      "pos": 5.9,
       "users": 0
     },
     {
       "url": "https://nc.tcu.edu.tw/p/412-1014-5016.php?Lang=en",
-      "impressions": 126,
+      "impressions": 189,
       "clicks": 0,
       "ctr": 0.0,
-      "pos": 2.4,
+      "pos": 2.2,
       "users": 0
     },
     {
-      "url": "https://nc.tcu.edu.tw/p/412-1014-2992.php",
-      "impressions": 116,
-      "clicks": 3,
-      "ctr": 2.59,
-      "pos": 5.5,
+      "url": "https://nc.tcu.edu.tw/p/16-1014-65343.php?Lang=zh-tw",
+      "impressions": 157,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 7.0,
       "users": 0
     },
     {
       "url": "https://nc.tcu.edu.tw/app/index.php?Plugin=mobile&Action=mobileads&ad=1288",
-      "impressions": 103,
+      "impressions": 136,
       "clicks": 1,
-      "ctr": 0.97,
-      "pos": 6.1,
+      "ctr": 0.74,
+      "pos": 5.2,
       "users": 0
     },
     {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-65919,r1051.php?Lang=zh-tw",
-      "impressions": 98,
-      "clicks": 1,
-      "ctr": 1.02,
-      "pos": 6.9,
+      "url": "https://nc.tcu.edu.tw/p/412-1014-2992.php",
+      "impressions": 126,
+      "clicks": 3,
+      "ctr": 2.38,
+      "pos": 4.4,
       "users": 0
     },
     {
       "url": "https://nc.tcu.edu.tw/p/412-1014-2990.php?Lang=zh-tw",
-      "impressions": 90,
+      "impressions": 109,
+      "clicks": 0,
+      "ctr": 0.0,
+      "pos": 7.4,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-65341,r1051.php?Lang=zh-tw",
+      "impressions": 93,
       "clicks": 1,
-      "ctr": 1.11,
-      "pos": 7.3,
+      "ctr": 1.08,
+      "pos": 6.3,
+      "users": 0
+    },
+    {
+      "url": "https://nc.tcu.edu.tw/p/406-1014-65919,r1051.php?Lang=zh-tw",
+      "impressions": 89,
+      "clicks": 1,
+      "ctr": 1.12,
+      "pos": 9.4,
       "users": 0
     },
     {
       "url": "https://nc.tcu.edu.tw/p/412-1014-4932.php?Lang=zh-tw",
-      "impressions": 66,
-      "clicks": 2,
-      "ctr": 3.03,
-      "pos": 5.7,
+      "impressions": 88,
+      "clicks": 1,
+      "ctr": 1.14,
+      "pos": 7.2,
       "users": 0
     },
     {
-      "url": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php?Lang=zh-tw",
-      "impressions": 62,
-      "clicks": 4,
-      "ctr": 6.45,
-      "pos": 10.5,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/412-1014-4969.php?Lang=zh-tw",
-      "impressions": 59,
-      "clicks": 9,
-      "ctr": 15.25,
-      "pos": 4.9,
-      "users": 0
-    },
-    {
-      "url": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php?Lang=zh-tw",
-      "impressions": 56,
-      "clicks": 12,
-      "ctr": 21.43,
-      "pos": 1.3,
+      "url": "https://nc.tcu.edu.tw/p/406-1014-64730,r1027.php?Lang=zh-tw",
+      "impressions": 73,
+      "clicks": 3,
+      "ctr": 4.11,
+      "pos": 5.4,
       "users": 0
     }
   ],
@@ -3718,53 +3715,53 @@
     "country": [
       {
         "name": "臺灣",
-        "sessions": 187,
+        "sessions": 191,
         "users": 0,
-        "share": 74.8
+        "share": 69.7
       },
       {
         "name": "中國",
-        "sessions": 43,
+        "sessions": 65,
         "users": 0,
-        "share": 17.2
+        "share": 23.7
       },
       {
-        "name": "新加坡",
-        "sessions": 11,
+        "name": "美國",
+        "sessions": 5,
         "users": 0,
-        "share": 4.4
+        "share": 1.8
+      },
+      {
+        "name": "馬來西亞",
+        "sessions": 3,
+        "users": 0,
+        "share": 1.1
       },
       {
         "name": "(not set)",
-        "sessions": 2,
+        "sessions": 3,
         "users": 0,
-        "share": 0.8
+        "share": 1.1
       },
       {
-        "name": "Colombia",
-        "sessions": 1,
+        "name": "新加坡",
+        "sessions": 3,
         "users": 0,
-        "share": 0.4
-      },
-      {
-        "name": "柬埔寨",
-        "sessions": 1,
-        "users": 0,
-        "share": 0.4
+        "share": 1.1
       }
     ],
     "device": [
       {
         "name": "桌機",
-        "sessions": 178,
+        "sessions": 175,
         "users": 0,
-        "share": 71.2
+        "share": 63.9
       },
       {
         "name": "手機",
-        "sessions": 71,
+        "sessions": 98,
         "users": 0,
-        "share": 28.4
+        "share": 35.8
       },
       {
         "name": "平板",
@@ -3777,47 +3774,33 @@
       {
         "name": "(direct)",
         "medium": "(none)",
-        "sessions": 157,
+        "sessions": 159,
         "users": 0,
-        "share": 62.8
+        "share": 58.0
       },
       {
         "name": "google",
         "medium": "organic",
-        "sessions": 86,
+        "sessions": 107,
         "users": 0,
-        "share": 34.4
+        "share": 39.1
       },
       {
-        "name": "yahoo",
-        "medium": "organic",
-        "sessions": 2,
-        "users": 0,
-        "share": 0.8
-      },
-      {
-        "name": "cse.google.com",
+        "name": "tw.search.yahoo.com",
         "medium": "referral",
-        "sessions": 2,
+        "sessions": 5,
         "users": 0,
-        "share": 0.8
-      },
-      {
-        "name": "chatgpt.com",
-        "medium": "ai-assistant",
-        "sessions": 1,
-        "users": 0,
-        "share": 0.4
+        "share": 1.8
       },
       {
         "name": "bing",
         "medium": "organic",
-        "sessions": 1,
+        "sessions": 3,
         "users": 0,
-        "share": 0.4
+        "share": 1.1
       }
     ],
-    "total": 250
+    "total": 274
   },
   "topIssues": [
     {
@@ -3844,5 +3827,273 @@
   ],
   "geo": null,
   "evidence": [],
-  "stalePages": []
+  "stalePages": [],
+  "ai_referrers": [
+    {
+      "referrer": "https://chatgpt.com/",
+      "sessions": 1609,
+      "internal": false
+    },
+    {
+      "referrer": "https://gemini.google.com/",
+      "sessions": 299,
+      "internal": false
+    },
+    {
+      "referrer": "https://oga.tcu.edu.tw/international-student/?utm_source=chatgpt.com",
+      "sessions": 45,
+      "internal": true
+    },
+    {
+      "referrer": "https://www.perplexity.ai/",
+      "sessions": 41,
+      "internal": false
+    },
+    {
+      "referrer": "https://oga.tcu.edu.tw/international-students/?utm_source=chatgpt.com",
+      "sessions": 37,
+      "internal": true
+    },
+    {
+      "referrer": "https://oga.tcu.edu.tw/news/?utm_source=chatgpt.com",
+      "sessions": 36,
+      "internal": true
+    },
+    {
+      "referrer": "https://oga.tcu.edu.tw/admissions-page/?utm_source=chatgpt.com",
+      "sessions": 33,
+      "internal": true
+    },
+    {
+      "referrer": "https://freshman.tcu.edu.tw/?page_id=1889&utm_source=chatgpt.com",
+      "sessions": 32,
+      "internal": true
+    },
+    {
+      "referrer": "https://oga.tcu.edu.tw/?utm_source=chatgpt.com",
+      "sessions": 26,
+      "internal": true
+    },
+    {
+      "referrer": "https://academic.tcu.edu.tw/?page_id=2978&utm_source=chatgpt.com",
+      "sessions": 16,
+      "internal": true
+    },
+    {
+      "referrer": "https://mpec.tcu.edu.tw/?cat=55&utm_source=chatgpt.com",
+      "sessions": 15,
+      "internal": true
+    },
+    {
+      "referrer": "https://ell.tcu.edu.tw/?page_id=1943&utm_source=chatgpt.com",
+      "sessions": 14,
+      "internal": true
+    },
+    {
+      "referrer": "https://freshman.tcu.edu.tw/?page_id=647&utm_source=chatgpt.com",
+      "sessions": 13,
+      "internal": true
+    },
+    {
+      "referrer": "https://bpdmt.tcu.edu.tw/?utm_source=chatgpt.com",
+      "sessions": 13,
+      "internal": true
+    },
+    {
+      "referrer": "https://admissions.tcu.edu.tw/?p=26534&utm_source=chatgpt.com",
+      "sessions": 12,
+      "internal": true
+    },
+    {
+      "referrer": "https://freshman.tcu.edu.tw/?page_id=1498&utm_source=chatgpt.com",
+      "sessions": 12,
+      "internal": true
+    },
+    {
+      "referrer": "https://sky.tcu.edu.tw/p/sign_language?utm_source=chatgpt.com",
+      "sessions": 12,
+      "internal": true
+    },
+    {
+      "referrer": "https://admissions.tcu.edu.tw/?cat=7&utm_source=chatgpt.com",
+      "sessions": 11,
+      "internal": true
+    },
+    {
+      "referrer": "https://cmed.tcu.edu.tw/?utm_source=chatgpt.com",
+      "sessions": 11,
+      "internal": true
+    },
+    {
+      "referrer": "https://academic.tcu.edu.tw/?page_id=7130&utm_source=chatgpt.com",
+      "sessions": 10,
+      "internal": true
+    }
+  ],
+  "cta_clicks": [
+    {
+      "category": "其他連結",
+      "clicks": 1084,
+      "top_links": [
+        {
+          "url": "https://tcunursing.tcu.edu.tw/?page_id=4469",
+          "clicks": 185
+        },
+        {
+          "url": "https://nc.tcu.edu.tw/p/412-1014-2992.php",
+          "clicks": 135
+        },
+        {
+          "url": "https://na.tcu.edu.tw/p/412-1015-3071.php",
+          "clicks": 82
+        },
+        {
+          "url": "https://dbm.tcu.edu.tw/?page_id=159",
+          "clicks": 70
+        },
+        {
+          "url": "https://nc.tcu.edu.tw/",
+          "clicks": 69
+        }
+      ]
+    },
+    {
+      "category": "PDF 下載",
+      "clicks": 41,
+      "top_links": [
+        {
+          "url": "https://nc.tcu.edu.tw/var/file/14/1014/img/1957/-CV-TsaoYing-20240315.pdf",
+          "clicks": 9
+        },
+        {
+          "url": "https://nc.tcu.edu.tw/var/file/14/1014/img/1958/113176226.pdf",
+          "clicks": 7
+        },
+        {
+          "url": "https://nc.tcu.edu.tw/var/file/14/1014/img/1325/253768994.pdf",
+          "clicks": 6
+        },
+        {
+          "url": "https://nc.tcu.edu.tw/var/file/14/1014/img/1958/327198399.pdf",
+          "clicks": 5
+        },
+        {
+          "url": "https://nc.tcu.edu.tw/var/file/14/1014/img/1957/286044438.pdf",
+          "clicks": 5
+        }
+      ]
+    },
+    {
+      "category": "招生簡章",
+      "clicks": 31,
+      "top_links": [
+        {
+          "url": "https://admissions.tcu.edu.tw/?page_id=4183",
+          "clicks": 31
+        }
+      ]
+    }
+  ],
+  "user_routes": [
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/412-1014-2992.php",
+      "sessions": 52
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/412-1014-3406.php",
+      "sessions": 18
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/412-1014-4934.php",
+      "sessions": 13
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/412-1014-4969.php",
+      "sessions": 12
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/412-1014-4938.php",
+      "sessions": 10
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/412-1014-4932.php",
+      "sessions": 10
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php",
+      "next": "https://nc.tcu.edu.tw/p/412-1014-2992.php",
+      "sessions": 9
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/403-1014-1023-1.php",
+      "sessions": 7
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/406-1014-66182,r1023.php",
+      "sessions": 5
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64714,r1029.php",
+      "next": "https://nc.tcu.edu.tw/p/412-1014-2992.php",
+      "sessions": 5
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/406-1014-66185,r1051.php",
+      "sessions": 4
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/412-1014-2990.php",
+      "sessions": 3
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/407-1014-503-1.php",
+      "sessions": 3
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64709,r1026.php",
+      "next": "https://nc.tcu.edu.tw/p/403-1014-1026-1.php",
+      "sessions": 3
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/426-1014-7.php",
+      "sessions": 3
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/406-1014-66162,r1023.php",
+      "sessions": 3
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64700,r1026.php",
+      "next": "https://nc.tcu.edu.tw/",
+      "sessions": 3
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/",
+      "next": "https://nc.tcu.edu.tw/p/412-1014-4935.php",
+      "sessions": 2
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/p/406-1014-64714,r1029.php",
+      "next": "https://nc.tcu.edu.tw/",
+      "sessions": 2
+    },
+    {
+      "landing": "https://nc.tcu.edu.tw/p/412-1014-4969.php",
+      "next": "https://nc.tcu.edu.tw/",
+      "sessions": 2
+    }
+  ]
 }
